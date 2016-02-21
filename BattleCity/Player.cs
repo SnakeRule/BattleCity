@@ -14,6 +14,7 @@ namespace BattleCity
     {
         Image tankSprite;
         protected int v { get; set; }
+        protected int tankDirection { get; set; }
 
         // Default constructor for player
         public Player(Canvas canvas)
@@ -60,22 +61,25 @@ namespace BattleCity
                 case 1:
                     {
                         Canvas.SetLeft(tankSprite, Canvas.GetLeft(tankSprite) - 6);
-                        
+                        tankDirection = 1;
                         break;
                     }
                 case 2:
                     {
                         Canvas.SetTop(tankSprite, Canvas.GetTop(tankSprite) - 6);
+                        tankDirection = 2;
                         break;
                     }
                 case 3:
                     {
                         Canvas.SetLeft(tankSprite, Canvas.GetLeft(tankSprite) + 6);
+                        tankDirection = 3;
                         break;
                     }
                 case 4:
                     {
                         Canvas.SetTop(tankSprite, Canvas.GetTop(tankSprite) + 6);
+                        tankDirection = 4;
                         break;
                     }
                 case 5:
