@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,8 +14,14 @@ namespace BattleCity
     public class Player
     {
         Image tankSprite;
-        protected int v { get; set; }
-        protected int tankDirection { get; set; }
+        private int v { get; set; }
+        private int speed { get; set; }
+        private int tankDirection { get; set; }
+
+        private bool left;
+        private bool right;
+        private bool up;
+        private bool down;
 
         // Default constructor for player
         public Player(Canvas canvas)
@@ -38,80 +45,92 @@ namespace BattleCity
 
             // Adding sprite to canvas
             canvas.Children.Add(tankSprite);
+
+            //Setting tank speed
+            speed = 6;
         }
 
 
         // Method when pressing down on a key
         public void onKeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs args)
         {
-
             // Moving the player
-            if (args.VirtualKey == Windows.System.VirtualKey.Left) v = 1;
-            else if (args.VirtualKey == Windows.System.VirtualKey.Right) v = 3;
-            else if (args.VirtualKey == Windows.System.VirtualKey.Up) v = 2;
-            else if (args.VirtualKey == Windows.System.VirtualKey.Down) v = 4;
+            if (args.VirtualKey == Windows.System.VirtualKey.Left)
+            {
+                left = true;
+                right = false;
+                down = false;
+                up = false;
+            } 
+            else if (args.VirtualKey == Windows.System.VirtualKey.Right)
+            {
+                right = true;
+                left = false;
+                down = false;
+                up = false;
+            }
+            else if (args.VirtualKey == Windows.System.VirtualKey.Up)
+            {
+                up = true;
+                right = false;
+                down = false;
+                left = false;
+            }
+            else if (args.VirtualKey == Windows.System.VirtualKey.Down)
+            {
+                down = true;
+                up = false;
+                left = false;
+                right = false;
+            }
 
         }
 
         // This is the method where the player is drawn on the screen each frame
         public void drawPlayer()
         {
-            switch (v)
+            // these set the tanksprite to the canvas. The position is calculated from the tanksprite's current position and added or decreased speed
+            if (left == true)
             {
-                case 1:
-                    {
-                        Canvas.SetLeft(tankSprite, Canvas.GetLeft(tankSprite) - 6);
-                        tankDirection = 1;
-                        break;
-                    }
-                case 2:
-                    {
-                        Canvas.SetTop(tankSprite, Canvas.GetTop(tankSprite) - 6);
-                        tankDirection = 2;
-                        break;
-                    }
-                case 3:
-                    {
-                        Canvas.SetLeft(tankSprite, Canvas.GetLeft(tankSprite) + 6);
-                        tankDirection = 3;
-                        break;
-                    }
-                case 4:
-                    {
-                        Canvas.SetTop(tankSprite, Canvas.GetTop(tankSprite) + 6);
-                        tankDirection = 4;
-                        break;
-                    }
-                case 5:
-                    {
-                        Canvas.SetLeft(tankSprite, Canvas.GetLeft(tankSprite));
-                        break;
-                    }
-                case 6:
-                    {
-                        Canvas.SetLeft(tankSprite, Canvas.GetLeft(tankSprite));
-                        break;
-                    }
-                case 7:
-                    {
-                        Canvas.SetLeft(tankSprite, Canvas.GetLeft(tankSprite));
-                        break;
-                    }
-                case 8:
-                    {
-                        Canvas.SetTop(tankSprite, Canvas.GetTop(tankSprite));
-                        break;
-                    }
+                Canvas.SetLeft(tankSprite, Canvas.GetLeft(tankSprite) - speed);
+                tankDirection = 1;
+            }
+            if (up == true)
+            {
+                Canvas.SetTop(tankSprite, Canvas.GetTop(tankSprite) - speed);
+                tankDirection = 2;
+            }
+            if(right == true)
+            {
+                Canvas.SetLeft(tankSprite, Canvas.GetLeft(tankSprite) + speed);
+                tankDirection = 3;
+            }
+            if(down == true)
+            {
+                Canvas.SetTop(tankSprite, Canvas.GetTop(tankSprite) + speed);
+                tankDirection = 4;
             }
         }
 
         // Method for releasing the keyboard press
         private void onKeyUp(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs args)
         {
-            if (args.VirtualKey == Windows.System.VirtualKey.Left) v = 5;
-            if (args.VirtualKey == Windows.System.VirtualKey.Up) v = 6;
-            if (args.VirtualKey == Windows.System.VirtualKey.Right) v = 7;
-            if (args.VirtualKey == Windows.System.VirtualKey.Down) v = 8;
+            if (left == true && args.VirtualKey == Windows.System.VirtualKey.Left) // checks is bool left is true and if left button is actually pressed
+            {
+                left = false;
+            }
+            if (up == true && args.VirtualKey == Windows.System.VirtualKey.Up) // checks is bool up is true and if up button is actually pressed
+            {
+                up = false;
+            }
+            if (right == true && args.VirtualKey == Windows.System.VirtualKey.Right) // checks is bool right is true and if right button is actually pressed
+            {
+                right = false;
+            }
+            if(down == true && args.VirtualKey == Windows.System.VirtualKey.Down) // checks is bool down is true and if down button is actually pressed
+            {
+                down = false;
+            }
         }
 
 
