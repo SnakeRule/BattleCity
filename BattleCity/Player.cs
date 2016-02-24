@@ -8,6 +8,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media.Imaging;
+using Windows.Graphics
 
 namespace BattleCity
 {
@@ -36,8 +37,8 @@ namespace BattleCity
             Uri uri = new Uri("ms-appx:///Assets/tank.png");
             bitmapImage.UriSource = uri;
             tankSprite.Source = bitmapImage;
-            tankSprite.Width = 400;
-            tankSprite.Height = 400;
+            tankSprite.Width = 80;
+            tankSprite.Height = 130;
 
             // Setting player position on canvas
             Canvas.SetLeft(tankSprite, 600);
@@ -87,25 +88,26 @@ namespace BattleCity
         }
 
         // This is the method where the player is drawn on the screen each frame
-        public void drawPlayer()
+        public void drawPlayer(Canvas canvas)
         {
             // these set the tanksprite to the canvas. The position is calculated from the tanksprite's current position and added or decreased speed
-            if (left == true)
+            if (left == true && Canvas.GetLeft(tankSprite) > canvas.Width - canvas.Width)
             {
                 Canvas.SetLeft(tankSprite, Canvas.GetLeft(tankSprite) - speed);
+                
                 tankDirection = 1;
             }
-            if (up == true)
+            if (up == true && Canvas.GetTop(tankSprite) > canvas.Height - canvas.Height - 30)
             {
                 Canvas.SetTop(tankSprite, Canvas.GetTop(tankSprite) - speed);
                 tankDirection = 2;
             }
-            if(right == true)
+            if(right == true && Canvas.GetLeft(tankSprite) < canvas.Width - 80)
             {
                 Canvas.SetLeft(tankSprite, Canvas.GetLeft(tankSprite) + speed);
                 tankDirection = 3;
             }
-            if(down == true)
+            if(down == true && Canvas.GetTop(tankSprite) < canvas.Height - 100)
             {
                 Canvas.SetTop(tankSprite, Canvas.GetTop(tankSprite) + speed);
                 tankDirection = 4;

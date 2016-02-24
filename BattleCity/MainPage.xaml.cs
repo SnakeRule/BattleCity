@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using Windows.UI.ViewManagement;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -32,6 +33,12 @@ namespace BattleCity
             this.InitializeComponent();
             player = new Player(Canvas);
 
+            ApplicationView.PreferredLaunchViewSize = new Size(1280, 720);
+            ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
+
+            Canvas.Width = 1280;
+            Canvas.Height = 720;
+
             // Setting up the timer that runs the Game method
             dispatcherTimer = new DispatcherTimer();
             dispatcherTimer.Tick += Game;
@@ -41,7 +48,7 @@ namespace BattleCity
 
         public void Game(object sender, object e)
         {
-            player.drawPlayer();
+            player.drawPlayer(Canvas);
         }
     }
 }
