@@ -30,6 +30,9 @@ namespace BattleCity
         {
             this.InitializeComponent();
 
+            ApplicationView.PreferredLaunchViewSize = new Size(1280, 720);
+            ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
+
         }
 
         // Play button click method

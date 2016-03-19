@@ -26,5 +26,15 @@
                 </LinearGradientBrush>
             </Canvas.Background>
         </Canvas>
+        <Button x:Name="MenuButton"
+                Click="MenuButton_Click"
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Center"
+                Grid.Column="2" Grid.Row="1"
+                Width="150"
+                Height="60" FontSize="20" FontFamily="Impact" 
+                >
+            Back to Menu
+        </Button>
     </Grid>
 </Page>

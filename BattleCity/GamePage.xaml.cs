@@ -31,9 +31,6 @@ namespace BattleCity
             this.InitializeComponent();
             player = new Player(Canvas);
 
-            ApplicationView.PreferredLaunchViewSize = new Size(650, 650);
-            ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
-
             Canvas.Width = 650;
             Canvas.Height = 650;
 
@@ -47,6 +44,20 @@ namespace BattleCity
         public void Game(object sender, object e)
         {
             player.drawPlayer(Canvas);
+        }
+
+        // Back to mainmenu button method
+        private void MenuButton_Click(object sender, RoutedEventArgs e)
+        {
+            // get root frame (which show pages)
+            Frame rootFrame = Window.Current.Content as Frame;
+            // did we get it correctly
+            if (rootFrame == null) return;
+            // navigate back if possible
+            if (rootFrame.CanGoBack)
+            {
+                rootFrame.GoBack();
+            }
         }
     }
 }
