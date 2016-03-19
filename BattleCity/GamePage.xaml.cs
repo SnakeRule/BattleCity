@@ -23,7 +23,11 @@ namespace BattleCity
     /// </summary>
     public sealed partial class GamePage : Page
     {
-        Player player;
+        private Player player;
+        private Block block;
+
+        private double CanvasWidth;
+        private double CanvasHeight;
         private DispatcherTimer dispatcherTimer;
 
         public GamePage()
@@ -33,6 +37,25 @@ namespace BattleCity
 
             Canvas.Width = 650;
             Canvas.Height = 650;
+            CanvasWidth = Canvas.Width;
+            CanvasHeight = Canvas.Height;
+
+            // Add Blocks
+            block = new Block { LocationX = 65, LocationY = 65 };
+            Canvas.Children.Add(block);
+            block.drawMagic();
+            block.UpdatePosition();
+
+            int x = 0;
+            for(int i = 0;i < 10; i++)
+            {
+                block = new Block { LocationX = x, LocationY = 0 };
+                Canvas.Children.Add(block);
+                block.drawDirt();
+                block.UpdatePosition();
+                x = x + 65;
+            }
+            
 
             // Setting up the timer that runs the Game method
             dispatcherTimer = new DispatcherTimer();
