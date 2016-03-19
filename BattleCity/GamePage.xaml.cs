@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -30,6 +31,8 @@ namespace BattleCity
         private double CanvasHeight;
         private DispatcherTimer dispatcherTimer;
 
+        private List<Block> blocks = new List<Block>();
+
         public GamePage()
         {
             this.InitializeComponent();
@@ -46,6 +49,7 @@ namespace BattleCity
 
             // Add Blocks
             block = new Block { LocationX = 65, LocationY = 65 };
+            blocks.Add(block);
             Canvas.Children.Add(block);
             block.drawMagic();
             block.UpdatePosition();
@@ -54,12 +58,12 @@ namespace BattleCity
             for(int i = 0;i < 10; i++)
             {
                 block = new Block { LocationX = x, LocationY = 0 };
+                blocks.Add(block);
                 Canvas.Children.Add(block);
                 block.drawDirt();
                 block.UpdatePosition();
                 x = x + 65;
-            }
-            
+            }           
 
             // Setting up the timer that runs the Game method
             dispatcherTimer = new DispatcherTimer();
@@ -91,14 +95,19 @@ namespace BattleCity
         private void CollisionCheck()
         {
             Rect Player1Rect = new Rect(player.LocationX, player.LocationY, player.ActualWidth, player.ActualHeight);
-            Rect BlockRect = new Rect(block.LocationX, block.LocationY, block.ActualWidth, block.ActualHeight);
-
-            BlockRect.Intersect(Player1Rect);
-
-            if (!BlockRect.IsEmpty)
+            for (int i = 0;i < blocks.Count; i++)
             {
-                Canvas.Children.Remove(block);
+                Rect BlockRect = new Rect(blocks[i].LocationX, blocks[i].LocationY, blocks[i].ActualWidth, blocks[i].ActualHeight);
+                BlockRect.Intersect(Player1Rect);
+
+                if (!BlockRect.IsEmpty)
+                {
+                    Canvas.Children.Remove(blocks[i]);
+                    Debug.WriteLine("HIT");
+                }
             }
+            
+                             
         }
     }
 }
