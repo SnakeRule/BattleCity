@@ -1,24 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Foundation;
+using Windows.Foundation.Collections;
+using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
-using Windows.Graphics;
-using Windows.System;
+using Windows.UI.Xaml.Navigation;
+
+// The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 
 namespace BattleCity
 {
-    public class Player
+    public sealed partial class Player : UserControl
     {
-        Image tankSprite;
         private int v { get; set; }
-        private int speed { get; set; }
+        private int speed = 6;
         private int tankDirection { get; set; }
+
+        public double LocationX { get; set; }
+        public double LocationY { get; set; }
 
         private bool left;
         private bool right;
@@ -26,30 +35,12 @@ namespace BattleCity
         private bool down;
 
         // Default constructor for player
-        public Player(Canvas canvas)
+        public Player()
         {
+            this.InitializeComponent();
             // Setting up the key presses
             Window.Current.CoreWindow.KeyDown += onKeyDown;
             Window.Current.CoreWindow.KeyUp += onKeyUp;
-
-            // Setting up the player sprite
-            tankSprite = new Image();
-            BitmapImage bitmapImage = new BitmapImage();
-            Uri uri = new Uri("ms-appx:///Assets/tank.png");
-            bitmapImage.UriSource = uri;
-            tankSprite.Source = bitmapImage;
-            tankSprite.Width = 80;
-            tankSprite.Height = 130;
-
-            // Setting player position on canvas
-            Canvas.SetLeft(tankSprite, 600);
-            Canvas.SetTop(tankSprite, 300);
-
-            // Adding sprite to canvas
-            canvas.Children.Add(tankSprite);
-
-            //Setting tank speed
-            speed = 6;
         }
 
 
@@ -63,7 +54,7 @@ namespace BattleCity
                 right = false;
                 down = false;
                 up = false;
-            } 
+            }
             else if (args.VirtualKey == VirtualKey.Right)
             {
                 right = true;
@@ -88,29 +79,39 @@ namespace BattleCity
 
         }
 
+        public void DrawPlayer()
+        {
+            SetValue(Canvas.LeftProperty, LocationX);
+            SetValue(Canvas.TopProperty, LocationY);
+        }
+
         // This is the method where the player is drawn on the screen each frame
-        public void drawPlayer(Canvas canvas)
+        public void UpdatePlayer(Canvas canvas)
         {
             // these set the tanksprite to the canvas. The position is calculated from the tanksprite's current position and added or decreased speed
-            if (left == true && Canvas.GetLeft(tankSprite) > canvas.Width - canvas.Width)
+            if (left == true && LocationX >= 2)
             {
-                Canvas.SetLeft(tankSprite, Canvas.GetLeft(tankSprite) - speed);
-                
+                PlayerRotate.Angle = 180;
+                SetValue(Canvas.LeftProperty, LocationX -= speed);
+
                 tankDirection = 1;
             }
-            if (up == true && Canvas.GetTop(tankSprite) > canvas.Height - canvas.Height - 30)
+            if (up == true && LocationY >= 2)
             {
-                Canvas.SetTop(tankSprite, Canvas.GetTop(tankSprite) - speed);
+                PlayerRotate.Angle = 270;
+                SetValue(Canvas.TopProperty, LocationY -= speed);
                 tankDirection = 2;
             }
-            if(right == true && Canvas.GetLeft(tankSprite) < canvas.Width - 80)
+            if (right == true && LocationX <= (canvas.ActualWidth - tankRectangle.Width))
             {
-                Canvas.SetLeft(tankSprite, Canvas.GetLeft(tankSprite) + speed);
+                PlayerRotate.Angle = 0;
+                SetValue(Canvas.LeftProperty, LocationX += speed);
                 tankDirection = 3;
             }
-            if(down == true && Canvas.GetTop(tankSprite) < canvas.Height - 100)
+            if (down == true && LocationY <= (canvas.ActualHeight - tankRectangle.Height))
             {
-                Canvas.SetTop(tankSprite, Canvas.GetTop(tankSprite) + speed);
+                PlayerRotate.Angle = 90;
+                SetValue(Canvas.TopProperty, LocationY += speed);
                 tankDirection = 4;
             }
         }
@@ -120,6 +121,7 @@ namespace BattleCity
         {
             if (left == true && args.VirtualKey == VirtualKey.Left) // checks is bool left is true and if left button is actually pressed
             {
+                Debug.WriteLine("BEEP-BOOP");
                 left = false;
             }
             if (up == true && args.VirtualKey == VirtualKey.Up) // checks is bool up is true and if up button is actually pressed
@@ -130,15 +132,10 @@ namespace BattleCity
             {
                 right = false;
             }
-            if(down == true && args.VirtualKey == VirtualKey.Down) // checks is bool down is true and if down button is actually pressed
+            if (down == true && args.VirtualKey == VirtualKey.Down) // checks is bool down is true and if down button is actually pressed
             {
                 down = false;
             }
-        }
-
-        public Image getPlayer()
-        {
-            return tankSprite;
         }
     }
 }

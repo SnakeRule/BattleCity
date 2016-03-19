@@ -33,12 +33,16 @@ namespace BattleCity
         public GamePage()
         {
             this.InitializeComponent();
-            player = new Player(Canvas);
 
             Canvas.Width = 650;
             Canvas.Height = 650;
             CanvasWidth = Canvas.Width;
             CanvasHeight = Canvas.Height;
+
+            // Add player
+            player = new Player { LocationX = 325, LocationY = 325 };
+            Canvas.Children.Add(player);
+            player.DrawPlayer();
 
             // Add Blocks
             block = new Block { LocationX = 65, LocationY = 65 };
@@ -66,7 +70,7 @@ namespace BattleCity
 
         public void Game(object sender, object e)
         {
-            player.drawPlayer(Canvas);
+            player.UpdatePlayer(Canvas);
         }
 
         // Back to mainmenu button method
