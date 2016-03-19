@@ -25,30 +25,17 @@ namespace BattleCity
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        Player player;
-        private DispatcherTimer dispatcherTimer;
 
         public MainPage()
         {
             this.InitializeComponent();
-            player = new Player(Canvas);
 
-            ApplicationView.PreferredLaunchViewSize = new Size(1280, 720);
-            ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
-
-            Canvas.Width = 1280;
-            Canvas.Height = 720;
-
-            // Setting up the timer that runs the Game method
-            dispatcherTimer = new DispatcherTimer();
-            dispatcherTimer.Tick += Game;
-            dispatcherTimer.Interval = TimeSpan.FromTicks(TimeSpan.TicksPerSecond / 60);
-            dispatcherTimer.Start();
         }
 
-        public void Game(object sender, object e)
+        // Play button click method
+        private void PlayButton_Click(object sender, RoutedEventArgs e) 
         {
-            player.drawPlayer(Canvas);
+            this.Frame.Navigate(typeof(GamePage));
         }
     }
 }

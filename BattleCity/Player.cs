@@ -8,7 +8,8 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media.Imaging;
-using Windows.Graphics
+using Windows.Graphics;
+using Windows.System;
 
 namespace BattleCity
 {
@@ -56,28 +57,28 @@ namespace BattleCity
         public void onKeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs args)
         {
             // Moving the player
-            if (args.VirtualKey == Windows.System.VirtualKey.Left)
+            if (args.VirtualKey == VirtualKey.Left)
             {
                 left = true;
                 right = false;
                 down = false;
                 up = false;
             } 
-            else if (args.VirtualKey == Windows.System.VirtualKey.Right)
+            else if (args.VirtualKey == VirtualKey.Right)
             {
                 right = true;
                 left = false;
                 down = false;
                 up = false;
             }
-            else if (args.VirtualKey == Windows.System.VirtualKey.Up)
+            else if (args.VirtualKey == VirtualKey.Up)
             {
                 up = true;
                 right = false;
                 down = false;
                 left = false;
             }
-            else if (args.VirtualKey == Windows.System.VirtualKey.Down)
+            else if (args.VirtualKey == VirtualKey.Down)
             {
                 down = true;
                 up = false;
@@ -117,24 +118,23 @@ namespace BattleCity
         // Method for releasing the keyboard press
         private void onKeyUp(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs args)
         {
-            if (left == true && args.VirtualKey == Windows.System.VirtualKey.Left) // checks is bool left is true and if left button is actually pressed
+            if (left == true && args.VirtualKey == VirtualKey.Left) // checks is bool left is true and if left button is actually pressed
             {
                 left = false;
             }
-            if (up == true && args.VirtualKey == Windows.System.VirtualKey.Up) // checks is bool up is true and if up button is actually pressed
+            if (up == true && args.VirtualKey == VirtualKey.Up) // checks is bool up is true and if up button is actually pressed
             {
                 up = false;
             }
-            if (right == true && args.VirtualKey == Windows.System.VirtualKey.Right) // checks is bool right is true and if right button is actually pressed
+            if (right == true && args.VirtualKey == VirtualKey.Right) // checks is bool right is true and if right button is actually pressed
             {
                 right = false;
             }
-            if(down == true && args.VirtualKey == Windows.System.VirtualKey.Down) // checks is bool down is true and if down button is actually pressed
+            if(down == true && args.VirtualKey == VirtualKey.Down) // checks is bool down is true and if down button is actually pressed
             {
                 down = false;
             }
         }
-
 
         public Image getPlayer()
         {
