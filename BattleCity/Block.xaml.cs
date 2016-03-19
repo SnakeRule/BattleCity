@@ -20,6 +20,7 @@ namespace BattleCity
     public sealed partial class Block : UserControl
     {
         private readonly int pointValue = 5; // How many points from destroying block
+        private bool canDestroy;
 
         public double LocationX { get; set; }
         public double LocationY { get; set; }
@@ -32,11 +33,13 @@ namespace BattleCity
         public void drawDirt()
         {            
             BlockSpriteSheetOffset.Y = 0;
+            canDestroy = false;
         }
 
         public void drawMagic()
         {
             BlockSpriteSheetOffset.Y = -65;
+            canDestroy = true;
         }
 
         public void UpdatePosition()
