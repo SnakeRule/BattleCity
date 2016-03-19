@@ -136,6 +136,7 @@ namespace BattleCity
             }
         }
 
+
         public Image getPlayer()
         {
             return tankSprite;
