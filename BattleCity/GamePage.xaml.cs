@@ -70,6 +70,7 @@ namespace BattleCity
 
         public void Game(object sender, object e)
         {
+            CollisionCheck();
             player.UpdatePlayer(Canvas);
         }
 
@@ -84,6 +85,19 @@ namespace BattleCity
             if (rootFrame.CanGoBack)
             {
                 rootFrame.GoBack();
+            }
+        }
+
+        private void CollisionCheck()
+        {
+            Rect Player1Rect = new Rect(player.LocationX, player.LocationY, player.ActualWidth, player.ActualHeight);
+            Rect BlockRect = new Rect(block.LocationX, block.LocationY, block.ActualWidth, block.ActualHeight);
+
+            BlockRect.Intersect(Player1Rect);
+
+            if (!BlockRect.IsEmpty)
+            {
+                Canvas.Children.Remove(block);
             }
         }
     }

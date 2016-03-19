@@ -102,13 +102,13 @@ namespace BattleCity
                 SetValue(Canvas.TopProperty, LocationY -= speed);
                 tankDirection = 2;
             }
-            if (right == true && LocationX <= (canvas.ActualWidth - tankRectangle.Width))
+            if (right == true && LocationX <= (canvas.ActualWidth - tankRectangle.ActualWidth))
             {
                 PlayerRotate.Angle = 0;
                 SetValue(Canvas.LeftProperty, LocationX += speed);
                 tankDirection = 3;
             }
-            if (down == true && LocationY <= (canvas.ActualHeight - tankRectangle.Height))
+            if (down == true && LocationY <= (canvas.ActualHeight - tankRectangle.ActualHeight))
             {
                 PlayerRotate.Angle = 90;
                 SetValue(Canvas.TopProperty, LocationY += speed);
