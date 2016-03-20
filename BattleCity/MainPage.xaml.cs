@@ -25,6 +25,7 @@ namespace BattleCity
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        private bool MP;
 
         public MainPage()
         {
@@ -39,6 +40,12 @@ namespace BattleCity
         private void PlayButton_Click(object sender, RoutedEventArgs e) 
         {
             this.Frame.Navigate(typeof(GamePage));
+        }
+
+        private void MultiPlayer_Click(object sender, RoutedEventArgs e)
+        {
+            MP = true;
+            this.Frame.Navigate(typeof(GamePage), MP);
         }
     }
 }

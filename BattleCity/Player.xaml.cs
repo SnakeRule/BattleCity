@@ -34,6 +34,8 @@ namespace BattleCity
         private bool up;
         private bool down;
 
+        public bool Player2 { get; set; } // Tells if which player is being used
+
         // Default constructor for player
         public Player()
         {
@@ -48,39 +50,81 @@ namespace BattleCity
         public void onKeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs args)
         {
             // Moving the player
-            if (args.VirtualKey == VirtualKey.Left)
+            if (Player2 == false)
             {
-                left = true;
-                right = false;
-                down = false;
-                up = false;
+                if (args.VirtualKey == VirtualKey.Left)
+                {
+                    left = true;
+                    right = false;
+                    down = false;
+                    up = false;
+                }
+                else if (args.VirtualKey == VirtualKey.Right)
+                {
+                    right = true;
+                    left = false;
+                    down = false;
+                    up = false;
+                }
+                else if (args.VirtualKey == VirtualKey.Up)
+                {
+                    up = true;
+                    right = false;
+                    down = false;
+                    left = false;
+                }
+                else if (args.VirtualKey == VirtualKey.Down)
+                {
+                    down = true;
+                    up = false;
+                    left = false;
+                    right = false;
+                }
             }
-            else if (args.VirtualKey == VirtualKey.Right)
+            else if(Player2 == true)
             {
-                right = true;
-                left = false;
-                down = false;
-                up = false;
-            }
-            else if (args.VirtualKey == VirtualKey.Up)
-            {
-                up = true;
-                right = false;
-                down = false;
-                left = false;
-            }
-            else if (args.VirtualKey == VirtualKey.Down)
-            {
-                down = true;
-                up = false;
-                left = false;
-                right = false;
+                if (args.VirtualKey == VirtualKey.A)
+                {
+                    left = true;
+                    right = false;
+                    down = false;
+                    up = false;
+                }
+                else if (args.VirtualKey == VirtualKey.D)
+                {
+                    right = true;
+                    left = false;
+                    down = false;
+                    up = false;
+                }
+                else if (args.VirtualKey == VirtualKey.W)
+                {
+                    up = true;
+                    right = false;
+                    down = false;
+                    left = false;
+                }
+                else if (args.VirtualKey == VirtualKey.S)
+                {
+                    down = true;
+                    up = false;
+                    left = false;
+                    right = false;
+                }
             }
 
         }
 
         public void DrawPlayer()
         {
+            if (Player2 == false)
+            {
+                TankSpriteSheetOffset.Y = 0;
+            }
+            else if (Player2 == true)
+            {
+                TankSpriteSheetOffset.Y = -43;
+            }
             SetValue(Canvas.LeftProperty, LocationX);
             SetValue(Canvas.TopProperty, LocationY);
         }
@@ -119,22 +163,45 @@ namespace BattleCity
         // Method for releasing the keyboard press
         private void onKeyUp(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs args)
         {
-            if (left == true && args.VirtualKey == VirtualKey.Left) // checks is bool left is true and if left button is actually pressed
+            if (Player2 == false)
             {
-                Debug.WriteLine("BEEP-BOOP");
-                left = false;
+                if (left == true && args.VirtualKey == VirtualKey.Left) // checks is bool left is true and if left button is actually pressed
+                {
+                    Debug.WriteLine("BEEP-BOOP");
+                    left = false;
+                }
+                if (up == true && args.VirtualKey == VirtualKey.Up) // checks is bool up is true and if up button is actually pressed
+                {
+                    up = false;
+                }
+                if (right == true && args.VirtualKey == VirtualKey.Right) // checks is bool right is true and if right button is actually pressed
+                {
+                    right = false;
+                }
+                if (down == true && args.VirtualKey == VirtualKey.Down) // checks is bool down is true and if down button is actually pressed
+                {
+                    down = false;
+                }
             }
-            if (up == true && args.VirtualKey == VirtualKey.Up) // checks is bool up is true and if up button is actually pressed
+            if (Player2 == true)
             {
-                up = false;
-            }
-            if (right == true && args.VirtualKey == VirtualKey.Right) // checks is bool right is true and if right button is actually pressed
-            {
-                right = false;
-            }
-            if (down == true && args.VirtualKey == VirtualKey.Down) // checks is bool down is true and if down button is actually pressed
-            {
-                down = false;
+                if (left == true && args.VirtualKey == VirtualKey.A) // checks is bool left is true and if left button is actually pressed
+                {
+                    Debug.WriteLine("BEEP-BOOP");
+                    left = false;
+                }
+                if (up == true && args.VirtualKey == VirtualKey.W) // checks is bool up is true and if up button is actually pressed
+                {
+                    up = false;
+                }
+                if (right == true && args.VirtualKey == VirtualKey.D) // checks is bool right is true and if right button is actually pressed
+                {
+                    right = false;
+                }
+                if (down == true && args.VirtualKey == VirtualKey.S) // checks is bool down is true and if down button is actually pressed
+                {
+                    down = false;
+                }
             }
         }
     }

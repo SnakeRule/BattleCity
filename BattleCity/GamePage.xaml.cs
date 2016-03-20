@@ -24,14 +24,23 @@ namespace BattleCity
     /// </summary>
     public sealed partial class GamePage : Page
     {
-        private Player player;
+        // Introducing the objects used
+        private Player player1;
+        private Player player2;
         private Block block;
+
+        private bool MP; // Bool used for checking if 2-player mode was selected
+
+        // These rectangles are used as hitboxes
+        private Rect PlayerRect;
+        private Rect BlockRect;
 
         private double CanvasWidth;
         private double CanvasHeight;
         private DispatcherTimer dispatcherTimer;
 
         private List<Block> blocks = new List<Block>();
+        private List<Player> players = new List<Player>();
 
         public GamePage()
         {
@@ -43,9 +52,10 @@ namespace BattleCity
             CanvasHeight = Canvas.Height;
 
             // Add player
-            player = new Player { LocationX = 325, LocationY = 325 };
-            Canvas.Children.Add(player);
-            player.DrawPlayer();
+            player1 = new Player { LocationX = 325, LocationY = 325, Player2 = false};
+            Canvas.Children.Add(player1);
+            player1.DrawPlayer();
+            players.Add(player1);
 
             // Add Blocks
             block = new Block { LocationX = 65, LocationY = 65 };
@@ -75,7 +85,10 @@ namespace BattleCity
         public void Game(object sender, object e)
         {
             CollisionCheck();
-            player.UpdatePlayer(Canvas);
+            foreach(Player player in players)
+            {
+                player.UpdatePlayer(Canvas);
+            }
         }
 
         // Back to mainmenu button method
@@ -94,20 +107,41 @@ namespace BattleCity
 
         private void CollisionCheck()
         {
-            Rect Player1Rect = new Rect(player.LocationX, player.LocationY, player.ActualWidth, player.ActualHeight);
-            for (int i = 0;i < blocks.Count; i++)
+            foreach (Player player in players)
             {
-                Rect BlockRect = new Rect(blocks[i].LocationX, blocks[i].LocationY, blocks[i].ActualWidth, blocks[i].ActualHeight);
-                BlockRect.Intersect(Player1Rect);
+                PlayerRect = new Rect(player.LocationX, player.LocationY, player.ActualWidth, player.ActualHeight);
 
-                if (!BlockRect.IsEmpty)
+                for (int i = 0; i < blocks.Count; i++)
                 {
-                    Canvas.Children.Remove(blocks[i]);
-                    Debug.WriteLine("HIT");
+                    BlockRect = new Rect(blocks[i].LocationX, blocks[i].LocationY, blocks[i].ActualWidth, blocks[i].ActualHeight);
+
+                    BlockRect.Intersect(PlayerRect);
+                    PlayerRect.Intersect(PlayerRect);
+
+                    if (!BlockRect.IsEmpty)
+                    {
+                        Canvas.Children.Remove(blocks[i]);
+                        Debug.WriteLine("HIT");
+                    }
+                }
+            }                     
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            if (e.Parameter is bool) // Checks if a bool was passed from MainPage
+            {
+                MP = (bool)e.Parameter; // If so, then MP gets the value
+
+                if(MP == true) // If MP is true, a second player is added
+                {
+                    player2 = new Player { LocationX = 225, LocationY = 225, Player2 = true };
+                    Canvas.Children.Add(player2);
+                    player2.DrawPlayer();
+                    players.Add(player2);
                 }
             }
-            
-                             
+            base.OnNavigatedTo(e);
         }
     }
 }

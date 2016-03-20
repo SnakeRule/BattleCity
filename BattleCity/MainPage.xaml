@@ -23,5 +23,14 @@
                 >
             Play
         </Button>
+        <Button x:Name="MultiPlayer" 
+        	Click="MultiPlayer_Click" 
+        	VerticalAlignment="Center"
+        	HorizontalAlignment="Center"
+        	Grid.Column="1"
+        	Width="150"
+        	Height="60" FontSize="26.667" FontFamily="Impact"
+        	Content="2 Player" Margin="325,438,325,222"
+                />
     </Grid>
 </Page>
