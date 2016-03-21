@@ -24,6 +24,13 @@ namespace BattleCity
 
         public double LocationX { get; set; }
         public double LocationY { get; set; }
+        public int PointValue
+        {
+            get
+            {
+                return pointValue;
+            }
+        }
 
         public Block()
         {

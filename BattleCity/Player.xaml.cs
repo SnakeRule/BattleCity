@@ -23,8 +23,9 @@ namespace BattleCity
     public sealed partial class Player : UserControl
     {
         private int v { get; set; }
-        private int speed = 6;
+        private int speed = 5;
         private int tankDirection { get; set; }
+        public int score { get; set; }
 
         public double LocationX { get; set; }
         public double LocationY { get; set; }
@@ -33,6 +34,7 @@ namespace BattleCity
         private bool right;
         private bool up;
         private bool down;
+
 
         public bool Player2 { get; set; } // Tells if which player is being used
 
@@ -133,26 +135,26 @@ namespace BattleCity
         public void UpdatePlayer(Canvas canvas)
         {
             // these set the tanksprite to the canvas. The position is calculated from the tanksprite's current position and added or decreased speed
-            if (left == true && LocationX >= 2)
+            if (left == true && LocationX >= 5)
             {
                 PlayerRotate.Angle = 180;
                 SetValue(Canvas.LeftProperty, LocationX -= speed);
 
                 tankDirection = 1;
             }
-            if (up == true && LocationY >= 2)
+            if (up == true && LocationY >= 10)
             {
                 PlayerRotate.Angle = 270;
                 SetValue(Canvas.TopProperty, LocationY -= speed);
                 tankDirection = 2;
             }
-            if (right == true && LocationX <= (canvas.ActualWidth - tankRectangle.ActualWidth))
+            if (right == true && LocationX <= (canvas.ActualWidth - tankRectangle.ActualWidth - 5))
             {
                 PlayerRotate.Angle = 0;
                 SetValue(Canvas.LeftProperty, LocationX += speed);
                 tankDirection = 3;
             }
-            if (down == true && LocationY <= (canvas.ActualHeight - tankRectangle.ActualHeight))
+            if (down == true && LocationY <= (canvas.ActualHeight - tankRectangle.ActualHeight - 10))
             {
                 PlayerRotate.Angle = 90;
                 SetValue(Canvas.TopProperty, LocationY += speed);

@@ -18,14 +18,7 @@
             <RowDefinition Height="650" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Canvas x:Name="Canvas" Grid.Column="1" Grid.Row="1">
-            <Canvas.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="Black" Offset="0.228"/>
-                    <GradientStop Color="White" Offset="1"/>
-                </LinearGradientBrush>
-            </Canvas.Background>
-        </Canvas>
+        <Canvas x:Name="Canvas" Grid.Column="1" Grid.Row="1" Background="Magenta"/>
         <Button x:Name="MenuButton"
                 Click="MenuButton_Click"
                 VerticalAlignment="Bottom"
@@ -36,5 +29,9 @@
                 Content="Back to Menu"
                 >
         </Button>
+        <TextBlock Grid.Column="2" HorizontalAlignment="Left" Margin="83,33,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Player 1 Score: " VerticalAlignment="Top" Height="43" Width="122" FontSize="18.667"/>
+        <TextBlock Grid.Column="2" HorizontalAlignment="Left" Margin="83,105,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Player 2 Score: " VerticalAlignment="Top" Height="43" Width="122" FontSize="18.667"/>
+        <TextBlock x:Name="Player1Score" Grid.Column="2" HorizontalAlignment="Left" Margin="210,33,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Height="43" Width="95" FontSize="18.667"/>
+        <TextBlock x:Name="Player2Score" Text="No Player" Grid.Column="2" HorizontalAlignment="Left" Margin="210,105,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Height="43" Width="95" FontSize="18.667"/>
     </Grid>
 </Page>

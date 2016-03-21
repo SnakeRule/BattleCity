@@ -46,6 +46,7 @@ namespace BattleCity
         {
             this.InitializeComponent();
 
+            // Setting up the canvas
             Canvas.Width = 650;
             Canvas.Height = 650;
             CanvasWidth = Canvas.Width;
@@ -67,7 +68,7 @@ namespace BattleCity
             int x = 0;
             for(int i = 0;i < 10; i++)
             {
-                block = new Block { LocationX = x, LocationY = 0 };
+                block = new Block { LocationX = x, LocationY = 425 };
                 blocks.Add(block);
                 Canvas.Children.Add(block);
                 block.drawDirt();
@@ -87,6 +88,7 @@ namespace BattleCity
             CollisionCheck();
             foreach(Player player in players)
             {
+                PointsCheck();
                 player.UpdatePlayer(Canvas);
             }
         }
@@ -121,10 +123,31 @@ namespace BattleCity
                     if (!BlockRect.IsEmpty)
                     {
                         Canvas.Children.Remove(blocks[i]);
+                        player.score += block.PointValue;
                         Debug.WriteLine("HIT");
+                    }
+                    if (!PlayerRect.IsEmpty) // Unfinished, shit and not working
+                    {
+                        player.LocationX = player.LocationX;
+                        player.LocationY = player.LocationY;
                     }
                 }
             }                     
+        }
+
+        private void PointsCheck()
+        {
+            foreach(Player player in players)
+            {
+                if (player.Player2 == false)
+                {
+                    Player1Score.Text = player.score.ToString();
+                }
+                else if (player.Player2 == true)
+                {
+                    Player2Score.Text = player.score.ToString();
+                }
+            }
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
