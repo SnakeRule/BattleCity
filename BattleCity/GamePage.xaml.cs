@@ -131,7 +131,7 @@ namespace BattleCity
             {
                 foreach (Block block in blocks)
                 {
-                    BlockRect = new Rect(block.LocationX, block.LocationY, block.ActualWidth, block.ActualHeight);
+                    Rect BlockRect = block.GetRect();
                     PlayerRect = new Rect(player.LocationX, player.LocationY, player.ActualWidth, player.ActualHeight);
                     BlockRect.Intersect(PlayerRect);
                     // PlayerRect.Intersect(PlayerRect); between players
