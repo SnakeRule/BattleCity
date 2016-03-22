@@ -54,5 +54,10 @@ namespace BattleCity
             SetValue(Canvas.LeftProperty, LocationX);
             SetValue(Canvas.TopProperty, LocationY);
         }
+
+        public Rect GetRect()
+        {
+            return new Rect(LocationX, LocationY, ActualWidth, ActualHeight);
+        }
     }
 }
