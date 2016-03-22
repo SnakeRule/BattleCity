@@ -10,7 +10,7 @@
     d:DesignWidth="400">
 
     <Grid>
-        <Rectangle Width="65" Height="65">
+        <Rectangle Width="40" Height="40">
             <Rectangle.Fill>
                 <ImageBrush
                         ImageSource="Assets/Block_placeholder.png"

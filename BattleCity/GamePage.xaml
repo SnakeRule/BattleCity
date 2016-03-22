@@ -10,12 +10,12 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="650"/>
+            <ColumnDefinition Width="680"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
-            <RowDefinition Height="650" />
+            <RowDefinition Height="680" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Canvas x:Name="Canvas" Grid.Column="1" Grid.Row="1" Background="Magenta"/>
