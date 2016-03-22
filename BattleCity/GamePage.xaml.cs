@@ -79,12 +79,7 @@ namespace BattleCity
                 block.UpdatePosition();
                 x = x + 65;
             }
-
-            // Shoot a bullet
-            bullet = new Bullet { LocationX = 65, LocationY = 65, BulletSpeed = 10, BulletDirection = player1.tankDirection };
-            bullets.Add(bullet);
-            Canvas.Children.Add(bullet);
-            bullet.DrawBullet();
+          
 
 
             // Setting up the timer that runs the Game method
@@ -106,7 +101,6 @@ namespace BattleCity
             foreach (Bullet bullet in bullets)
             {
                 bullet.CheckDirection(Canvas);
-
             }
         }
 
