@@ -49,19 +49,6 @@ namespace BattleCity
             Window.Current.CoreWindow.KeyDown += onKeyDown;
             Window.Current.CoreWindow.KeyUp += onKeyUp;
         }
-        // Shooting a bullet
-        public void ShootBullet(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs args)
-        {
-            if (args.VirtualKey == VirtualKey.Q)
-            {
-                Bullet bullet = new Bullet();
-                bullet.LocationY = 100;
-                bullet.LocationX = 100;
-                //bullet.DrawBullet();
-            }
-        }
-
-        // method that returns a rectangle for the player hitbox
         public Rect GetRect()
         {
             return new Rect(LocationX, LocationY, ActualWidth, ActualHeight);
@@ -70,7 +57,7 @@ namespace BattleCity
 
         // Method when pressing down on a key
         public void onKeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs args)
-        {
+        {      
             // Moving the player
             if (Player2 == false)
             {
@@ -159,43 +146,43 @@ namespace BattleCity
 
             if (StopRight == false)
             {
-                if (left == true && LocationX >= 5)
-                {
-                    PlayerRotate.Angle = 180;
-                    SetValue(Canvas.LeftProperty, LocationX -= speed);
-                    tankDirection = 1;
-                }
+            if (left == true && LocationX >= 5)
+            {
+                PlayerRotate.Angle = 180;
+                SetValue(Canvas.LeftProperty, LocationX -= speed);
+                tankDirection = 1;               
+            }
             }
 
             if (StopBottom == false)
             {
-                if (up == true && LocationY >= 10)
-                {
-                    PlayerRotate.Angle = 270;
-                    SetValue(Canvas.TopProperty, LocationY -= speed);
-                    tankDirection = 2;
-                }
+            if (up == true && LocationY >= 10)
+            {
+                PlayerRotate.Angle = 270;
+                SetValue(Canvas.TopProperty, LocationY -= speed);
+                tankDirection = 2;
+            }
             }
 
             if (StopLeft == false)
             {
-                if (right == true && LocationX <= (canvas.ActualWidth - tankRectangle.ActualWidth - 5))
-                {
-                    PlayerRotate.Angle = 0;
-                    SetValue(Canvas.LeftProperty, LocationX += speed);
-                    tankDirection = 3;
-                }
+            if (right == true && LocationX <= (canvas.ActualWidth - tankRectangle.ActualWidth - 5))
+            {
+                PlayerRotate.Angle = 0;
+                SetValue(Canvas.LeftProperty, LocationX += speed);
+                tankDirection = 3;
+            }
             }
 
             if (StopTop == false)
             {
-                if (down == true && LocationY <= (canvas.ActualHeight - tankRectangle.ActualHeight - 10))
-                {
-                    PlayerRotate.Angle = 90;
-                    SetValue(Canvas.TopProperty, LocationY += speed);
-                    tankDirection = 4;
-                }
+            if (down == true && LocationY <= (canvas.ActualHeight - tankRectangle.ActualHeight - 10))
+            {
+                PlayerRotate.Angle = 90;
+                SetValue(Canvas.TopProperty, LocationY += speed);
+                tankDirection = 4;
             }
+        }
         }
 
 
