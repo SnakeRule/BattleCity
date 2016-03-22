@@ -18,7 +18,6 @@ using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
-// Hei olen Tiia :)
 namespace BattleCity
 {
     /// <summary>
@@ -29,7 +28,7 @@ namespace BattleCity
         // Introducing the objects used
         private Player player1;
         private Player player2;
-        private Block block; // help
+        private Block block;
         private Bullet bullet;
 
         private bool MP; // Bool used for checking if 2-player mode was selected
@@ -52,8 +51,8 @@ namespace BattleCity
             this.InitializeComponent();
 
             // Setting up the canvas
-            Canvas.Width = 650;
-            Canvas.Height = 650;
+            Canvas.Width = 680;
+            Canvas.Height = 680;
             CanvasWidth = Canvas.Width;
             CanvasHeight = Canvas.Height;
 
@@ -70,21 +69,17 @@ namespace BattleCity
             block.drawMagic();
             block.UpdatePosition();
 
-
-
             int x = 0;
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 17; i++)
             {
                 block = new Block { LocationX = x, LocationY = 425 };
                 blocks.Add(block);
                 Canvas.Children.Add(block);
                 block.drawDirt();
                 block.UpdatePosition();
-                x = x + 65;
+                x = x + 40;
             }
           
-
-
             // Setting up the timer that runs the Game method
             dispatcherTimer = new DispatcherTimer();
             dispatcherTimer.Tick += Game;
@@ -101,7 +96,7 @@ namespace BattleCity
                 player.UpdatePlayer(Canvas);
             }
            // bullet.Move(); ???
-        }
+            }
 
         // Back to mainmenu button method
         private void MenuButton_Click(object sender, RoutedEventArgs e)
@@ -123,8 +118,8 @@ namespace BattleCity
             {
                 foreach (Block block in blocks)
                 {
-                    Rect BlockRect = block.GetRect();
-                    PlayerRect = new Rect(player.LocationX, player.LocationY, player.ActualWidth, player.ActualHeight);
+                    BlockRect = block.GetRect();
+                    PlayerRect = player.GetRect();
                     BlockRect.Intersect(PlayerRect);
                     // PlayerRect.Intersect(PlayerRect); between players
 
@@ -147,8 +142,6 @@ namespace BattleCity
 
         }
     
-
-
         private void PointsCheck()
         {
             foreach(Player player in players)
