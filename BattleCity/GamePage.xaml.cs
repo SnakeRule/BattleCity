@@ -25,7 +25,7 @@ namespace BattleCity
     /// </summary>
     public sealed partial class GamePage : Page
     {
-        // Hello this is a test
+
         // Introducing the objects used
         private Player player1;
         private Player player2;
@@ -50,7 +50,6 @@ namespace BattleCity
         public GamePage()
         {
             this.InitializeComponent();
-
             // Setting up the canvas
             Canvas.Width = 680;
             Canvas.Height = 680;
@@ -69,6 +68,7 @@ namespace BattleCity
             Canvas.Children.Add(block);
             block.drawMagic();
             block.UpdatePosition();
+
 
             int x = 0;
             for (int i = 0; i < 17; i++)
@@ -89,16 +89,26 @@ namespace BattleCity
         }
 
         public void Game(object sender, object e)
-        {
+        {           
             CollisionCheck();
             foreach (Player player in players)
             {
                 PointsCheck();
                 player.UpdatePlayer(Canvas);
+            }          
+        }    
+        /* This has to be bound to a virtualkey, also make the bullet move to the direction tank is facing  
+        public void CreateBullet()
+        {
+            {
+                bullet = new Bullet()
+                {
+                    LocationX = player1.LocationX,
+                    LocationY = player1.LocationY
+                };
             }
-           // bullet.Move(); ???
-            }
-
+            Canvas.Children.Add(bullet);
+        } */      
         // Back to mainmenu button method
         private void MenuButton_Click(object sender, RoutedEventArgs e)
         {
@@ -123,7 +133,6 @@ namespace BattleCity
                     PlayerRect = player.GetRect();
                     BlockRect.Intersect(PlayerRect);
                     // PlayerRect.Intersect(PlayerRect); between players
-
 
                     if (!BlockRect.IsEmpty) //player and block collision
                     {
@@ -175,16 +184,5 @@ namespace BattleCity
             base.OnNavigatedTo(e);
         }
 
-        //Shooting a bullet, not done yet
-        private void ShootBullet(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs args)
-        {
-            if (args.VirtualKey == VirtualKey.Q)
-            bullet = new Bullet
-            {
-                LocationX = player1.LocationX,
-                LocationY = player1.LocationY
-            };
-            Canvas.Children.Add(bullet);
-        }
     }
 }
