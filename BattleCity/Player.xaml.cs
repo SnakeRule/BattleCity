@@ -24,7 +24,7 @@ namespace BattleCity
     {
         private int v { get; set; }
         private int speed = 5;
-        private int tankDirection { get; set; }
+        public int tankDirection { get; set; }
         public int score { get; set; }
 
         public double LocationX { get; set; }
@@ -139,8 +139,7 @@ namespace BattleCity
             {
                 PlayerRotate.Angle = 180;
                 SetValue(Canvas.LeftProperty, LocationX -= speed);
-
-                tankDirection = 1;
+                tankDirection = 1;               
             }
             if (up == true && LocationY >= 10)
             {

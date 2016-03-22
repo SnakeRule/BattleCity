@@ -99,6 +99,9 @@
     <Compile Include="Block.xaml.cs">
       <DependentUpon>Block.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Bullet.xaml.cs">
+      <DependentUpon>Bullet.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GamePage.xaml.cs">
       <DependentUpon>GamePage.xaml</DependentUpon>
     </Compile>
@@ -134,6 +137,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="Block.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Bullet.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

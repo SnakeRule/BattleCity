@@ -28,12 +28,14 @@ namespace BattleCity
         private Player player1;
         private Player player2;
         private Block block;
+        private Bullet bullet;
 
         private bool MP; // Bool used for checking if 2-player mode was selected
 
         // These rectangles are used as hitboxes
         private Rect PlayerRect;
         private Rect BlockRect;
+        private Rect BulletRect;
 
         private double CanvasWidth;
         private double CanvasHeight;
@@ -41,6 +43,7 @@ namespace BattleCity
 
         private List<Block> blocks = new List<Block>();
         private List<Player> players = new List<Player>();
+        private List<Bullet> bullets = new List<Bullet>();
 
         public GamePage()
         {
@@ -53,20 +56,21 @@ namespace BattleCity
             CanvasHeight = Canvas.Height;
 
             // Add player
-            player1 = new Player { LocationX = 325, LocationY = 325, Player2 = false};
+            player1 = new Player { LocationX = 325, LocationY = 325, Player2 = false };
             Canvas.Children.Add(player1);
             player1.DrawPlayer();
             players.Add(player1);
 
-            // Add Blocks
+            // Add Blocks       
             block = new Block { LocationX = 65, LocationY = 65 };
             blocks.Add(block);
             Canvas.Children.Add(block);
             block.drawMagic();
             block.UpdatePosition();
 
+
             int x = 0;
-            for(int i = 0;i < 10; i++)
+            for (int i = 0; i < 10; i++)
             {
                 block = new Block { LocationX = x, LocationY = 425 };
                 blocks.Add(block);
@@ -74,7 +78,14 @@ namespace BattleCity
                 block.drawDirt();
                 block.UpdatePosition();
                 x = x + 65;
-            }           
+            }
+
+            // Shoot a bullet
+            bullet = new Bullet { LocationX = 65, LocationY = 65, BulletSpeed = 10, BulletDirection = player1.tankDirection };
+            bullets.Add(bullet);
+            Canvas.Children.Add(bullet);
+            bullet.DrawBullet();
+
 
             // Setting up the timer that runs the Game method
             dispatcherTimer = new DispatcherTimer();
@@ -85,11 +96,17 @@ namespace BattleCity
 
         public void Game(object sender, object e)
         {
+
             CollisionCheck();
-            foreach(Player player in players)
+            foreach (Player player in players)
             {
                 PointsCheck();
                 player.UpdatePlayer(Canvas);
+            }
+            foreach (Bullet bullet in bullets)
+            {
+                bullet.CheckDirection(Canvas);
+
             }
         }
 
@@ -111,20 +128,21 @@ namespace BattleCity
         {
             foreach (Player player in players)
             {
-                PlayerRect = new Rect(player.LocationX, player.LocationY, player.ActualWidth, player.ActualHeight);
-
-                for (int i = 0; i < blocks.Count; i++)
+                foreach (Block block in blocks)
                 {
-                    BlockRect = new Rect(blocks[i].LocationX, blocks[i].LocationY, blocks[i].ActualWidth, blocks[i].ActualHeight);
-
+                    BlockRect = new Rect(block.LocationX, block.LocationY, block.ActualWidth, block.ActualHeight);
+                    PlayerRect = new Rect(player.LocationX, player.LocationY, player.ActualWidth, player.ActualHeight);
                     BlockRect.Intersect(PlayerRect);
-                    PlayerRect.Intersect(PlayerRect);
+                    // PlayerRect.Intersect(PlayerRect); between players
 
-                    if (!BlockRect.IsEmpty)
+
+                    if (!BlockRect.IsEmpty) //player and block collision
                     {
-                        Canvas.Children.Remove(blocks[i]);
+                        blocks.Remove(block);
+                        Canvas.Children.Remove(block);
                         player.score += block.PointValue;
                         Debug.WriteLine("HIT");
+                        break;
                     }
                     if (!PlayerRect.IsEmpty) // Unfinished, shit and not working
                     {
@@ -132,8 +150,11 @@ namespace BattleCity
                         player.LocationY = player.LocationY;
                     }
                 }
-            }                     
+            }
+
         }
+    
+
 
         private void PointsCheck()
         {
