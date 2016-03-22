@@ -17,6 +17,7 @@ using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
+    // Hei olen Tiia :)
 namespace BattleCity
 {
     /// <summary>
@@ -27,7 +28,7 @@ namespace BattleCity
         // Introducing the objects used
         private Player player1;
         private Player player2;
-        private Block block;
+        private Block block; // help
         private Bullet bullet;
 
         private bool MP; // Bool used for checking if 2-player mode was selected
@@ -124,7 +125,7 @@ namespace BattleCity
             {
                 foreach (Block block in blocks)
                 {
-                    BlockRect = new Rect(block.LocationX, block.LocationY, block.ActualWidth, block.ActualHeight);
+                    Rect BlockRect = block.GetRect();
                     PlayerRect = new Rect(player.LocationX, player.LocationY, player.ActualWidth, player.ActualHeight);
                     BlockRect.Intersect(PlayerRect);
                     // PlayerRect.Intersect(PlayerRect); between players
