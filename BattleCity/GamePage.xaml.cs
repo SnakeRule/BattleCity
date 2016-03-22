@@ -17,7 +17,6 @@ using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
-    // Hei olen Tiia :)
 namespace BattleCity
 {
     /// <summary>
@@ -28,7 +27,7 @@ namespace BattleCity
         // Introducing the objects used
         private Player player1;
         private Player player2;
-        private Block block; // help
+        private Block block;
         private Bullet bullet;
 
         private bool MP; // Bool used for checking if 2-player mode was selected
@@ -79,8 +78,6 @@ namespace BattleCity
                 block.UpdatePosition();
                 x = x + 40;
             }
-          
-
 
             // Setting up the timer that runs the Game method
             dispatcherTimer = new DispatcherTimer();
@@ -147,8 +144,6 @@ namespace BattleCity
             }
 
         }
-    
-
 
         private void PointsCheck()
         {
