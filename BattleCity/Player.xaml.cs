@@ -46,6 +46,17 @@ namespace BattleCity
             Window.Current.CoreWindow.KeyDown += onKeyDown;
             Window.Current.CoreWindow.KeyUp += onKeyUp;
         }
+        // Shooting a bullet
+        public void ShootBullet(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs args)
+        {
+            if (args.VirtualKey == VirtualKey.Q)
+            {
+                Bullet bullet = new Bullet();
+                bullet.LocationY = 100;
+                bullet.LocationX = 100;             
+                bullet.DrawBullet();
+            }
+        }
 
         public Rect GetRect()
         {
