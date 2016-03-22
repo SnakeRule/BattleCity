@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.System;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -17,7 +18,7 @@ using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
-    // Hei olen Tiia :)
+// Hei olen Tiia :)
 namespace BattleCity
 {
     /// <summary>
@@ -70,6 +71,7 @@ namespace BattleCity
             block.UpdatePosition();
 
 
+
             int x = 0;
             for (int i = 0; i < 10; i++)
             {
@@ -92,17 +94,13 @@ namespace BattleCity
 
         public void Game(object sender, object e)
         {
-
             CollisionCheck();
             foreach (Player player in players)
             {
                 PointsCheck();
                 player.UpdatePlayer(Canvas);
             }
-            foreach (Bullet bullet in bullets)
-            {
-                bullet.CheckDirection(Canvas);
-            }
+           // bullet.Move(); ???
         }
 
         // Back to mainmenu button method
@@ -181,6 +179,18 @@ namespace BattleCity
                 }
             }
             base.OnNavigatedTo(e);
+        }
+
+        //Shooting a bullet, not done yet
+        private void ShootBullet(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs args)
+        {
+            if (args.VirtualKey == VirtualKey.Q)
+            bullet = new Bullet
+            {
+                LocationX = player1.LocationX,
+                LocationY = player1.LocationY
+            };
+            Canvas.Children.Add(bullet);
         }
     }
 }

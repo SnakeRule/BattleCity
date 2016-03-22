@@ -28,11 +28,18 @@ namespace BattleCity
         {
             this.InitializeComponent();
         }
-        public void DrawBullet()
+       /* public void Move()
+        {
+            LocationX = LocationX + BulletSpeed;
+            LocationY = LocationY + BulletSpeed;
+            SetValue(Canvas.LeftProperty, LocationX);
+            SetValue(Canvas.TopProperty, LocationY);
+        }*/
+       /* public void DrawBullet()
         {
             SetValue(Canvas.LeftProperty, LocationX);
             SetValue(Canvas.TopProperty, LocationY);
-        }
+        }*/
         public void CheckDirection(Canvas canvas)
         {
             if (BulletDirection==1)
