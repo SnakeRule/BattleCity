@@ -47,6 +47,11 @@ namespace BattleCity
             Window.Current.CoreWindow.KeyUp += onKeyUp;
         }
 
+        public Rect GetRect()
+        {
+            return new Rect(LocationX, LocationY, ActualWidth, ActualHeight);
+        }
+
 
         // Method when pressing down on a key
         public void onKeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs args)
