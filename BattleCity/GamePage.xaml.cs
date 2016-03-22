@@ -69,16 +69,15 @@ namespace BattleCity
             block.drawMagic();
             block.UpdatePosition();
 
-
             int x = 0;
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 17; i++)
             {
                 block = new Block { LocationX = x, LocationY = 425 };
                 blocks.Add(block);
                 Canvas.Children.Add(block);
                 block.drawDirt();
                 block.UpdatePosition();
-                x = x + 65;
+                x = x + 40;
             }
           
 
