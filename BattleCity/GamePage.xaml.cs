@@ -25,6 +25,7 @@ namespace BattleCity
     /// </summary>
     public sealed partial class GamePage : Page
     {
+        // Hello this is a test
         // Introducing the objects used
         private Player player1;
         private Player player2;

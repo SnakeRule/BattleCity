@@ -54,7 +54,7 @@ namespace BattleCity
                 Bullet bullet = new Bullet();
                 bullet.LocationY = 100;
                 bullet.LocationX = 100;             
-                bullet.DrawBullet();
+                //bullet.DrawBullet();
             }
         }
 
