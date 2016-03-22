@@ -35,6 +35,8 @@ namespace BattleCity
 
         // These rectangles are used as hitboxes
         private Rect PlayerRect;
+        private Rect Player1Rect;
+        private Rect Player2Rect;
         private Rect BlockRect;
         private Rect BulletRect;
 
@@ -92,11 +94,10 @@ namespace BattleCity
             CollisionCheck();
             foreach (Player player in players)
             {
-                PointsCheck();
                 player.UpdatePlayer(Canvas);
             }
-           // bullet.Move(); ???
-            }
+            // bullet.Move(); ???
+        }
 
         // Back to mainmenu button method
         private void MenuButton_Click(object sender, RoutedEventArgs e)
@@ -116,35 +117,71 @@ namespace BattleCity
         {
             foreach (Player player in players)
             {
+                player.StopTop = false;
+                player.StopRight = false;
+                player.StopLeft = false;
+                player.StopBottom = false;
+                if (player.Player2 == false)
+                {
+                    Player1Rect = player.GetRect();
+                }
+                else if (player.Player2 == true)
+                {
+                    Player2Rect = player.GetRect();
+                }
+                Player1Rect.Intersect(Player2Rect);
+
+                // Yritin tehdä pelaajien välistä collision detectionia. Toimii osittain
+                /*
+                if (!Player1Rect.IsEmpty) // Unfinished, shit and not working
+                {
+                    if (Player1Rect.Left > Player2Rect.Left && Player2Rect.Left < Player1Rect.Right && Player2Rect.Top < Player2Rect.Bottom)
+                    {
+                        Debug.WriteLine("LEFT");
+                        player.StopRight = true;
+                    }
+                    if (Player1Rect.Top > Player2Rect.Top && Player2Rect.Top < Player1Rect.Bottom && Player1Rect.Left < Player1Rect.Right)
+                    {
+                        Debug.WriteLine("TOP");
+                        player.StopBottom = true;
+                    }
+                    if (Player1Rect.Left < Player2Rect.Right && Player2Rect.Right > Player1Rect.Right)
+                    {
+                        Debug.WriteLine("Right");
+                        player.StopLeft = true;
+                    }
+                    if (Player1Rect.Top < Player2Rect.Bottom && Player2Rect.Bottom > Player1Rect.Bottom)
+                    {
+                        Debug.WriteLine("BOTTOM");
+                        player.StopTop = true;
+                    }
+                } */
+                  
                 foreach (Block block in blocks)
                 {
                     BlockRect = block.GetRect();
                     PlayerRect = player.GetRect();
                     BlockRect.Intersect(PlayerRect);
-                    // PlayerRect.Intersect(PlayerRect); between players
-
 
                     if (!BlockRect.IsEmpty) //player and block collision
                     {
                         blocks.Remove(block);
                         Canvas.Children.Remove(block);
                         player.score += block.PointValue;
+                        UpdatePoints();
                         Debug.WriteLine("HIT");
                         break;
-                    }
-                    if (!PlayerRect.IsEmpty) // Unfinished, shit and not working
-                    {
-                        player.LocationX = player.LocationX;
-                        player.LocationY = player.LocationY;
                     }
                 }
             }
 
+
         }
-    
-        private void PointsCheck()
+
+        // Method for updating the player points on the screen
+        private void UpdatePoints()
         {
-            foreach(Player player in players)
+            foreach (Player player in players)
             {
                 if (player.Player2 == false)
                 {
@@ -157,6 +194,7 @@ namespace BattleCity
             }
         }
 
+        // This is for the two player mode, navigated to from the main page
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             if (e.Parameter is bool) // Checks if a bool was passed from MainPage

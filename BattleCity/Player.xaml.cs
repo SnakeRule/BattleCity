@@ -22,7 +22,6 @@ namespace BattleCity
 {
     public sealed partial class Player : UserControl
     {
-        private int v { get; set; }
         private int speed = 5;
         public int tankDirection { get; set; }
         public int score { get; set; }
@@ -34,6 +33,10 @@ namespace BattleCity
         private bool right;
         private bool up;
         private bool down;
+        public bool StopLeft { get; set; }
+        public bool StopTop { get; set; }
+        public bool StopRight { get; set; }
+        public bool StopBottom { get; set; }
 
 
         public bool Player2 { get; set; } // Tells if which player is being used
@@ -53,11 +56,12 @@ namespace BattleCity
             {
                 Bullet bullet = new Bullet();
                 bullet.LocationY = 100;
-                bullet.LocationX = 100;             
-                bullet.DrawBullet();
+                bullet.LocationX = 100;
+                //bullet.DrawBullet();
             }
         }
 
+        // method that returns a rectangle for the player hitbox
         public Rect GetRect()
         {
             return new Rect(LocationX, LocationY, ActualWidth, ActualHeight);
@@ -66,7 +70,7 @@ namespace BattleCity
 
         // Method when pressing down on a key
         public void onKeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs args)
-        {      
+        {
             // Moving the player
             if (Player2 == false)
             {
@@ -99,7 +103,7 @@ namespace BattleCity
                     right = false;
                 }
             }
-            else if(Player2 == true)
+            else if (Player2 == true)
             {
                 if (args.VirtualKey == VirtualKey.A)
                 {
@@ -133,6 +137,7 @@ namespace BattleCity
 
         }
 
+        // This method is used to draw the player on the canvas
         public void DrawPlayer()
         {
             if (Player2 == false)
@@ -151,31 +156,48 @@ namespace BattleCity
         public void UpdatePlayer(Canvas canvas)
         {
             // these set the tanksprite to the canvas. The position is calculated from the tanksprite's current position and added or decreased speed
-            if (left == true && LocationX >= 5)
+
+            if (StopRight == false)
             {
-                PlayerRotate.Angle = 180;
-                SetValue(Canvas.LeftProperty, LocationX -= speed);
-                tankDirection = 1;               
+                if (left == true && LocationX >= 5)
+                {
+                    PlayerRotate.Angle = 180;
+                    SetValue(Canvas.LeftProperty, LocationX -= speed);
+                    tankDirection = 1;
+                }
             }
-            if (up == true && LocationY >= 10)
+
+            if (StopBottom == false)
             {
-                PlayerRotate.Angle = 270;
-                SetValue(Canvas.TopProperty, LocationY -= speed);
-                tankDirection = 2;
+                if (up == true && LocationY >= 10)
+                {
+                    PlayerRotate.Angle = 270;
+                    SetValue(Canvas.TopProperty, LocationY -= speed);
+                    tankDirection = 2;
+                }
             }
-            if (right == true && LocationX <= (canvas.ActualWidth - tankRectangle.ActualWidth - 5))
+
+            if (StopLeft == false)
             {
-                PlayerRotate.Angle = 0;
-                SetValue(Canvas.LeftProperty, LocationX += speed);
-                tankDirection = 3;
+                if (right == true && LocationX <= (canvas.ActualWidth - tankRectangle.ActualWidth - 5))
+                {
+                    PlayerRotate.Angle = 0;
+                    SetValue(Canvas.LeftProperty, LocationX += speed);
+                    tankDirection = 3;
+                }
             }
-            if (down == true && LocationY <= (canvas.ActualHeight - tankRectangle.ActualHeight - 10))
+
+            if (StopTop == false)
             {
-                PlayerRotate.Angle = 90;
-                SetValue(Canvas.TopProperty, LocationY += speed);
-                tankDirection = 4;
+                if (down == true && LocationY <= (canvas.ActualHeight - tankRectangle.ActualHeight - 10))
+                {
+                    PlayerRotate.Angle = 90;
+                    SetValue(Canvas.TopProperty, LocationY += speed);
+                    tankDirection = 4;
+                }
             }
         }
+
 
         // Method for releasing the keyboard press
         private void onKeyUp(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs args)
