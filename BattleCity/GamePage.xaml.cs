@@ -28,7 +28,7 @@ namespace BattleCity
         // Introducing the objects used
         private Player player1;
         private Player player2;
-        private Block block;
+        private Block block; // help
         private Bullet bullet;
 
         private bool MP; // Bool used for checking if 2-player mode was selected
