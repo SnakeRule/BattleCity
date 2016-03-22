@@ -10,7 +10,7 @@
     d:DesignWidth="400">
 
     <Grid>
-        <Rectangle x:Name="tankRectangle" Width="55" Height="43">
+        <Rectangle x:Name="tankRectangle" Width="55" Height="45">
             <Rectangle.Fill>
                 <ImageBrush
                         ImageSource="Assets/tank.png"
@@ -25,9 +25,9 @@
             </Rectangle.Fill>
             <Rectangle.RenderTransform>
                 <RotateTransform x:Name="PlayerRotate"
-                                 Angle="0"
+                                 Angle=""
                                  CenterX="27.5"
-                                 CenterY="21.5">
+                                 CenterY="22.5">
                 </RotateTransform>
             </Rectangle.RenderTransform>
         </Rectangle>

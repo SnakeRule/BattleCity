@@ -146,10 +146,11 @@ namespace BattleCity
 
             if (StopRight == false)
             {
-            if (left == true && LocationX >= 5)
+            if (left == true && LocationX > 0)
             {
                 PlayerRotate.Angle = 180;
                 SetValue(Canvas.LeftProperty, LocationX -= speed);
+                Debug.WriteLine("X" + LocationX);
                 tankDirection = 1;               
             }
             }
@@ -161,6 +162,7 @@ namespace BattleCity
                 PlayerRotate.Angle = 270;
                 SetValue(Canvas.TopProperty, LocationY -= speed);
                 tankDirection = 2;
+                    Debug.WriteLine("Y" + LocationY);
             }
             }
 
