@@ -51,8 +51,8 @@ namespace BattleCity
             this.InitializeComponent();
 
             // Setting up the canvas
-            Canvas.Width = 650;
-            Canvas.Height = 650;
+            Canvas.Width = 680;
+            Canvas.Height = 680;
             CanvasWidth = Canvas.Width;
             CanvasHeight = Canvas.Height;
 
