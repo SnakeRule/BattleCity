@@ -83,7 +83,7 @@ namespace BattleCity
                 block1.UpdatePosition();
                 x = x + 40;
             }
-
+          
             // Add player
             player1 = new Player { LocationX = 325, LocationY = 325, Player2 = false };
             Canvas.Children.Add(player1);
@@ -193,6 +193,7 @@ namespace BattleCity
                 {
 
                     Player1Rect.Intersect(Player2Rect);
+                    players[1].StopTop = false;
                     if (!Player1Rect.IsEmpty) // Unfinished, shit and not working
                     {
                         if (player1.LocationX > player2.LocationX && players[0].tankDirection == 1) // Checking if player1 is intersecting player 2 from the right
@@ -282,7 +283,7 @@ namespace BattleCity
                         }
 
                         if (player1.LocationY < block1.LocationY && players[0].tankDirection == 4) // Checking if player1 is intersecting player 2 from the top
-                        {
+                    {
                             Debug.WriteLine("HITTING TOP");
                             player.StopTop = true;
                         }
