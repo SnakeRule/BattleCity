@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -30,7 +31,7 @@ namespace BattleCity
         public double LocationY { get; set; }
         public double SpeedX { get; set; }
         public double SpeedY { get; set; }
-
+        private MediaElement mediaElement;
         private bool left;
         private bool right;
         private bool up;
@@ -52,6 +53,7 @@ namespace BattleCity
             // Setting up the key presses
             Window.Current.CoreWindow.KeyDown += onKeyDown;
             Window.Current.CoreWindow.KeyUp += onKeyUp;
+            LoadAudio(); //Loads the pew sound
         }
         public Rect GetRect()
         {
@@ -137,6 +139,7 @@ namespace BattleCity
                 bullet.Shoot();
                 canvas.Children.Add(bullet);
                 bullets.Add(bullet);
+                mediaElement.Play();
             }
            if (args.VirtualKey == VirtualKey.Q && tankDirection == 2)
             {
@@ -150,6 +153,7 @@ namespace BattleCity
                 bullet.Shoot();
                 canvas.Children.Add(bullet);
                 bullets.Add(bullet);
+                mediaElement.Play();
 
             }
            if (args.VirtualKey == VirtualKey.Q && tankDirection == 3)
@@ -164,6 +168,7 @@ namespace BattleCity
                 bullet.Shoot();
                 canvas.Children.Add(bullet);
                 bullets.Add(bullet);
+                mediaElement.Play();
             }
           if (args.VirtualKey == VirtualKey.Q && tankDirection == 4)
             {
@@ -177,6 +182,7 @@ namespace BattleCity
                 bullet.Shoot();
                 canvas.Children.Add(bullet);
                 bullets.Add(bullet);
+                mediaElement.Play();
             }
         }
 
@@ -305,6 +311,19 @@ namespace BattleCity
                     bullet.Shoot();
                 }
             }            
+        }
+        //Method to load audio from assets
+        public async void LoadAudio()
+        {
+            mediaElement = new MediaElement();
+            mediaElement.AutoPlay = false;
+
+            StorageFolder folder =
+                await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync("Assets");
+            StorageFile file =
+                await folder.GetFileAsync("Pew.mp3");
+            var stream = await file.OpenAsync(FileAccessMode.Read);
+            mediaElement.SetSource(stream, file.ContentType);
         }
     }
 }
