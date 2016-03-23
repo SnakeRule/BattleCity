@@ -29,7 +29,9 @@ namespace BattleCity
         // Introducing the objects used
         private Player player1;
         private Player player2;
-        private Block block;
+        private Block block1;
+        private Block block2;
+        private Block block3;
         private Bullet bullet;
 
         private bool MP; // Bool used for checking if 2-player mode was selected
@@ -45,7 +47,7 @@ namespace BattleCity
         private double CanvasHeight;
         private DispatcherTimer dispatcherTimer;
 
-        private List<Block> blocks = new List<Block>();
+        private List<Block> blocks = new List<Block>(); // All blocks
         private List<Player> players = new List<Player>();
         private List<Bullet> bullets = new List<Bullet>();
 
@@ -58,30 +60,35 @@ namespace BattleCity
             CanvasWidth = Canvas.Width;
             CanvasHeight = Canvas.Height;
 
-            // Add player
-            player1 = new Player { LocationX = 325, LocationY = 325, Player2 = false };
-            Canvas.Children.Add(player1);
-            player1.DrawPlayer();
-            players.Add(player1);
-
             // Add Blocks       
-            block = new Block { LocationX = 65, LocationY = 65 };
-            blocks.Add(block);
-            Canvas.Children.Add(block);
-            block.drawMagic();
-            block.UpdatePosition();
+            block2 = new Block { LocationX = 65, LocationY = 65 };
+            blocks.Add(block2);
+            Canvas.Children.Add(block2);
+            block2.drawMagic(); // canGoTrough = true, canDestroy = false
+            block2.UpdatePosition();
 
+            block3 = new Block { LocationX = 165, LocationY = 165 };
+            blocks.Add(block3);
+            Canvas.Children.Add(block3);
+            block3.drawStone(); // canGoTrough = false, canDestroy = false
+            block3.UpdatePosition();
 
             int x = 0;
             for (int i = 0; i < 17; i++)
             {
-                block = new Block { LocationX = x, LocationY = 425 };
-                blocks.Add(block);
-                Canvas.Children.Add(block);
-                block.drawDirt();
-                block.UpdatePosition();
+                block1 = new Block { LocationX = x, LocationY = 425 };
+                blocks.Add(block1);
+                Canvas.Children.Add(block1);
+                block1.drawTile(); // canGoTrough = false, canDestroy = true
+                block1.UpdatePosition();
                 x = x + 40;
             }
+          
+            // Add player
+            player1 = new Player { LocationX = 325, LocationY = 325, Player2 = false };
+            Canvas.Children.Add(player1);
+            player1.DrawPlayer();
+            players.Add(player1);          
           
             // Setting up the timer that runs the Game method
             dispatcherTimer = new DispatcherTimer();
@@ -253,19 +260,39 @@ namespace BattleCity
                     }
                 }
 
-                foreach (Block block in blocks)
+                
+                foreach (Block block1 in blocks) // Collision detection for Tile blocks
                 {
-                    BlockRect = block.GetRect();
+                    BlockRect = block1.GetRect();
                     PlayerRect = player.GetRect();
                     BlockRect.Intersect(PlayerRect);
                     // PlayerRect.Intersect(PlayerRect); between players
 
-                    if (!BlockRect.IsEmpty) //player and block collision
+                    if (!BlockRect.IsEmpty && block1.CanGoTrough == false) //player and block collision
                     {
-                        blocks.Remove(block);
-                        Canvas.Children.Remove(block);
-                        player.score += block.PointValue;
-                        UpdatePoints();
+                        if (player1.LocationX > block1.LocationX && players[0].tankDirection == 1) // Checking if player1 is intersecting player 2 from the right
+                        {
+                            Debug.WriteLine("HITTING RIGHT");
+                            player.StopRight = true;
+                        }
+
+                        if (player1.LocationY > block1.LocationY && players[0].tankDirection == 2) // Checking if player1 is intersecting player 2 from the bottom
+                        {
+                            Debug.WriteLine("HITTING BOTTOM");
+                            player.StopBottom = true;
+                        }
+
+                        if (player1.LocationX < block1.LocationX && players[0].tankDirection == 3) // Checking if player1 is intersecting player 2 from the left
+                        {
+                            Debug.WriteLine("HITTING LEFT");
+                            player.StopLeft = true;
+                        }
+
+                        if (player1.LocationY < block1.LocationY && players[0].tankDirection == 4) // Checking if player1 is intersecting player 2 from the top
+                    {
+                            Debug.WriteLine("HITTING TOP");
+                            player.StopTop = true;
+                        }
                         Debug.WriteLine("HIT");
                         break;
                     }
