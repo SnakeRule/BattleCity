@@ -326,7 +326,7 @@ namespace BattleCity
 
                 if(MP == true) // If MP is true, a second player is added
                 {
-                    player2 = new Player { LocationX = 225, LocationY = 225, Player2 = true };
+                    player2 = new Player { LocationX = 225, LocationY = 225, Player2 = true, canvas = Canvas, tankDirection = 3 };
                     Canvas.Children.Add(player2);
                     player2.DrawPlayer();
                     players.Add(player2);
