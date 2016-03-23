@@ -22,7 +22,7 @@ namespace BattleCity
 {
     public sealed partial class Player : UserControl
     {
-        private int speed = 5;
+        public int speed = 5;
         public int tankDirection { get; set; }
         public int score { get; set; }
 
@@ -267,6 +267,7 @@ namespace BattleCity
                     down = false;
                 }
             }
+
             if (Player2 == true)
             {
                 if (left == true && args.VirtualKey == VirtualKey.A) // checks is bool left is true and if left button is actually pressed
