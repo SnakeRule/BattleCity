@@ -28,6 +28,8 @@ namespace BattleCity
 
         public double LocationX { get; set; }
         public double LocationY { get; set; }
+        public double SpeedX { get; set; }
+        public double SpeedY { get; set; }
 
         private bool left;
         private bool right;
@@ -37,7 +39,9 @@ namespace BattleCity
         public bool StopTop { get; set; }
         public bool StopRight { get; set; }
         public bool StopBottom { get; set; }
-
+        public Canvas canvas { get; set; }
+        Bullet bullet;
+        private List<Bullet> bullets = new List<Bullet>();
 
         public bool Player2 { get; set; } // Tells if which player is being used
 
@@ -53,7 +57,6 @@ namespace BattleCity
         {
             return new Rect(LocationX, LocationY, ActualWidth, ActualHeight);
         }
-
 
         // Method when pressing down on a key
         public void onKeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs args)
@@ -121,7 +124,60 @@ namespace BattleCity
                     right = false;
                 }
             }
+           //Creating a bullet, movement and spawn location depending on tankDirection
+           if (args.VirtualKey==VirtualKey.Q && tankDirection==1)
+            {
+                Bullet bullet = new Bullet
+                {
+                    SpeedX = -10, // left
+                    SpeedY = 0,
+                    LocationX = LocationX - 15,
+                    LocationY = LocationY+16
+                };
+                bullet.Shoot();
+                canvas.Children.Add(bullet);
+                bullets.Add(bullet);
+            }
+          if (args.VirtualKey == VirtualKey.Q && tankDirection == 2)
+            {
 
+                Bullet bullet = new Bullet
+                {
+                    SpeedX = 0,
+                    SpeedY = -10, //up
+                    LocationX = LocationX+20,
+                    LocationY = LocationY-17,                  
+                };             
+                bullet.Shoot();
+                canvas.Children.Add(bullet);
+                bullets.Add(bullet);
+            }
+           if (args.VirtualKey == VirtualKey.Q && tankDirection == 3)
+            {             
+                Bullet bullet = new Bullet()
+                {
+                    SpeedX = 10, //right
+                    SpeedY = 0,
+                    LocationX = LocationX+50,
+                    LocationY = LocationY+11
+                };
+                bullet.Shoot();
+                canvas.Children.Add(bullet);
+                bullets.Add(bullet);
+            }
+          if (args.VirtualKey == VirtualKey.Q && tankDirection == 4)
+            {
+                Bullet bullet = new Bullet()
+                {
+                    SpeedX = 0,
+                    SpeedY = 10, //down
+                    LocationX = LocationX+20,
+                    LocationY = LocationY+50,
+            };
+                bullet.Shoot();
+                canvas.Children.Add(bullet);
+                bullets.Add(bullet);
+            }
         }
 
         // This method is used to draw the player on the canvas
@@ -183,7 +239,7 @@ namespace BattleCity
                 PlayerRotate.Angle = 90;
                 SetValue(Canvas.TopProperty, LocationY += speed);
                 tankDirection = 4;
-            }
+            }             
         }
         }
 
@@ -231,6 +287,16 @@ namespace BattleCity
                     down = false;
                 }
             }
+        }
+        //Method for drawing the bullet every frame
+        public void UpdateBullet(Canvas canvas)
+        {
+            foreach (Bullet bullet in bullets)
+            {
+                bullet.LocationX += bullet.SpeedX;
+                bullet.LocationY += bullet.SpeedY;
+                bullet.Shoot();
+            }            
         }
     }
 }
