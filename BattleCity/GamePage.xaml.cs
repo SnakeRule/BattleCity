@@ -261,41 +261,51 @@ namespace BattleCity
                 }
 
                 
-                foreach (Block block1 in blocks) // Collision detection for Tile blocks
+                foreach (Block block1 in blocks) // Collision detection for blocks
                 {
                     BlockRect = block1.GetRect();
                     PlayerRect = player.GetRect();
                     BlockRect.Intersect(PlayerRect);
                     // PlayerRect.Intersect(PlayerRect); between players
 
-                    if (!BlockRect.IsEmpty && block1.CanGoTrough == false) //player and block collision
+                    if (!BlockRect.IsEmpty && block1.CanGoTrough == false) //player and block collisions
                     {
-                        if (player1.LocationX > block1.LocationX && players[0].tankDirection == 1) // Checking if player1 is intersecting player 2 from the right
+                        if (player1.LocationX > block1.LocationX && players[0].tankDirection == 1) // Checking if player1 is intersecting block from the right
                         {
                             Debug.WriteLine("HITTING RIGHT");
                             player.StopRight = true;
                         }
 
-                        if (player1.LocationY > block1.LocationY && players[0].tankDirection == 2) // Checking if player1 is intersecting player 2 from the bottom
+                        if (player1.LocationY > block1.LocationY && players[0].tankDirection == 2) // Checking if player1 is intersecting block from the bottom
                         {
                             Debug.WriteLine("HITTING BOTTOM");
                             player.StopBottom = true;
                         }
 
-                        if (player1.LocationX < block1.LocationX && players[0].tankDirection == 3) // Checking if player1 is intersecting player 2 from the left
+                        if (player1.LocationX < block1.LocationX && players[0].tankDirection == 3) // Checking if player1 is intersecting block from the left
                         {
                             Debug.WriteLine("HITTING LEFT");
                             player.StopLeft = true;
                         }
 
-                        if (player1.LocationY < block1.LocationY && players[0].tankDirection == 4) // Checking if player1 is intersecting player 2 from the top
-                    {
+                        if (player1.LocationY < block1.LocationY && players[0].tankDirection == 4) // Checking if player1 is intersecting block from the top
+                        {
                             Debug.WriteLine("HITTING TOP");
                             player.StopTop = true;
-                        }
-                        Debug.WriteLine("HIT");
+                        }                       
                         break;
                     }
+                    while(!BlockRect.IsEmpty && block1.CanGoTrough == true) // Slower speed while moving on magic block
+                    {
+                        player.speed = 2;
+                        break;                  
+                    }
+                    while (BlockRect.IsEmpty && block1.CanGoTrough == true) // Normal speed when moving out of magic block
+                    {
+                        player.speed = 5;
+                        break;
+                    }
+
                 }
             }
 
