@@ -22,7 +22,7 @@ namespace BattleCity
 {
     public sealed partial class Player : UserControl
     {
-        private int speed = 5;
+        public int speed = 5;
         public int tankDirection { get; set; }
         public int score { get; set; }
 
