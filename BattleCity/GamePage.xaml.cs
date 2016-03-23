@@ -50,7 +50,6 @@ namespace BattleCity
 
         private List<Block> blocks = new List<Block>(); // All blocks
         private List<Player> players = new List<Player>();
-        private List<Bullet> bullets = new List<Bullet>();
 
         public GamePage()
         {
@@ -84,13 +83,13 @@ namespace BattleCity
                 block1.UpdatePosition();
                 x = x + 40;
             }
-
+          
             // Add player
-            player1 = new Player { LocationX = 325, LocationY = 325, Player2 = false };
+            player1 = new Player { LocationX = 325, LocationY = 325, Player2 = false,canvas=Canvas,tankDirection=3 };
             Canvas.Children.Add(player1);
             player1.DrawPlayer();
-            players.Add(player1);
-
+            players.Add(player1);          
+          
             // Setting up the timer that runs the Game method
             dispatcherTimer = new DispatcherTimer();
             dispatcherTimer.Tick += Game;
@@ -144,24 +143,14 @@ namespace BattleCity
                     player2.StopRight = false;
                 }
             }
-            foreach (Player player in players)
-            {
-                CollisionCheck();
-                player.UpdatePlayer(Canvas);
-            }
-        }
-        /* This has to be bound to a virtualkey, also make the bullet move to the direction tank is facing  
-        public void CreateBullet()
-        {
-            {
-                bullet = new Bullet()
+                foreach (Player player in players)
                 {
-                    LocationX = player1.LocationX,
-                    LocationY = player1.LocationY
-                };
-            }
-            Canvas.Children.Add(bullet);
-        } */
+                    CollisionCheck();
+                    player.UpdatePlayer(Canvas);
+                    player.UpdateBullet(Canvas);
+                }
+        }
+     
         // Back to mainmenu button method
         private void MenuButton_Click(object sender, RoutedEventArgs e)
         {
@@ -191,7 +180,7 @@ namespace BattleCity
                         Player1Rect = player.GetRect();
                     }
                 if (player2 != null)
-                {
+                    {
                     if (player.Player2 == true)
                     {
                         Player2Rect = player.GetRect();
@@ -200,75 +189,74 @@ namespace BattleCity
 
                 // Yritin tehdä pelaajien välistä collision detectionia. Toimii osittain
 
-                    Player1Rect.Intersect(Player2Rect);
-                    if (!Player1Rect.IsEmpty) // Unfinished, shit and not working
-                    {
-                        if (player.LocationX > player2.LocationX && player.tankDirection == 1) // Checking if player1 is intersecting player 2 from the right
+                        Player1Rect.Intersect(Player2Rect);
+                        if (!Player1Rect.IsEmpty) // Unfinished, shit and not working
                         {
-                            Debug.WriteLine("Player1 HITTING RIGHT");
-                            player.StopRight = true;
-                        }
+                        if (player.LocationX > player2.LocationX && player.tankDirection == 1) // Checking if player1 is intersecting player 2 from the right
+                            {
+                                Debug.WriteLine("Player1 HITTING RIGHT");
+                                player.StopRight = true;
+                            }
 
                         if (player.LocationY > player2.LocationY && player.tankDirection == 2) // Checking if player1 is intersecting player 2 from the bottom
-                        {
-                            Debug.WriteLine("Player1 HITTING BOTTOM");
-                            player.StopBottom = true;
-                        }
+                            {
+                                Debug.WriteLine("Player1 HITTING BOTTOM");
+                                player.StopBottom = true;
+                            }
 
                         if (player.LocationX < player2.LocationX && player.tankDirection == 3) // Checking if player1 is intersecting player 2 from the left
-                        {
-                            Debug.WriteLine("Player1 HITTING LEFT");
-                            player.StopLeft = true;
-                        }
+                            {
+                                Debug.WriteLine("Player1 HITTING LEFT");
+                                player.StopLeft = true;
+                            }
 
                         if (player.LocationY < player2.LocationY && player.tankDirection == 4) // Checking if player1 is intersecting player 2 from the top
-                        {
-                            Debug.WriteLine("Player1 HITTING TOP");
-                            player.StopTop = true;
+                            {
+                                Debug.WriteLine("Player1 HITTING TOP");
+                                player.StopTop = true;
+                            }
                         }
-                }
 
                 if (player2 != null)
-                {
-                    Player1Rect.Intersect(Player2Rect);
-                    if (!Player1Rect.IsEmpty) // Unfinished, shit and not working
                     {
-                        if (player.LocationX > player1.LocationX && player.tankDirection == 1) // Checking if player1 is intersecting player 2 from the right
+                        Player1Rect.Intersect(Player2Rect);
+                        if (!Player1Rect.IsEmpty) // Unfinished, shit and not working
                         {
-                            Debug.WriteLine("Player2 HITTING RIGHT");
-                            player.StopRight = true;
-                        }
+                        if (player.LocationX > player1.LocationX && player.tankDirection == 1) // Checking if player1 is intersecting player 2 from the right
+                            {
+                                Debug.WriteLine("Player2 HITTING RIGHT");
+                                player.StopRight = true;
+                            }
 
                         if (player.LocationY > player1.LocationY && player.tankDirection == 2) // Checking if player1 is intersecting player 2 from the bottom
-                        {
-                            Debug.WriteLine("Player2 HITTING BOTTOM");
-                            player.StopBottom = true;
-                        }
+                            {
+                                Debug.WriteLine("Player2 HITTING BOTTOM");
+                                player.StopBottom = true;
+                            }
 
                         if (player.LocationX < player1.LocationX && player.tankDirection == 3) // Checking if player1 is intersecting player 2 from the left
-                        {
-                            Debug.WriteLine("Player2 HITTING LEFT");
-                            player.StopLeft = true;
-                        }
+                            {
+                                Debug.WriteLine("Player2 HITTING LEFT");
+                                player.StopLeft = true;
+                            }
 
                         if (player.LocationY < player1.LocationY && player.tankDirection == 4) // Checking if player1 is intersecting player 2 from the top
-                        {
-                            Debug.WriteLine("Player2 HITTING TOP");
-                            player.StopTop = true;
+                            {
+                                Debug.WriteLine("Player2 HITTING TOP");
+                                player.StopTop = true;
+                            }
                         }
                     }
-                }
-   
 
                 
-                foreach (Block block1 in blocks) // Collision detection for Tile blocks
+                foreach (Block block1 in blocks) // Collision detection for blocks
                 {
                     BlockRect = block1.GetRect();
                     PlayerRect = player.GetRect();
                     BlockRect.Intersect(PlayerRect);
                     // PlayerRect.Intersect(PlayerRect); between players
 
-                    if (!BlockRect.IsEmpty && block1.CanGoTrough == false) //player and block collision
+                    if (!BlockRect.IsEmpty && block1.CanGoTrough == false) //player and block collisions
                     {
                         if (player.LocationX > block1.LocationX && player.tankDirection == 1) // Checking if player1 is intersecting player 2 from the right
                         {
@@ -293,9 +281,19 @@ namespace BattleCity
                             Debug.WriteLine("HITTING TOP");
                             player.StopTop = true;
                         }
-                        Debug.WriteLine("HIT");
                         break;
                     }
+                    while(!BlockRect.IsEmpty && block1.CanGoTrough == true) // Slower speed while moving on magic block
+                    {
+                        player.speed = 2;
+                        break;                  
+                    }
+                    while (BlockRect.IsEmpty && block1.CanGoTrough == true) // Normal speed when moving out of magic block
+                    {
+                        player.speed = 5;
+                        break;
+                    }
+
                 }
             }
 
@@ -327,7 +325,7 @@ namespace BattleCity
 
                 if(MP == true) // If MP is true, a second player is added
                 {
-                    player2 = new Player { LocationX = 225, LocationY = 225, Player2 = true };
+                    player2 = new Player { LocationX = 225, LocationY = 225, Player2 = true, canvas = Canvas, tankDirection = 3 };
                     Canvas.Children.Add(player2);
                     player2.DrawPlayer();
                     players.Add(player2);
