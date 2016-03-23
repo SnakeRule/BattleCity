@@ -211,6 +211,7 @@ namespace BattleCity
                     down = false;
                 }
             }
+
             if (Player2 == true)
             {
                 if (left == true && args.VirtualKey == VirtualKey.A) // checks is bool left is true and if left button is actually pressed
