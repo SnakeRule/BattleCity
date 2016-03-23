@@ -301,9 +301,16 @@ namespace BattleCity
         {
             foreach (Bullet bullet in bullets)
             {
-                bullet.LocationX += bullet.SpeedX;
-                bullet.LocationY += bullet.SpeedY;
-                bullet.Shoot();
+                if (bullet.LocationX <= 0 || bullet.LocationX >= (canvas.Width - bullet.ActualWidth) || bullet.LocationY <= 0 || bullet.LocationY >= (canvas.Height - bullet.ActualHeight))
+                {
+                    canvas.Children.Remove(bullet);
+                }
+                else
+                {
+                    bullet.LocationX += bullet.SpeedX;
+                    bullet.LocationY += bullet.SpeedY;
+                    bullet.Shoot();
+                }
             }            
         }
         //Method to load audio from assets
