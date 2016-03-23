@@ -103,27 +103,24 @@ namespace BattleCity
                 {
                 if (player.StopBottom == true && player.tankDirection != 4)
                 {
-                    SetValue(Canvas.LeftProperty, (player.LocationY + 5));
                     player.LocationY += 5;
                     player.StopBottom = false;
                     player.UpdatePlayer(Canvas);
                 }
                 if (player.StopTop == true && player.tankDirection != 2)
                 {
-                    SetValue(Canvas.LeftProperty, (player.LocationY - 5));
                     player.LocationY -= 5;
                     player.StopTop = false;
                     player.UpdatePlayer(Canvas);
                 }
-                if (player.StopLeft == true && player.tankDirection != 3)
+                if (player.StopLeft == true && player.tankDirection != 1)
                 {
-                    SetValue(Canvas.LeftProperty, (player.LocationX - 5));
+                    player.LocationX -= 5;
                     player.StopLeft = false;
                     player.UpdatePlayer(Canvas);
                 }
-                if (player.StopRight == true && player1.tankDirection != 3)
+                if (player.StopRight == true && player.tankDirection != 3)
                 {
-                    SetValue(Canvas.LeftProperty, (player.LocationX + 5));
                     player.LocationX += 5;
                     player.StopRight = false;
                     player.UpdatePlayer(Canvas);
@@ -157,7 +154,6 @@ namespace BattleCity
                 player.StopRight = false;
                 player.StopLeft = false;
                 player.StopBottom = false;
-
                 
                 foreach (Block block1 in blocks) // Collision detection for blocks
                 {
