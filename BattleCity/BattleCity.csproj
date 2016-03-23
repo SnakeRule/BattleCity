@@ -121,6 +121,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Block_placeholder.png" />
+    <Content Include="Assets\Pew.mp3" />
     <Content Include="Assets\tank.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />

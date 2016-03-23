@@ -44,7 +44,7 @@ namespace BattleCity
         public Canvas canvas { get; set; }
         
 
-        public bool Player2 { get; set; } // Tells if which player is being used
+        public bool Player2 { get; set; } // Tells which player is being used
 
         // Default constructor for player
         public Player()
@@ -94,6 +94,11 @@ namespace BattleCity
                     left = false;
                     right = false;
                 }
+
+               if (args.VirtualKey == VirtualKey.NumberPad0)
+                {
+                    CreateBullet();
+                }
             }
             else if (Player2 == true)
             {
@@ -125,64 +130,10 @@ namespace BattleCity
                     left = false;
                     right = false;
                 }
-            }
-           //Creating a bullet, movement and spawn location depending on tankDirection
-           if (args.VirtualKey==VirtualKey.Q && tankDirection==1)
-            {
-                Bullet bullet = new Bullet
+                if (args.VirtualKey == VirtualKey.Q)
                 {
-                    SpeedX = -10, // left
-                    SpeedY = 0,
-                    LocationX = LocationX - 15,
-                    LocationY = LocationY+16
-                };
-                bullet.Shoot();
-                canvas.Children.Add(bullet);
-                bullets.Add(bullet);
-                mediaElement.Play();
-            }
-           if (args.VirtualKey == VirtualKey.Q && tankDirection == 2)
-            {
-                Bullet bullet = new Bullet
-                {
-                    SpeedX = 0,
-                    SpeedY = -10, //up
-                    LocationX = LocationX+20,
-                    LocationY = LocationY-17,                  
-                };             
-                bullet.Shoot();
-                canvas.Children.Add(bullet);
-                bullets.Add(bullet);
-                mediaElement.Play();
-
-            }
-           if (args.VirtualKey == VirtualKey.Q && tankDirection == 3)
-            {             
-                Bullet bullet = new Bullet()
-                {
-                    SpeedX = 10, //right
-                    SpeedY = 0,
-                    LocationX = LocationX+50,
-                    LocationY = LocationY+11
-                };
-                bullet.Shoot();
-                canvas.Children.Add(bullet);
-                bullets.Add(bullet);
-                mediaElement.Play();
-            }
-          if (args.VirtualKey == VirtualKey.Q && tankDirection == 4)
-            {
-                Bullet bullet = new Bullet()
-                {
-                    SpeedX = 0,
-                    SpeedY = 10, //down
-                    LocationX = LocationX+20,
-                    LocationY = LocationY+50,
-            };
-                bullet.Shoot();
-                canvas.Children.Add(bullet);
-                bullets.Add(bullet);
-                mediaElement.Play();
+                    CreateBullet();
+                }
             }
         }
 
@@ -224,7 +175,7 @@ namespace BattleCity
                 PlayerRotate.Angle = 270;
                 SetValue(Canvas.TopProperty, LocationY -= speed);
                 tankDirection = 2;
-                    Debug.WriteLine("Y" + LocationY);
+                Debug.WriteLine("Y" + LocationY);
             }
             }
 
@@ -234,6 +185,7 @@ namespace BattleCity
             {
                 PlayerRotate.Angle = 0;
                 SetValue(Canvas.LeftProperty, LocationX += speed);
+                Debug.WriteLine("X" + LocationX);
                 tankDirection = 3;
             }
             }
@@ -244,6 +196,7 @@ namespace BattleCity
             {
                 PlayerRotate.Angle = 90;
                 SetValue(Canvas.TopProperty, LocationY += speed);
+                Debug.WriteLine("X" + LocationX);
                 tankDirection = 4;
             }             
         }
@@ -303,6 +256,8 @@ namespace BattleCity
                 if (bullet.LocationX <= 0 || bullet.LocationX >= (canvas.Width - bullet.ActualWidth) || bullet.LocationY <= 0 || bullet.LocationY >= (canvas.Height - bullet.ActualHeight))
                 {
                     canvas.Children.Remove(bullet);
+                    bullets.Remove(bullet);
+                    break;
                 }
                 else
                 {
@@ -324,6 +279,71 @@ namespace BattleCity
                 await folder.GetFileAsync("Pew.mp3");
             var stream = await file.OpenAsync(FileAccessMode.Read);
             mediaElement.SetSource(stream, file.ContentType);
+        }
+
+        public void CreateBullet()
+        {
+            //Creating a bullet, movement and spawn location depending on tankDirection
+            if (bullets.Count < 1)
+            {
+                if (tankDirection == 1)
+                {
+                    Bullet bullet = new Bullet
+                    {
+                        SpeedX = -10, // left
+                        SpeedY = 0,
+                        LocationX = LocationX - 15,
+                        LocationY = LocationY + 16
+                    };
+                    bullet.Shoot();
+                    canvas.Children.Add(bullet);
+                    bullets.Add(bullet);
+                    mediaElement.Play();
+                }
+                if (tankDirection == 2)
+                {
+                    Bullet bullet = new Bullet
+                    {
+                        SpeedX = 0,
+                        SpeedY = -10, //up
+                        LocationX = LocationX + 20,
+                        LocationY = LocationY - 17,
+                    };
+                    bullet.Shoot();
+                    canvas.Children.Add(bullet);
+                    bullets.Add(bullet);
+                    mediaElement.Play();
+
+                }
+                if (tankDirection == 3)
+                {
+                    Bullet bullet = new Bullet()
+                    {
+                        SpeedX = 10, //right
+                        SpeedY = 0,
+                        LocationX = LocationX + 50,
+                        LocationY = LocationY + 11
+                    };
+                    bullet.Shoot();
+                    canvas.Children.Add(bullet);
+                    bullets.Add(bullet);
+                    mediaElement.Play();
+                }
+                if (tankDirection == 4)
+                {
+                    Bullet bullet = new Bullet()
+                    {
+                        SpeedX = 0,
+                        SpeedY = 10, //down
+                        LocationX = LocationX + 20,
+                        LocationY = LocationY + 50,
+                    };
+                    bullet.Shoot();
+                    canvas.Children.Add(bullet);
+                    bullets.Add(bullet);
+                    mediaElement.Play();
+                }
+            }
         }
     }
 }
