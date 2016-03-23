@@ -84,7 +84,7 @@ namespace BattleCity
             }
           
             // Add player
-            player1 = new Player { LocationX = 325, LocationY = 325, Player2 = false };
+            player1 = new Player { LocationX = 325, LocationY = 325, Player2 = false,canvas=Canvas,tankDirection=3 };
             Canvas.Children.Add(player1);
             player1.DrawPlayer();
             players.Add(player1);          
@@ -146,20 +146,10 @@ namespace BattleCity
                 {
                     CollisionCheck();
                     player.UpdatePlayer(Canvas);
+                    player.UpdateBullet(Canvas);
                 }
         }
-        /* This has to be bound to a virtualkey, also make the bullet move to the direction tank is facing  
-        public void CreateBullet()
-        {
-            {
-                bullet = new Bullet()
-                {
-                    LocationX = player1.LocationX,
-                    LocationY = player1.LocationY
-                };
-            }
-            Canvas.Children.Add(bullet);
-        } */      
+     
         // Back to mainmenu button method
         private void MenuButton_Click(object sender, RoutedEventArgs e)
         {

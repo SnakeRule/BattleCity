@@ -39,9 +39,9 @@ namespace BattleCity
         public bool StopTop { get; set; }
         public bool StopRight { get; set; }
         public bool StopBottom { get; set; }
-        public Canvas canvas { get; set; }
-        Bullet bullet;
         private List<Bullet> bullets = new List<Bullet>();
+        public Canvas canvas { get; set; }
+        
 
         public bool Player2 { get; set; } // Tells if which player is being used
 
@@ -138,9 +138,8 @@ namespace BattleCity
                 canvas.Children.Add(bullet);
                 bullets.Add(bullet);
             }
-          if (args.VirtualKey == VirtualKey.Q && tankDirection == 2)
+           if (args.VirtualKey == VirtualKey.Q && tankDirection == 2)
             {
-
                 Bullet bullet = new Bullet
                 {
                     SpeedX = 0,
@@ -151,6 +150,7 @@ namespace BattleCity
                 bullet.Shoot();
                 canvas.Children.Add(bullet);
                 bullets.Add(bullet);
+
             }
            if (args.VirtualKey == VirtualKey.Q && tankDirection == 3)
             {             
