@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -40,9 +41,10 @@ namespace BattleCity
         public bool StopRight { get; set; }
         public bool StopBottom { get; set; }
         private List<Bullet> bullets = new List<Bullet>();
+        private MediaElement mediaElement;
         public Canvas canvas { get; set; }
         
-
+        
         public bool Player2 { get; set; } // Tells if which player is being used
 
         // Default constructor for player
@@ -52,6 +54,7 @@ namespace BattleCity
             // Setting up the key presses
             Window.Current.CoreWindow.KeyDown += onKeyDown;
             Window.Current.CoreWindow.KeyUp += onKeyUp;
+            LoadAudio(); //Loads the pew sound
         }
         public Rect GetRect()
         {
@@ -137,6 +140,7 @@ namespace BattleCity
                 bullet.Shoot();
                 canvas.Children.Add(bullet);
                 bullets.Add(bullet);
+                mediaElement.Play(); //pew               
             }
            if (args.VirtualKey == VirtualKey.Q && tankDirection == 2)
             {
@@ -146,10 +150,11 @@ namespace BattleCity
                     SpeedY = -10, //up
                     LocationX = LocationX+20,
                     LocationY = LocationY-17,                  
-                };             
+                };
                 bullet.Shoot();
                 canvas.Children.Add(bullet);
                 bullets.Add(bullet);
+                mediaElement.Play(); //pew
 
             }
            if (args.VirtualKey == VirtualKey.Q && tankDirection == 3)
@@ -164,6 +169,7 @@ namespace BattleCity
                 bullet.Shoot();
                 canvas.Children.Add(bullet);
                 bullets.Add(bullet);
+                mediaElement.Play(); //pew
             }
           if (args.VirtualKey == VirtualKey.Q && tankDirection == 4)
             {
@@ -177,6 +183,7 @@ namespace BattleCity
                 bullet.Shoot();
                 canvas.Children.Add(bullet);
                 bullets.Add(bullet);
+                mediaElement.Play(); //pew
             }
         }
 
@@ -298,6 +305,19 @@ namespace BattleCity
                 bullet.LocationY += bullet.SpeedY;
                 bullet.Shoot();
             }            
+        }
+        //Method to load audio from assets
+        public async void LoadAudio()
+        {
+            mediaElement = new MediaElement();
+            mediaElement.AutoPlay = false;
+
+            StorageFolder folder =
+                await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync("Assets");
+            StorageFile file =
+                await folder.GetFileAsync("Pew.mp3");
+            var stream = await file.OpenAsync(FileAccessMode.Read);
+            mediaElement.SetSource(stream, file.ContentType);
         }
     }
 }
