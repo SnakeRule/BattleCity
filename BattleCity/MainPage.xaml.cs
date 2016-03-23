@@ -15,7 +15,6 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.ViewManagement;
-using Windows.Storage;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -31,13 +30,15 @@ namespace BattleCity
         public MainPage()
         {
             this.InitializeComponent();
+
             ApplicationView.PreferredLaunchViewSize = new Size(1280, 720);
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
+
         }
 
         // Play button click method
         private void PlayButton_Click(object sender, RoutedEventArgs e) 
-        {            
+        {
             this.Frame.Navigate(typeof(GamePage));
         }
 

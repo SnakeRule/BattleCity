@@ -120,7 +120,6 @@
     <None Include="BattleCity_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\Pew.mp3" />
     <Content Include="Assets\Block_placeholder.png" />
     <Content Include="Assets\tank.png" />
     <Content Include="Properties\Default.rd.xml" />

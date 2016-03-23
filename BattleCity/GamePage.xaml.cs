@@ -6,7 +6,6 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
-using Windows.Storage;
 using Windows.System;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -89,9 +88,8 @@ namespace BattleCity
             player1 = new Player { LocationX = 325, LocationY = 325, Player2 = false,canvas=Canvas,tankDirection=3 };
             Canvas.Children.Add(player1);
             player1.DrawPlayer();
-            players.Add(player1);
-
-
+            players.Add(player1);          
+          
             // Setting up the timer that runs the Game method
             dispatcherTimer = new DispatcherTimer();
             dispatcherTimer.Tick += Game;
@@ -135,11 +133,10 @@ namespace BattleCity
                     player.UpdateBullet(Canvas);
                 }
         }
-
+     
         // Back to mainmenu button method
         private void MenuButton_Click(object sender, RoutedEventArgs e)
         {
-
             // get root frame (which show pages)
             Frame rootFrame = Window.Current.Content as Frame;
             // did we get it correctly
@@ -149,11 +146,11 @@ namespace BattleCity
             {
                 rootFrame.GoBack();
             }
-
         }
 
         private void CollisionCheck()
         {
+
             foreach (Player player in players)
             {
                 player.StopTop = false;
@@ -206,8 +203,11 @@ namespace BattleCity
                         player.speed = 5;
                         break;
                     }
+
                 }
             }
+
+
         }
     
         // Method for updating the player points on the screen
@@ -243,5 +243,6 @@ namespace BattleCity
             }
             base.OnNavigatedTo(e);
         }
+
     }
 }
