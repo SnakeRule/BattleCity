@@ -43,6 +43,7 @@ using Windows.UI.Xaml.Navigation;
         public bool StopTop { get; set; }
         public bool StopRight { get; set; }
         public bool StopBottom { get; set; }
+        protected Bullet bullet;
         protected List<Bullet> bullets = new List<Bullet>();
         public Canvas canvas { get; set; }
 
@@ -175,7 +176,7 @@ using Windows.UI.Xaml.Navigation;
             {
                 if (tankDirection == 1)
                 {
-                    Bullet bullet = new Bullet
+                    bullet = new Bullet
                     {
                         SpeedX = -10, // left
                         SpeedY = 0,
@@ -189,7 +190,7 @@ using Windows.UI.Xaml.Navigation;
                  }
             if (tankDirection == 2)
             {
-                Bullet bullet = new Bullet
+                bullet = new Bullet
                 {
                     SpeedX = 0,
                     SpeedY = -10, //up
@@ -203,7 +204,7 @@ using Windows.UI.Xaml.Navigation;
             }
             if (tankDirection == 3)
             {
-                Bullet bullet = new Bullet()
+                bullet = new Bullet()
                 {
                     SpeedX = 10, //right
                     SpeedY = 0,
@@ -217,7 +218,7 @@ using Windows.UI.Xaml.Navigation;
             }
            if (tankDirection == 4)
             {
-                Bullet bullet = new Bullet()
+                bullet = new Bullet()
                 {
                     SpeedX = 0,
                     SpeedY = 10, //down
@@ -231,5 +232,10 @@ using Windows.UI.Xaml.Navigation;
             }
         }
     }
+        public void RemoveBullet() // When a character gets hit, the bullet is removed
+        {
+            canvas.Children.Remove(bullet);
+            bullets.Remove(bullet);
+        }
     }
 }

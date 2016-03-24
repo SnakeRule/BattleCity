@@ -134,7 +134,7 @@ namespace BattleCity
         // Back to mainmenu button method
         private void MenuButton_Click(object sender, RoutedEventArgs e)
         {
-            GameStop();
+            dispatcherTimer.Stop();
             // get root frame (which show pages)
             Frame rootFrame = Window.Current.Content as Frame;
             // did we get it correctly
@@ -201,7 +201,8 @@ namespace BattleCity
                         break;
                     }
                 }
-                foreach(Enemy enemy in enemies)
+
+                foreach(Enemy enemy in enemies) // This is where the collision between players and enemies is detected
                 {
                     EnemyRect = enemy.GetRect();
                     EnemyRect.Intersect(PlayerRect);
@@ -209,6 +210,7 @@ namespace BattleCity
                     if (!EnemyRect.IsEmpty)
                     {
                         PlayerHit = true;
+                        enemy.RemoveBullet();
                         Canvas.Children.Remove(enemy);
                         enemies.Remove(enemy);
                         break;
@@ -218,6 +220,7 @@ namespace BattleCity
                 }
                 if(PlayerHit == true)
                 {
+                    player.RemoveBullet();
                     Canvas.Children.Remove(player);
                     players.Remove(player);
                     break;
@@ -258,11 +261,6 @@ namespace BattleCity
                 }
             }
             base.OnNavigatedTo(e);
-        }
-
-        private void GameStop()
-        {
-            dispatcherTimer.Stop();
         }
 
         private void CheckGameOver()
