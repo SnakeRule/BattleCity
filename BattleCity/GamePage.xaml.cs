@@ -129,6 +129,7 @@ namespace BattleCity
         // Back to mainmenu button method
         private void MenuButton_Click(object sender, RoutedEventArgs e)
         {
+            GameStop();
             // get root frame (which show pages)
             Frame rootFrame = Window.Current.Content as Frame;
             // did we get it correctly
@@ -231,6 +232,11 @@ namespace BattleCity
                 }
             }
             base.OnNavigatedTo(e);
+        }
+
+        private void GameStop()
+        {
+            dispatcherTimer.Stop();
         }
 
     }
