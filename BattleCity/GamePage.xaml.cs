@@ -37,11 +37,13 @@ namespace BattleCity
         private Random random;
 
         private bool MP; // Bool used for checking if 2-player mode was selected
+        private bool PlayerHit = false;
 
         // These rectangles are used as hitboxes
         private Rect PlayerRect;
         private Rect BlockRect;
         private Rect BulletRect;
+        private Rect EnemyRect;
 
         private double CanvasWidth;
         private double CanvasHeight;
@@ -92,7 +94,7 @@ namespace BattleCity
 
             // Adding enemies
             x = 125;
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 2; i++)
             {
                 enemy = new Enemy { LocationX = x, LocationY = 125, canvas = Canvas, tankDirection = 3};
                 Canvas.Children.Add(enemy);
@@ -114,16 +116,19 @@ namespace BattleCity
                 foreach (Player player in players)
                 {
                 CollisionCheck();
+                if (PlayerHit == true)
+                    break;
                 player.CollisionRelease();
                 player.UpdatePlayer(Canvas);
                 player.UpdateBullet(Canvas);
                 }
                 foreach(Enemy enemy in enemies)
-            {
+                {
                 enemy.Move(random.Next(1,5));
                 enemy.UpdatePlayer(Canvas);
                 enemy.UpdateBullet(Canvas);
-            }
+                }
+            CheckGameOver();
         }
      
         // Back to mainmenu button method
@@ -149,11 +154,12 @@ namespace BattleCity
                 player.StopRight = false;
                 player.StopLeft = false;
                 player.StopBottom = false;
-                
+
+                PlayerRect = player.GetRect();
+
                 foreach (Block block1 in blocks) // Collision detection for blocks
                 {
                     BlockRect = block1.GetRect();
-                    PlayerRect = player.GetRect();
                     BlockRect.Intersect(PlayerRect);
                     // PlayerRect.Intersect(PlayerRect); between players
 
@@ -194,7 +200,27 @@ namespace BattleCity
                         player.speed = 5;
                         break;
                     }
+                }
+                foreach(Enemy enemy in enemies)
+                {
+                    EnemyRect = enemy.GetRect();
+                    EnemyRect.Intersect(PlayerRect);
 
+                    if (!EnemyRect.IsEmpty)
+                    {
+                        PlayerHit = true;
+                        Canvas.Children.Remove(enemy);
+                        enemies.Remove(enemy);
+                        break;
+                    }
+                    else
+                        PlayerHit = false;
+                }
+                if(PlayerHit == true)
+                {
+                    Canvas.Children.Remove(player);
+                    players.Remove(player);
+                    break;
                 }
             }
         }
@@ -239,5 +265,12 @@ namespace BattleCity
             dispatcherTimer.Stop();
         }
 
+        private void CheckGameOver()
+        {
+            if (!players.Any())
+            {
+                dispatcherTimer.Stop();
+            }
+        }
     }
 }
