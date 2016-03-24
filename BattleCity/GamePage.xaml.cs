@@ -29,18 +29,17 @@ namespace BattleCity
         // Introducing the objects used
         private Player player1;
         private Player player2;
+        private Enemy enemy;
         private Block block1;
         private Block block2;
         private Block block3;
-        private Bullet bullet;
+
+        private Random random;
 
         private bool MP; // Bool used for checking if 2-player mode was selected
-        private bool collision;
 
         // These rectangles are used as hitboxes
         private Rect PlayerRect;
-        private Rect Player1Rect;
-        private Rect Player2Rect;
         private Rect BlockRect;
         private Rect BulletRect;
 
@@ -50,6 +49,7 @@ namespace BattleCity
 
         private List<Block> blocks = new List<Block>(); // All blocks
         private List<Player> players = new List<Player>();
+        private List<Enemy> enemies = new List<Enemy>();
 
         public GamePage()
         {
@@ -85,11 +85,23 @@ namespace BattleCity
             }
           
             // Add player
-            player1 = new Player { LocationX = 325, LocationY = 325, Player2 = false,canvas=Canvas,tankDirection=3 };
+            player1 = new Player { LocationX = 325, LocationY = 325, Player2 = false, canvas = Canvas, tankDirection=3 };
             Canvas.Children.Add(player1);
             player1.DrawPlayer();
-            players.Add(player1);          
-          
+            players.Add(player1);
+
+            // Adding enemies
+            x = 125;
+            for (int i = 0; i < 4; i++)
+            {
+                enemy = new Enemy { LocationX = x, LocationY = 125, canvas = Canvas, tankDirection = 3};
+                Canvas.Children.Add(enemy);
+                enemy.DrawPlayer();
+                enemies.Add(enemy);
+                x += 125;
+            }
+            random = new Random(); // setting up rng for enemy movement
+
             // Setting up the timer that runs the Game method
             dispatcherTimer = new DispatcherTimer();
             dispatcherTimer.Tick += Game;
@@ -101,34 +113,17 @@ namespace BattleCity
         {
                 foreach (Player player in players)
                 {
-                if (player.StopBottom == true && player.tankDirection != 4)
-                {
-                    player.LocationY += 5;
-                    player.StopBottom = false;
-                    player.UpdatePlayer(Canvas);
-                }
-                if (player.StopTop == true && player.tankDirection != 2)
-                {
-                    player.LocationY -= 5;
-                    player.StopTop = false;
-                    player.UpdatePlayer(Canvas);
-                }
-                if (player.StopLeft == true && player.tankDirection != 1)
-                {
-                    player.LocationX -= 5;
-                    player.StopLeft = false;
-                    player.UpdatePlayer(Canvas);
-                }
-                if (player.StopRight == true && player.tankDirection != 3)
-                {
-                    player.LocationX += 5;
-                    player.StopRight = false;
-                    player.UpdatePlayer(Canvas);
-                }
                 CollisionCheck();
-                    player.UpdatePlayer(Canvas);
-                    player.UpdateBullet(Canvas);
+                player.CollisionRelease();
+                player.UpdatePlayer(Canvas);
+                player.UpdateBullet(Canvas);
                 }
+                foreach(Enemy enemy in enemies)
+            {
+                enemy.Move(random.Next(1,5));
+                enemy.UpdatePlayer(Canvas);
+                enemy.UpdateBullet(Canvas);
+            }
         }
      
         // Back to mainmenu button method
@@ -147,7 +142,6 @@ namespace BattleCity
 
         private void CollisionCheck()
         {
-
             foreach (Player player in players)
             {
                 player.StopTop = false;
@@ -202,8 +196,6 @@ namespace BattleCity
 
                 }
             }
-
-
         }
     
         // Method for updating the player points on the screen
@@ -235,6 +227,7 @@ namespace BattleCity
                     Canvas.Children.Add(player2);
                     player2.DrawPlayer();
                     players.Add(player2);
+                    Player2Score.Text = "";
                 }
             }
             base.OnNavigatedTo(e);
