@@ -1,0 +1,45 @@
+﻿<Page
+    x:Class="BattleCity.MenuPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:BattleCity"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="800" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Button x:Name="PlayButton" 
+                Click="PlayButton_Click" 
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Grid.Column="1"
+                Width="150"
+                Height="60" FontSize="26.667" FontFamily="Impact"
+                >
+            Play
+        </Button>
+        <Button x:Name="MultiPlayer" 
+        	Click="MultiPlayer_Click" 
+        	VerticalAlignment="Center"
+        	HorizontalAlignment="Center"
+        	Grid.Column="1"
+        	Width="150"
+        	Height="60" FontSize="26.667" FontFamily="Impact"
+        	Content="2 Player" Margin="325,438,325,222"
+                />
+        <Button x:Name="BackMenuButton" 
+                Click="BackMenuButton_Click" 
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Grid.Column="1"
+                Width="150"
+                Height="60" FontSize="22" FontFamily="Impact"
+                Content="Back to menu" Margin="325,548,325,112"
+                />
+    </Grid>
+</Page>

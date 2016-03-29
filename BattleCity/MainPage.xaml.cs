@@ -25,27 +25,32 @@ namespace BattleCity
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        private bool MP;
 
         public MainPage()
         {
             this.InitializeComponent();
-
             ApplicationView.PreferredLaunchViewSize = new Size(1280, 720);
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
-
         }
 
-        // Play button click method
-        private void PlayButton_Click(object sender, RoutedEventArgs e) 
+        private void ExitButton_Click(object sender, RoutedEventArgs e)
+         {
+             Application.Current.Exit();
+         }
+         
+        private void PlayButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(GamePage));
+            this.Frame.Navigate(typeof(MenuPage));
         }
 
-        private void MultiPlayer_Click(object sender, RoutedEventArgs e)
+        private void CreditsButton_Click(object sender, RoutedEventArgs e)
         {
-            MP = true;
-            this.Frame.Navigate(typeof(GamePage), MP);
+            this.Frame.Navigate(typeof(Credits));
+        }
+
+        private void HSButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(Highscores));
         }
     }
 }
