@@ -115,7 +115,7 @@ namespace BattleCity
         {
                 foreach (Player player in players)
                 {
-                CollisionCheck();
+                BlockCollisionCheck();               
                 if (PlayerHit == true)
                     break;
                 player.CollisionRelease();
@@ -127,6 +127,12 @@ namespace BattleCity
                 enemy.Move(random.Next(1,5));
                 enemy.UpdatePlayer(Canvas);
                 enemy.UpdateBullet(Canvas);
+                }
+                //foreach(Bullet bullet in Character_base.bullets)
+                foreach (Block block in blocks)
+                {
+                BulletCollisionCheck();
+                break;
                 }
             CheckGameOver();
         }
@@ -148,8 +154,9 @@ namespace BattleCity
             }*/
         }
 
-        private void CollisionCheck()
+        private void BlockCollisionCheck()
         {
+            // Collision detection between blocks and players
             foreach (Player player in players)
             {
                 player.StopTop = false;
@@ -159,7 +166,7 @@ namespace BattleCity
 
                 PlayerRect = player.GetRect();
 
-                foreach (Block block1 in blocks) // Collision detection for blocks
+                foreach (Block block1 in blocks)
                 {
                     BlockRect = block1.GetRect();
                     BlockRect.Intersect(PlayerRect);
@@ -204,7 +211,62 @@ namespace BattleCity
                     }
                 }
 
-                foreach(Enemy enemy in enemies) // This is where the collision between players and enemies is detected
+                // Collision detection between blocks and enemies
+                foreach (Enemy enemy in enemies)
+                {
+                    enemy.StopTop = false;
+                    enemy.StopRight = false;
+                    enemy.StopLeft = false;
+                    enemy.StopBottom = false;
+
+                    EnemyRect = enemy.GetRect();
+
+                    foreach (Block block in blocks)
+                    {
+                        BlockRect = block.GetRect();
+                        BlockRect.Intersect(EnemyRect);
+
+                        if (!BlockRect.IsEmpty && block.CanGoTrough == false)
+                        {
+                            if (enemy.LocationX > block.LocationX && enemy.tankDirection == 1) // Checking if enemy is intersecting player 2 from the right
+                            {
+                                Debug.WriteLine("HITTING RIGHT");
+                                enemy.StopRight = true;
+                            }
+
+                            if (enemy.LocationY > block.LocationY && enemy.tankDirection == 2) // Checking if enemy is intersecting player 2 from the bottom
+                            {
+                                Debug.WriteLine("HITTING BOTTOM");
+                                enemy.StopBottom = true;
+                            }
+
+                            if (enemy.LocationX < block.LocationX && enemy.tankDirection == 3) // Checking if enemy is intersecting player 2 from the left
+                            {
+                                Debug.WriteLine("HITTING LEFT");
+                                enemy.StopLeft = true;
+                            }
+
+                            if (enemy.LocationY < block.LocationY && enemy.tankDirection == 4) // Checking if enemy is intersecting player 2 from the top
+                            {
+                                Debug.WriteLine("HITTING TOP");
+                                enemy.StopTop = true;
+                            }
+                            break;
+                        }
+                        while (!BlockRect.IsEmpty && block.CanGoTrough == true) // Slower speed while moving on magic block
+                        {
+                            enemy.speed = 2;
+                            break;
+                        }
+                        while (BlockRect.IsEmpty && block.CanGoTrough == true) // Normal speed when moving out of magic block
+                        {
+                            enemy.speed = 5;
+                            break;
+                        }
+                    }
+                }
+
+                foreach (Enemy enemy in enemies) // This is where the collision between players and enemies is detected
                 {
                     EnemyRect = enemy.GetRect();
                     EnemyRect.Intersect(PlayerRect);
@@ -229,7 +291,70 @@ namespace BattleCity
                 }
             }
         }
-    
+
+        private void BulletCollisionCheck() // Bullet-block collision detection
+        {
+            foreach (Player player in players) // Collision detection for player bullets
+            {
+                foreach (Bullet bullet in player.bullets)
+                {
+                    foreach (Block block in blocks)
+                    {
+                        BlockRect = block.GetRect();
+                        BulletRect = bullet.GetRect();
+                        BlockRect.Intersect(BulletRect);
+
+                        if (!BlockRect.IsEmpty && block.CanDestroy == true)
+                        {
+                            Canvas.Children.Remove(bullet);
+                            player.bullets.Remove(bullet);
+                            Canvas.Children.Remove(block);
+                            blocks.Remove(block);
+                            break;
+                        }
+                        else if (!BlockRect.IsEmpty && block.CanDestroy == false && block.CanGoTrough == false)
+                        {
+                            Canvas.Children.Remove(bullet);
+                            player.bullets.Remove(bullet);
+                            break;
+                        }
+
+                    }
+                    break;
+                }
+            }
+
+            foreach (Enemy enemy in enemies) // Collision detection for enemy bullets
+            {
+                foreach (Bullet bullet in enemy.bullets)
+                {
+                    foreach (Block block in blocks)
+                    {
+                        BlockRect = block.GetRect();
+                        BulletRect = bullet.GetRect();
+                        BlockRect.Intersect(BulletRect);
+
+                        if (!BlockRect.IsEmpty && block.CanDestroy == true)
+                        {
+                            Canvas.Children.Remove(bullet);
+                            enemy.bullets.Remove(bullet);
+                            Canvas.Children.Remove(block);
+                            blocks.Remove(block);
+                            break;
+                        }
+                        else if (!BlockRect.IsEmpty && block.CanDestroy == false && block.CanGoTrough == false)
+                        {
+                            Canvas.Children.Remove(bullet);
+                            enemy.bullets.Remove(bullet);
+                            break;
+                        }
+
+                    }
+                    break;
+                }
+            }
+        }
+
         // Method for updating the player points on the screen
         private void UpdatePoints()
         {

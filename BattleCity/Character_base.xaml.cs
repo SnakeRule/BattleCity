@@ -44,7 +44,7 @@ using Windows.UI.Xaml.Navigation;
         public bool StopRight { get; set; }
         public bool StopBottom { get; set; }
         protected Bullet bullet;
-        protected List<Bullet> bullets = new List<Bullet>();
+        public List<Bullet> bullets = new List<Bullet>();
         public Canvas canvas { get; set; }
 
 
