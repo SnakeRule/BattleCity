@@ -78,7 +78,7 @@ namespace BattleCity
                     right = false;
                 }
 
-                if (args.VirtualKey == VirtualKey.NumberPad0)
+                if (args.VirtualKey == VirtualKey.L)
                 {
                     CreateBullet();
                 }

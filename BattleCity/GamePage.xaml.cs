@@ -121,7 +121,7 @@ namespace BattleCity
         {
                 foreach (Player player in players)
                 {
-                CollisionCheck();
+                CollisionCheck();               
                 if (PlayerHit == true)
                     break;
                 player.CollisionRelease();
@@ -133,6 +133,11 @@ namespace BattleCity
                 enemy.Move(random.Next(1,5));
                 enemy.UpdatePlayer(Canvas);
                 enemy.UpdateBullet(Canvas);
+                }
+                foreach(Bullet bullet in Character_base.bullets)
+                {
+                BulletCollisionCheck();
+                break;
                 }
             CheckGameOver();
         }
@@ -233,7 +238,38 @@ namespace BattleCity
                 }
             }
         }
-    
+
+        private void BulletCollisionCheck() // Bullet-block collision detection
+        {
+            //List<Bullet> bullets = Character_base.bullets;
+            foreach (Bullet bullet in Character_base.bullets)
+            {
+                foreach (Block block in blocks)
+                {
+                    BlockRect = block.GetRect();
+                    BulletRect = bullet.GetRect();
+                    BlockRect.Intersect(BulletRect);
+
+                    if (!BlockRect.IsEmpty && block.CanDestroy == true)
+                    {
+                        Canvas.Children.Remove(bullet);
+                        Character_base.bullets.Remove(bullet);
+                        Canvas.Children.Remove(block);
+                        blocks.Remove(block);
+                        break;
+                    }
+                    else if (!BlockRect.IsEmpty && block.CanDestroy == false && block.CanGoTrough == false)
+                    {
+                        Canvas.Children.Remove(bullet);
+                        Character_base.bullets.Remove(bullet);
+                        break;
+                    }
+
+                }
+                break;
+            }
+        }
+
         // Method for updating the player points on the screen
         private void UpdatePoints()
         {
