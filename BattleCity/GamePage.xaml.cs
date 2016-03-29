@@ -107,7 +107,7 @@ namespace BattleCity
 
             // Adding enemies
             x = 125;
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 4; i++)
             {
                 enemy = new Enemy { LocationX = x, LocationY = 125, canvas = Canvas, tankDirection = 3};
                 Canvas.Children.Add(enemy);

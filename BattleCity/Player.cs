@@ -79,7 +79,7 @@ namespace BattleCity
                     right = false;
                 }
 
-                if (args.VirtualKey == VirtualKey.L)
+                if (args.VirtualKey == VirtualKey.Add)
                 {
                     CreateBullet();
                 }
@@ -114,7 +114,7 @@ namespace BattleCity
                     left = false;
                     right = false;
                 }
-                if (args.VirtualKey == VirtualKey.Q)
+                if (args.VirtualKey == VirtualKey.J)
                 {
                     CreateBullet();
                 }
