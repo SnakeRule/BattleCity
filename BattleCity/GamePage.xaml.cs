@@ -33,7 +33,6 @@ namespace BattleCity
         private Block block1;
         private Block block2;
         private Block block3;
-        private Block Goal;
 
         private Random random;
 
@@ -75,11 +74,6 @@ namespace BattleCity
             Canvas.Children.Add(block3);
             block3.drawStone(); // canGoTrough = false, canDestroy = false
             block3.UpdatePosition();
-
-            // Add goal block
-            goal = new Block { LocationX = 680 / 2, LocationY = 680,};
-           
-
 
             int x = 0;
             for (int i = 0; i < 17; i++)
