@@ -31,7 +31,7 @@ namespace BattleCity
 
         private void MenuButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(MenuPage));
+            this.Frame.Navigate(typeof(MainPage));
         }
     }
 }
