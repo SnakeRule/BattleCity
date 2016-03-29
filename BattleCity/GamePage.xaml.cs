@@ -149,6 +149,8 @@ namespace BattleCity
         private void MenuButton_Click(object sender, RoutedEventArgs e)
         {
             dispatcherTimer.Stop();
+            this.Frame.Navigate(typeof(MainPage));
+            /* unnecessary?, afraid to delete 
             // get root frame (which show pages)
             Frame rootFrame = Window.Current.Content as Frame;
             // did we get it correctly
@@ -157,7 +159,7 @@ namespace BattleCity
             if (rootFrame.CanGoBack)
             {
                 rootFrame.GoBack();
-            }
+            }*/
         }
 
         private void BlockCollisionCheck()

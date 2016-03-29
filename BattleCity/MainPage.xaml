@@ -6,31 +6,95 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="{ThemeResource ListViewItemSelectedPointerOverBackgroundThemeBrush}" RenderTransformOrigin="0.5,0.588">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="800" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="500"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Button x:Name="PlayButton" 
-                Click="PlayButton_Click" 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="350" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Slider x:Name="VolumeSlider"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Right"
+                Grid.Column="2"
+                Grid.Row="0"
+                Height="50"
+                Width="150"
+                Margin="0,48,5,0"
+            />
+        <TextBlock x:Name="VolumeBlock"
+                   Text="Volume"
+                    VerticalAlignment="Top"
+                   HorizontalAlignment="Right"
+                    Grid.Column="2"
+                    Grid.Row="0"
+                    Height="50"
+                   FontSize="35" Margin="0,0,20,0"
+                   />
+        <Button x:Name="ControlButton"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
+                Grid.Row="1"
+                Grid.Column="0"
+                Width="200"
+                Height="60"
+                Content="Soon tm" FontSize="29.333" Background="#3313C2F5"               
+        />
+        <Button x:Name="PlayButton"
+                Click="PlayButton_Click"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Grid.Row="1"
                 Grid.Column="1"
-                Width="150"
-                Height="60" FontSize="26.667" FontFamily="Impact"
-                >
-            Play
-        </Button>
-        <Button x:Name="MultiPlayer" 
-        	Click="MultiPlayer_Click" 
-        	VerticalAlignment="Center"
-        	HorizontalAlignment="Center"
-        	Grid.Column="1"
-        	Width="150"
-        	Height="60" FontSize="26.667" FontFamily="Impact"
-        	Content="2 Player" Margin="325,438,325,222"
+                Width="200"
+                Height="60"
+                Content="Play" FontSize="29.333" Background="#3313C2F5"
                 />
+        <Button x:Name="HSButton"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Grid.Row="1"
+                Grid.Column="2"
+                Width="200"
+                Height="60"
+                Content="Highscores" FontSize="29.333" Background="#3313C2F5" Click="HSButton_Click"
+                />
+        <Button x:Name="CreditsButton"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Grid.Row="2"
+                Grid.Column="0"
+                Width="120"
+                Height="50"
+                Content="Credits" FontSize="29.333" Background="#3313C2F5" Click="CreditsButton_Click"
+                />
+        <Button x:Name="ExitButton"
+                Click="ExitButton_Click"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Grid.Row="2"
+                Grid.Column="3"
+                Width="100"
+                Height="50"
+                Content="Exit" FontSize="29.333" Background="#3313C2F5"
+                />
+        <TextBlock x:Name="TitleBlock"
+                   Text="Battle Cats"
+                   Grid.Row="0"
+                   Grid.Column="1"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Bottom" FontSize="64" Foreground="#FFF90000"
+                   />
+        <Image
+            Source="Assets/SplashScreen.scale-200.png"
+            Grid.Row="0"
+            Grid.Column="1"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            />
     </Grid>
 </Page>
