@@ -22,6 +22,7 @@ namespace BattleCity
         private readonly int pointValue = 5; // How many points from destroying block
         public bool CanDestroy;
         public bool CanGoTrough;
+        public bool Goal;
 
         public double LocationX { get; set; }
         public double LocationY { get; set; }
@@ -57,6 +58,14 @@ namespace BattleCity
             BlockSpriteSheetOffset.Y = -(3 * 65);
             CanDestroy = false;
             CanGoTrough = false;
+        }
+
+        public void drawGoal()
+        {
+            BlockSpriteSheetOffset.Y = -(4 * 65);
+            CanDestroy = true;
+            CanGoTrough = false;
+            Goal = true;
         }
 
         public void UpdatePosition()
