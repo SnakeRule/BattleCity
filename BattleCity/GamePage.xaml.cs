@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.System;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -36,6 +37,7 @@ namespace BattleCity
         private Block goal;
 
         private Random random;
+        protected MediaElement mediaElement; //pew
 
         private bool MP; // Bool used for checking if 2-player mode was selected
         private bool PlayerHit = false;
@@ -124,6 +126,19 @@ namespace BattleCity
             dispatcherTimer.Start();
         }
 
+        public async void LoadAudio()
+        {
+            mediaElement = new MediaElement();
+            mediaElement.AutoPlay = false;
+
+            StorageFolder folder =
+                await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync("Assets");
+            StorageFile file =
+                await folder.GetFileAsync("Pew.mp3");
+            var stream = await file.OpenAsync(FileAccessMode.Read);
+            mediaElement.SetSource(stream, file.ContentType);
+        }
+
         public void Game(object sender, object e)
         {
                 foreach (Player player in players)
@@ -149,7 +164,7 @@ namespace BattleCity
             }
             CheckGameOver();
         }
-     
+ 
         // Back to mainmenu button method
         private void MenuButton_Click(object sender, RoutedEventArgs e)
         {
