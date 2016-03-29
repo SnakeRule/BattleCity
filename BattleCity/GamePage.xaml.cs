@@ -128,7 +128,8 @@ namespace BattleCity
                 enemy.UpdatePlayer(Canvas);
                 enemy.UpdateBullet(Canvas);
                 }
-                foreach(Bullet bullet in Character_base.bullets)
+                //foreach(Bullet bullet in Character_base.bullets)
+                foreach (Block block in blocks)
                 {
                 BulletCollisionCheck();
                 break;
@@ -235,32 +236,64 @@ namespace BattleCity
 
         private void BulletCollisionCheck() // Bullet-block collision detection
         {
-            //List<Bullet> bullets = Character_base.bullets;
-            foreach (Bullet bullet in Character_base.bullets)
+            foreach (Player player in players) // Collision detection for player bullets
             {
-                foreach (Block block in blocks)
+                foreach (Bullet bullet in player.bullets)
                 {
-                    BlockRect = block.GetRect();
-                    BulletRect = bullet.GetRect();
-                    BlockRect.Intersect(BulletRect);
-
-                    if (!BlockRect.IsEmpty && block.CanDestroy == true)
+                    foreach (Block block in blocks)
                     {
-                        Canvas.Children.Remove(bullet);
-                        Character_base.bullets.Remove(bullet);
-                        Canvas.Children.Remove(block);
-                        blocks.Remove(block);
-                        break;
-                    }
-                    else if (!BlockRect.IsEmpty && block.CanDestroy == false && block.CanGoTrough == false)
-                    {
-                        Canvas.Children.Remove(bullet);
-                        Character_base.bullets.Remove(bullet);
-                        break;
-                    }
+                        BlockRect = block.GetRect();
+                        BulletRect = bullet.GetRect();
+                        BlockRect.Intersect(BulletRect);
 
+                        if (!BlockRect.IsEmpty && block.CanDestroy == true)
+                        {
+                            Canvas.Children.Remove(bullet);
+                            player.bullets.Remove(bullet);
+                            Canvas.Children.Remove(block);
+                            blocks.Remove(block);
+                            break;
+                        }
+                        else if (!BlockRect.IsEmpty && block.CanDestroy == false && block.CanGoTrough == false)
+                        {
+                            Canvas.Children.Remove(bullet);
+                            player.bullets.Remove(bullet);
+                            break;
+                        }
+
+                    }
+                    break;
                 }
-                break;
+            }
+
+            foreach (Enemy enemy in enemies) // Collision detection for enemy bullets
+            {
+                foreach (Bullet bullet in enemy.bullets)
+                {
+                    foreach (Block block in blocks)
+                    {
+                        BlockRect = block.GetRect();
+                        BulletRect = bullet.GetRect();
+                        BlockRect.Intersect(BulletRect);
+
+                        if (!BlockRect.IsEmpty && block.CanDestroy == true)
+                        {
+                            Canvas.Children.Remove(bullet);
+                            enemy.bullets.Remove(bullet);
+                            Canvas.Children.Remove(block);
+                            blocks.Remove(block);
+                            break;
+                        }
+                        else if (!BlockRect.IsEmpty && block.CanDestroy == false && block.CanGoTrough == false)
+                        {
+                            Canvas.Children.Remove(bullet);
+                            enemy.bullets.Remove(bullet);
+                            break;
+                        }
+
+                    }
+                    break;
+                }
             }
         }
 
