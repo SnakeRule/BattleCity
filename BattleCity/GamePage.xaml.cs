@@ -33,6 +33,7 @@ namespace BattleCity
         private Block block1;
         private Block block2;
         private Block block3;
+        private Block goal;
 
         private Random random;
 
@@ -74,6 +75,13 @@ namespace BattleCity
             Canvas.Children.Add(block3);
             block3.drawStone(); // canGoTrough = false, canDestroy = false
             block3.UpdatePosition();
+
+            // Add Goal
+            goal = new Block { LocationX = (680 / 2), LocationY = (680 - 40)};
+            blocks.Add(goal);
+            Canvas.Children.Add(goal);
+            goal.drawGoal(); // CanGoThrough = false, canDestroy = true
+            goal.UpdatePosition();
 
             int x = 0;
             for (int i = 0; i < 17; i++)
@@ -128,12 +136,12 @@ namespace BattleCity
                 enemy.UpdatePlayer(Canvas);
                 enemy.UpdateBullet(Canvas);
                 }
-                //foreach(Bullet bullet in Character_base.bullets)
-                foreach (Block block in blocks)
-                {
+            //foreach(Bullet bullet in Character_base.bullets)
+            foreach (Block block in blocks)
+            {
                 BulletCollisionCheck();
                 break;
-                }
+            }
             CheckGameOver();
         }
      
@@ -260,7 +268,6 @@ namespace BattleCity
                             player.bullets.Remove(bullet);
                             break;
                         }
-
                     }
                     break;
                 }
@@ -335,6 +342,10 @@ namespace BattleCity
         private void CheckGameOver()
         {
             if (!players.Any())
+            {
+                dispatcherTimer.Stop();
+            }
+            if(goal == null)
             {
                 dispatcherTimer.Stop();
             }
