@@ -44,7 +44,7 @@ using Windows.UI.Xaml.Navigation;
         public bool StopRight { get; set; }
         public bool StopBottom { get; set; }
         protected Bullet bullet;
-        protected List<Bullet> bullets = new List<Bullet>();
+        public static List<Bullet> bullets = new List<Bullet>();
         public Canvas canvas { get; set; }
 
 
@@ -178,7 +178,7 @@ using Windows.UI.Xaml.Navigation;
                 {
                     bullet = new Bullet
                     {
-                        SpeedX = -10, // left
+                        SpeedX = -5, // left
                         SpeedY = 0,
                         LocationX = LocationX - 15,
                         LocationY = LocationY + 16
@@ -193,7 +193,7 @@ using Windows.UI.Xaml.Navigation;
                 bullet = new Bullet
                 {
                     SpeedX = 0,
-                    SpeedY = -10, //up
+                    SpeedY = -5, //up
                     LocationX = LocationX + 20,
                     LocationY = LocationY - 17,
                 };
@@ -206,7 +206,7 @@ using Windows.UI.Xaml.Navigation;
             {
                 bullet = new Bullet()
                 {
-                    SpeedX = 10, //right
+                    SpeedX = 5, //right
                     SpeedY = 0,
                     LocationX = LocationX + 50,
                     LocationY = LocationY + 11
@@ -221,7 +221,7 @@ using Windows.UI.Xaml.Navigation;
                 bullet = new Bullet()
                 {
                     SpeedX = 0,
-                    SpeedY = 10, //down
+                    SpeedY = 5, //down
                     LocationX = LocationX + 20,
                     LocationY = LocationY + 50,
                 };
