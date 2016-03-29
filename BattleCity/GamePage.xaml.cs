@@ -316,6 +316,8 @@ namespace BattleCity
                             player.bullets.Remove(bullet);
                             Canvas.Children.Remove(block);
                             blocks.Remove(block);
+                            player.score += block.PointValue;
+                            UpdatePoints(player.Player2);
                             break;
                         }
                         else if (!BlockRect.IsEmpty && block.CanDestroy == false && block.CanGoTrough == false)
@@ -361,17 +363,17 @@ namespace BattleCity
         }
 
         // Method for updating the player points on the screen
-        private void UpdatePoints()
+        private void UpdatePoints(bool Player2)
         {
             foreach (Player player in players)
             {
-                if (player.Player2 == false)
+                if (Player2 == false)
                 {
-                    Player1Score.Text = player.score.ToString();
+                    Player1Score.Text = players[0].score.ToString();
                 }
-                else if (player.Player2 == true)
+                if (Player2 == true)
                 {
-                    Player2Score.Text = player.score.ToString();
+                    Player2Score.Text = players[1].score.ToString();
                 }
             }
         }
