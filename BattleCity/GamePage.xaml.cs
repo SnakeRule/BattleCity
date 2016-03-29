@@ -62,12 +62,17 @@ namespace BattleCity
             CanvasWidth = Canvas.Width;
             CanvasHeight = Canvas.Height;
 
-            // Add Blocks       
-            block2 = new Block { LocationX = 65, LocationY = 65 };
-            blocks.Add(block2);
-            Canvas.Children.Add(block2);
-            block2.drawMagic(); // canGoTrough = true, canDestroy = false
-            block2.UpdatePosition();
+            // Add Blocks 
+            int m = 0;
+            for (int i = 0; i < 17; i++)
+            {
+                block2 = new Block { LocationX = m, LocationY = 65 };
+                blocks.Add(block2);
+                Canvas.Children.Add(block2);
+                block2.drawMagic(); // canGoTrough = true, canDestroy = false
+                block2.UpdatePosition();
+                m = m + 40;
+            }
 
             block3 = new Block { LocationX = 165, LocationY = 165 };
             blocks.Add(block3);
@@ -164,49 +169,45 @@ namespace BattleCity
 
                 PlayerRect = player.GetRect();
 
-                foreach (Block block1 in blocks)
+                foreach (Block block in blocks)
                 {
-                    BlockRect = block1.GetRect();
+                    BlockRect = block.GetRect();
                     BlockRect.Intersect(PlayerRect);
                     // PlayerRect.Intersect(PlayerRect); between players
 
-                    if (!BlockRect.IsEmpty && block1.CanGoTrough == false) //player and block collisions
+                    if (!BlockRect.IsEmpty && block.CanGoTrough == false) //player and block collisions
                     {
-                        if (player.LocationX > block1.LocationX && player.tankDirection == 1) // Checking if player1 is intersecting player 2 from the right
+                        if (player.LocationX > block.LocationX && player.tankDirection == 1) // Checking if player1 is intersecting player 2 from the right
                         {
                             Debug.WriteLine("HITTING RIGHT");
                             player.StopRight = true;
                         }
 
-                        if (player.LocationY > block1.LocationY && player.tankDirection == 2) // Checking if player1 is intersecting player 2 from the bottom
+                        if (player.LocationY > block.LocationY && player.tankDirection == 2) // Checking if player1 is intersecting player 2 from the bottom
                         {
                             Debug.WriteLine("HITTING BOTTOM");
                             player.StopBottom = true;
                         }
 
-                        if (player.LocationX < block1.LocationX && player.tankDirection == 3) // Checking if player1 is intersecting player 2 from the left
+                        if (player.LocationX < block.LocationX && player.tankDirection == 3) // Checking if player1 is intersecting player 2 from the left
                         {
                             Debug.WriteLine("HITTING LEFT");
                             player.StopLeft = true;
                         }
 
-                        if (player.LocationY < block1.LocationY && player.tankDirection == 4) // Checking if player1 is intersecting player 2 from the top
+                        if (player.LocationY < block.LocationY && player.tankDirection == 4) // Checking if player1 is intersecting player 2 from the top
                     {
                             Debug.WriteLine("HITTING TOP");
                             player.StopTop = true;
                         }
                         break;
                     }
-                    while(!BlockRect.IsEmpty && block1.CanGoTrough == true) // Slower speed while moving on magic block
+                    if(!BlockRect.IsEmpty && block.CanGoTrough == true) // Slower speed while moving on magic block
                     {
+                        Debug.WriteLine("SLOWLYYYY");
                         player.speed = 2;
                         break;                  
-                    }
-                    while (BlockRect.IsEmpty && block1.CanGoTrough == true) // Normal speed when moving out of magic block
-                    {
-                        player.speed = 5;
-                        break;
-                    }
+                    } else { player.speed = 5; }
                 }
 
                 // Collision detection between blocks and enemies
@@ -251,16 +252,13 @@ namespace BattleCity
                             }
                             break;
                         }
-                        while (!BlockRect.IsEmpty && block.CanGoTrough == true) // Slower speed while moving on magic block
+                        if (!BlockRect.IsEmpty && block.CanGoTrough == true) // Slower speed while moving on magic block
                         {
+                            Debug.WriteLine("SLOWLYYYY");
                             enemy.speed = 2;
                             break;
                         }
-                        while (BlockRect.IsEmpty && block.CanGoTrough == true) // Normal speed when moving out of magic block
-                        {
-                            enemy.speed = 5;
-                            break;
-                        }
+                        else { enemy.speed = 5; }
                     }
                 }
 
@@ -318,6 +316,23 @@ namespace BattleCity
                         }
 
                     }
+                    foreach (Enemy enemy in enemies)
+                    {
+                        EnemyRect = enemy.GetRect();
+                        BulletRect = bullet.GetRect();
+                        EnemyRect.Intersect(BulletRect);
+
+                        if (!EnemyRect.IsEmpty)
+                        {
+                            Canvas.Children.Remove(bullet);
+                            player.bullets.Remove(bullet);
+                            Canvas.Children.Remove(enemy);
+                            enemies.Remove(enemy);
+                            enemy.RemoveBullet();
+                            enemy.bullets.Remove(bullet);
+                            break;
+                        }
+                    }
                     break;
                 }
             }
@@ -347,6 +362,23 @@ namespace BattleCity
                             break;
                         }
 
+                    }
+                    foreach (Player player in players)
+                    {
+                        PlayerRect = player.GetRect();
+                        BulletRect = bullet.GetRect();
+                        PlayerRect.Intersect(BulletRect);
+
+                        if (!PlayerRect.IsEmpty)
+                        {
+                            Canvas.Children.Remove(bullet);
+                            enemy.bullets.Remove(bullet);
+                            Canvas.Children.Remove(player);
+                            players.Remove(player);
+                            player.RemoveBullet();
+                            player.bullets.Remove(bullet);
+                            break;
+                        }
                     }
                     break;
                 }
