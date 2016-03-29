@@ -341,6 +341,8 @@ namespace BattleCity
                             enemies.Remove(enemy);
                             enemy.RemoveBullet();
                             enemy.bullets.Remove(bullet);
+                            player.score += enemy.PointValue;
+                            UpdatePoints(player.Player2);
                             break;
                         }
                     }
