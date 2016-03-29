@@ -34,6 +34,7 @@ namespace BattleCity
         private Block block1;
         private Block block2;
         private Block block3;
+        private Block goal;
 
         private Random random;
         protected MediaElement mediaElement; //pew
@@ -64,18 +65,30 @@ namespace BattleCity
             CanvasWidth = Canvas.Width;
             CanvasHeight = Canvas.Height;
 
-            // Add Blocks       
-            block2 = new Block { LocationX = 65, LocationY = 65 };
-            blocks.Add(block2);
-            Canvas.Children.Add(block2);
-            block2.drawMagic(); // canGoTrough = true, canDestroy = false
-            block2.UpdatePosition();
+            // Add Blocks 
+            int m = 0;
+            for (int i = 0; i < 17; i++)
+            {
+                block2 = new Block { LocationX = m, LocationY = 65 };
+                blocks.Add(block2);
+                Canvas.Children.Add(block2);
+                block2.drawMagic(); // canGoTrough = true, canDestroy = false
+                block2.UpdatePosition();
+                m = m + 40;
+            }
 
             block3 = new Block { LocationX = 165, LocationY = 165 };
             blocks.Add(block3);
             Canvas.Children.Add(block3);
             block3.drawStone(); // canGoTrough = false, canDestroy = false
             block3.UpdatePosition();
+
+            // Add Goal
+            goal = new Block { LocationX = (680 / 2), LocationY = (680 - 40)};
+            blocks.Add(goal);
+            Canvas.Children.Add(goal);
+            goal.drawGoal(); // CanGoThrough = false, canDestroy = true
+            goal.UpdatePosition();
 
             int x = 0;
             for (int i = 0; i < 17; i++)
@@ -143,12 +156,12 @@ namespace BattleCity
                 enemy.UpdatePlayer(Canvas);
                 enemy.UpdateBullet(Canvas);
                 }
-                //foreach(Bullet bullet in Character_base.bullets)
-                foreach (Block block in blocks)
-                {
+            //foreach(Bullet bullet in Character_base.bullets)
+            foreach (Block block in blocks)
+            {
                 BulletCollisionCheck();
                 break;
-                }
+            }
             CheckGameOver();
         }
  
@@ -181,49 +194,45 @@ namespace BattleCity
 
                 PlayerRect = player.GetRect();
 
-                foreach (Block block1 in blocks)
+                foreach (Block block in blocks)
                 {
-                    BlockRect = block1.GetRect();
+                    BlockRect = block.GetRect();
                     BlockRect.Intersect(PlayerRect);
                     // PlayerRect.Intersect(PlayerRect); between players
 
-                    if (!BlockRect.IsEmpty && block1.CanGoTrough == false) //player and block collisions
+                    if (!BlockRect.IsEmpty && block.CanGoTrough == false) //player and block collisions
                     {
-                        if (player.LocationX > block1.LocationX && player.tankDirection == 1) // Checking if player1 is intersecting player 2 from the right
+                        if (player.LocationX > block.LocationX && player.tankDirection == 1) // Checking if player1 is intersecting player 2 from the right
                         {
                             Debug.WriteLine("HITTING RIGHT");
                             player.StopRight = true;
                         }
 
-                        if (player.LocationY > block1.LocationY && player.tankDirection == 2) // Checking if player1 is intersecting player 2 from the bottom
+                        if (player.LocationY > block.LocationY && player.tankDirection == 2) // Checking if player1 is intersecting player 2 from the bottom
                         {
                             Debug.WriteLine("HITTING BOTTOM");
                             player.StopBottom = true;
                         }
 
-                        if (player.LocationX < block1.LocationX && player.tankDirection == 3) // Checking if player1 is intersecting player 2 from the left
+                        if (player.LocationX < block.LocationX && player.tankDirection == 3) // Checking if player1 is intersecting player 2 from the left
                         {
                             Debug.WriteLine("HITTING LEFT");
                             player.StopLeft = true;
                         }
 
-                        if (player.LocationY < block1.LocationY && player.tankDirection == 4) // Checking if player1 is intersecting player 2 from the top
+                        if (player.LocationY < block.LocationY && player.tankDirection == 4) // Checking if player1 is intersecting player 2 from the top
                     {
                             Debug.WriteLine("HITTING TOP");
                             player.StopTop = true;
                         }
                         break;
                     }
-                    while(!BlockRect.IsEmpty && block1.CanGoTrough == true) // Slower speed while moving on magic block
+                    if(!BlockRect.IsEmpty && block.CanGoTrough == true) // Slower speed while moving on magic block
                     {
+                        Debug.WriteLine("SLOWLYYYY");
                         player.speed = 2;
                         break;                  
-                    }
-                    while (BlockRect.IsEmpty && block1.CanGoTrough == true) // Normal speed when moving out of magic block
-                    {
-                        player.speed = 5;
-                        break;
-                    }
+                    } else { player.speed = 5; }
                 }
 
                 // Collision detection between blocks and enemies
@@ -268,16 +277,13 @@ namespace BattleCity
                             }
                             break;
                         }
-                        while (!BlockRect.IsEmpty && block.CanGoTrough == true) // Slower speed while moving on magic block
+                        if (!BlockRect.IsEmpty && block.CanGoTrough == true) // Slower speed while moving on magic block
                         {
+                            Debug.WriteLine("SLOWLYYYY");
                             enemy.speed = 2;
                             break;
                         }
-                        while (BlockRect.IsEmpty && block.CanGoTrough == true) // Normal speed when moving out of magic block
-                        {
-                            enemy.speed = 5;
-                            break;
-                        }
+                        else { enemy.speed = 5; }
                     }
                 }
 
@@ -325,6 +331,8 @@ namespace BattleCity
                             player.bullets.Remove(bullet);
                             Canvas.Children.Remove(block);
                             blocks.Remove(block);
+                            player.score += block.PointValue;
+                            UpdatePoints(player.Player2);
                             break;
                         }
                         else if (!BlockRect.IsEmpty && block.CanDestroy == false && block.CanGoTrough == false)
@@ -333,7 +341,25 @@ namespace BattleCity
                             player.bullets.Remove(bullet);
                             break;
                         }
+                    }
+                    foreach (Enemy enemy in enemies)
+                    {
+                        EnemyRect = enemy.GetRect();
+                        BulletRect = bullet.GetRect();
+                        EnemyRect.Intersect(BulletRect);
 
+                        if (!EnemyRect.IsEmpty)
+                        {
+                            Canvas.Children.Remove(bullet);
+                            player.bullets.Remove(bullet);
+                            Canvas.Children.Remove(enemy);
+                            enemies.Remove(enemy);
+                            enemy.RemoveBullet();
+                            enemy.bullets.Remove(bullet);
+                            player.score += enemy.PointValue;
+                            UpdatePoints(player.Player2);
+                            break;
+                        }
                     }
                     break;
                 }
@@ -365,23 +391,40 @@ namespace BattleCity
                         }
 
                     }
+                    foreach (Player player in players)
+                    {
+                        PlayerRect = player.GetRect();
+                        BulletRect = bullet.GetRect();
+                        PlayerRect.Intersect(BulletRect);
+
+                        if (!PlayerRect.IsEmpty)
+                        {
+                            Canvas.Children.Remove(bullet);
+                            enemy.bullets.Remove(bullet);
+                            Canvas.Children.Remove(player);
+                            players.Remove(player);
+                            player.RemoveBullet();
+                            player.bullets.Remove(bullet);
+                            break;
+                        }
+                    }
                     break;
                 }
             }
         }
 
         // Method for updating the player points on the screen
-        private void UpdatePoints()
+        private void UpdatePoints(bool Player2)
         {
             foreach (Player player in players)
             {
-                if (player.Player2 == false)
+                if (Player2 == false)
                 {
-                    Player1Score.Text = player.score.ToString();
+                    Player1Score.Text = players[0].score.ToString();
                 }
-                else if (player.Player2 == true)
+                if (Player2 == true)
                 {
-                    Player2Score.Text = player.score.ToString();
+                    Player2Score.Text = players[1].score.ToString();
                 }
             }
         }
@@ -408,6 +451,10 @@ namespace BattleCity
         private void CheckGameOver()
         {
             if (!players.Any())
+            {
+                dispatcherTimer.Stop();
+            }
+            if(goal == null)
             {
                 dispatcherTimer.Stop();
             }

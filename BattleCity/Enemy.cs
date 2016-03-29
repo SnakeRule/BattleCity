@@ -14,6 +14,14 @@ namespace BattleCity
     class Enemy : Character_base
     {
         private int tickCounter;
+        private readonly int pointValue = 20; // How many points from destroying enemy
+        public int PointValue
+        {
+            get
+            {
+                return pointValue;
+            }
+        }
 
         public Enemy()
         {
