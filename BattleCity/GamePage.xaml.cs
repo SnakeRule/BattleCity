@@ -33,6 +33,7 @@ namespace BattleCity
         private Block block1;
         private Block block2;
         private Block block3;
+        private Block goal;
 
         private Random random;
 
@@ -79,6 +80,13 @@ namespace BattleCity
             Canvas.Children.Add(block3);
             block3.drawStone(); // canGoTrough = false, canDestroy = false
             block3.UpdatePosition();
+
+            // Add Goal
+            goal = new Block { LocationX = (680 / 2), LocationY = (680 - 40)};
+            blocks.Add(goal);
+            Canvas.Children.Add(goal);
+            goal.drawGoal(); // CanGoThrough = false, canDestroy = true
+            goal.UpdatePosition();
 
             int x = 0;
             for (int i = 0; i < 17; i++)
@@ -133,12 +141,12 @@ namespace BattleCity
                 enemy.UpdatePlayer(Canvas);
                 enemy.UpdateBullet(Canvas);
                 }
-                //foreach(Bullet bullet in Character_base.bullets)
-                foreach (Block block in blocks)
-                {
+            //foreach(Bullet bullet in Character_base.bullets)
+            foreach (Block block in blocks)
+            {
                 BulletCollisionCheck();
                 break;
-                }
+            }
             CheckGameOver();
         }
      
@@ -146,6 +154,8 @@ namespace BattleCity
         private void MenuButton_Click(object sender, RoutedEventArgs e)
         {
             dispatcherTimer.Stop();
+            this.Frame.Navigate(typeof(MainPage));
+            /* unnecessary?, afraid to delete 
             // get root frame (which show pages)
             Frame rootFrame = Window.Current.Content as Frame;
             // did we get it correctly
@@ -154,7 +164,7 @@ namespace BattleCity
             if (rootFrame.CanGoBack)
             {
                 rootFrame.GoBack();
-            }
+            }*/
         }
 
         private void BlockCollisionCheck()
@@ -306,6 +316,8 @@ namespace BattleCity
                             player.bullets.Remove(bullet);
                             Canvas.Children.Remove(block);
                             blocks.Remove(block);
+                            player.score += block.PointValue;
+                            UpdatePoints(player.Player2);
                             break;
                         }
                         else if (!BlockRect.IsEmpty && block.CanDestroy == false && block.CanGoTrough == false)
@@ -314,7 +326,6 @@ namespace BattleCity
                             player.bullets.Remove(bullet);
                             break;
                         }
-
                     }
                     foreach (Enemy enemy in enemies)
                     {
@@ -386,17 +397,17 @@ namespace BattleCity
         }
 
         // Method for updating the player points on the screen
-        private void UpdatePoints()
+        private void UpdatePoints(bool Player2)
         {
             foreach (Player player in players)
             {
-                if (player.Player2 == false)
+                if (Player2 == false)
                 {
-                    Player1Score.Text = player.score.ToString();
+                    Player1Score.Text = players[0].score.ToString();
                 }
-                else if (player.Player2 == true)
+                if (Player2 == true)
                 {
-                    Player2Score.Text = player.score.ToString();
+                    Player2Score.Text = players[1].score.ToString();
                 }
             }
         }
@@ -423,6 +434,10 @@ namespace BattleCity
         private void CheckGameOver()
         {
             if (!players.Any())
+            {
+                dispatcherTimer.Stop();
+            }
+            if(goal == null)
             {
                 dispatcherTimer.Stop();
             }
