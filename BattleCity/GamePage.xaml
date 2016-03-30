@@ -37,7 +37,8 @@
                 Grid.Row="1"
                 Height="50"
                 Width="150"
-                Margin="20,20,0,0"   
+                Margin="34,10,0,0"
+                Value="0.5"
             />
         <TextBlock Grid.Column="2" HorizontalAlignment="Left" Margin="83,33,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Player 1 Score: " VerticalAlignment="Top" Height="43" Width="122" FontSize="18.667"/>
         <TextBlock Grid.Column="2" HorizontalAlignment="Left" Margin="83,105,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Player 2 Score: " VerticalAlignment="Top" Height="43" Width="122" FontSize="18.667"/>
