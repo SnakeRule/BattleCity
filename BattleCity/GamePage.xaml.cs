@@ -26,12 +26,6 @@ namespace BattleCity
     /// </summary>
     public sealed partial class GamePage : Page
     {
-
-        // Introducing the objects used
-        private Player player1;
-        private Player player2;
-        private Enemy enemy;
-        //private Block goal;
         private Level level = new Level();
 
         private Random random;
@@ -65,24 +59,11 @@ namespace BattleCity
             CanvasHeight = Canvas.Height;
 
             blocks = level.blocks;
+            players = level.players;
+            enemies = level.enemies;
+
             level.Level1(Canvas);
 
-            // Add player
-            player1 = new Player { LocationX = 425, LocationY = 525, Player2 = false, canvas = Canvas, tankDirection=3 };
-            Canvas.Children.Add(player1);
-            player1.DrawPlayer();
-            players.Add(player1);
-
-            // Adding enemies
-            int xx = 125;
-            for (int i = 0; i < 4; i++)
-            {
-                enemy = new Enemy { LocationX = xx, LocationY = 125, canvas = Canvas, tankDirection = 3};
-                Canvas.Children.Add(enemy);
-                enemy.DrawPlayer();
-                enemies.Add(enemy);
-                xx += 125;
-            }
             random = new Random(); // setting up rng for enemy movement
 
             // Setting up the timer that runs the Game method
@@ -418,11 +399,7 @@ namespace BattleCity
 
                 if(MP == true) // If MP is true, a second player is added
                 {
-                    player2 = new Player { LocationX = 225, LocationY = 525, Player2 = true, canvas = Canvas, tankDirection = 3 };
-                    Canvas.Children.Add(player2);
-                    player2.DrawPlayer();
-                    players.Add(player2);
-                    Player2Score.Text = "";
+                    level.CreatePlayer2(Canvas);
                 }
             }
             base.OnNavigatedTo(e);

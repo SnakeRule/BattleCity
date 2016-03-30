@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,12 +11,18 @@ namespace BattleCity
 {
     class Level
     {
+        // Introducing the objects used
+        private Player player1;
+        private Player player2;
+        private Enemy enemy;
         private Block block1;
         private Block block2;
         private Block block3;
         public Block goal;
 
-        public List<Block> blocks = new List<Block>(); // All blocks    
+        public List<Block> blocks = new List<Block>(); // All blocks
+        public List<Player> players = new List<Player>();
+        public List<Enemy> enemies = new List<Enemy>();
 
         public Canvas canvas { get; set; }
 
@@ -26,6 +34,9 @@ namespace BattleCity
         public void Level1(Canvas canvas)
         {
             blocks.Clear();
+            enemies.Clear();
+            players.Clear();
+            
             // Add Blocks 
             int m = 0;
             for (int i = 0; i < 17; i++)
@@ -61,6 +72,52 @@ namespace BattleCity
             canvas.Children.Add(goal);
             goal.drawGoal(); // CanGoThrough = false, canDestroy = true
             goal.UpdatePosition();
+
+            // Add player
+            player1 = new Player { LocationX = 425, LocationY = 525, Player2 = false, canvas = canvas, tankDirection = 3 };
+            canvas.Children.Add(player1);
+            player1.DrawPlayer();
+            players.Add(player1);
+
+            // Adding enemies
+            int xx = 125;
+            for (int i = 0; i < 4; i++)
+            {
+                enemy = new Enemy { LocationX = xx, LocationY = 125, canvas = canvas, tankDirection = 3 };
+                canvas.Children.Add(enemy);
+                enemy.DrawPlayer();
+                enemies.Add(enemy);
+                xx += 125;
+            }
+        }
+
+        /*public void Level2(Canvas canvas)
+        {
+            System.IO.StreamWriter outputFile = null;
+            outputFile = new StreamWriter(@"c:\test.file");
+            string mydocpath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            try
+            {
+                string[] lines = System.IO.File.ReadAllLines(mydocpath + @"\WriteLines.txt");
+                foreach (string line in lines)
+                {
+                    Debug.WriteLine(line);
+                }
+            }
+            catch (FileNotFoundException)
+            {
+                Debug.WriteLine("File not found (FileNotFoundException)");
+            }
+
+        }*/
+
+        public void CreatePlayer2(Canvas canvas)
+        {
+            player2 = new Player { LocationX = 225, LocationY = 525, Player2 = true, canvas = canvas, tankDirection = 3 };
+            canvas.Children.Add(player2);
+            player2.DrawPlayer();
+            players.Add(player2);
+            //Player2Score.Text = "";
         }
     }
 }
