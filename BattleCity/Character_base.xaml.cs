@@ -94,7 +94,7 @@ using Windows.UI.Xaml.Navigation;
             {
                 PlayerRotate.Angle = 180;
                 SetValue(Canvas.LeftProperty, LocationX -= speed);
-                Debug.WriteLine("X" + LocationX);
+                //Debug.WriteLine("X" + LocationX);
                 tankDirection = 1;
             }
         }
@@ -106,7 +106,7 @@ using Windows.UI.Xaml.Navigation;
             PlayerRotate.Angle = 270;
             SetValue(Canvas.TopProperty, LocationY -= speed);
             tankDirection = 2;
-            Debug.WriteLine("Y" + LocationY);
+            //Debug.WriteLine("Y" + LocationY);
             }
         }
 
@@ -116,7 +116,7 @@ using Windows.UI.Xaml.Navigation;
             {
             PlayerRotate.Angle = 0;
             SetValue(Canvas.LeftProperty, LocationX += speed);
-            Debug.WriteLine("X" + LocationX);
+            //Debug.WriteLine("X" + LocationX);
             tankDirection = 3;
             }
         }
@@ -127,7 +127,7 @@ using Windows.UI.Xaml.Navigation;
             {
             PlayerRotate.Angle = 90;
             SetValue(Canvas.TopProperty, LocationY += speed);
-            Debug.WriteLine("X" + LocationX);
+            //Debug.WriteLine("X" + LocationX);
             tankDirection = 4;
             }
         }

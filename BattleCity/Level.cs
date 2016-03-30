@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Storage;
 using Windows.UI.Xaml.Controls;
 
 namespace BattleCity
@@ -19,6 +21,8 @@ namespace BattleCity
         private Block block2;
         private Block block3;
         public Block goal;
+
+        private Windows.Storage.StorageFile levelFile;
 
         public List<Block> blocks = new List<Block>(); // All blocks
         public List<Player> players = new List<Player>();
@@ -91,23 +95,18 @@ namespace BattleCity
             }
         }
 
-        /*public void Level2(Canvas canvas)
+        /*public async void Level2(Canvas canvas)
         {
-            System.IO.StreamWriter outputFile = null;
-            outputFile = new StreamWriter(@"c:\test.file");
-            string mydocpath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            try
-            {
-                string[] lines = System.IO.File.ReadAllLines(mydocpath + @"\WriteLines.txt");
-                foreach (string line in lines)
-                {
-                    Debug.WriteLine(line);
-                }
-            }
-            catch (FileNotFoundException)
-            {
-                Debug.WriteLine("File not found (FileNotFoundException)");
-            }
+            // create or open local file
+            Windows.Storage.StorageFolder storageFolder =
+            Windows.Storage.ApplicationData.Current.LocalFolder;
+            levelFile =
+                await storageFolder.CreateFileAsync(@"Levels\Level1.txt", Windows.Storage.CreationCollisionOption.OpenIfExists);
+
+            // read and display file content
+            Debug.WriteLine("ASDDDDDDDDDDDDDDDDSAÖLFÖSALFÖSAFAÖÄFSLLFÄA");
+            string text = await Windows.Storage.FileIO.ReadTextAsync(levelFile);
+            Debug.WriteLine("Tiedosto: " + text);
 
         }*/
 

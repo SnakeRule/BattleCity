@@ -153,32 +153,27 @@ namespace BattleCity
                     {
                         if (player.LocationX > block.LocationX && player.tankDirection == 1) // Checking if player1 is intersecting player 2 from the right
                         {
-                            Debug.WriteLine("HITTING RIGHT");
                             player.StopRight = true;
                         }
 
                         if (player.LocationY > block.LocationY && player.tankDirection == 2) // Checking if player1 is intersecting player 2 from the bottom
                         {
-                            Debug.WriteLine("HITTING BOTTOM");
                             player.StopBottom = true;
                         }
 
                         if (player.LocationX < block.LocationX && player.tankDirection == 3) // Checking if player1 is intersecting player 2 from the left
                         {
-                            Debug.WriteLine("HITTING LEFT");
                             player.StopLeft = true;
                         }
 
                         if (player.LocationY < block.LocationY && player.tankDirection == 4) // Checking if player1 is intersecting player 2 from the top
                     {
-                            Debug.WriteLine("HITTING TOP");
                             player.StopTop = true;
                         }
                         break;
                     }
                     if(!BlockRect.IsEmpty && block.CanGoTrough == true) // Slower speed while moving on magic block
                     {
-                        Debug.WriteLine("SLOWLYYYY");
                         player.speed = 2;
                         break;                  
                     } else { player.speed = 5; }
@@ -208,32 +203,27 @@ namespace BattleCity
                         {
                             if (enemy.LocationX > block.LocationX && enemy.tankDirection == 1) // Checking if enemy is intersecting player 2 from the right
                             {
-                                Debug.WriteLine("HITTING RIGHT");
                                 enemy.StopRight = true;
                             }
 
                             if (enemy.LocationY > block.LocationY && enemy.tankDirection == 2) // Checking if enemy is intersecting player 2 from the bottom
                             {
-                                Debug.WriteLine("HITTING BOTTOM");
                                 enemy.StopBottom = true;
                             }
 
                             if (enemy.LocationX < block.LocationX && enemy.tankDirection == 3) // Checking if enemy is intersecting player 2 from the left
                             {
-                                Debug.WriteLine("HITTING LEFT");
                                 enemy.StopLeft = true;
                             }
 
                             if (enemy.LocationY < block.LocationY && enemy.tankDirection == 4) // Checking if enemy is intersecting player 2 from the top
                             {
-                                Debug.WriteLine("HITTING TOP");
                                 enemy.StopTop = true;
                             }
                             break;
                         }
                         if (!BlockRect.IsEmpty && block.CanGoTrough == true) // Slower speed while moving on magic block
                         {
-                            Debug.WriteLine("SLOWLYYYY");
                             enemy.speed = 2;
                             break;
                         }
