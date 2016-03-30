@@ -102,7 +102,7 @@ namespace BattleCity
             }
           
             // Add player
-            player1 = new Player { LocationX = 325, LocationY = 325, Player2 = false, canvas = Canvas, tankDirection=3 };
+            player1 = new Player { LocationX = 425, LocationY = 525, Player2 = false, canvas = Canvas, tankDirection=3 };
             Canvas.Children.Add(player1);
             player1.DrawPlayer();
             players.Add(player1);
@@ -162,6 +162,7 @@ namespace BattleCity
                 BulletCollisionCheck();
                 break;
             }
+            UpdatePoints(); // Goes to the method that updates player scores to the screen
             CheckGameOver();
         }
  
@@ -332,7 +333,6 @@ namespace BattleCity
                             Canvas.Children.Remove(block);
                             blocks.Remove(block);
                             player.score += block.PointValue;
-                            UpdatePoints(player.Player2);
                             break;
                         }
                         else if (!BlockRect.IsEmpty && block.CanDestroy == false && block.CanGoTrough == false)
@@ -357,7 +357,6 @@ namespace BattleCity
                             enemy.RemoveBullet();
                             enemy.bullets.Remove(bullet);
                             player.score += enemy.PointValue;
-                            UpdatePoints(player.Player2);
                             break;
                         }
                     }
@@ -414,19 +413,20 @@ namespace BattleCity
         }
 
         // Method for updating the player points on the screen
-        private void UpdatePoints(bool Player2)
+        private void UpdatePoints()
         {
             foreach (Player player in players)
             {
-                if (Player2 == false)
+                if (player.Player2 == false)
                 {
-                    Player1Score.Text = players[0].score.ToString();
+                    Player1Score.Text = player.score.ToString();
                 }
-                if (Player2 == true)
+                if (player.Player2 == true)
                 {
-                    Player2Score.Text = players[1].score.ToString();
+                    Player2Score.Text = player.score.ToString();
                 }
             }
+
         }
 
         // This is for the two player mode, navigated to from the main page
@@ -438,7 +438,7 @@ namespace BattleCity
 
                 if(MP == true) // If MP is true, a second player is added
                 {
-                    player2 = new Player { LocationX = 225, LocationY = 225, Player2 = true, canvas = Canvas, tankDirection = 3 };
+                    player2 = new Player { LocationX = 225, LocationY = 525, Player2 = true, canvas = Canvas, tankDirection = 3 };
                     Canvas.Children.Add(player2);
                     player2.DrawPlayer();
                     players.Add(player2);
