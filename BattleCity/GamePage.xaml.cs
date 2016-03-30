@@ -31,10 +31,8 @@ namespace BattleCity
         private Player player1;
         private Player player2;
         private Enemy enemy;
-        private Block block1;
-        private Block block2;
-        private Block block3;
-        private Block goal;
+        //private Block goal;
+        private Level level = new Level();
 
         private Random random;
         protected MediaElement mediaElement; //pew
@@ -52,7 +50,7 @@ namespace BattleCity
         private double CanvasHeight;
         private DispatcherTimer dispatcherTimer;
 
-        private List<Block> blocks = new List<Block>(); // All blocks
+        private List<Block> blocks = new List<Block>();
         private List<Player> players = new List<Player>();
         private List<Enemy> enemies = new List<Enemy>();
 
@@ -64,43 +62,10 @@ namespace BattleCity
             Canvas.Height = 680;
             CanvasWidth = Canvas.Width;
             CanvasHeight = Canvas.Height;
+       
+            blocks = level.blocks;
+            level.Level1(Canvas);
 
-            // Add Blocks 
-            int m = 0;
-            for (int i = 0; i < 17; i++)
-            {
-                block2 = new Block { LocationX = m, LocationY = 65 };
-                blocks.Add(block2);
-                Canvas.Children.Add(block2);
-                block2.drawMagic(); // canGoTrough = true, canDestroy = false
-                block2.UpdatePosition();
-                m = m + 40;
-            }
-
-            block3 = new Block { LocationX = 165, LocationY = 165 };
-            blocks.Add(block3);
-            Canvas.Children.Add(block3);
-            block3.drawStone(); // canGoTrough = false, canDestroy = false
-            block3.UpdatePosition();
-
-            // Add Goal
-            goal = new Block { LocationX = (680 / 2), LocationY = (680 - 40)};
-            blocks.Add(goal);
-            Canvas.Children.Add(goal);
-            goal.drawGoal(); // CanGoThrough = false, canDestroy = true
-            goal.UpdatePosition();
-
-            int x = 0;
-            for (int i = 0; i < 17; i++)
-            {
-                block1 = new Block { LocationX = x, LocationY = 425 };
-                blocks.Add(block1);
-                Canvas.Children.Add(block1);
-                block1.drawTile(); // canGoTrough = false, canDestroy = true
-                block1.UpdatePosition();
-                x = x + 40;
-            }
-          
             // Add player
             player1 = new Player { LocationX = 325, LocationY = 325, Player2 = false, canvas = Canvas, tankDirection=3 };
             Canvas.Children.Add(player1);
@@ -108,14 +73,14 @@ namespace BattleCity
             players.Add(player1);
 
             // Adding enemies
-            x = 125;
+            int xx = 125;
             for (int i = 0; i < 4; i++)
             {
-                enemy = new Enemy { LocationX = x, LocationY = 125, canvas = Canvas, tankDirection = 3};
+                enemy = new Enemy { LocationX = xx, LocationY = 125, canvas = Canvas, tankDirection = 3};
                 Canvas.Children.Add(enemy);
                 enemy.DrawPlayer();
                 enemies.Add(enemy);
-                x += 125;
+                xx += 125;
             }
             random = new Random(); // setting up rng for enemy movement
 
@@ -162,6 +127,7 @@ namespace BattleCity
                 BulletCollisionCheck();
                 break;
             }
+
             CheckGameOver();
         }
  
@@ -454,7 +420,7 @@ namespace BattleCity
             {
                 dispatcherTimer.Stop();
             }
-            if(goal == null)
+            if(level.goal == null)
             {
                 dispatcherTimer.Stop();
             }
