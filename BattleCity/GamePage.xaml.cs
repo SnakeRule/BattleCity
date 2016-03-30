@@ -29,7 +29,6 @@ namespace BattleCity
         private Level level = new Level();
 
         private Random random;
-        protected MediaElement mediaElement; //pew
 
         private bool MP; // Bool used for checking if 2-player mode was selected
         private bool PlayerHit = false;
@@ -49,6 +48,7 @@ namespace BattleCity
         private List<Player> players = new List<Player>();
         private List<Enemy> enemies = new List<Enemy>();
 
+
         public GamePage()
         {
             this.InitializeComponent();
@@ -63,7 +63,7 @@ namespace BattleCity
             enemies = level.enemies;
 
             level.Level1(Canvas);
-
+          
             random = new Random(); // setting up rng for enemy movement
 
             // Setting up the timer that runs the Game method
@@ -71,19 +71,7 @@ namespace BattleCity
             dispatcherTimer.Tick += Game;
             dispatcherTimer.Interval = TimeSpan.FromTicks(TimeSpan.TicksPerSecond / 60);
             dispatcherTimer.Start();
-        }
 
-        public async void LoadAudio()
-        {
-            mediaElement = new MediaElement();
-            mediaElement.AutoPlay = false;
-
-            StorageFolder folder =
-                await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync("Assets");
-            StorageFile file =
-                await folder.GetFileAsync("Pew.mp3");
-            var stream = await file.OpenAsync(FileAccessMode.Read);
-            mediaElement.SetSource(stream, file.ContentType);
         }
 
         public void Game(object sender, object e)
@@ -410,15 +398,17 @@ namespace BattleCity
             }
             base.OnNavigatedTo(e);
         }
-
+        //Checking if game is over
         private void CheckGameOver()
         {
             if (!players.Any())
             {
+                //SavePoints();
                 dispatcherTimer.Stop();
             }
             if(GoalHit == true)
             {
+                //SavePoints();
                 dispatcherTimer.Stop();
             }
             if (!enemies.Any())
@@ -426,5 +416,30 @@ namespace BattleCity
                 dispatcherTimer.Stop();
             }
         }
+
+        // Method for saving points to a file
+        /*
+        private async void SavePoints()
+        {
+            string Player1pisteet = Player1Score.Text;
+            StorageFolder storageFolder =
+            ApplicationData.Current.LocalFolder;           
+            StorageFile Highscores =
+                await storageFolder.GetFileAsync("Highscores.txt");
+            await FileIO.WriteTextAsync(Highscores, Player1pisteet);
+        }
+        */
+        //Method for controlling pew volume
+        /* not working, will have to change mediaelement creation
+         public void VolumeSlider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
+            {
+         if (player1 != null)
+         {
+           player1.SetVolume(VolumeSlider.Value);
+        }
+        }
+        */
+
     }
+
 }

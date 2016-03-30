@@ -155,7 +155,7 @@ using Windows.UI.Xaml.Navigation;
         {
             mediaElement = new MediaElement();
             mediaElement.AutoPlay = false;
-
+            mediaElement.Volume = 50;
             StorageFolder folder =
                 await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync("Assets");
             StorageFile file =
