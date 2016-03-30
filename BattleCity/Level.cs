@@ -19,6 +19,8 @@ namespace BattleCity
         private Block block2;
         private Block block3;
         public Block goal;
+        public static double GoalLocationX { get; set; }
+        public static double GoalLocationY { get; set; }
 
         public List<Block> blocks = new List<Block>(); // All blocks
         public List<Player> players = new List<Player>();
@@ -72,6 +74,8 @@ namespace BattleCity
             canvas.Children.Add(goal);
             goal.drawGoal(); // CanGoThrough = false, canDestroy = true
             goal.UpdatePosition();
+            GoalLocationX = goal.LocationX;
+            GoalLocationY = goal.LocationY;
 
             // Add player
             player1 = new Player { LocationX = 425, LocationY = 525, Player2 = false, canvas = canvas, tankDirection = 3 };

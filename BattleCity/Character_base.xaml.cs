@@ -26,7 +26,7 @@ using Windows.UI.Xaml.Navigation;
          public partial class Character_base : UserControl
         {
 
-        public int speed = 5;
+        public int speed = 3;
         public int tankDirection { get; set; }
 
         public double LocationX { get; set; }
@@ -63,22 +63,22 @@ using Windows.UI.Xaml.Navigation;
         {
                 if (StopBottom == true && tankDirection != 4)
                 {
-                    LocationY += 5;
+                    LocationY += 4;
                     StopBottom = false;
                 }
                 if (StopTop == true && tankDirection != 2)
                 {
-                    LocationY -= 5;
+                    LocationY -= 4;
                     StopTop = false;
                 }
                 if (StopLeft == true && tankDirection != 1)
                 {
-                    LocationX -= 5;
+                    LocationX -= 4;
                     StopLeft = false;
                 }
                 if (StopRight == true && tankDirection != 3)
                 {
-                    LocationX += 5;
+                    LocationX += 4;
                     StopRight = false;
                 }
             }
@@ -94,7 +94,6 @@ using Windows.UI.Xaml.Navigation;
             {
                 PlayerRotate.Angle = 180;
                 SetValue(Canvas.LeftProperty, LocationX -= speed);
-                Debug.WriteLine("X" + LocationX);
                 tankDirection = 1;
             }
         }
@@ -106,7 +105,6 @@ using Windows.UI.Xaml.Navigation;
             PlayerRotate.Angle = 270;
             SetValue(Canvas.TopProperty, LocationY -= speed);
             tankDirection = 2;
-            Debug.WriteLine("Y" + LocationY);
             }
         }
 
@@ -116,7 +114,6 @@ using Windows.UI.Xaml.Navigation;
             {
             PlayerRotate.Angle = 0;
             SetValue(Canvas.LeftProperty, LocationX += speed);
-            Debug.WriteLine("X" + LocationX);
             tankDirection = 3;
             }
         }
@@ -127,7 +124,6 @@ using Windows.UI.Xaml.Navigation;
             {
             PlayerRotate.Angle = 90;
             SetValue(Canvas.TopProperty, LocationY += speed);
-            Debug.WriteLine("X" + LocationX);
             tankDirection = 4;
             }
         }

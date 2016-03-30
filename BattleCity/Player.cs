@@ -127,7 +127,6 @@ namespace BattleCity
             {
                 if (left == true && args.VirtualKey == VirtualKey.Left) // checks is bool left is true and if left button is actually pressed
                 {
-                    Debug.WriteLine("BEEP-BOOP");
                     left = false;
                 }
                 if (up == true && args.VirtualKey == VirtualKey.Up) // checks is bool up is true and if up button is actually pressed
@@ -148,7 +147,6 @@ namespace BattleCity
             {
                 if (left == true && args.VirtualKey == VirtualKey.A) // checks is bool left is true and if left button is actually pressed
                 {
-                    Debug.WriteLine("BEEP-BOOP");
                     left = false;
                 }
                 if (up == true && args.VirtualKey == VirtualKey.W) // checks is bool up is true and if up button is actually pressed
