@@ -27,7 +27,12 @@ namespace BattleCity
             Window.Current.CoreWindow.KeyDown += onKeyDown;
             Window.Current.CoreWindow.KeyUp += onKeyUp;
         }
-
+        // Controls volume of the pew sound
+        public void SetVolume(double PewVolume)
+        {
+            Debug.WriteLine(PewVolume);
+            base.mediaElement.Volume=PewVolume;           
+        }
 
         // This method is used to draw the player on the canvas
         public void DrawPlayer()
