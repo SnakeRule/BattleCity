@@ -41,6 +41,7 @@ namespace BattleCity
 
         private bool MP; // Bool used for checking if 2-player mode was selected
         private bool PlayerHit = false;
+        private bool GoalHit = false;
 
         // These rectangles are used as hitboxes
         private Rect PlayerRect;
@@ -152,6 +153,7 @@ namespace BattleCity
                 }
                 foreach(Enemy enemy in enemies)
                 {
+                enemy.CollisionRelease();
                 enemy.Move(random.Next(1,5));
                 enemy.UpdatePlayer(Canvas);
                 enemy.UpdateBullet(Canvas);
@@ -251,6 +253,11 @@ namespace BattleCity
                         BlockRect = block.GetRect();
                         BlockRect.Intersect(EnemyRect);
 
+                        if(!BlockRect.IsEmpty && block.Goal == true) // Checking if enemy tank drives into goal
+                        {
+                            GoalHit = true;
+                        }
+
                         if (!BlockRect.IsEmpty && block.CanGoTrough == false)
                         {
                             if (enemy.LocationX > block.LocationX && enemy.tankDirection == 1) // Checking if enemy is intersecting player 2 from the right
@@ -328,6 +335,10 @@ namespace BattleCity
 
                         if (!BlockRect.IsEmpty && block.CanDestroy == true)
                         {
+                            if(block.Goal == true)
+                            {
+                                break;
+                            }
                             Canvas.Children.Remove(bullet);
                             player.bullets.Remove(bullet);
                             Canvas.Children.Remove(block);
@@ -376,6 +387,10 @@ namespace BattleCity
 
                         if (!BlockRect.IsEmpty && block.CanDestroy == true)
                         {
+                            if (block.Goal == true)
+                            {
+                                GoalHit = true;
+                            }
                             Canvas.Children.Remove(bullet);
                             enemy.bullets.Remove(bullet);
                             Canvas.Children.Remove(block);
@@ -454,7 +469,7 @@ namespace BattleCity
             {
                 dispatcherTimer.Stop();
             }
-            if(goal == null)
+            if(GoalHit == true)
             {
                 dispatcherTimer.Stop();
             }
