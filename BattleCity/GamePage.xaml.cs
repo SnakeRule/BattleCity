@@ -26,21 +26,13 @@ namespace BattleCity
     /// </summary>
     public sealed partial class GamePage : Page
     {
+        private Level level = new Level();
 
-        // Introducing the objects used
-        private Player player1;
-        private Player player2;
-        private Enemy enemy;
-        private Block block1;
-        private Block block2;
-        private Block block3;
-        private Block goal;
-        
-        
         private Random random;
 
         private bool MP; // Bool used for checking if 2-player mode was selected
         private bool PlayerHit = false;
+        private bool GoalHit = false;
 
         // These rectangles are used as hitboxes
         private Rect PlayerRect;
@@ -52,72 +44,26 @@ namespace BattleCity
         private double CanvasHeight;
         private DispatcherTimer dispatcherTimer;
 
-        private List<Block> blocks = new List<Block>(); // All blocks
+        private List<Block> blocks = new List<Block>();
         private List<Player> players = new List<Player>();
         private List<Enemy> enemies = new List<Enemy>();
 
 
         public GamePage()
         {
-            this.InitializeComponent();        
+            this.InitializeComponent();
             // Setting up the canvas
             Canvas.Width = 680;
             Canvas.Height = 680;
             CanvasWidth = Canvas.Width;
             CanvasHeight = Canvas.Height;
 
-            // Add Blocks 
-            int m = 0;
-            for (int i = 0; i < 17; i++)
-            {
-                block2 = new Block { LocationX = m, LocationY = 65 };
-                blocks.Add(block2);
-                Canvas.Children.Add(block2);
-                block2.drawMagic(); // canGoTrough = true, canDestroy = false
-                block2.UpdatePosition();
-                m = m + 40;
-            }
+            blocks = level.blocks;
+            players = level.players;
+            enemies = level.enemies;
 
-            block3 = new Block { LocationX = 165, LocationY = 165 };
-            blocks.Add(block3);
-            Canvas.Children.Add(block3);
-            block3.drawStone(); // canGoTrough = false, canDestroy = false
-            block3.UpdatePosition();
-
-            // Add Goal
-            goal = new Block { LocationX = (680 / 2), LocationY = (680 - 40)};
-            blocks.Add(goal);
-            Canvas.Children.Add(goal);
-            goal.drawGoal(); // CanGoThrough = false, canDestroy = true
-            goal.UpdatePosition();
-
-            int x = 0;
-            for (int i = 0; i < 17; i++)
-            {
-                block1 = new Block { LocationX = x, LocationY = 425 };
-                blocks.Add(block1);
-                Canvas.Children.Add(block1);
-                block1.drawTile(); // canGoTrough = false, canDestroy = true
-                block1.UpdatePosition();
-                x = x + 40;
-            }
+            level.Level1(Canvas);
           
-            // Add player
-            player1 = new Player { LocationX = 325, LocationY = 325, Player2 = false, canvas = Canvas, tankDirection=3,};
-            Canvas.Children.Add(player1);
-            player1.DrawPlayer();
-            players.Add(player1);
-
-            // Adding enemies
-            x = 125;
-            for (int i = 0; i < 4; i++)
-            {
-                enemy = new Enemy { LocationX = x, LocationY = 125, canvas = Canvas, tankDirection = 3};
-                Canvas.Children.Add(enemy);
-                enemy.DrawPlayer();
-                enemies.Add(enemy);
-                x += 125;
-            }
             random = new Random(); // setting up rng for enemy movement
 
             // Setting up the timer that runs the Game method
@@ -141,6 +87,7 @@ namespace BattleCity
                 }
                 foreach(Enemy enemy in enemies)
                 {
+                enemy.CollisionRelease();
                 enemy.Move(random.Next(1,5));
                 enemy.UpdatePlayer(Canvas);
                 enemy.UpdateBullet(Canvas);
@@ -151,6 +98,7 @@ namespace BattleCity
                 BulletCollisionCheck();
                 break;
             }
+            UpdatePoints(); // Goes to the method that updates player scores to the screen
             CheckGameOver();
         }
  
@@ -239,6 +187,11 @@ namespace BattleCity
                         BlockRect = block.GetRect();
                         BlockRect.Intersect(EnemyRect);
 
+                        if(!BlockRect.IsEmpty && block.Goal == true) // Checking if enemy tank drives into goal
+                        {
+                            GoalHit = true;
+                        }
+
                         if (!BlockRect.IsEmpty && block.CanGoTrough == false)
                         {
                             if (enemy.LocationX > block.LocationX && enemy.tankDirection == 1) // Checking if enemy is intersecting player 2 from the right
@@ -316,12 +269,15 @@ namespace BattleCity
 
                         if (!BlockRect.IsEmpty && block.CanDestroy == true)
                         {
+                            if(block.Goal == true)
+                            {
+                                break;
+                            }
                             Canvas.Children.Remove(bullet);
                             player.bullets.Remove(bullet);
                             Canvas.Children.Remove(block);
                             blocks.Remove(block);
                             player.score += block.PointValue;
-                            UpdatePoints(player.Player2);
                             break;
                         }
                         else if (!BlockRect.IsEmpty && block.CanDestroy == false && block.CanGoTrough == false)
@@ -346,7 +302,6 @@ namespace BattleCity
                             enemy.RemoveBullet();
                             enemy.bullets.Remove(bullet);
                             player.score += enemy.PointValue;
-                            UpdatePoints(player.Player2);
                             break;
                         }
                     }
@@ -366,6 +321,10 @@ namespace BattleCity
 
                         if (!BlockRect.IsEmpty && block.CanDestroy == true)
                         {
+                            if (block.Goal == true)
+                            {
+                                GoalHit = true;
+                            }
                             Canvas.Children.Remove(bullet);
                             enemy.bullets.Remove(bullet);
                             Canvas.Children.Remove(block);
@@ -403,19 +362,20 @@ namespace BattleCity
         }
 
         // Method for updating the player points on the screen
-        private void UpdatePoints(bool Player2)
+        private void UpdatePoints()
         {
             foreach (Player player in players)
             {
-                if (Player2 == false)
+                if (player.Player2 == false)
                 {
-                    Player1Score.Text = players[0].score.ToString();
+                    Player1Score.Text = player.score.ToString();
                 }
-                if (Player2 == true)
+                if (player.Player2 == true)
                 {
-                    Player2Score.Text = players[1].score.ToString();
+                    Player2Score.Text = player.score.ToString();
                 }
             }
+
         }
 
         // This is for the two player mode, navigated to from the main page
@@ -427,11 +387,7 @@ namespace BattleCity
 
                 if(MP == true) // If MP is true, a second player is added
                 {
-                    player2 = new Player { LocationX = 225, LocationY = 225, Player2 = true, canvas = Canvas, tankDirection = 3 };
-                    Canvas.Children.Add(player2);
-                    player2.DrawPlayer();
-                    players.Add(player2);
-                    Player2Score.Text = "";
+                    level.CreatePlayer2(Canvas);
                 }
             }
             base.OnNavigatedTo(e);
@@ -444,10 +400,10 @@ namespace BattleCity
                 //SavePoints();
                 dispatcherTimer.Stop();
             }
-            if (goal == null)
+            if(GoalHit == true)
             {
                 //SavePoints();
-                dispatcherTimer.Stop();               
+                dispatcherTimer.Stop();
             }
         }
 
