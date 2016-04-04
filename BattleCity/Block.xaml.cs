@@ -48,21 +48,21 @@ namespace BattleCity
 
         public void drawMagic()
         {
-            BlockSpriteSheetOffset.Y = -65;
+            BlockSpriteSheetOffset.Y = -40;
             CanDestroy = false;
             CanGoTrough = true;
         }
 
         public void drawStone()
         {
-            BlockSpriteSheetOffset.Y = -(2 * 65);
+            BlockSpriteSheetOffset.Y = -(2 * 40);
             CanDestroy = false;
             CanGoTrough = false;
         }
 
         public void drawGoal()
         {
-            BlockSpriteSheetOffset.Y = -(3 * 65);
+            BlockSpriteSheetOffset.Y = -(3 * 40);
             CanDestroy = true;
             CanGoTrough = false;
             Goal = true;
