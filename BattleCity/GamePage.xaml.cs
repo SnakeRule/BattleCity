@@ -34,6 +34,7 @@ namespace BattleCity
         private bool MP; // Bool used for checking if 2-player mode was selected
         private bool PlayerHit = false;
         private bool GoalHit = false;
+        private bool CanvasHit = false;
 
         // These rectangles are used as hitboxes
         private Rect PlayerRect;
@@ -91,7 +92,7 @@ namespace BattleCity
                 {
                 enemy.AnimationUpdate();
                 enemy.CollisionRelease();
-                enemy.Move(random.Next(1,5), random.Next(1,3), random.Next(1,3));
+                enemy.Move(random.Next(1,5), random.Next(1,6), random.Next(1,3), random.Next(1,15));
                 enemy.UpdatePlayer(Canvas);
                 enemy.UpdateBullet(Canvas);
                 }
@@ -102,7 +103,7 @@ namespace BattleCity
                 break;
             }
             UpdatePoints(); // Goes to the method that updates player scores to the screen
-            CheckGameOver();
+            CheckGameOver(); // Goes to the method that checks if any game over criterias are met
         }
  
         // Back to mainmenu button method
@@ -195,37 +196,21 @@ namespace BattleCity
                             if (enemy.LocationX > block.LocationX && enemy.tankDirection == 1) // Checking if enemy is intersecting player 2 from the right
                             {
                                 enemy.StopRight = true;
-                                if (block.CanDestroy == true)
-                                {
-                                    enemy.CreateBullet();
-                                }
                             }
 
                             if (enemy.LocationY > block.LocationY && enemy.tankDirection == 2) // Checking if enemy is intersecting player 2 from the bottom
                             {
                                 enemy.StopBottom = true;
-                                if (block.CanDestroy == true)
-                                {
-                                    enemy.CreateBullet();
-                                }
                             }
 
                             if (enemy.LocationX < block.LocationX && enemy.tankDirection == 3) // Checking if enemy is intersecting player 2 from the left
                             {
                                 enemy.StopLeft = true;
-                                if (block.CanDestroy == true)
-                                {
-                                    enemy.CreateBullet();
-                                }
                             }
 
                             if (enemy.LocationY < block.LocationY && enemy.tankDirection == 4) // Checking if enemy is intersecting player 2 from the top
                             {
                                 enemy.StopTop = true;
-                                if (block.CanDestroy == true)
-                                {
-                                    enemy.CreateBullet();
-                                }
                             }
                             break;
                         }
@@ -282,8 +267,7 @@ namespace BattleCity
                             {
                                 break;
                             }
-                            Canvas.Children.Remove(bullet);
-                            player.bullets.Remove(bullet);
+                            player.RemoveBullet();
                             Canvas.Children.Remove(block);
                             blocks.Remove(block);
                             player.score += block.PointValue;
@@ -304,12 +288,10 @@ namespace BattleCity
 
                         if (!EnemyRect.IsEmpty)
                         {
-                            Canvas.Children.Remove(bullet);
-                            player.bullets.Remove(bullet);
+                            player.RemoveBullet();
                             Canvas.Children.Remove(enemy);
-                            enemies.Remove(enemy);
                             enemy.RemoveBullet();
-                            enemy.bullets.Remove(bullet);
+                            enemies.Remove(enemy);
                             player.score += enemy.PointValue;
                             break;
                         }
@@ -334,8 +316,7 @@ namespace BattleCity
                             {
                                 GoalHit = true;
                             }
-                            Canvas.Children.Remove(bullet);
-                            enemy.bullets.Remove(bullet);
+                            enemy.RemoveBullet();
                             Canvas.Children.Remove(block);
                             blocks.Remove(block);
                             break;
@@ -356,12 +337,10 @@ namespace BattleCity
 
                         if (!PlayerRect.IsEmpty)
                         {
-                            Canvas.Children.Remove(bullet);
-                            enemy.bullets.Remove(bullet);
+                            enemy.RemoveBullet();
                             Canvas.Children.Remove(player);
                             players.Remove(player);
                             player.RemoveBullet();
-                            player.bullets.Remove(bullet);
                             break;
                         }
                     }

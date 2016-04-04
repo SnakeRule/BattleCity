@@ -28,8 +28,8 @@ using Windows.UI.Xaml.Navigation;
 
         public int speed = 3;
         public int tankDirection { get; set; }
-        private int animationcounter = 0;
-        private int tickcounter = 0;
+        private int AnimationCycleCounter = 0;
+        private int animationTickCounter = 0;
 
         public double LocationX { get; set; }
         public double LocationY { get; set; }
@@ -44,6 +44,7 @@ using Windows.UI.Xaml.Navigation;
         public bool StopTop { get; set; }
         public bool StopRight { get; set; }
         public bool StopBottom { get; set; }
+        private int bulletTickCounter;
         protected Bullet bullet;
         public List<Bullet> bullets = new List<Bullet>();
         public Canvas canvas { get; set; }
@@ -55,6 +56,7 @@ using Windows.UI.Xaml.Navigation;
         {
             this.InitializeComponent();
             LoadAudio(); //Loads the pew sound
+            
         }
         public Rect GetRect()
         {
@@ -92,45 +94,45 @@ using Windows.UI.Xaml.Navigation;
 
         if (StopRight == false)
         {
-            if (left == true && LocationX > 0)
+            if (left == true && LocationX >= ((CatRectangle.ActualWidth/2)/2))
             {
                     PlayerRotate.Angle = 270;
                     SetValue(Canvas.LeftProperty, LocationX -= speed);
                     tankDirection = 1;
-                    tickcounter++;
+                    animationTickCounter++;
             }
         }
 
         if (StopBottom == false)
         {
-            if (up == true && LocationY >= 10)
+            if (up == true && LocationY >= CatRectangle.ActualHeight / 2 / 2 - 14)
             {
                     PlayerRotate.Angle = 0;
                     SetValue(Canvas.TopProperty, LocationY -= speed);
                     tankDirection = 2;
-                    tickcounter++;
+                    animationTickCounter++;
             }
         }
 
         if (StopLeft == false)
         {
-            if (right == true && LocationX <= (canvas.ActualWidth - CatRectangle.ActualWidth - 5))
+            if (right == true && LocationX <= (canvas.ActualWidth - CatRectangle.ActualWidth - 6))
             {
                     PlayerRotate.Angle = 90;
                     SetValue(Canvas.LeftProperty, LocationX += speed);
                     tankDirection = 3;
-                    tickcounter++;
+                    animationTickCounter++;
             }
         }
 
         if (StopTop == false)
         {
-            if (down == true && LocationY <= (canvas.ActualHeight - CatRectangle.ActualHeight - 15))
+            if (down == true && LocationY <= (canvas.ActualHeight - CatRectangle.ActualHeight +6))
             {
                     PlayerRotate.Angle = 180;
                     SetValue(Canvas.TopProperty, LocationY += speed);
                     tankDirection = 4;
-                    tickcounter++;
+                    animationTickCounter++;
             }
         }
 }
@@ -142,10 +144,15 @@ using Windows.UI.Xaml.Navigation;
         {
             foreach (Bullet bullet in bullets)
             {
+                bulletTickCounter++;
+                if (bulletTickCounter > 25)
+                {
+                    RemoveBullet();
+                    break;
+                }
                 if (bullet.LocationX <= 0 || bullet.LocationX >= (canvas.Width - bullet.ActualWidth) || bullet.LocationY <= 0 || bullet.LocationY >= (canvas.Height - bullet.ActualHeight))
                 {
-                    canvas.Children.Remove(bullet);
-                    bullets.Remove(bullet);
+                    RemoveBullet();
                     break;
                 }
                 else
@@ -235,20 +242,21 @@ using Windows.UI.Xaml.Navigation;
     }
         public void RemoveBullet() // When a character gets hit, the bullet is removed
         {
+            bulletTickCounter = 0;
             canvas.Children.Remove(bullet);
             bullets.Remove(bullet);
         }
 
         public void AnimationUpdate()
         {
-            if(tickcounter >= 5)
+            if(animationTickCounter >= 5)
             {
-                if (animationcounter >= 4)
-                    animationcounter = 0;
-                animationcounter++;
-                tickcounter = 0;
+                AnimationCycleCounter++;
+                if (AnimationCycleCounter >= 7)
+                    AnimationCycleCounter = 0;
+                animationTickCounter = 0;
             }
-            switch (animationcounter)
+            switch (AnimationCycleCounter)
             {
                 case 0:
                     CatSpriteSheetOffset.X = 0;
@@ -264,6 +272,15 @@ using Windows.UI.Xaml.Navigation;
                     break;
                 case 4:
                     CatSpriteSheetOffset.X = -37.5 * 4;
+                    break;
+                case 5:
+                    CatSpriteSheetOffset.X = -37.5 * 3;
+                    break;
+                case 6:
+                    CatSpriteSheetOffset.X = -37.5 * 2;
+                    break;
+                case 7:
+                    CatSpriteSheetOffset.X = -37.5 * 1;
                     break;
             }
         }

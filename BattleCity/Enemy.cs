@@ -38,11 +38,11 @@ namespace BattleCity
         }
 
         // This is the method that decides which direction the enemy should move. Maybe one day we'll have some proper AI calculations here. RNG at the moment
-        public void Move(int EnemyRandomDirection, int EnemyFocus, int EnemyKnownDirection)
+        public void Move(int EnemyRandomDirection, int EnemyFocus, int EnemyKnownDirection, int EnemyShoot)
         {
             tickCounter++;
 
-            if (EnemyFocus == 1 && tickCounter >= 45 || LocationX <= 0 || LocationX >= canvas.Width - ActualWidth || LocationY <= 0 || LocationY >= canvas.Height - ActualHeight)
+            if ((EnemyFocus == 1 || EnemyFocus == 2) && tickCounter >= 25)
             {
                 Debug.WriteLine("RANDOM");
                 left = false;
@@ -54,24 +54,20 @@ namespace BattleCity
                 {
                     case 1:
                         left = true;
-                        CreateBullet();
                         break;
                     case 2:
                         up = true;
-                        CreateBullet();
                         break;
                     case 3:
                         right = true;
-                        CreateBullet();
                         break;
                     case 4:
                         down = true;
-                        CreateBullet();
                         break;
                 }
                 tickCounter = 0;
             }
-            if((EnemyFocus == 2 || EnemyFocus == 3) && tickCounter >= 45 && LocationX <= Level.GoalLocationX && LocationY <= Level.GoalLocationY)
+            if((EnemyFocus == 3 || EnemyFocus == 4 || EnemyFocus == 5) && (tickCounter >= 25 && LocationX <= Level.GoalLocationX && LocationY <= Level.GoalLocationY))
             {
                 Debug.WriteLine("DOWN OR RIGHT");
                 left = false;
@@ -83,16 +79,14 @@ namespace BattleCity
                 {
                     case 1:
                         right = true;
-                        CreateBullet();
                         break;
                     case 2:
                         down = true;
-                        CreateBullet();
                         break;
                 }
                 tickCounter = 0;
             }
-            if ((EnemyFocus == 2 || EnemyFocus == 3) && tickCounter >= 45 && LocationX >= Level.GoalLocationX && LocationY <= Level.GoalLocationY)
+            if ((EnemyFocus == 2 || EnemyFocus == 3) && tickCounter >= 25 && LocationX >= Level.GoalLocationX && LocationY <= Level.GoalLocationY)
             {
                 Debug.WriteLine("DOWN OR LEFT");
                 left = false;
@@ -113,7 +107,7 @@ namespace BattleCity
                 }
                 tickCounter = 0;
             }
-            if ((EnemyFocus == 2 || EnemyFocus == 3) && tickCounter >= 45 && LocationX >= Level.GoalLocationX && LocationY >= Level.GoalLocationY)
+            if ((EnemyFocus == 2 || EnemyFocus == 3) && tickCounter >= 25 && LocationX >= Level.GoalLocationX && LocationY >= Level.GoalLocationY)
             {
                 Debug.WriteLine("DOWN OR LEFT");
                 left = false;
@@ -125,16 +119,14 @@ namespace BattleCity
                 {
                     case 1:
                         left = true;
-                        CreateBullet();
                         break;
                     case 2:
                         up = true;
-                        CreateBullet();
                         break;
                 }
                 tickCounter = 0;
             }
-            if ((EnemyFocus == 2 || EnemyFocus == 3) && tickCounter >= 45 && LocationX <= Level.GoalLocationX && LocationY >= Level.GoalLocationY)
+            if ((EnemyFocus == 2 || EnemyFocus == 3) && tickCounter >= 25 && LocationX <= Level.GoalLocationX && LocationY >= Level.GoalLocationY)
             {
                 Debug.WriteLine("DOWN OR LEFT");
                 left = false;
@@ -146,14 +138,16 @@ namespace BattleCity
                 {
                     case 1:
                         right = true;
-                        CreateBullet();
                         break;
                     case 2:
                         up = true;
-                        CreateBullet();
                         break;
                 }
                 tickCounter = 0;
+            }
+            if(EnemyShoot == 5 && tickCounter >= 15)
+            {
+                CreateBullet();
             }
         }
     }

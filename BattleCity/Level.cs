@@ -91,7 +91,7 @@ namespace BattleCity
             int xx = 125;
             for (int i = 0; i < 5; i++)
             {
-                enemy = new Enemy { LocationX = xx, LocationY = 125, canvas = canvas, tankDirection = 2 };
+                enemy = new Enemy { LocationX = xx, LocationY = 125, canvas = canvas, tankDirection = 2, };
                 canvas.Children.Add(enemy);
                 enemy.DrawPlayer();
                 enemies.Add(enemy);
@@ -118,7 +118,7 @@ namespace BattleCity
 
         public void CreatePlayer2(Canvas canvas)
         {
-            player2 = new Player { LocationX = 225, LocationY = 525, Player2 = true, canvas = canvas, tankDirection = 3 };
+            player2 = new Player { LocationX = 225, LocationY = 525, Player2 = true, canvas = canvas, tankDirection = 2 };
             canvas.Children.Add(player2);
             player2.DrawPlayer();
             players.Add(player2);
