@@ -254,16 +254,16 @@ using Windows.UI.Xaml.Navigation;
                     CatSpriteSheetOffset.X = 0;
                     break;
                 case 1:
-                    CatSpriteSheetOffset.X = -37 * 1;
+                    CatSpriteSheetOffset.X = -37.5 * 1;
                     break;
                 case 2:
-                    CatSpriteSheetOffset.X = -37 * 2;
+                    CatSpriteSheetOffset.X = -37.5 * 2;
                     break;
                 case 3:
-                    CatSpriteSheetOffset.X = -37 * 3;
+                    CatSpriteSheetOffset.X = -37.5 * 3;
                     break;
                 case 4:
-                    CatSpriteSheetOffset.X = -37 * 4;
+                    CatSpriteSheetOffset.X = -37.5 * 4;
                     break;
             }
         }
