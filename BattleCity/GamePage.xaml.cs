@@ -78,6 +78,7 @@ namespace BattleCity
         {
                 foreach (Player player in players)
                 {
+                player.AnimationUpdate();
                 BlockCollisionCheck();               
                 if (PlayerHit == true)
                     break;
@@ -87,6 +88,7 @@ namespace BattleCity
                 }
                 foreach(Enemy enemy in enemies)
                 {
+                enemy.AnimationUpdate();
                 enemy.CollisionRelease();
                 enemy.Move(random.Next(1,5), random.Next(1,3), random.Next(1,3));
                 enemy.UpdatePlayer(Canvas);

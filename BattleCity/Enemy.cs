@@ -32,7 +32,7 @@ namespace BattleCity
         // This method is used to draw the enemy on the canvas
         public void DrawPlayer()
         {
-            TankSpriteSheetOffset.Y = -86;
+            CatSpriteSheetOffset.Y = -111;
             SetValue(Canvas.LeftProperty, LocationX);
             SetValue(Canvas.TopProperty, LocationY);
         }

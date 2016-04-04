@@ -10,24 +10,24 @@
     d:DesignWidth="400">
 
     <Grid>
-        <Rectangle x:Name="tankRectangle" Width="55" Height="43">
+        <Rectangle x:Name="CatRectangle" Width="35" Height="55">
             <Rectangle.Fill>
                 <ImageBrush
-                        ImageSource="Assets/tank.png"
+                        ImageSource="Assets/cat_placeholder.png"
                         Stretch="None"
                         AlignmentX="Left"
                         AlignmentY="Top"
                         >
                     <ImageBrush.Transform>
-                        <TranslateTransform x:Name="TankSpriteSheetOffset" x:FieldModifier="protected" />
+                        <TranslateTransform x:Name="CatSpriteSheetOffset" x:FieldModifier="protected" />
                     </ImageBrush.Transform>
                 </ImageBrush>
             </Rectangle.Fill>
             <Rectangle.RenderTransform>
                 <RotateTransform x:Name="PlayerRotate"
                                  Angle="0"
-                                 CenterX="27.5"
-                                 CenterY="21.5">
+                                 CenterX="17.5"
+                                 CenterY="25">
                 </RotateTransform>
             </Rectangle.RenderTransform>
         </Rectangle>

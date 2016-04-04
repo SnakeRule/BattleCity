@@ -39,11 +39,11 @@ namespace BattleCity
         {
             if (Player2 == false)
             {
-                TankSpriteSheetOffset.Y = 0;
+                CatSpriteSheetOffset.Y = 0;
             }
             else if (Player2 == true)
             {
-                TankSpriteSheetOffset.Y = -43;
+                CatSpriteSheetOffset.Y = -55.5;
             }
             SetValue(Canvas.LeftProperty, LocationX);
             SetValue(Canvas.TopProperty, LocationY);

@@ -28,6 +28,8 @@ using Windows.UI.Xaml.Navigation;
 
         public int speed = 3;
         public int tankDirection { get; set; }
+        private int animationcounter = 0;
+        private int tickcounter = 0;
 
         public double LocationX { get; set; }
         public double LocationY { get; set; }
@@ -92,9 +94,10 @@ using Windows.UI.Xaml.Navigation;
         {
             if (left == true && LocationX > 0)
             {
-                PlayerRotate.Angle = 180;
-                SetValue(Canvas.LeftProperty, LocationX -= speed);
-                tankDirection = 1;
+                    PlayerRotate.Angle = 270;
+                    SetValue(Canvas.LeftProperty, LocationX -= speed);
+                    tankDirection = 1;
+                    tickcounter++;
             }
         }
 
@@ -102,29 +105,32 @@ using Windows.UI.Xaml.Navigation;
         {
             if (up == true && LocationY >= 10)
             {
-            PlayerRotate.Angle = 270;
-            SetValue(Canvas.TopProperty, LocationY -= speed);
-            tankDirection = 2;
+                    PlayerRotate.Angle = 0;
+                    SetValue(Canvas.TopProperty, LocationY -= speed);
+                    tankDirection = 2;
+                    tickcounter++;
             }
         }
 
         if (StopLeft == false)
         {
-            if (right == true && LocationX <= (canvas.ActualWidth - tankRectangle.ActualWidth - 5))
+            if (right == true && LocationX <= (canvas.ActualWidth - CatRectangle.ActualWidth - 5))
             {
-            PlayerRotate.Angle = 0;
-            SetValue(Canvas.LeftProperty, LocationX += speed);
-            tankDirection = 3;
+                    PlayerRotate.Angle = 90;
+                    SetValue(Canvas.LeftProperty, LocationX += speed);
+                    tankDirection = 3;
+                    tickcounter++;
             }
         }
 
         if (StopTop == false)
         {
-            if (down == true && LocationY <= (canvas.ActualHeight - tankRectangle.ActualHeight - 15))
+            if (down == true && LocationY <= (canvas.ActualHeight - CatRectangle.ActualHeight - 15))
             {
-            PlayerRotate.Angle = 90;
-            SetValue(Canvas.TopProperty, LocationY += speed);
-            tankDirection = 4;
+                    PlayerRotate.Angle = 180;
+                    SetValue(Canvas.TopProperty, LocationY += speed);
+                    tankDirection = 4;
+                    tickcounter++;
             }
         }
 }
@@ -175,8 +181,8 @@ using Windows.UI.Xaml.Navigation;
                     {
                         SpeedX = -10, // left
                         SpeedY = 0,
-                        LocationX = LocationX - 15,
-                        LocationY = LocationY + 16
+                        LocationX = LocationX - 23,
+                        LocationY = LocationY + 15.5
                     };
                     bullet.Shoot();
                     canvas.Children.Add(bullet);
@@ -189,8 +195,8 @@ using Windows.UI.Xaml.Navigation;
                 {
                     SpeedX = 0,
                     SpeedY = -10, //up
-                    LocationX = LocationX + 20,
-                    LocationY = LocationY - 17,
+                    LocationX = LocationX + 12,
+                    LocationY = LocationY - 21,
                 };
                 bullet.Shoot();
                 canvas.Children.Add(bullet);
@@ -203,8 +209,8 @@ using Windows.UI.Xaml.Navigation;
                 {
                     SpeedX = 10, //right
                     SpeedY = 0,
-                    LocationX = LocationX + 50,
-                    LocationY = LocationY + 11
+                    LocationX = LocationX + 44.5,
+                    LocationY = LocationY + 15.5
                 };
                 bullet.Shoot();
                 canvas.Children.Add(bullet);
@@ -217,7 +223,7 @@ using Windows.UI.Xaml.Navigation;
                 {
                     SpeedX = 0,
                     SpeedY = 10, //down
-                    LocationX = LocationX + 20,
+                    LocationX = LocationX + 12,
                     LocationY = LocationY + 50,
                 };
                 bullet.Shoot();
@@ -231,6 +237,35 @@ using Windows.UI.Xaml.Navigation;
         {
             canvas.Children.Remove(bullet);
             bullets.Remove(bullet);
+        }
+
+        public void AnimationUpdate()
+        {
+            if(tickcounter >= 5)
+            {
+                if (animationcounter >= 4)
+                    animationcounter = 0;
+                animationcounter++;
+                tickcounter = 0;
+            }
+            switch (animationcounter)
+            {
+                case 0:
+                    CatSpriteSheetOffset.X = 0;
+                    break;
+                case 1:
+                    CatSpriteSheetOffset.X = -37 * 1;
+                    break;
+                case 2:
+                    CatSpriteSheetOffset.X = -37 * 2;
+                    break;
+                case 3:
+                    CatSpriteSheetOffset.X = -37 * 3;
+                    break;
+                case 4:
+                    CatSpriteSheetOffset.X = -37 * 4;
+                    break;
+            }
         }
     }
 }

@@ -42,7 +42,7 @@ namespace BattleCity
             blocks.Clear();
             enemies.Clear();
             players.Clear();
-            
+
             // Add Blocks 
             int m = 0;
             for (int i = 0; i < 17; i++)
@@ -82,22 +82,23 @@ namespace BattleCity
             GoalLocationY = goal.LocationY;
 
             // Add player
-            player1 = new Player { LocationX = 425, LocationY = 525, Player2 = false, canvas = canvas, tankDirection = 3 };
+            player1 = new Player { LocationX = 425, LocationY = 525, Player2 = false, canvas = canvas, tankDirection = 2 };
             canvas.Children.Add(player1);
             player1.DrawPlayer();
             players.Add(player1);
 
             // Adding enemies
             int xx = 125;
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 1; i++)
             {
-                enemy = new Enemy { LocationX = xx, LocationY = 125, canvas = canvas, tankDirection = 3 };
+                enemy = new Enemy { LocationX = xx, LocationY = 125, canvas = canvas, tankDirection = 2 };
                 canvas.Children.Add(enemy);
                 enemy.DrawPlayer();
                 enemies.Add(enemy);
                 xx += 125;
             }
         }
+        
 
         /*public async void Level2(Canvas canvas)
         {
@@ -112,7 +113,8 @@ namespace BattleCity
             string text = await Windows.Storage.FileIO.ReadTextAsync(levelFile);
             Debug.WriteLine("Tiedosto: " + text);
 
-        }*/
+        }
+        */
 
         public void CreatePlayer2(Canvas canvas)
         {

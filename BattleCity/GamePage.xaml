@@ -18,7 +18,7 @@
             <RowDefinition Height="680" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Canvas x:Name="Canvas" Grid.Column="1" Grid.Row="1" Background="Magenta">
+        <Canvas x:Name="Canvas" Grid.Column="1" Grid.Row="1" Background="#FF6C6C6C">
             
         </Canvas>
         <Button x:Name="MenuButton"
