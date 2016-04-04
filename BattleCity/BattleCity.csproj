@@ -134,6 +134,7 @@
   <ItemGroup>
     <Content Include="Assets\Block_placeholder.png" />
     <Content Include="Assets\Cat_placeholder.png" />
+    <Content Include="Assets\Lose.jpg" />
     <Content Include="Assets\Pew.mp3" />
     <Content Include="Assets\Pew.mp3" />
     <Content Include="Assets\tank.png" />
