@@ -10,7 +10,7 @@
     d:DesignWidth="400">
 
     <Grid>
-        <Rectangle x:Name="CatRectangle" Width="35" Height="55">
+        <Rectangle x:Name="CatRectangle" Width="34" Height="55">
             <Rectangle.Fill>
                 <ImageBrush
                         ImageSource="Assets/cat_placeholder.png"
