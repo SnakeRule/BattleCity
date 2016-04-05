@@ -63,7 +63,7 @@ namespace BattleCity
             players = level.players;
             enemies = level.enemies;
 
-            level.Level2(Canvas);
+            level.Level3(Canvas);
             level.BuildLevel(Canvas);
 
             random = new Random(); // setting up rng for enemy movement
@@ -92,7 +92,7 @@ namespace BattleCity
                 {
                 enemy.AnimationUpdate();
                 enemy.CollisionRelease();
-                enemy.Move(random.Next(1,5), random.Next(1,6), random.Next(1,3), random.Next(1,6));
+                enemy.Move(random.Next(1,5), random.Next(3,6), random.Next(1,3), random.Next(1,31));
                 enemy.UpdatePlayer(Canvas);
                 enemy.UpdateBullet(Canvas);
                 }
@@ -196,21 +196,25 @@ namespace BattleCity
                             if (enemy.LocationX > block.LocationX && enemy.tankDirection == 1) // Checking if enemy is intersecting block from the right
                             {
                                 enemy.StopRight = true;
+                                enemy.Move(random.Next(1, 5), random.Next(1, 3), random.Next(1, 3), random.Next(1, 9));
                             }
 
                             if (enemy.LocationY > block.LocationY && enemy.tankDirection == 2) // Checking if enemy is intersecting block from the bottom
                             {
                                 enemy.StopBottom = true;
+                                enemy.Move(random.Next(1, 5), random.Next(1, 3), random.Next(1, 3), random.Next(1, 9));
                             }
 
                             if (enemy.LocationX < block.LocationX && enemy.tankDirection == 3) // Checking if enemy is intersecting block from the left
                             {
                                 enemy.StopLeft = true;
+                                enemy.Move(random.Next(1, 5), random.Next(1, 3), random.Next(1, 3), random.Next(1, 9));
                             }
 
                             if (enemy.LocationY < block.LocationY && enemy.tankDirection == 4) // Checking if enemy is intersecting block from the top
                             {
                                 enemy.StopTop = true;
+                                enemy.Move(random.Next(1, 5), random.Next(1, 3), random.Next(1, 3), random.Next(1, 9));
                             }
                             break;
                         }
