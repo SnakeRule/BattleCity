@@ -31,7 +31,7 @@ namespace BattleCity
 
         private Random random;
 
-        private bool MP; // Bool used for checking if 2-player mode was selected
+        public static bool MP; // Bool used for checking if 2-player mode was selected
         private bool PlayerHit = false;
         private bool GoalHit = false;
         private bool CanvasHit = false;
@@ -64,8 +64,9 @@ namespace BattleCity
             players = level.players;
             enemies = level.enemies;
 
-            level.Level1(Canvas);
-          
+            level.Level2(Canvas);
+            level.BuildLevel(Canvas);
+
             random = new Random(); // setting up rng for enemy movement
 
             // Setting up the timer that runs the Game method
@@ -373,10 +374,10 @@ namespace BattleCity
             {
                 MP = (bool)e.Parameter; // If so, then MP gets the value
 
-                if(MP == true) // If MP is true, a second player is added
+                /*if(MP == true) // If MP is true, a second player is added
                 {
                     level.CreatePlayer2(Canvas);
-                }
+                }*/
             }
             base.OnNavigatedTo(e);
         }

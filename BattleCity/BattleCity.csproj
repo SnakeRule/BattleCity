@@ -141,6 +141,7 @@
     <Content Include="Highscores\Highscores.txt" />
     <Content Include="Levels\Level1.txt" />
     <Content Include="Assets\Win.jpg" />
+    <Content Include="Levels\Level2.txt" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
