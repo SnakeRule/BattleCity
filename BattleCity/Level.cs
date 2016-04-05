@@ -63,13 +63,24 @@ namespace BattleCity
             }
         }
 
+        public async void Level3(Canvas canvas)
+        {
+            // create or open local file
+            Windows.Storage.StorageFolder storageFolder =
+            Windows.Storage.ApplicationData.Current.LocalFolder;
+            using (StreamReader reader = File.OpenText(@"Levels\Level3.txt"))
+            {
+                Debug.WriteLine("Opened File");
+                LevelData = await reader.ReadToEndAsync();
+            }
+        }
+
         public void CreatePlayer2(Canvas canvas, int col, int row)
         {
             player2 = new Player { LocationX = col, LocationY = row, Player2 = true, canvas = canvas, tankDirection = 2 };
             canvas.Children.Add(player2);
             player2.DrawPlayer();
             players.Add(player2);
-            //Player2Score.Text = "";
         }
 
         public void BuildLevel(Canvas canvas)
@@ -124,6 +135,8 @@ namespace BattleCity
                         case 4:
                             col = c * 40;
                             goal = new Block { LocationX = col, LocationY = row };
+                            GoalLocationX = goal.LocationX;
+                            GoalLocationY = goal.LocationY;
                             blocks.Add(goal);
                             canvas.Children.Add(goal);
                             goal.drawGoal(); // CanGoThrough = false, canDestroy = true
@@ -157,7 +170,8 @@ namespace BattleCity
                                 col = c * 40;
                                 CreatePlayer2(canvas, col, row);
                                 x++;
-                            } else
+                            }
+                            else
                             {
                                 x++;
                             }          
@@ -179,5 +193,6 @@ namespace BattleCity
             }
             //Debug.WriteLine("LISTA" + k);
         }
+
     }
 }

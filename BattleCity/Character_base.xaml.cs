@@ -240,7 +240,7 @@ using Windows.UI.Xaml.Navigation;
             }
         }
     }
-        public void RemoveBullet() // When a character gets hit, the bullet is removed
+        public void RemoveBullet() // method for removing the bullet
         {
             bulletTickCounter = 0;
             canvas.Children.Remove(bullet);
