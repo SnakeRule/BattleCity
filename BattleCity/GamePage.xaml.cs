@@ -63,7 +63,7 @@ namespace BattleCity
             players = level.players;
             enemies = level.enemies;
 
-            level.Level3(Canvas);
+            level.Level1(Canvas);
             level.BuildLevel(Canvas);
 
             random = new Random(); // setting up rng for enemy movement
@@ -164,11 +164,12 @@ namespace BattleCity
                         }
                         break;
                     }
-                    if(!BlockRect.IsEmpty && block.CanGoTrough == true) // Slower speed while moving on magic block
+                    if (!BlockRect.IsEmpty && block.CanGoTrough == true) // Slower speed while moving on magic block
                     {
                         player.speed = 2;
-                        break;                  
-                    } else { player.speed = 4; }
+                        break;
+                    } else { player.speed = 4; } 
+
                 }
 
                 // Collision detection between blocks and enemies

@@ -22,7 +22,10 @@ namespace BattleCity
         private readonly int pointValue = 5; // How many points from destroying block
         public bool CanDestroy;
         public bool CanGoTrough;
+        public bool IsPowerUp;
         public bool Goal;
+
+        public int PowerUpType;
 
         public double LocationX { get; set; }
         public double LocationY { get; set; }
@@ -63,26 +66,26 @@ namespace BattleCity
         public void drawSpeedUp()
         {
             BlockSpriteSheetOffset.Y = -(4 * 40);
-            CanDestroy = false;
-            CanGoTrough = true;
+            IsPowerUp = true;
+            PowerUpType = 1;
         }
         public void drawPowerUp()
         {
             BlockSpriteSheetOffset.Y = -(5 * 40);
-            CanDestroy = false;
-            CanGoTrough = true;
+            IsPowerUp = true;
+            PowerUpType = 2;
         }
         public void drawStarPower1()
         {
             BlockSpriteSheetOffset.Y = -(6 * 40);
-            CanDestroy = false;
-            CanGoTrough = true;
+            IsPowerUp = true;
+            PowerUpType = 3;
         }
         public void drawStarPower2()
         {
             BlockSpriteSheetOffset.Y = -(7 * 40);
-            CanDestroy = false;
-            CanGoTrough = true;
+            IsPowerUp = true;
+            PowerUpType = 4;
         }
 
         public void drawGoal()
