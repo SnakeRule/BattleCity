@@ -36,21 +36,44 @@ namespace BattleCity
         public List<Enemy> enemies = new List<Enemy>();
 
         public Canvas canvas { get; set; }
+        StreamReader reader;
 
         public void level()
         {
            
         }
 
-        public async void LoadLevel(int LevelNumber)
+        public async void LoadLevel()
         {
             // create or open local file
             Windows.Storage.StorageFolder storageFolder =
             Windows.Storage.ApplicationData.Current.LocalFolder;
-            using (StreamReader reader = File.OpenText(@"Levels\Level" + LevelNumber + ".txt"))
+            try
             {
-                Debug.WriteLine("Opened File");
-                LevelData = await reader.ReadToEndAsync();
+                using (StreamReader reader = File.OpenText(@"Levels\Level" + GamePage.LevelNumber + ".txt"))
+                {
+                    Debug.WriteLine("Opened File");
+                    LevelData = await reader.ReadToEndAsync();
+                }
+            }
+            catch (Exception)
+            {
+                var errormessage = new Windows.UI.Popups.MessageDialog("Level not found! Reloading previous level!");
+                await errormessage.ShowAsync();
+                GamePage.LevelNumber--;
+                
+                using (StreamReader reader = File.OpenText(@"Levels\Level" + GamePage.LevelNumber + ".txt"))
+                {
+                    Debug.WriteLine("Opened File");
+                    LevelData = await reader.ReadToEndAsync();
+                }
+            }
+            finally
+            {
+                if(reader != null)
+                {
+                    reader.Dispose();
+                }
             }
         }
 

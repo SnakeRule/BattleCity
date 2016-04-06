@@ -34,7 +34,7 @@ namespace BattleCity
         public static bool MP; // Bool used for checking if 2-player mode was selected
         private bool PlayerHit = false;
         private bool GoalHit = false;
-        private int LevelNumber;
+        public static int LevelNumber;
 
         // These rectangles are used as hitboxes
         private Rect PlayerRect;
@@ -65,7 +65,7 @@ namespace BattleCity
             enemies = level.enemies;
 
             LevelNumber = 1;
-            level.LoadLevel(LevelNumber);
+            level.LoadLevel();
             level.BuildLevel(Canvas);
 
             random = new Random(); // setting up rng for enemy movement
@@ -249,7 +249,9 @@ namespace BattleCity
                 {
                     player.RemoveBullet(Canvas);
                     Canvas.Children.Remove(player);
+                    player.ResetControls();
                     players.Remove(player);
+                    player.ResetControls();
                     break;
                 }
             }
@@ -344,6 +346,7 @@ namespace BattleCity
                             enemy.RemoveBullet(Canvas);
                             Canvas.Children.Remove(player);
                             players.Remove(player);
+                            player.ResetControls();
                             player.RemoveBullet(Canvas);
                             break;
                         }
@@ -378,6 +381,7 @@ namespace BattleCity
                 SavePoints();
                 GameEndImage.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets/Lose.jpg"));
                 GameEndImage.Visibility = Visibility.Visible;
+                NextLevelButton.Visibility = Visibility.Visible;
                 dispatcherTimer.Stop();
             }
             if(GoalHit == true)
@@ -385,6 +389,7 @@ namespace BattleCity
                 SavePoints();
                 GameEndImage.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets/Lose.jpg"));
                 GameEndImage.Visibility = Visibility.Visible;
+                NextLevelButton.Visibility = Visibility.Visible;
                 dispatcherTimer.Stop();
             }
             if (!enemies.Any())
@@ -402,8 +407,7 @@ namespace BattleCity
             GameEndImage.Visibility = Visibility.Collapsed;
             level.DestroyLevel(Canvas);
             LevelNumber++;
-            
-            level.LoadLevel(LevelNumber);
+            level.LoadLevel();
             level.BuildLevel(Canvas);
             dispatcherTimer.Start();
         }
