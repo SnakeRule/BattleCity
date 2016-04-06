@@ -40,10 +40,10 @@ using Windows.UI.Xaml.Navigation;
         protected bool right;
         protected bool up;
         protected bool down;
-        public bool StopLeft { get; set; }
-        public bool StopTop { get; set; }
         public bool StopRight { get; set; }
-        public bool StopBottom { get; set; }
+        public bool StopDown { get; set; }
+        public bool StopLeft { get; set; }
+        public bool StopUp { get; set; }
         private int bulletTickCounter;
         protected Bullet bullet;
         public List<Bullet> bullets = new List<Bullet>();
@@ -62,27 +62,30 @@ using Windows.UI.Xaml.Navigation;
             return new Rect(LocationX, LocationY, ActualWidth, ActualHeight);
         }
 
+        /// <summary>
+        /// The purpose of this method is to stop the characters from getting stuck on the blocks after collision
+        /// </summary>
         public void CollisionRelease()
         {
-                if (StopBottom == true && tankDirection != 4)
+                if (StopUp == true && tankDirection != 4) // Tank has hit the bottom of something and is moving somewhere other than down
                 {
-                    LocationY += 4;
-                    StopBottom = false;
+                    LocationY += 4; // The tank is moved down by 4 to avoid getting stuck
+                    StopUp = false;
                 }
-                if (StopTop == true && tankDirection != 2)
+                if (StopDown == true && tankDirection != 2) // Tank has hit the top of something and is moving somewhere other than up
                 {
-                    LocationY -= 4;
-                    StopTop = false;
+                    LocationY -= 4; // The tank is moved up by 4 to avoid getting stuck
+                    StopDown = false;
                 }
-                if (StopLeft == true && tankDirection != 1)
+                if (StopRight == true && tankDirection != 1) // Tank has hit the right side of something and is moving somewhere other than left
                 {
-                    LocationX -= 4;
-                    StopLeft = false;
-                }
-                if (StopRight == true && tankDirection != 3)
-                {
-                    LocationX += 4;
+                    LocationX -= 4; // The tank is moved left by 4 to avoid getting stuck
                     StopRight = false;
+                }
+                if (StopLeft == true && tankDirection != 3) // Tank has hit the left side of something and is moving somewhere other than right
+                {
+                    LocationX += 4; // The tank is moved right by 4 to avoid getting stuck
+                    StopLeft = false;
                 }
             }
 
@@ -91,7 +94,7 @@ using Windows.UI.Xaml.Navigation;
         {
         // these set the tanksprite to the canvas. The position is calculated from the tanksprite's current position and added or decreased speed
 
-        if (StopRight == false)
+        if (StopLeft == false)
         {
             if (left == true && LocationX >= ((CatRectangle.ActualWidth/2)/2))
             {
@@ -102,7 +105,7 @@ using Windows.UI.Xaml.Navigation;
             }
         }
 
-        if (StopBottom == false)
+        if (StopUp == false)
         {
             if (up == true && LocationY >= CatRectangle.ActualHeight / 2 / 2 - 14)
             {
@@ -113,7 +116,7 @@ using Windows.UI.Xaml.Navigation;
             }
         }
 
-        if (StopLeft == false)
+        if (StopRight == false)
         {
             if (right == true && LocationX <= (canvas.ActualWidth - CatRectangle.ActualWidth - 6))
             {
@@ -124,7 +127,7 @@ using Windows.UI.Xaml.Navigation;
             }
         }
 
-        if (StopTop == false)
+        if (StopDown == false)
         {
             if (down == true && LocationY <= (canvas.ActualHeight - CatRectangle.ActualHeight +6))
             {

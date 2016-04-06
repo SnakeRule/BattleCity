@@ -27,6 +27,8 @@ namespace BattleCity
         public Block goal;
         public static double GoalLocationX { get; set; }
         public static double GoalLocationY { get; set; }
+        private int P1SpawnX, P1SpawnY;
+        private int P2SpawnX, P2SpawnY;
 
         private Windows.Storage.StorageFile levelFile;
         private string LevelData;
@@ -77,12 +79,44 @@ namespace BattleCity
             }
         }
 
+        public void RespawnPlayer1(Canvas canvas, int OldScore)
+        {
+            player1 = new Player { LocationX = P1SpawnX, LocationY = P1SpawnY, Player2 = false, canvas = canvas, tankDirection = 2, Score = OldScore };
+            GamePage.P1Dead = false;
+            canvas.Children.Add(player1);
+            player1.DrawPlayer();
+            players.Add(player1);
+        }
+
+        public void RespawnPlayer2(Canvas canvas, int OldScore)
+        {
+            player2 = new Player { LocationX = P2SpawnX, LocationY = P2SpawnY, Player2 = true, canvas = canvas, tankDirection = 2, Score = OldScore };
+            GamePage.P2Dead = false;
+            canvas.Children.Add(player2);
+            player2.DrawPlayer();
+            players.Add(player2);
+        }
+
+        public void CreatePlayer1(Canvas canvas, int col, int row)
+        {
+            player1 = new Player { LocationX = col, LocationY = row, Player2 = false, canvas = canvas, tankDirection = 2 };
+            GamePage.P1Dead = false;
+            P1SpawnX = col;
+            P1SpawnY = row;
+            canvas.Children.Add(player1);
+            player1.DrawPlayer();
+            players.Add(player1);
+        }
+
         public void CreatePlayer2(Canvas canvas, int col, int row)
         {
-                player2 = new Player { LocationX = col, LocationY = row, Player2 = true, canvas = canvas, tankDirection = 2 };
-                canvas.Children.Add(player2);
-                player2.DrawPlayer();
-                players.Add(player2);
+            player2 = new Player { LocationX = col, LocationY = row, Player2 = true, canvas = canvas, tankDirection = 2 };
+            GamePage.P2Dead = false;
+            P2SpawnX = col;
+            P2SpawnY = row;
+            canvas.Children.Add(player2);
+            player2.DrawPlayer();
+            players.Add(player2);
         }
 
         public void BuildLevel(Canvas canvas)
@@ -169,10 +203,7 @@ namespace BattleCity
                             if (GamePage.P1Lives > 0)
                             {
                                 col = c * 40;
-                                player1 = new Player { LocationX = col, LocationY = row, Player2 = false, canvas = canvas, tankDirection = 2 };
-                                canvas.Children.Add(player1);
-                                player1.DrawPlayer();
-                                players.Add(player1);
+                                CreatePlayer1(canvas, col, row);
                                 x++;
                             }
                             else

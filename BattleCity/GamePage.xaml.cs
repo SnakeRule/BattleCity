@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage;
@@ -37,8 +38,8 @@ namespace BattleCity
         public static int LevelNumber;
         private int P1PreviousScore;
         private int P2PreviousScore;
-        public static int P1Lives;
-        public static int P2Lives;
+        public static int P1Lives, P2Lives;
+        public static bool P1Dead, P2Dead;
 
         // These rectangles are used as hitboxes
         private Rect PlayerRect;
@@ -111,6 +112,14 @@ namespace BattleCity
                 BulletCollisionCheck();
                 break;
             }
+            if(P1Dead == true && P1Lives > 0)
+            {
+                    level.RespawnPlayer1(Canvas, P1PreviousScore);
+            }
+            if(P2Dead == true && P2Lives > 0)
+            {
+                    level.RespawnPlayer2(Canvas, P2PreviousScore);
+            }
             UpdatePoints(); // Goes to the method that updates player scores to the screen
             CheckGameOver(); // Goes to the method that checks if any game over criterias are met
         }
@@ -132,44 +141,48 @@ namespace BattleCity
             }*/
         }
 
+        /// <summary>
+        /// The BlockClollisionCheck checks if players, enemies or bullets are colliding with blocks
+        /// </summary>
         private void BlockCollisionCheck()
         {
             // Collision detection between blocks and players
-            foreach (Player player in players)
+            foreach (Player player in players) // Checking each player in players list
             {
-                player.StopTop = false;
-                player.StopRight = false;
+                // Each time collision is checked the booleans that are used to stop the player from moving in a certain direction are changed back to false to avoid getting stuck
+                player.StopDown = false;
                 player.StopLeft = false;
-                player.StopBottom = false;
+                player.StopRight = false;
+                player.StopUp = false;
 
-                PlayerRect = player.GetRect();
+                PlayerRect = player.GetRect(); // Creating rectangle for player to be used in collision detection
 
-                foreach (Block block in blocks)
+                foreach (Block block in blocks) // Checking each block in blocks list
                 {
-                    BlockRect = block.GetRect();
-                    BlockRect.Intersect(PlayerRect);
+                    BlockRect = block.GetRect(); // Creating rectangle
+                    BlockRect.Intersect(PlayerRect); // Checking for intersections between player and block
                     // PlayerRect.Intersect(PlayerRect); between players
 
                     if (!BlockRect.IsEmpty && block.CanGoTrough == false) //player and block collisions
                     {
-                        if (player.LocationX > block.LocationX && player.tankDirection == 1) // Checking if player1 is intersecting player 2 from the right
-                        {
-                            player.StopRight = true;
-                        }
-
-                        if (player.LocationY > block.LocationY && player.tankDirection == 2) // Checking if player1 is intersecting player 2 from the bottom
-                        {
-                            player.StopBottom = true;
-                        }
-
-                        if (player.LocationX < block.LocationX && player.tankDirection == 3) // Checking if player1 is intersecting player 2 from the left
+                        if (player.LocationX > block.LocationX && player.tankDirection == 1) // Checking if player1 is intersecting the block from the right. This uses the tank's direction
                         {
                             player.StopLeft = true;
                         }
 
-                        if (player.LocationY < block.LocationY && player.tankDirection == 4) // Checking if player1 is intersecting player 2 from the top
-                    {
-                            player.StopTop = true;
+                        if (player.LocationY > block.LocationY && player.tankDirection == 2) // Checking if player1 is intersecting the block from the bottom. This uses the tank's direction
+                        {
+                            player.StopUp = true;
+                        }
+
+                        if (player.LocationX < block.LocationX && player.tankDirection == 3) // Checking if player1 is intersecting the block from the left. This uses the tank's direction
+                        {
+                            player.StopRight = true;
+                        }
+
+                        if (player.LocationY < block.LocationY && player.tankDirection == 4) // Checking if player1 is intersecting the block from the top. This uses the tank's direction
+                        {
+                            player.StopDown = true;
                         }
                         break;
                     }
@@ -181,13 +194,13 @@ namespace BattleCity
 
                 }
 
-                // Collision detection between blocks and enemies
+                // Collision detection between blocks and enemies. Mostly identical to the player collision detection above
                 foreach (Enemy enemy in enemies)
                 {
-                    enemy.StopTop = false;
-                    enemy.StopRight = false;
+                    enemy.StopDown = false;
                     enemy.StopLeft = false;
-                    enemy.StopBottom = false;
+                    enemy.StopRight = false;
+                    enemy.StopUp = false;
 
                     EnemyRect = enemy.GetRect();
 
@@ -205,25 +218,25 @@ namespace BattleCity
                         {
                             if (enemy.LocationX > block.LocationX && enemy.tankDirection == 1) // Checking if enemy is intersecting block from the right
                             {
-                                enemy.StopRight = true;
+                                enemy.StopLeft = true;
                                 enemy.Move(random.Next(1, 5), random.Next(1, 3), random.Next(1, 3), random.Next(1, 9));
                             }
 
                             if (enemy.LocationY > block.LocationY && enemy.tankDirection == 2) // Checking if enemy is intersecting block from the bottom
                             {
-                                enemy.StopBottom = true;
+                                enemy.StopUp = true;
                                 enemy.Move(random.Next(1, 5), random.Next(1, 3), random.Next(1, 3), random.Next(1, 9));
                             }
 
                             if (enemy.LocationX < block.LocationX && enemy.tankDirection == 3) // Checking if enemy is intersecting block from the left
                             {
-                                enemy.StopLeft = true;
+                                enemy.StopRight = true;
                                 enemy.Move(random.Next(1, 5), random.Next(1, 3), random.Next(1, 3), random.Next(1, 9));
                             }
 
                             if (enemy.LocationY < block.LocationY && enemy.tankDirection == 4) // Checking if enemy is intersecting block from the top
                             {
-                                enemy.StopTop = true;
+                                enemy.StopDown = true;
                                 enemy.Move(random.Next(1, 5), random.Next(1, 3), random.Next(1, 3), random.Next(1, 9));
                             }
                             break;
@@ -244,14 +257,14 @@ namespace BattleCity
 
                     if (!EnemyRect.IsEmpty)
                     {
-                        PlayerHit = true;
+                        PlayerHit = true; // Can't remember why I made this, will have to check funtion later :D
                         enemy.RemoveBullet(Canvas);
                         Canvas.Children.Remove(enemy);
                         enemies.Remove(enemy);
                         break;
                     }
                     else
-                        PlayerHit = false;
+                        PlayerHit = false; // Can't remember why I made this, will have to check funtion later :D
                 }
                 if(PlayerHit == true)
                 {
@@ -259,9 +272,15 @@ namespace BattleCity
                     Canvas.Children.Remove(player);
                     player.ResetControls();
                     if (player.Player2 == false)
+                    {
+                        P1Dead = true;
                         P1Lives--;
+                    }
                     else
+                    {
+                        P2Dead = true;
                         P2Lives--;
+                    }
                     UpdatePoints();
                     players.Remove(player);
                     player.ResetControls();
@@ -278,25 +297,27 @@ namespace BattleCity
                 {
                     foreach (Block block in blocks)
                     {
+                        // Creating rectangles for collision detection
                         BlockRect = block.GetRect();
                         BulletRect = bullet.GetRect();
-                        BlockRect.Intersect(BulletRect);
+                        BlockRect.Intersect(BulletRect); // Checking for intersection
 
-                        if (!BlockRect.IsEmpty && block.CanDestroy == true)
+                        if (!BlockRect.IsEmpty && block.CanDestroy == true) // If an intersection happens and the block can be destroyed
                         {
                             if(block.Goal == true)
                             {
-                                break;
+                                break; // The player cannot destroy the goal block
                             }
+                            // Removing bullet and block from canvas
                             player.RemoveBullet(Canvas);
                             Canvas.Children.Remove(block);
                             blocks.Remove(block);
                             player.Score += block.PointValue;
                             break;
                         }
-                        else if (!BlockRect.IsEmpty && block.CanDestroy == false && block.CanGoTrough == false)
+                        else if (!BlockRect.IsEmpty && block.CanDestroy == false && block.CanGoTrough == false) // if block can't be destroyed
                         {
-                            player.RemoveBullet(Canvas);
+                            player.RemoveBullet(Canvas); // only the bullet is removed
                             break;
                         }
                     }
@@ -338,42 +359,50 @@ namespace BattleCity
                 {
                     foreach (Block block in blocks)
                     {
-                        BlockRect = block.GetRect();
-                        BulletRect = bullet.GetRect();
-                        BlockRect.Intersect(BulletRect);
+                        BlockRect = block.GetRect(); // creating rectangle for block to use in collision detection
+                        BulletRect = bullet.GetRect(); // creating rectangle for bullet to use in collision detection
+                        BlockRect.Intersect(BulletRect); // Checking if Block and bullet rects intersect
 
                         if (!BlockRect.IsEmpty && block.CanDestroy == true)
                         {
-                            if (block.Goal == true)
+                            if (block.Goal == true) // The block that was hit was the goal block
                             {
-                                GoalHit = true;
+                                GoalHit = true; // The GoalHit bool changes to true resulting in a game over
                             }
+                            // Removing bullet and block
                             enemy.RemoveBullet(Canvas);
                             Canvas.Children.Remove(block);
                             blocks.Remove(block);
                             break;
                         }
-                        else if (!BlockRect.IsEmpty && block.CanDestroy == false && block.CanGoTrough == false)
+                        else if (!BlockRect.IsEmpty && block.CanDestroy == false && block.CanGoTrough == false) // If block.Candestroy is false
                         {
-                            enemy.RemoveBullet(Canvas);
+                            enemy.RemoveBullet(Canvas); // only the bullet is destroyed
                             break;
                         }
 
                     }
-                    foreach (Player player in players)
+                    foreach (Player player in players) // Checking collision between enemy bullets and players
                     {
+                        // Creating rectangles for collision detection
                         PlayerRect = player.GetRect();
                         BulletRect = bullet.GetRect();
-                        PlayerRect.Intersect(BulletRect);
+                        PlayerRect.Intersect(BulletRect); // Checking for intersection
 
-                        if (!PlayerRect.IsEmpty)
+                        if (!PlayerRect.IsEmpty) // If collision happens
                         {
                             enemy.RemoveBullet(Canvas);
                             Canvas.Children.Remove(player);
                             if (player.Player2 == false)
-                                P1Lives--;
+                            {
+                                P1Dead = true; // P1Dead & P2Dead are used for the respawn feature
+                                P1Lives--; // Taking one life away for dying
+                            }
                             else
+                            {
+                                P2Dead = true;
                                 P2Lives--;
+                            }
                             UpdatePoints();
                             players.Remove(player);
                             player.ResetControls();
@@ -393,12 +422,14 @@ namespace BattleCity
             {
                 if (player.Player2 == false)
                 {
-                    Player1Score.Text = player.Score.ToString();
-                    Player1LivesTextBlock.Text = P1Lives.ToString();
+                    P1PreviousScore = player.Score; // the points are saved to the PreviousScore ints to keep points between levels and deaths
+                    Player1ScoreTextBlock.Text = player.Score.ToString(); // Player score displayed in the PlayerScoreTextBlock
+                    Player1LivesTextBlock.Text = P1Lives.ToString(); // Player lives displayed in the PlayerLivesTextBlock
                 }
                 if (player.Player2 == true)
                 {
-                    Player2Score.Text = player.Score.ToString();
+                    P2PreviousScore = player.Score;
+                    Player2ScoreTextBlock.Text = player.Score.ToString();
                     Player2LivesTextBlock.Text = P2Lives.ToString();
                 }
             }
@@ -407,50 +438,40 @@ namespace BattleCity
         //Checking if game is over
         private void CheckGameOver()
         {
-            if (!players.Any())
+            if (!players.Any()) // Checks if there are any player objects in the list
             {
                 SavePoints();
-                GameEndImage.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets/Lose.jpg"));
-                GameEndImage.Visibility = Visibility.Visible;
+                GameEndImage.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets/Lose.jpg")); // Loads the "You Lose" image to GameEndImage
+                GameEndImage.Visibility = Visibility.Visible; // Shows the GameEndImage
                 NextLevelButton.Visibility = Visibility.Visible;
-                dispatcherTimer.Stop();
+                dispatcherTimer.Stop(); // Stops the game
             }
-            if(GoalHit == true)
+            else if(GoalHit == true)
             {
                 SavePoints();
-                GameEndImage.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets/Lose.jpg"));
-                GameEndImage.Visibility = Visibility.Visible;
+                GameEndImage.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets/Lose.jpg")); // Loads the "You Lose" image to GameEndImage
+                GameEndImage.Visibility = Visibility.Visible; // Shows the GameEndImage
                 NextLevelButton.Visibility = Visibility.Visible;
-                dispatcherTimer.Stop();
+                dispatcherTimer.Stop(); // Stops the game
             }
-            if (!enemies.Any())
+            else if (!enemies.Any())
             {
                 SavePoints();
-                GameEndImage.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets/win.jpg"));
-                GameEndImage.Visibility = Visibility.Visible;
+                GameEndImage.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets/win.jpg")); // Loads the "You Win" image to GameEndImage
+                GameEndImage.Visibility = Visibility.Visible; // Shows the GameEndImage
                 NextLevelButton.Visibility = Visibility.Visible;
-                dispatcherTimer.Stop();
+                dispatcherTimer.Stop(); // Stops the game
             }
         }
 
-        private void NextLevelButton_Click(object sender, RoutedEventArgs e)
+        private void NextLevelButton_Click(object sender, RoutedEventArgs e) // This is the method that runs when the Next Level button is clicked on the GamePage
         {
-            foreach(Player player in players)
-            {
-                if (player.Player2 == false)
-                {
-                    P1PreviousScore = player.Score;
-                }
-                else if (player.Player2 == true)
-                {
-                    P2PreviousScore = player.Score;
-                }
-            }
-            GameEndImage.Visibility = Visibility.Collapsed;
-            level.DestroyLevel(Canvas);
-            LevelNumber++;
-            level.LoadLevel();
-            level.BuildLevel(Canvas);
+            GameEndImage.Visibility = Visibility.Collapsed; // The Game end image gets hidden back
+            level.DestroyLevel(Canvas); // The current level is destroyed
+            LevelNumber++; // The LevelNumber goes up by one so the next level is loaded
+            level.LoadLevel(); // The Level is loaded from file
+            level.BuildLevel(Canvas); // The level is built
+            // Each player's score is carried over from the PreviousScore int
             foreach (Player player in players)
             {
                 if (player.Player2 == false)
@@ -462,14 +483,14 @@ namespace BattleCity
                     player.Score = P2PreviousScore;
                 }
             }
-            dispatcherTimer.Start();
+            dispatcherTimer.Start(); // Game starts
         }
 
         // Method for saving points to a file
         private async void SavePoints()
         {
             //Creating the string to write
-            string Player1pisteet = Player1Score.Text;
+            string Player1pisteet = Player1ScoreTextBlock.Text;
             //string Player2pisteet = Player2Score.Text; if 2player mode true
             int player1points = int.Parse(Player1pisteet);
             //int player2points = int.Parse(Player2pisteet); if 2player mode true
@@ -485,24 +506,20 @@ namespace BattleCity
             await FileIO.WriteTextAsync(HSFile, "Player 1 Highscore:" +Player1pisteet+Environment.NewLine /*+"Player 2 Highscore:" + Player2pisteet if2player true*/);
         }
 
-        private void RetryButton_Click(object sender, RoutedEventArgs e)
+        private void RetryButton_Click(object sender, RoutedEventArgs e) // This is the method that runs when the retry button is clicked on the GamePage
         {
-            GameEndImage.Visibility = Visibility.Collapsed;
-            level.DestroyLevel(Canvas);
-            level.LoadLevel();
-            level.BuildLevel(Canvas);
-            foreach (Player player in players)
-            {
-                if (player.Player2 == false)
-                {
-                    player.Score = P1PreviousScore;
-                }
-                else if (player.Player2 == true)
-                {
-                    player.Score = P2PreviousScore;
-                }
-            }
-            dispatcherTimer.Start();
+            GameEndImage.Visibility = Visibility.Collapsed; // The Game end picture is hidden
+            GoalHit = false; // GoalHit is restored back to false, so the game will continue even if the goal was hit
+            // P1 and P2 lives are restored to 3
+            P1Lives = 3;
+            P2Lives = 3;
+            // P1 and P2 scores are restored to 0
+            P1PreviousScore = 0;
+            P2PreviousScore = 0;
+            level.DestroyLevel(Canvas); // The level is destroyed
+            level.LoadLevel(); // The same level is reloaded
+            level.BuildLevel(Canvas); // The level is built
+            dispatcherTimer.Start(); // Game starts
         }
 
         //Method for controlling pew volume
