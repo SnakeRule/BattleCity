@@ -59,10 +59,11 @@
             VerticalAlignment="Bottom" Click="NextLevelButton_Click"
             />
 
-        <TextBlock Grid.Column="2" HorizontalAlignment="Left" Margin="83,33,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Player 1 Score: " VerticalAlignment="Top" Height="43" Width="122" FontSize="18.667"/>
-        <TextBlock Grid.Column="2" HorizontalAlignment="Left" Margin="83,105,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Player 2 Score: " VerticalAlignment="Top" Height="43" Width="122" FontSize="18.667"/>
-        <TextBlock x:Name="Player1Score" x:FieldModifier="Public" Grid.Column="2" HorizontalAlignment="Left" Margin="210,33,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Height="43" Width="95" FontSize="18.667"/>
-        <TextBlock x:Name="Player2Score" x:FieldModifier="Public" Text="No Player" Grid.Column="2" HorizontalAlignment="Left" Margin="210,105,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Height="43" Width="95" FontSize="18.667"/>
+        <TextBlock Grid.Column="2" HorizontalAlignment="Left" Margin="83,33,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Player 1 Score: " VerticalAlignment="Top" Height="27" Width="122" FontSize="18.667"/>
+
+        <TextBlock Grid.Column="2" HorizontalAlignment="Left" Margin="83,105,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Player 2 Score: " VerticalAlignment="Top" Height="25" Width="122" FontSize="18.667"/>
+        <TextBlock x:Name="Player1Score" x:FieldModifier="Public" Grid.Column="2" HorizontalAlignment="Left" Margin="210,33,-5,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Height="27" Width="95" FontSize="18.667"/>
+        <TextBlock x:Name="Player2Score" x:FieldModifier="Public" Text="No Player" Grid.Column="2" HorizontalAlignment="Left" Margin="210,105,-5,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Height="25" Width="95" FontSize="18.667"/>
         <Image x:Name="GameEndImage"
                Grid.Column="1"
                Visibility="Collapsed"
@@ -72,5 +73,20 @@
                HorizontalAlignment="Center"
                Width="290"
                />
+        <Button 
+        	x:Name="RetryButton" 
+        	Content="Retry" 
+        	Grid.Column="2" Grid.Row="1" 
+        	HorizontalAlignment="Center" 
+        	Width="150"
+        	Height="60" FontSize="20" FontFamily="Impact"
+        	Margin="0,0,0,160"
+        	Visibility="Visible"
+        	VerticalAlignment="Bottom" Click="RetryButton_Click"
+            />
+        <TextBlock Grid.Column="2" HorizontalAlignment="Left" Margin="83,69,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Player 1 Lives: " VerticalAlignment="Top" Height="27" Width="122" FontSize="18.667"/>
+        <TextBlock x:Name="Player1LivesTextBlock" x:FieldModifier="Public" Grid.Column="2" HorizontalAlignment="Left" Margin="210,69,-5,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Height="27" Width="95" FontSize="18.667"/>
+        <TextBlock Grid.Column="2" HorizontalAlignment="Left" Margin="83,135,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Player 2 Lives: " VerticalAlignment="Top" Height="27" Width="122" FontSize="18.667"/>
+        <TextBlock x:Name="Player2LivesTextBlock" x:FieldModifier="Public" Text="No Player" Grid.Column="2" HorizontalAlignment="Left" Margin="210,137,-5,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Height="25" Width="95" FontSize="18.667"/>
     </Grid>
 </Page>

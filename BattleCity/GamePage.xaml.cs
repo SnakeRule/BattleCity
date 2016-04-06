@@ -35,6 +35,10 @@ namespace BattleCity
         private bool PlayerHit = false;
         private bool GoalHit = false;
         public static int LevelNumber;
+        private int P1PreviousScore;
+        private int P2PreviousScore;
+        public static int P1Lives;
+        public static int P2Lives;
 
         // These rectangles are used as hitboxes
         private Rect PlayerRect;
@@ -60,6 +64,9 @@ namespace BattleCity
             Canvas.Height = 680;
             CanvasWidth = Canvas.Width;
             CanvasHeight = Canvas.Height;
+
+            P1Lives = 3;
+            P2Lives = 3;
 
             blocks = level.blocks;
             players = level.players;
@@ -251,6 +258,11 @@ namespace BattleCity
                     player.RemoveBullet(Canvas);
                     Canvas.Children.Remove(player);
                     player.ResetControls();
+                    if (player.Player2 == false)
+                        P1Lives--;
+                    else
+                        P2Lives--;
+                    UpdatePoints();
                     players.Remove(player);
                     player.ResetControls();
                     break;
@@ -279,7 +291,7 @@ namespace BattleCity
                             player.RemoveBullet(Canvas);
                             Canvas.Children.Remove(block);
                             blocks.Remove(block);
-                            player.score += block.PointValue;
+                            player.Score += block.PointValue;
                             break;
                         }
                         else if (!BlockRect.IsEmpty && block.CanDestroy == false && block.CanGoTrough == false)
@@ -300,7 +312,7 @@ namespace BattleCity
                             Canvas.Children.Remove(enemy);
                             enemy.RemoveBullet(Canvas);
                             enemies.Remove(enemy);
-                            player.score += enemy.PointValue;
+                            player.Score += enemy.PointValue;
                             break;
                         }
                         foreach(Bullet enemybullet in enemy.bullets)
@@ -358,6 +370,11 @@ namespace BattleCity
                         {
                             enemy.RemoveBullet(Canvas);
                             Canvas.Children.Remove(player);
+                            if (player.Player2 == false)
+                                P1Lives--;
+                            else
+                                P2Lives--;
+                            UpdatePoints();
                             players.Remove(player);
                             player.ResetControls();
                             player.RemoveBullet(Canvas);
@@ -376,14 +393,15 @@ namespace BattleCity
             {
                 if (player.Player2 == false)
                 {
-                    Player1Score.Text = player.score.ToString();
+                    Player1Score.Text = player.Score.ToString();
+                    Player1LivesTextBlock.Text = P1Lives.ToString();
                 }
                 if (player.Player2 == true)
                 {
-                    Player2Score.Text = player.score.ToString();
+                    Player2Score.Text = player.Score.ToString();
+                    Player2LivesTextBlock.Text = P2Lives.ToString();
                 }
             }
-
         }
 
         //Checking if game is over
@@ -417,11 +435,33 @@ namespace BattleCity
 
         private void NextLevelButton_Click(object sender, RoutedEventArgs e)
         {
+            foreach(Player player in players)
+            {
+                if (player.Player2 == false)
+                {
+                    P1PreviousScore = player.Score;
+                }
+                else if (player.Player2 == true)
+                {
+                    P2PreviousScore = player.Score;
+                }
+            }
             GameEndImage.Visibility = Visibility.Collapsed;
             level.DestroyLevel(Canvas);
             LevelNumber++;
             level.LoadLevel();
             level.BuildLevel(Canvas);
+            foreach (Player player in players)
+            {
+                if (player.Player2 == false)
+                {
+                    player.Score = P1PreviousScore;
+                }
+                else if (player.Player2 == true)
+                {
+                    player.Score = P2PreviousScore;
+                }
+            }
             dispatcherTimer.Start();
         }
 
@@ -444,7 +484,27 @@ namespace BattleCity
             
             await FileIO.WriteTextAsync(HSFile, "Player 1 Highscore:" +Player1pisteet+Environment.NewLine /*+"Player 2 Highscore:" + Player2pisteet if2player true*/);
         }
-  
+
+        private void RetryButton_Click(object sender, RoutedEventArgs e)
+        {
+            GameEndImage.Visibility = Visibility.Collapsed;
+            level.DestroyLevel(Canvas);
+            level.LoadLevel();
+            level.BuildLevel(Canvas);
+            foreach (Player player in players)
+            {
+                if (player.Player2 == false)
+                {
+                    player.Score = P1PreviousScore;
+                }
+                else if (player.Player2 == true)
+                {
+                    player.Score = P2PreviousScore;
+                }
+            }
+            dispatcherTimer.Start();
+        }
+
         //Method for controlling pew volume
         /* not working, will have to change mediaelement creation
          public void VolumeSlider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)

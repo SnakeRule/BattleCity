@@ -79,10 +79,10 @@ namespace BattleCity
 
         public void CreatePlayer2(Canvas canvas, int col, int row)
         {
-            player2 = new Player { LocationX = col, LocationY = row, Player2 = true, canvas = canvas, tankDirection = 2 };
-            canvas.Children.Add(player2);
-            player2.DrawPlayer();
-            players.Add(player2);
+                player2 = new Player { LocationX = col, LocationY = row, Player2 = true, canvas = canvas, tankDirection = 2 };
+                canvas.Children.Add(player2);
+                player2.DrawPlayer();
+                players.Add(player2);
         }
 
         public void BuildLevel(Canvas canvas)
@@ -166,15 +166,20 @@ namespace BattleCity
                             break;
                         case 7:
                             // Add player
-                            col = c * 40;
-                            player1 = new Player { LocationX = col, LocationY = row, Player2 = false, canvas = canvas, tankDirection = 2 };
-                            canvas.Children.Add(player1);
-                            player1.DrawPlayer();
-                            players.Add(player1);
-                            x++;
+                            if (GamePage.P1Lives > 0)
+                            {
+                                col = c * 40;
+                                player1 = new Player { LocationX = col, LocationY = row, Player2 = false, canvas = canvas, tankDirection = 2 };
+                                canvas.Children.Add(player1);
+                                player1.DrawPlayer();
+                                players.Add(player1);
+                                x++;
+                            }
+                            else
+                                x++;
                             break;
                         case 8:
-                            if (GamePage.MP == true)
+                            if (GamePage.MP == true && GamePage.P2Lives > 0)
                             {
                                 col = c * 40;
                                 CreatePlayer2(canvas, col, row);
