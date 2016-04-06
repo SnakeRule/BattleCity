@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -28,10 +29,20 @@ namespace BattleCity
         {
             this.InitializeComponent();
         }
-
+        //Back to main page
         private void MenuButton_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(MainPage));
+        }
+        // Shows the current High scores
+        private async void HSButton_Click(object sender, RoutedEventArgs e)
+        {
+            Windows.Storage.StorageFolder storageFolder =
+          Windows.Storage.ApplicationData.Current.LocalFolder;
+            Windows.Storage.StorageFile HSFile =
+                await storageFolder.GetFileAsync("Highscore.txt");
+            string Highscoretext = await Windows.Storage.FileIO.ReadTextAsync(HSFile);
+            HStext.Text = Highscoretext;
         }
     }
 }
