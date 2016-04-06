@@ -373,7 +373,7 @@ namespace BattleCity
         {
             if (!players.Any())
             {
-                //SavePoints();
+                SavePoints();
                 GameEndImage.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets/Lose.jpg"));
                 GameEndImage.Visibility = Visibility.Visible;
                 dispatcherTimer.Stop();
@@ -381,13 +381,13 @@ namespace BattleCity
             if(GoalHit == true)
             {
                 SavePoints();
-                //ReadHS();
                 GameEndImage.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets/Lose.jpg"));
                 GameEndImage.Visibility = Visibility.Visible;
                 dispatcherTimer.Stop();
             }
             if (!enemies.Any())
             {
+                SavePoints();
                 GameEndImage.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets/win.jpg"));
                 GameEndImage.Visibility = Visibility.Visible;
                 dispatcherTimer.Stop();
