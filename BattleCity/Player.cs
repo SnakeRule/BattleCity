@@ -83,8 +83,7 @@ namespace BattleCity
                     left = false;
                     right = false;
                 }
-
-                if (args.VirtualKey == VirtualKey.Add)
+                if (args.VirtualKey == VirtualKey.Add && GamePage.dispatcherTimer.IsEnabled == true)
                 {
                     CreateBullet();
                 }
@@ -119,7 +118,7 @@ namespace BattleCity
                     left = false;
                     right = false;
                 }
-                if (args.VirtualKey == VirtualKey.J)
+                if (args.VirtualKey == VirtualKey.J && GamePage.dispatcherTimer.IsEnabled == true)
                 {
                     CreateBullet();
                 }
@@ -168,6 +167,10 @@ namespace BattleCity
                 }
             }
         }
-
+        public void ResetControls()
+        {
+            Window.Current.CoreWindow.KeyDown -= onKeyDown;
+            Window.Current.CoreWindow.KeyUp -= onKeyUp;
+        }
     }
 }

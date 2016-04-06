@@ -38,37 +38,12 @@ namespace BattleCity
            
         }
 
-        public async void Level1(Canvas canvas)
+        public async void LoadLevel(int LevelNumber)
         {
             // create or open local file
             Windows.Storage.StorageFolder storageFolder =
             Windows.Storage.ApplicationData.Current.LocalFolder;
-            using (StreamReader reader = File.OpenText(@"Levels\Level1.txt"))
-            {
-                Debug.WriteLine("Opened File");
-                LevelData = await reader.ReadToEndAsync();
-            }
-        }
-
-
-        public async void Level2(Canvas canvas)
-        {   
-            // create or open local file
-            Windows.Storage.StorageFolder storageFolder =
-            Windows.Storage.ApplicationData.Current.LocalFolder;
-            using (StreamReader reader = File.OpenText(@"Levels\Level2.txt"))
-            {
-                Debug.WriteLine("Opened File");
-                LevelData = await reader.ReadToEndAsync();
-            }
-        }
-
-        public async void Level3(Canvas canvas)
-        {
-            // create or open local file
-            Windows.Storage.StorageFolder storageFolder =
-            Windows.Storage.ApplicationData.Current.LocalFolder;
-            using (StreamReader reader = File.OpenText(@"Levels\Level3.txt"))
+            using (StreamReader reader = File.OpenText(@"Levels\Level" + LevelNumber + ".txt"))
             {
                 Debug.WriteLine("Opened File");
                 LevelData = await reader.ReadToEndAsync();
@@ -85,6 +60,7 @@ namespace BattleCity
 
         public void BuildLevel(Canvas canvas)
         {
+
             int columns = 17;
             int rows = 17;
             int row = 0;
@@ -192,6 +168,30 @@ namespace BattleCity
                 Canvas.SetZIndex(player, 0);
             }
             //Debug.WriteLine("LISTA" + k);
+        }
+
+        public void DestroyLevel(Canvas canvas)
+        {
+            foreach(Player player in players)
+            {
+                player.ResetControls();
+                player.RemoveBullet(canvas);
+                player.bullets.Clear();
+                canvas.Children.Remove(player);
+            }
+            foreach(Enemy enemy in enemies)
+            {
+                enemy.RemoveBullet(canvas);
+                enemy.bullets.Clear();
+                canvas.Children.Remove(enemy);
+            }
+            foreach(Block block in blocks)
+            {
+                canvas.Children.Remove(block);
+            }
+            players.Clear();
+            enemies.Clear();
+            blocks.Clear();
         }
 
     }

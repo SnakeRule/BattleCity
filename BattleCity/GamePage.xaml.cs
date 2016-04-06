@@ -34,6 +34,7 @@ namespace BattleCity
         public static bool MP; // Bool used for checking if 2-player mode was selected
         private bool PlayerHit = false;
         private bool GoalHit = false;
+        private int LevelNumber;
 
         // These rectangles are used as hitboxes
         private Rect PlayerRect;
@@ -43,7 +44,7 @@ namespace BattleCity
 
         private double CanvasWidth;
         private double CanvasHeight;
-        private DispatcherTimer dispatcherTimer;
+        public static DispatcherTimer dispatcherTimer;
 
         private List<Block> blocks = new List<Block>();
         private List<Player> players = new List<Player>();
@@ -63,7 +64,8 @@ namespace BattleCity
             players = level.players;
             enemies = level.enemies;
 
-            level.Level3(Canvas);
+            LevelNumber = 1;
+            level.LoadLevel(LevelNumber);
             level.BuildLevel(Canvas);
 
             random = new Random(); // setting up rng for enemy movement
@@ -73,7 +75,6 @@ namespace BattleCity
             dispatcherTimer.Tick += Game;
             dispatcherTimer.Interval = TimeSpan.FromTicks(TimeSpan.TicksPerSecond / 60);
             dispatcherTimer.Start();
-
         }
 
         public void Game(object sender, object e)
@@ -82,12 +83,12 @@ namespace BattleCity
                 {
                 player.AnimationUpdate();
                 BlockCollisionCheck();               
-                if (PlayerHit == true)
-                    break;
                 player.CollisionRelease();
                 player.UpdatePlayer(Canvas);
                 player.UpdateBullet(Canvas);
-                }
+                if (PlayerHit == true)
+                    break;
+            }
                 foreach(Enemy enemy in enemies)
                 {
                 enemy.AnimationUpdate();
@@ -235,7 +236,7 @@ namespace BattleCity
                     if (!EnemyRect.IsEmpty)
                     {
                         PlayerHit = true;
-                        enemy.RemoveBullet();
+                        enemy.RemoveBullet(Canvas);
                         Canvas.Children.Remove(enemy);
                         enemies.Remove(enemy);
                         break;
@@ -245,7 +246,7 @@ namespace BattleCity
                 }
                 if(PlayerHit == true)
                 {
-                    player.RemoveBullet();
+                    player.RemoveBullet(Canvas);
                     Canvas.Children.Remove(player);
                     players.Remove(player);
                     break;
@@ -271,7 +272,7 @@ namespace BattleCity
                             {
                                 break;
                             }
-                            player.RemoveBullet();
+                            player.RemoveBullet(Canvas);
                             Canvas.Children.Remove(block);
                             blocks.Remove(block);
                             player.score += block.PointValue;
@@ -279,7 +280,7 @@ namespace BattleCity
                         }
                         else if (!BlockRect.IsEmpty && block.CanDestroy == false && block.CanGoTrough == false)
                         {
-                            player.RemoveBullet();
+                            player.RemoveBullet(Canvas);
                             break;
                         }
                     }
@@ -291,9 +292,9 @@ namespace BattleCity
 
                         if (!EnemyRect.IsEmpty)
                         {
-                            player.RemoveBullet();
+                            player.RemoveBullet(Canvas);
                             Canvas.Children.Remove(enemy);
-                            enemy.RemoveBullet();
+                            enemy.RemoveBullet(Canvas);
                             enemies.Remove(enemy);
                             player.score += enemy.PointValue;
                             break;
@@ -319,14 +320,14 @@ namespace BattleCity
                             {
                                 GoalHit = true;
                             }
-                            enemy.RemoveBullet();
+                            enemy.RemoveBullet(Canvas);
                             Canvas.Children.Remove(block);
                             blocks.Remove(block);
                             break;
                         }
                         else if (!BlockRect.IsEmpty && block.CanDestroy == false && block.CanGoTrough == false)
                         {
-                            enemy.RemoveBullet();
+                            enemy.RemoveBullet(Canvas);
                             break;
                         }
 
@@ -339,10 +340,10 @@ namespace BattleCity
 
                         if (!PlayerRect.IsEmpty)
                         {
-                            enemy.RemoveBullet();
+                            enemy.RemoveBullet(Canvas);
                             Canvas.Children.Remove(player);
                             players.Remove(player);
-                            player.RemoveBullet();
+                            player.RemoveBullet(Canvas);
                             break;
                         }
                     }
@@ -389,8 +390,20 @@ namespace BattleCity
             {
                 GameEndImage.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets/win.jpg"));
                 GameEndImage.Visibility = Visibility.Visible;
+                NextLevelButton.Visibility = Visibility.Visible;
                 dispatcherTimer.Stop();
             }
+        }
+
+        private void NextLevelButton_Click(object sender, RoutedEventArgs e)
+        {
+            GameEndImage.Visibility = Visibility.Collapsed;
+            level.DestroyLevel(Canvas);
+            LevelNumber++;
+            
+            level.LoadLevel(LevelNumber);
+            level.BuildLevel(Canvas);
+            dispatcherTimer.Start();
         }
 
         // Method for saving points to a file

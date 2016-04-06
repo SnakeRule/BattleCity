@@ -56,7 +56,6 @@ using Windows.UI.Xaml.Navigation;
         {
             this.InitializeComponent();
             LoadAudio(); //Loads the pew sound
-            
         }
         public Rect GetRect()
         {
@@ -147,12 +146,12 @@ using Windows.UI.Xaml.Navigation;
                 bulletTickCounter++;
                 if (bulletTickCounter > 25)
                 {
-                    RemoveBullet();
+                    RemoveBullet(canvas);
                     break;
                 }
                 if (bullet.LocationX <= 0 || bullet.LocationX >= (canvas.Width - bullet.ActualWidth) || bullet.LocationY <= 0 || bullet.LocationY >= (canvas.Height - bullet.ActualHeight))
                 {
-                    RemoveBullet();
+                    RemoveBullet(canvas);
                     break;
                 }
                 else
@@ -240,11 +239,15 @@ using Windows.UI.Xaml.Navigation;
             }
         }
     }
-        public void RemoveBullet() // method for removing the bullet
+        public void RemoveBullet(Canvas canvas) // method for removing the bullet
         {
-            bulletTickCounter = 0;
-            canvas.Children.Remove(bullet);
-            bullets.Remove(bullet);
+            foreach (Bullet bullet in bullets)
+            {
+                bulletTickCounter = 0;
+                canvas.Children.Remove(bullet);
+                bullets.Remove(bullet);
+                break;
+            }
         }
 
         public void AnimationUpdate()
