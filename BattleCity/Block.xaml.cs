@@ -60,6 +60,31 @@ namespace BattleCity
             CanGoTrough = false;
         }
 
+        public void drawSpeedUp()
+        {
+            BlockSpriteSheetOffset.Y = -(4 * 40);
+            CanDestroy = false;
+            CanGoTrough = true;
+        }
+        public void drawPowerUp()
+        {
+            BlockSpriteSheetOffset.Y = -(5 * 40);
+            CanDestroy = false;
+            CanGoTrough = true;
+        }
+        public void drawStarPower1()
+        {
+            BlockSpriteSheetOffset.Y = -(6 * 40);
+            CanDestroy = false;
+            CanGoTrough = true;
+        }
+        public void drawStarPower2()
+        {
+            BlockSpriteSheetOffset.Y = -(7 * 40);
+            CanDestroy = false;
+            CanGoTrough = true;
+        }
+
         public void drawGoal()
         {
             BlockSpriteSheetOffset.Y = -(3 * 40);
