@@ -40,6 +40,7 @@ namespace BattleCity
         private Rect PlayerRect;
         private Rect BlockRect;
         private Rect BulletRect;
+        private Rect EnemyBulletRect;
         private Rect EnemyRect;
 
         private double CanvasWidth;
@@ -301,6 +302,18 @@ namespace BattleCity
                             enemies.Remove(enemy);
                             player.score += enemy.PointValue;
                             break;
+                        }
+                        foreach(Bullet enemybullet in enemy.bullets)
+                        {
+                            BulletRect = bullet.GetRect();
+                            EnemyBulletRect = enemybullet.GetRect();
+                            BulletRect.Intersect(EnemyBulletRect);
+                            if (!BulletRect.IsEmpty)
+                            {
+                                player.RemoveBullet(Canvas);
+                                enemy.RemoveBullet(Canvas);
+                                break;
+                            }
                         }
                     }
                     break;
