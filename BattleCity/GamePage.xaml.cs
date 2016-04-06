@@ -380,7 +380,8 @@ namespace BattleCity
             }
             if(GoalHit == true)
             {
-                //SavePoints();
+                SavePoints();
+                //ReadHS();
                 GameEndImage.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets/Lose.jpg"));
                 GameEndImage.Visibility = Visibility.Visible;
                 dispatcherTimer.Stop();
@@ -393,18 +394,26 @@ namespace BattleCity
             }
         }
 
-        // Method for saving points to a file
-        /*
+        // Method for saving points to a file     
         private async void SavePoints()
         {
+            //Creating the string to write
             string Player1pisteet = Player1Score.Text;
+            //string Player2pisteet = Player2Score.Text; if 2player mode true
+            int player1points = int.Parse(Player1pisteet);
+            //int player2points = int.Parse(Player2pisteet); if 2player mode true
+            //Create the text file to hold the data
             StorageFolder storageFolder =
-            ApplicationData.Current.LocalFolder;           
-            StorageFile Highscores =
-                await storageFolder.GetFileAsync("Highscores.txt");
-            await FileIO.WriteTextAsync(Highscores, Player1pisteet);
+            ApplicationData.Current.LocalFolder;
+            StorageFile HSFile =
+                await storageFolder.CreateFileAsync("Highscore.txt",
+                    CreationCollisionOption.ReplaceExisting);
+
+            //Write data to file
+            
+            await FileIO.WriteTextAsync(HSFile, "Player 1 Highscore:" +Player1pisteet+Environment.NewLine /*+"Player 2 Highscore:" + Player2pisteet if2player true*/);
         }
-        */
+  
         //Method for controlling pew volume
         /* not working, will have to change mediaelement creation
          public void VolumeSlider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
