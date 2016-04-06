@@ -373,42 +373,38 @@ namespace BattleCity
         {
             if (!players.Any())
             {
+                //SavePoints();
                 GameEndImage.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets/Lose.jpg"));
                 GameEndImage.Visibility = Visibility.Visible;
-                SavePoints();
                 dispatcherTimer.Stop();
             }
             if(GoalHit == true)
             {
+                //SavePoints();
                 GameEndImage.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets/Lose.jpg"));
                 GameEndImage.Visibility = Visibility.Visible;
-                SavePoints();
                 dispatcherTimer.Stop();
             }
             if (!enemies.Any())
             {
                 GameEndImage.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets/win.jpg"));
                 GameEndImage.Visibility = Visibility.Visible;
-                SavePoints();
                 dispatcherTimer.Stop();
             }
         }
 
         // Method for saving points to a file
+        /*
         private async void SavePoints()
         {
-            string Player1pisteet = Player1Score.Text;           
-             StorageFolder HighscoreFolder =
-              ApplicationData.Current.LocalFolder;           
-              StorageFile Highscores =
-                  await HighscoreFolder.GetFileAsync(@"Highscore\Highscores.txt");
-             var buffer = Windows.Security.Cryptography.CryptographicBuffer.ConvertStringToBinary(
-               "What fools these mortals be", Windows.Security.Cryptography.BinaryStringEncoding.Utf8);
-             await Windows.Storage.FileIO.WriteBufferAsync(Highscores, buffer);
-             
-
-            // await FileIO.WriteTextAsync(Highscores, "This is a test!");             
+            string Player1pisteet = Player1Score.Text;
+            StorageFolder storageFolder =
+            ApplicationData.Current.LocalFolder;           
+            StorageFile Highscores =
+                await storageFolder.GetFileAsync("Highscores.txt");
+            await FileIO.WriteTextAsync(Highscores, Player1pisteet);
         }
+        */
         //Method for controlling pew volume
         /* not working, will have to change mediaelement creation
          public void VolumeSlider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)

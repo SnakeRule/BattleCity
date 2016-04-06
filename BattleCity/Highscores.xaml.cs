@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -34,19 +33,5 @@ namespace BattleCity
         {
             this.Frame.Navigate(typeof(MainPage));
         }
-        /*public async void LoadScore()
-        {
-            // create or open local file
-            Windows.Storage.StorageFolder storageFolder =
-            Windows.Storage.ApplicationData.Current.LocalFolder;
-            using (StreamReader reader = File.OpenText(@"Highscore\Highscores.txt"))
-            {
-                Debug.WriteLine("Opened File");
-                LevelData = await reader.ReadToEndAsync();
-                Debug.WriteLine("Tiedosto: " + LevelData);
-            }
-
-        }*/
-
     }
 }
