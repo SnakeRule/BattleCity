@@ -88,7 +88,7 @@ namespace BattleCity
                 player.UpdateBullet(Canvas);
                 if (PlayerHit == true)
                     break;
-            }
+                }
                 foreach(Enemy enemy in enemies)
                 {
                 enemy.AnimationUpdate();
@@ -165,11 +165,12 @@ namespace BattleCity
                         }
                         break;
                     }
-                    if(!BlockRect.IsEmpty && block.CanGoTrough == true) // Slower speed while moving on magic block
+                    if (!BlockRect.IsEmpty && block.CanGoTrough == true) // Slower speed while moving on magic block
                     {
                         player.speed = 2;
                         break;                  
                     } else { player.speed = 4; }
+
                 }
 
                 // Collision detection between blocks and enemies
@@ -374,20 +375,21 @@ namespace BattleCity
         {
             if (!players.Any())
             {
-                //SavePoints();
+                SavePoints();
                 GameEndImage.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets/Lose.jpg"));
                 GameEndImage.Visibility = Visibility.Visible;
                 dispatcherTimer.Stop();
             }
             if(GoalHit == true)
             {
-                //SavePoints();
+                SavePoints();
                 GameEndImage.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets/Lose.jpg"));
                 GameEndImage.Visibility = Visibility.Visible;
                 dispatcherTimer.Stop();
             }
             if (!enemies.Any())
             {
+                SavePoints();
                 GameEndImage.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets/win.jpg"));
                 GameEndImage.Visibility = Visibility.Visible;
                 NextLevelButton.Visibility = Visibility.Visible;
@@ -407,17 +409,25 @@ namespace BattleCity
         }
 
         // Method for saving points to a file
-        /*
         private async void SavePoints()
         {
+            //Creating the string to write
             string Player1pisteet = Player1Score.Text;
+            //string Player2pisteet = Player2Score.Text; if 2player mode true
+            int player1points = int.Parse(Player1pisteet);
+            //int player2points = int.Parse(Player2pisteet); if 2player mode true
+            //Create the text file to hold the data
             StorageFolder storageFolder =
             ApplicationData.Current.LocalFolder;           
-            StorageFile Highscores =
-                await storageFolder.GetFileAsync("Highscores.txt");
-            await FileIO.WriteTextAsync(Highscores, Player1pisteet);
+            StorageFile HSFile =
+                await storageFolder.CreateFileAsync("Highscore.txt",
+                    CreationCollisionOption.ReplaceExisting);
+
+            //Write data to file
+            
+            await FileIO.WriteTextAsync(HSFile, "Player 1 Highscore:" +Player1pisteet+Environment.NewLine /*+"Player 2 Highscore:" + Player2pisteet if2player true*/);
         }
-        */
+  
         //Method for controlling pew volume
         /* not working, will have to change mediaelement creation
          public void VolumeSlider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
