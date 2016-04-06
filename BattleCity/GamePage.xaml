@@ -18,7 +18,12 @@
             <RowDefinition Height="680" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Canvas x:Name="Canvas" Grid.Column="1" Grid.Row="1" Background="#FF6C6C6C">
+        <Canvas x:Name="Canvas"
+                Grid.Column="1"
+                Grid.Row="1">
+            <Canvas.Background>
+                <ImageBrush Stretch="Fill" ImageSource="Assets/Background.png"/>
+            </Canvas.Background>
         </Canvas>
 
         <Button x:Name="MenuButton"
@@ -53,11 +58,19 @@
             Visibility="Visible"
             VerticalAlignment="Bottom" Click="NextLevelButton_Click"
             />
-        
+
         <TextBlock Grid.Column="2" HorizontalAlignment="Left" Margin="83,33,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Player 1 Score: " VerticalAlignment="Top" Height="43" Width="122" FontSize="18.667"/>
         <TextBlock Grid.Column="2" HorizontalAlignment="Left" Margin="83,105,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Player 2 Score: " VerticalAlignment="Top" Height="43" Width="122" FontSize="18.667"/>
         <TextBlock x:Name="Player1Score" x:FieldModifier="Public" Grid.Column="2" HorizontalAlignment="Left" Margin="210,33,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Height="43" Width="95" FontSize="18.667"/>
         <TextBlock x:Name="Player2Score" x:FieldModifier="Public" Text="No Player" Grid.Column="2" HorizontalAlignment="Left" Margin="210,105,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Height="43" Width="95" FontSize="18.667"/>
-        <Image x:Name="GameEndImage" Grid.Column="1" Visibility="Collapsed" HorizontalAlignment="Left" Height="290" Margin="200,164,0,0" Grid.Row="1" VerticalAlignment="Top" Width="290"/>
+        <Image x:Name="GameEndImage"
+               Grid.Column="1"
+               Visibility="Collapsed"
+               Height="290"
+               Grid.Row="1"
+               VerticalAlignment="Center"
+               HorizontalAlignment="Center"
+               Width="290"
+               />
     </Grid>
 </Page>
