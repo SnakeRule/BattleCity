@@ -17,9 +17,13 @@ namespace BattleCity
         private Player player1;
         private Player player2;
         private Enemy enemy;
-        private Block block1;
-        private Block block2;
-        private Block block3;
+        private Block block1; // Stone
+        private Block block2; // Tile
+        private Block block3; // Magic
+        private Block block4; // Speed up
+        private Block block5; // Power up
+        private Block block6; // Starpower 1
+        private Block block7; // Starpower 2
         public Block goal;
         public static double GoalLocationX { get; set; }
         public static double GoalLocationY { get; set; }
@@ -105,7 +109,7 @@ namespace BattleCity
                         case 0:
                             x++;
                             break;
-                        case 1:
+                        case 1: // Stone
                             col = c * 40;
                             block1 = new Block { LocationX = col, LocationY = row };
                             blocks.Add(block1);
@@ -114,7 +118,7 @@ namespace BattleCity
                             block1.UpdatePosition();
                             x++;
                             break;
-                        case 2:
+                        case 2: // Tile
                             col = c * 40;
                             block2 = new Block { LocationX = col, LocationY = row };
                             blocks.Add(block2);
@@ -123,7 +127,7 @@ namespace BattleCity
                             block2.UpdatePosition();
                             x++;
                             break;
-                        case 3:
+                        case 3: // Magic
                             col = c * 40;
                             block3 = new Block { LocationX = col, LocationY = row };
                             blocks.Add(block3);
@@ -132,7 +136,7 @@ namespace BattleCity
                             block3.UpdatePosition();
                             x++;
                             break;
-                        case 4:
+                        case 4: // Goal
                             col = c * 40;
                             goal = new Block { LocationX = col, LocationY = row };
                             GoalLocationX = goal.LocationX;
@@ -143,7 +147,13 @@ namespace BattleCity
                             goal.UpdatePosition();
                             x++;
                             break;
-                        case 5:
+                        case 5: // Speed up
+                            col = c * 40;
+                            block4 = new Block { LocationX = col, LocationY = row };
+                            blocks.Add(block4);
+                            canvas.Children.Add(block4);
+                            block4.drawSpeedUp(); // canGoTrough = true, canDestroy = false
+                            block4.UpdatePosition();
                             x++;
                             break;
                         case 6:
@@ -175,6 +185,33 @@ namespace BattleCity
                             {
                                 x++;
                             }          
+                            break;
+                        case 9: // Power up
+                            col = c * 40;
+                            block5 = new Block { LocationX = col, LocationY = row };
+                            blocks.Add(block5);
+                            canvas.Children.Add(block5);
+                            block5.drawPowerUp(); // canGoTrough = true, canDestroy = false
+                            block5.UpdatePosition();
+                            x++;
+                            break;
+                        case 10: // Starpower 1
+                            col = c * 40;
+                            block6 = new Block { LocationX = col, LocationY = row };
+                            blocks.Add(block6);
+                            canvas.Children.Add(block6);
+                            block6.drawStarPower1(); // canGoTrough = true, canDestroy = false
+                            block6.UpdatePosition();
+                            x++;
+                            break;
+                        case 11: // Starpower 2
+                            col = c * 40;
+                            block7 = new Block { LocationX = col, LocationY = row };
+                            blocks.Add(block7);
+                            canvas.Children.Add(block7);
+                            block7.drawStarPower2(); // canGoTrough = true, canDestroy = false
+                            block7.UpdatePosition();
+                            x++;
                             break;
                         default: break;
                     }

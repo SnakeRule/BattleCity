@@ -132,6 +132,7 @@
     <None Include="BattleCity_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Background.png" />
     <Content Include="Assets\Block_placeholder.png" />
     <Content Include="Assets\Cat_placeholder.png" />
     <Content Include="Assets\Lose.jpg" />
