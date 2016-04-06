@@ -31,13 +31,14 @@ namespace BattleCity
 
         private void PlayButton_Click(object sender, RoutedEventArgs e)
         {
+            GamePage.MP = false;
             this.Frame.Navigate(typeof(GamePage));
         }
 
         private void MultiPlayer_Click(object sender, RoutedEventArgs e)
         {
-            MP = true;
-            this.Frame.Navigate(typeof(GamePage), MP);
+            GamePage.MP = true;
+            this.Frame.Navigate(typeof(GamePage));
         }
 
         private void BackMenuButton_Click(object sender, RoutedEventArgs e)

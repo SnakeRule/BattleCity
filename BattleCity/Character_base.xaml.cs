@@ -194,7 +194,7 @@ using Windows.UI.Xaml.Navigation;
                     bullet.Shoot();
                     canvas.Children.Add(bullet);
                     bullets.Add(bullet);
-                    mediaElement.Play();
+                    //mediaElement.Play();
                  }
             if (tankDirection == 2)
             {
@@ -208,7 +208,7 @@ using Windows.UI.Xaml.Navigation;
                 bullet.Shoot();
                 canvas.Children.Add(bullet);
                 bullets.Add(bullet);
-                mediaElement.Play();
+                //mediaElement.Play();
             }
             if (tankDirection == 3)
             {
@@ -222,7 +222,7 @@ using Windows.UI.Xaml.Navigation;
                 bullet.Shoot();
                 canvas.Children.Add(bullet);
                 bullets.Add(bullet);
-                mediaElement.Play();
+                //mediaElement.Play();
             }
            if (tankDirection == 4)
             {
@@ -236,11 +236,11 @@ using Windows.UI.Xaml.Navigation;
                 bullet.Shoot();
                 canvas.Children.Add(bullet);
                 bullets.Add(bullet);
-                mediaElement.Play();
+                //mediaElement.Play();
             }
         }
     }
-        public void RemoveBullet() // When a character gets hit, the bullet is removed
+        public void RemoveBullet() // method for removing the bullet
         {
             bulletTickCounter = 0;
             canvas.Children.Remove(bullet);

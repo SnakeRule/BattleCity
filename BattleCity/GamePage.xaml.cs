@@ -31,10 +31,9 @@ namespace BattleCity
 
         private Random random;
 
-        private bool MP; // Bool used for checking if 2-player mode was selected
+        public static bool MP; // Bool used for checking if 2-player mode was selected
         private bool PlayerHit = false;
         private bool GoalHit = false;
-        private bool CanvasHit = false;
 
         // These rectangles are used as hitboxes
         private Rect PlayerRect;
@@ -64,8 +63,9 @@ namespace BattleCity
             players = level.players;
             enemies = level.enemies;
 
-            level.Level1(Canvas);
-          
+            level.Level3(Canvas);
+            level.BuildLevel(Canvas);
+
             random = new Random(); // setting up rng for enemy movement
 
             // Setting up the timer that runs the Game method
@@ -92,7 +92,7 @@ namespace BattleCity
                 {
                 enemy.AnimationUpdate();
                 enemy.CollisionRelease();
-                enemy.Move(random.Next(1,5), random.Next(1,6), random.Next(1,3), random.Next(1,15));
+                enemy.Move(random.Next(1,5), random.Next(3,6), random.Next(1,3), random.Next(1,31));
                 enemy.UpdatePlayer(Canvas);
                 enemy.UpdateBullet(Canvas);
                 }
@@ -193,24 +193,28 @@ namespace BattleCity
 
                         if (!BlockRect.IsEmpty && block.CanGoTrough == false)
                         {
-                            if (enemy.LocationX > block.LocationX && enemy.tankDirection == 1) // Checking if enemy is intersecting player 2 from the right
+                            if (enemy.LocationX > block.LocationX && enemy.tankDirection == 1) // Checking if enemy is intersecting block from the right
                             {
                                 enemy.StopRight = true;
+                                enemy.Move(random.Next(1, 5), random.Next(1, 3), random.Next(1, 3), random.Next(1, 9));
                             }
 
-                            if (enemy.LocationY > block.LocationY && enemy.tankDirection == 2) // Checking if enemy is intersecting player 2 from the bottom
+                            if (enemy.LocationY > block.LocationY && enemy.tankDirection == 2) // Checking if enemy is intersecting block from the bottom
                             {
                                 enemy.StopBottom = true;
+                                enemy.Move(random.Next(1, 5), random.Next(1, 3), random.Next(1, 3), random.Next(1, 9));
                             }
 
-                            if (enemy.LocationX < block.LocationX && enemy.tankDirection == 3) // Checking if enemy is intersecting player 2 from the left
+                            if (enemy.LocationX < block.LocationX && enemy.tankDirection == 3) // Checking if enemy is intersecting block from the left
                             {
                                 enemy.StopLeft = true;
+                                enemy.Move(random.Next(1, 5), random.Next(1, 3), random.Next(1, 3), random.Next(1, 9));
                             }
 
-                            if (enemy.LocationY < block.LocationY && enemy.tankDirection == 4) // Checking if enemy is intersecting player 2 from the top
+                            if (enemy.LocationY < block.LocationY && enemy.tankDirection == 4) // Checking if enemy is intersecting block from the top
                             {
                                 enemy.StopTop = true;
+                                enemy.Move(random.Next(1, 5), random.Next(1, 3), random.Next(1, 3), random.Next(1, 9));
                             }
                             break;
                         }
@@ -275,8 +279,7 @@ namespace BattleCity
                         }
                         else if (!BlockRect.IsEmpty && block.CanDestroy == false && block.CanGoTrough == false)
                         {
-                            Canvas.Children.Remove(bullet);
-                            player.bullets.Remove(bullet);
+                            player.RemoveBullet();
                             break;
                         }
                     }
@@ -323,8 +326,7 @@ namespace BattleCity
                         }
                         else if (!BlockRect.IsEmpty && block.CanDestroy == false && block.CanGoTrough == false)
                         {
-                            Canvas.Children.Remove(bullet);
-                            enemy.bullets.Remove(bullet);
+                            enemy.RemoveBullet();
                             break;
                         }
 
@@ -366,20 +368,6 @@ namespace BattleCity
 
         }
 
-        // This is for the two player mode, navigated to from the main page
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            if (e.Parameter is bool) // Checks if a bool was passed from MainPage
-            {
-                MP = (bool)e.Parameter; // If so, then MP gets the value
-
-                if(MP == true) // If MP is true, a second player is added
-                {
-                    level.CreatePlayer2(Canvas);
-                }
-            }
-            base.OnNavigatedTo(e);
-        }
         //Checking if game is over
         private void CheckGameOver()
         {

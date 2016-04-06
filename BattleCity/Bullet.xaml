@@ -14,8 +14,8 @@
     x:Name="ball"
     Stroke="Black"
     Fill="Red"
-    Width="15"
-    Height="15"
+    Width="20"
+    Height="20"
     />
     </Grid>
 </UserControl>

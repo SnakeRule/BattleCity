@@ -42,7 +42,7 @@ namespace BattleCity
         {
             tickCounter++;
 
-            if ((EnemyFocus == 1 || EnemyFocus == 2) && tickCounter >= 25)
+            if ((EnemyFocus == 1 || EnemyFocus == 2) && tickCounter >= 10)
             {
                 Debug.WriteLine("RANDOM");
                 left = false;
@@ -67,7 +67,7 @@ namespace BattleCity
                 }
                 tickCounter = 0;
             }
-            if((EnemyFocus == 3 || EnemyFocus == 4 || EnemyFocus == 5) && (tickCounter >= 25 && LocationX <= Level.GoalLocationX && LocationY <= Level.GoalLocationY))
+            if((EnemyFocus == 3 || EnemyFocus == 4 || EnemyFocus == 5) && (tickCounter >= 15 && LocationX <= Level.GoalLocationX && LocationY <= Level.GoalLocationY))
             {
                 Debug.WriteLine("DOWN OR RIGHT");
                 left = false;
@@ -86,7 +86,7 @@ namespace BattleCity
                 }
                 tickCounter = 0;
             }
-            if ((EnemyFocus == 2 || EnemyFocus == 3) && tickCounter >= 25 && LocationX >= Level.GoalLocationX && LocationY <= Level.GoalLocationY)
+            if ((EnemyFocus == 3 || EnemyFocus == 4 || EnemyFocus == 5) && tickCounter >= 15 && LocationX >= Level.GoalLocationX && LocationY <= Level.GoalLocationY)
             {
                 Debug.WriteLine("DOWN OR LEFT");
                 left = false;
@@ -107,7 +107,7 @@ namespace BattleCity
                 }
                 tickCounter = 0;
             }
-            if ((EnemyFocus == 2 || EnemyFocus == 3) && tickCounter >= 25 && LocationX >= Level.GoalLocationX && LocationY >= Level.GoalLocationY)
+            if ((EnemyFocus == 3 || EnemyFocus == 4 || EnemyFocus == 5) && tickCounter >= 15 && LocationX >= Level.GoalLocationX && LocationY >= Level.GoalLocationY)
             {
                 Debug.WriteLine("DOWN OR LEFT");
                 left = false;
@@ -126,7 +126,7 @@ namespace BattleCity
                 }
                 tickCounter = 0;
             }
-            if ((EnemyFocus == 2 || EnemyFocus == 3) && tickCounter >= 25 && LocationX <= Level.GoalLocationX && LocationY >= Level.GoalLocationY)
+            if ((EnemyFocus == 3 || EnemyFocus == 4 || EnemyFocus == 5) && tickCounter >= 15 && LocationX <= Level.GoalLocationX && LocationY >= Level.GoalLocationY)
             {
                 Debug.WriteLine("DOWN OR LEFT");
                 left = false;
@@ -145,7 +145,7 @@ namespace BattleCity
                 }
                 tickCounter = 0;
             }
-            if(EnemyShoot == 5 && tickCounter >= 15)
+            if(EnemyShoot == 5 && tickCounter >= 5)
             {
                 CreateBullet();
             }
