@@ -27,8 +27,7 @@ namespace BattleCity
         public Block goal;
         public static double GoalLocationX { get; set; }
         public static double GoalLocationY { get; set; }
-        private int P1SpawnX, P1SpawnY;
-        private int P2SpawnX, P2SpawnY;
+        private int P1SpawnX, P1SpawnY, P2SpawnX, P2SpawnY; // These hold the player spawn point location data. Used for respawning a player that has died
 
         private Windows.Storage.StorageFile levelFile;
         private string LevelData;
@@ -79,10 +78,10 @@ namespace BattleCity
             }
         }
 
-        public void RespawnPlayer1(Canvas canvas, int OldScore)
+        public void RespawnPlayer1(Canvas canvas, int OldScore) // This method respawns a dead player and keeps the player's score with the OldScore int
         {
-            player1 = new Player { LocationX = P1SpawnX, LocationY = P1SpawnY, Player2 = false, canvas = canvas, tankDirection = 2, Score = OldScore };
-            GamePage.P1Dead = false;
+            player1 = new Player { LocationX = P1SpawnX, LocationY = P1SpawnY, Player2 = false, canvas = canvas, TankDirection = 2, Score = OldScore };
+            GamePage.P1Dead = false; // Sets the player to alive state
             canvas.Children.Add(player1);
             player1.DrawPlayer();
             players.Add(player1);
@@ -90,18 +89,18 @@ namespace BattleCity
 
         public void RespawnPlayer2(Canvas canvas, int OldScore)
         {
-            player2 = new Player { LocationX = P2SpawnX, LocationY = P2SpawnY, Player2 = true, canvas = canvas, tankDirection = 2, Score = OldScore };
-            GamePage.P2Dead = false;
+            player2 = new Player { LocationX = P2SpawnX, LocationY = P2SpawnY, Player2 = true, canvas = canvas, TankDirection = 2, Score = OldScore };
+            GamePage.P2Dead = false; // Sets the player to alive state
             canvas.Children.Add(player2);
             player2.DrawPlayer();
             players.Add(player2);
         }
 
-        public void CreatePlayer1(Canvas canvas, int col, int row)
+        public void CreatePlayer1(Canvas canvas, int col, int row) // This method creates Player 1. It gets location data from the levelbuilder values col and row
         {
-            player1 = new Player { LocationX = col, LocationY = row, Player2 = false, canvas = canvas, tankDirection = 2 };
-            GamePage.P1Dead = false;
-            P1SpawnX = col;
+            player1 = new Player { LocationX = col, LocationY = row, Player2 = false, canvas = canvas, TankDirection = 2 };
+            GamePage.P1Dead = false; // Sets the player to alive state
+            P1SpawnX = col; // The spawn location data is saved to the P1spawn ints for respawning
             P1SpawnY = row;
             canvas.Children.Add(player1);
             player1.DrawPlayer();
@@ -110,9 +109,9 @@ namespace BattleCity
 
         public void CreatePlayer2(Canvas canvas, int col, int row)
         {
-            player2 = new Player { LocationX = col, LocationY = row, Player2 = true, canvas = canvas, tankDirection = 2 };
-            GamePage.P2Dead = false;
-            P2SpawnX = col;
+            player2 = new Player { LocationX = col, LocationY = row, Player2 = true, canvas = canvas, TankDirection = 2 };
+            GamePage.P2Dead = false; // Sets the player to alive state
+            P2SpawnX = col; // The spawn location data is saved to the P1spawn ints for respawning
             P2SpawnY = row;
             canvas.Children.Add(player2);
             player2.DrawPlayer();
@@ -192,7 +191,7 @@ namespace BattleCity
                         case 6:
                             // Add enemies
                             col = c * 40;
-                            enemy = new Enemy { LocationX = col, LocationY = row, canvas = canvas, tankDirection = 2, };
+                            enemy = new Enemy { LocationX = col, LocationY = row, canvas = canvas, TankDirection = 2, };
                             canvas.Children.Add(enemy);
                             enemy.DrawPlayer();
                             enemies.Add(enemy);
@@ -266,22 +265,22 @@ namespace BattleCity
             //Debug.WriteLine("LISTA" + k);
         }
 
-        public void DestroyLevel(Canvas canvas)
+        public void DestroyLevel(Canvas canvas) // This method is used for Destroying the level that was in use before loading another level
         {
-            foreach(Player player in players)
+            foreach(Player player in players) // Removing players and their bullets
             {
                 player.ResetControls();
                 player.RemoveBullet(canvas);
                 player.bullets.Clear();
                 canvas.Children.Remove(player);
             }
-            foreach(Enemy enemy in enemies)
+            foreach(Enemy enemy in enemies) // Removing players and their bullets
             {
                 enemy.RemoveBullet(canvas);
                 enemy.bullets.Clear();
                 canvas.Children.Remove(enemy);
             }
-            foreach(Block block in blocks)
+            foreach(Block block in blocks) // Removing blocks
             {
                 canvas.Children.Remove(block);
             }

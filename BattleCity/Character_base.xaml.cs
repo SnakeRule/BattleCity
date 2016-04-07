@@ -25,28 +25,65 @@ using Windows.UI.Xaml.Navigation;
     {
          public partial class Character_base : UserControl
         {
+        private int tankDirection; // This value is used to tell which direction the tank is currently facing.
+        private int speed = 4; // Used to tell how fast the character moves on screen
+        private int AnimationCycleCounter = 0; // Used to tell which animation picture is currently in use
+        private int animationTickCounter = 0; // Used to count when the next animatin picture should be loaded
 
-        public int speed = 3;
-        public int tankDirection { get; set; }
-        private int AnimationCycleCounter = 0;
-        private int animationTickCounter = 0;
-
-        public double LocationX { get; set; }
-        public double LocationY { get; set; }
+        public double LocationX { get; set; } // This value is used to tell the character's location on the X-axis
+        public double LocationY { get; set; } // This value is used to tell the character's location on the Y-axis
         public double SpeedX { get; set; }
         public double SpeedY { get; set; }
         protected MediaElement mediaElement;
+        // The following bools are used to tell which direction the tank should be moving.
         protected bool left;
         protected bool right;
         protected bool up;
         protected bool down;
+        
+        // The following bools are used by the collision detection to tell the character that it can't move in a certain direction
         public bool StopRight { get; set; }
         public bool StopDown { get; set; }
         public bool StopLeft { get; set; }
         public bool StopUp { get; set; }
-        private int bulletTickCounter;
-        protected Bullet bullet;
-        public List<Bullet> bullets = new List<Bullet>();
+
+        private int bulletTickCounter; // This value is used for counting how long the bullet has existed
+
+        public int TankDirection // Does some checks before accepting the incoming value to tankDirection
+        {
+            get
+            {
+                return tankDirection;
+            }
+            set
+            {
+                if (value < 1)
+                    tankDirection = 1;
+                if (value > 4)
+                    tankDirection = 4;
+                if (value > 0 && value < 5)
+                    tankDirection = value;
+            }
+        }
+        public int Speed // Does some checks before accepting the incoming value to speed
+        {
+            get
+            {
+                return speed;
+            }
+            set
+            {
+                if (value < 0)
+                    speed = 0;
+                if (value > 10)
+                    speed = 10;
+                if (value > -1 && value < 11)
+                    speed = value;
+            }
+        }
+
+        protected Bullet bullet; // Introducing object bullet, which comes from the Bullet class
+        public List<Bullet> bullets = new List<Bullet>(); // Creating the list where the bullets go to
         public Canvas canvas { get; set; }
 
 
@@ -57,7 +94,7 @@ using Windows.UI.Xaml.Navigation;
             this.InitializeComponent();
             LoadAudio(); //Loads the pew sound
         }
-        public Rect GetRect()
+        public Rect GetRect() // This method is used in collision detection for creating a rectangle for the player in its current position
         {
             return new Rect(LocationX, LocationY, ActualWidth, ActualHeight);
         }
@@ -67,22 +104,22 @@ using Windows.UI.Xaml.Navigation;
         /// </summary>
         public void CollisionRelease()
         {
-                if (StopUp == true && tankDirection != 4) // Tank has hit the bottom of something and is moving somewhere other than down
+                if (StopUp == true && TankDirection != 4) // Tank has hit the bottom of something and is moving somewhere other than down
                 {
                     LocationY += 4; // The tank is moved down by 4 to avoid getting stuck
                     StopUp = false;
                 }
-                if (StopDown == true && tankDirection != 2) // Tank has hit the top of something and is moving somewhere other than up
+                if (StopDown == true && TankDirection != 2) // Tank has hit the top of something and is moving somewhere other than up
                 {
                     LocationY -= 4; // The tank is moved up by 4 to avoid getting stuck
                     StopDown = false;
                 }
-                if (StopRight == true && tankDirection != 1) // Tank has hit the right side of something and is moving somewhere other than left
+                if (StopRight == true && TankDirection != 1) // Tank has hit the right side of something and is moving somewhere other than left
                 {
                     LocationX -= 4; // The tank is moved left by 4 to avoid getting stuck
                     StopRight = false;
                 }
-                if (StopLeft == true && tankDirection != 3) // Tank has hit the left side of something and is moving somewhere other than right
+                if (StopLeft == true && TankDirection != 3) // Tank has hit the left side of something and is moving somewhere other than right
                 {
                     LocationX += 4; // The tank is moved right by 4 to avoid getting stuck
                     StopLeft = false;
@@ -92,62 +129,62 @@ using Windows.UI.Xaml.Navigation;
         // This is the method where the player is drawn on the screen each frame
         public void UpdatePlayer(Canvas canvas)
         {
-        // these set the tanksprite to the canvas. The position is calculated from the tanksprite's current position and added or decreased speed
+        // these move the tanksprite on the canvas. The position is calculated from the tanksprite's current position and added or decreased speed
 
-        if (StopLeft == false)
+        if (StopLeft == false) //Checking if collision detection has stopped the character from moving left
         {
             if (left == true && LocationX >= ((CatRectangle.ActualWidth/2)/2))
             {
-                    PlayerRotate.Angle = 270;
-                    SetValue(Canvas.LeftProperty, LocationX -= speed);
-                    tankDirection = 1;
-                    animationTickCounter++;
+                    PlayerRotate.Angle = 270; // Changes the value of the RotateTransform in the xaml file to rotate the picture
+                    SetValue(Canvas.LeftProperty, LocationX -= Speed); // Adds speed value to the character Location
+                    TankDirection = 1; // Changes the tank direction value
+                    animationTickCounter++; // The animationTickCounter goes up by one
             }
         }
 
-        if (StopUp == false)
-        {
+        if (StopUp == false) //Checking if collision detection has stopped the character from moving up
+            {
             if (up == true && LocationY >= CatRectangle.ActualHeight / 2 / 2 - 14)
             {
-                    PlayerRotate.Angle = 0;
-                    SetValue(Canvas.TopProperty, LocationY -= speed);
-                    tankDirection = 2;
-                    animationTickCounter++;
-            }
+                    PlayerRotate.Angle = 0; // Changes the value of the RotateTransform in the xaml file to rotate the picture
+                    SetValue(Canvas.TopProperty, LocationY -= Speed); // Adds speed value to the character Location
+                    TankDirection = 2; // Changes the tank direction value
+                    animationTickCounter++; // The animationTickCounter goes up by one
+                }
         }
 
-        if (StopRight == false)
-        {
+        if (StopRight == false) //Checking if collision detection has stopped the character from moving right
+            {
             if (right == true && LocationX <= (canvas.ActualWidth - CatRectangle.ActualWidth - 6))
             {
-                    PlayerRotate.Angle = 90;
-                    SetValue(Canvas.LeftProperty, LocationX += speed);
-                    tankDirection = 3;
-                    animationTickCounter++;
-            }
+                    PlayerRotate.Angle = 90; // Changes the value of the RotateTransform in the xaml file to rotate the picture
+                    SetValue(Canvas.LeftProperty, LocationX += Speed); // Adds speed value to the character Location
+                    TankDirection = 3; // Changes the tank direction value
+                    animationTickCounter++; // The animationTickCounter goes up by one
+                }
         }
 
-        if (StopDown == false)
-        {
+        if (StopDown == false) //Checking if collision detection has stopped the character from moving down
+            {
             if (down == true && LocationY <= (canvas.ActualHeight - CatRectangle.ActualHeight +6))
             {
-                    PlayerRotate.Angle = 180;
-                    SetValue(Canvas.TopProperty, LocationY += speed);
-                    tankDirection = 4;
-                    animationTickCounter++;
-            }
+                    PlayerRotate.Angle = 180; // Changes the value of the RotateTransform in the xaml file to rotate the picture
+                    SetValue(Canvas.TopProperty, LocationY += Speed); // Adds speed value to the character Location
+                    TankDirection = 4; // Changes the tank direction value
+                    animationTickCounter++; // The animationTickCounter goes up by one
+                }
         }
 }
 
 
 
-        //Method for drawing the bullet every frame
+        //Method for drawing the bullet every tick
         public void UpdateBullet(Canvas canvas)
         {
             foreach (Bullet bullet in bullets)
             {
-                bulletTickCounter++;
-                if (bulletTickCounter > 25)
+                bulletTickCounter++; // bulletTickCounter + 1 to know how long the bullet has been on screen
+                if (bulletTickCounter > 25) // If the bullet has been on screen for 25 ticks, it is deleted
                 {
                     RemoveBullet(canvas);
                     break;
@@ -184,7 +221,7 @@ using Windows.UI.Xaml.Navigation;
             //Creating a bullet, movement and spawn location depending on tankDirection
             if (bullets.Count < 1)
             {
-                if (tankDirection == 1)
+                if (TankDirection == 1)
                 {
                     bullet = new Bullet
                     {
@@ -198,7 +235,7 @@ using Windows.UI.Xaml.Navigation;
                     bullets.Add(bullet);
                     //mediaElement.Play();
                  }
-            if (tankDirection == 2)
+            if (TankDirection == 2)
             {
                 bullet = new Bullet
                 {
@@ -212,7 +249,7 @@ using Windows.UI.Xaml.Navigation;
                 bullets.Add(bullet);
                 //mediaElement.Play();
             }
-            if (tankDirection == 3)
+            if (TankDirection == 3)
             {
                 bullet = new Bullet()
                 {
@@ -226,7 +263,7 @@ using Windows.UI.Xaml.Navigation;
                 bullets.Add(bullet);
                 //mediaElement.Play();
             }
-           if (tankDirection == 4)
+           if (TankDirection == 4)
             {
                 bullet = new Bullet()
                 {
@@ -253,16 +290,16 @@ using Windows.UI.Xaml.Navigation;
             }
         }
 
-        public void AnimationUpdate()
+        public void AnimationUpdate() // This method is used for updating the character picture to produce animations
         {
-            if(animationTickCounter >= 5)
+            if(animationTickCounter >= 5) // If the animation has been on screen and moving for 5 ticks
             {
-                AnimationCycleCounter++;
-                if (AnimationCycleCounter >= 7)
+                AnimationCycleCounter++; // The animation cycle goes up by one, which should load the next picture
+                if (AnimationCycleCounter >= 7) // If the counter goes up to 7, the cycle is reset
                     AnimationCycleCounter = 0;
                 animationTickCounter = 0;
             }
-            switch (AnimationCycleCounter)
+            switch (AnimationCycleCounter) // The animation works by moving to the right or left on the picture in the xaml file
             {
                 case 0:
                     CatSpriteSheetOffset.X = 0;

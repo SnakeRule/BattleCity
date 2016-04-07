@@ -165,22 +165,22 @@ namespace BattleCity
 
                     if (!BlockRect.IsEmpty && block.CanGoTrough == false) //player and block collisions
                     {
-                        if (player.LocationX > block.LocationX && player.tankDirection == 1) // Checking if player1 is intersecting the block from the right. This uses the tank's direction
+                        if (player.LocationX > block.LocationX && player.TankDirection == 1) // Checking if player1 is intersecting the block from the right. This uses the tank's direction
                         {
                             player.StopLeft = true;
                         }
 
-                        if (player.LocationY > block.LocationY && player.tankDirection == 2) // Checking if player1 is intersecting the block from the bottom. This uses the tank's direction
+                        if (player.LocationY > block.LocationY && player.TankDirection == 2) // Checking if player1 is intersecting the block from the bottom. This uses the tank's direction
                         {
                             player.StopUp = true;
                         }
 
-                        if (player.LocationX < block.LocationX && player.tankDirection == 3) // Checking if player1 is intersecting the block from the left. This uses the tank's direction
+                        if (player.LocationX < block.LocationX && player.TankDirection == 3) // Checking if player1 is intersecting the block from the left. This uses the tank's direction
                         {
                             player.StopRight = true;
                         }
 
-                        if (player.LocationY < block.LocationY && player.tankDirection == 4) // Checking if player1 is intersecting the block from the top. This uses the tank's direction
+                        if (player.LocationY < block.LocationY && player.TankDirection == 4) // Checking if player1 is intersecting the block from the top. This uses the tank's direction
                         {
                             player.StopDown = true;
                         }
@@ -188,9 +188,9 @@ namespace BattleCity
                     }
                     if (!BlockRect.IsEmpty && block.CanGoTrough == true) // Slower speed while moving on magic block
                     {
-                        player.speed = 2;
+                        player.Speed = 2;
                         break;                  
-                    } else { player.speed = 4; }
+                    } else { player.Speed = 4; }
 
                 }
 
@@ -216,25 +216,25 @@ namespace BattleCity
 
                         if (!BlockRect.IsEmpty && block.CanGoTrough == false)
                         {
-                            if (enemy.LocationX > block.LocationX && enemy.tankDirection == 1) // Checking if enemy is intersecting block from the right
+                            if (enemy.LocationX > block.LocationX && enemy.TankDirection == 1) // Checking if enemy is intersecting block from the right
                             {
                                 enemy.StopLeft = true;
                                 enemy.Move(random.Next(1, 5), random.Next(1, 3), random.Next(1, 3), random.Next(1, 9));
                             }
 
-                            if (enemy.LocationY > block.LocationY && enemy.tankDirection == 2) // Checking if enemy is intersecting block from the bottom
+                            if (enemy.LocationY > block.LocationY && enemy.TankDirection == 2) // Checking if enemy is intersecting block from the bottom
                             {
                                 enemy.StopUp = true;
                                 enemy.Move(random.Next(1, 5), random.Next(1, 3), random.Next(1, 3), random.Next(1, 9));
                             }
 
-                            if (enemy.LocationX < block.LocationX && enemy.tankDirection == 3) // Checking if enemy is intersecting block from the left
+                            if (enemy.LocationX < block.LocationX && enemy.TankDirection == 3) // Checking if enemy is intersecting block from the left
                             {
                                 enemy.StopRight = true;
                                 enemy.Move(random.Next(1, 5), random.Next(1, 3), random.Next(1, 3), random.Next(1, 9));
                             }
 
-                            if (enemy.LocationY < block.LocationY && enemy.tankDirection == 4) // Checking if enemy is intersecting block from the top
+                            if (enemy.LocationY < block.LocationY && enemy.TankDirection == 4) // Checking if enemy is intersecting block from the top
                             {
                                 enemy.StopDown = true;
                                 enemy.Move(random.Next(1, 5), random.Next(1, 3), random.Next(1, 3), random.Next(1, 9));
@@ -243,10 +243,10 @@ namespace BattleCity
                         }
                         if (!BlockRect.IsEmpty && block.CanGoTrough == true) // Slower speed while moving on magic block
                         {
-                            enemy.speed = 2;
+                            enemy.Speed = 2;
                             break;
                         }
-                        else { enemy.speed = 4; }
+                        else { enemy.Speed = 4; }
                     }
                 }
 

@@ -14,7 +14,7 @@ namespace BattleCity
 {
     class Enemy : Character_base
     {
-        private int tickCounter;
+        private int tickCounter; // Used by the Move method to move the enemy in certain intervals
         private readonly int pointValue = 20; // How many points from destroying enemy
         public int PointValue
         {
@@ -32,17 +32,20 @@ namespace BattleCity
         // This method is used to draw the enemy on the canvas
         public void DrawPlayer()
         {
-            CatSpriteSheetOffset.Y = -111;
+            CatSpriteSheetOffset.Y = -111; // setting the enemy picture from the character base xaml
             SetValue(Canvas.LeftProperty, LocationX);
             SetValue(Canvas.TopProperty, LocationY);
         }
 
-        // This is the method that decides which direction the enemy should move. Maybe one day we'll have some proper AI calculations here. RNG at the moment
+        // This is the method that decides which direction the enemy should move. It sometimes moves by random and sometimes towards the goal depending on multiple randomly generated values
+        // EnemyRandomDirection = Determines which way the enemy moves if a random movement is performed
+        // EnemyFocus = Determines if the enemy moves by random or towards the goal
+        // EnemyShoot = Determines if the enemy shoots or not
         public void Move(int EnemyRandomDirection, int EnemyFocus, int EnemyKnownDirection, int EnemyShoot)
         {
             tickCounter++;
 
-            if ((EnemyFocus == 1 || EnemyFocus == 2) && tickCounter >= 10)
+            if ((EnemyFocus == 1 || EnemyFocus == 2) && tickCounter >= 10) // This is where the random enemy movement happens
             {
                 Debug.WriteLine("RANDOM");
                 left = false;
@@ -67,6 +70,7 @@ namespace BattleCity
                 }
                 tickCounter = 0;
             }
+            // If the enemy is above and to the left of the goal, the enemy moves down or right
             if((EnemyFocus == 3 || EnemyFocus == 4 || EnemyFocus == 5) && (tickCounter >= 15 && LocationX <= Level.GoalLocationX && LocationY <= Level.GoalLocationY))
             {
                 Debug.WriteLine("DOWN OR RIGHT");
@@ -86,6 +90,7 @@ namespace BattleCity
                 }
                 tickCounter = 0;
             }
+            // If the enemy is above and to the right of the goal, the enemy moves down or left
             if ((EnemyFocus == 3 || EnemyFocus == 4 || EnemyFocus == 5) && tickCounter >= 15 && LocationX >= Level.GoalLocationX && LocationY <= Level.GoalLocationY)
             {
                 Debug.WriteLine("DOWN OR LEFT");
@@ -107,6 +112,7 @@ namespace BattleCity
                 }
                 tickCounter = 0;
             }
+            // If the enemy is below and to the right of the goal, the enemy moves up or left
             if ((EnemyFocus == 3 || EnemyFocus == 4 || EnemyFocus == 5) && tickCounter >= 15 && LocationX >= Level.GoalLocationX && LocationY >= Level.GoalLocationY)
             {
                 Debug.WriteLine("DOWN OR LEFT");
@@ -126,6 +132,7 @@ namespace BattleCity
                 }
                 tickCounter = 0;
             }
+            // If the enemy is below and to the left of the goal, the enemy moves up or right
             if ((EnemyFocus == 3 || EnemyFocus == 4 || EnemyFocus == 5) && tickCounter >= 15 && LocationX <= Level.GoalLocationX && LocationY >= Level.GoalLocationY)
             {
                 Debug.WriteLine("DOWN OR LEFT");
@@ -145,6 +152,7 @@ namespace BattleCity
                 }
                 tickCounter = 0;
             }
+            // If the randomly generated int EnemyShoot is 5 and tickCounter is more than 4, a bullet is created by the enemy
             if(EnemyShoot == 5 && tickCounter >= 5)
             {
                 CreateBullet();

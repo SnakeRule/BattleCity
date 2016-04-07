@@ -49,45 +49,47 @@ namespace BattleCity
             SetValue(Canvas.TopProperty, LocationY);
         }
 
-        // Method when pressing down on a key
+        // This method is used when a key is pressed on the keyboard
         public void onKeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs args)
         {
-            // Moving the player
+            // Button pressed for player 1
+            // The bools left right down up are used in character_base to move the player on screen
             if (Player2 == false)
             {
-                if (args.VirtualKey == VirtualKey.Left)
+                if (args.VirtualKey == VirtualKey.Left) // If pressing the left key, bool left is set to true
                 {
                     left = true;
                     right = false;
                     down = false;
                     up = false;
                 }
-                else if (args.VirtualKey == VirtualKey.Right)
+                else if (args.VirtualKey == VirtualKey.Right) // If pressing the right key, bool right is set to true
                 {
                     right = true;
                     left = false;
                     down = false;
                     up = false;
                 }
-                else if (args.VirtualKey == VirtualKey.Up)
+                else if (args.VirtualKey == VirtualKey.Up) // If pressing the up key, bool up is set to true
                 {
                     up = true;
                     right = false;
                     down = false;
                     left = false;
                 }
-                else if (args.VirtualKey == VirtualKey.Down)
+                else if (args.VirtualKey == VirtualKey.Down) // If pressing the down key, bool down is set to true
                 {
                     down = true;
                     up = false;
                     left = false;
                     right = false;
                 }
-                if (args.VirtualKey == VirtualKey.Add && GamePage.dispatcherTimer.IsEnabled == true)
+                if (args.VirtualKey == VirtualKey.Add && GamePage.dispatcherTimer.IsEnabled == true) // If pressing the shoot key, a bullet is created
                 {
                     CreateBullet();
                 }
             }
+            // Controls for Player 2. Identical to player 1 except the buttons it uses are different
             else if (Player2 == true)
             {
                 if (args.VirtualKey == VirtualKey.A)
@@ -167,7 +169,7 @@ namespace BattleCity
                 }
             }
         }
-        public void ResetControls()
+        public void ResetControls() // when the level changes, the KeyDown and KeyUp methods have to be reset to prevent double button presses
         {
             Window.Current.CoreWindow.KeyDown -= onKeyDown;
             Window.Current.CoreWindow.KeyUp -= onKeyUp;
