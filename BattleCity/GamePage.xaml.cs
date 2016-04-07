@@ -129,16 +129,6 @@ namespace BattleCity
         {
             dispatcherTimer.Stop();
             this.Frame.Navigate(typeof(MainPage));
-            /* unnecessary?, afraid to delete 
-            // get root frame (which show pages)
-            Frame rootFrame = Window.Current.Content as Frame;
-            // did we get it correctly
-            if (rootFrame == null) return;
-            // navigate back if possible
-            if (rootFrame.CanGoBack)
-            {
-                rootFrame.GoBack();
-            }*/
         }
 
         /// <summary>
@@ -440,7 +430,7 @@ namespace BattleCity
         {
             if (!players.Any()) // Checks if there are any player objects in the list
             {
-                SavePoints();
+                SavePoints();// Saves the points to file
                 GameEndImage.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets/Lose.jpg")); // Loads the "You Lose" image to GameEndImage
                 GameEndImage.Visibility = Visibility.Visible; // Shows the GameEndImage
                 NextLevelButton.Visibility = Visibility.Visible;
@@ -448,7 +438,7 @@ namespace BattleCity
             }
             else if(GoalHit == true)
             {
-                SavePoints();
+                SavePoints();// Saves the points to file
                 GameEndImage.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets/Lose.jpg")); // Loads the "You Lose" image to GameEndImage
                 GameEndImage.Visibility = Visibility.Visible; // Shows the GameEndImage
                 NextLevelButton.Visibility = Visibility.Visible;
@@ -456,7 +446,7 @@ namespace BattleCity
             }
             else if (!enemies.Any())
             {
-                SavePoints();
+                SavePoints(); // Saves the points to file
                 GameEndImage.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets/win.jpg")); // Loads the "You Win" image to GameEndImage
                 GameEndImage.Visibility = Visibility.Visible; // Shows the GameEndImage
                 NextLevelButton.Visibility = Visibility.Visible;
@@ -491,18 +481,16 @@ namespace BattleCity
         {
             //Creating the string to write
             string Player1pisteet = Player1ScoreTextBlock.Text;
-            //string Player2pisteet = Player2Score.Text; if 2player mode true
+            //string Player2pisteet = Player2Score.Text; if 2player mode true, not done yet
             int player1points = int.Parse(Player1pisteet);
-            //int player2points = int.Parse(Player2pisteet); if 2player mode true
+            //int player2points = int.Parse(Player2pisteet); if 2player mode true, not done yet
             //Create the text file to hold the data
             StorageFolder storageFolder =
             ApplicationData.Current.LocalFolder;           
             StorageFile HSFile =
                 await storageFolder.CreateFileAsync("Highscore.txt",
                     CreationCollisionOption.ReplaceExisting);
-
-            //Write data to file
-            
+            //Write data to file          
             await FileIO.WriteTextAsync(HSFile, "Player 1 Highscore:" +Player1pisteet+Environment.NewLine /*+"Player 2 Highscore:" + Player2pisteet if2player true*/);
         }
 

@@ -143,36 +143,36 @@ using Windows.UI.Xaml.Navigation;
         }
 
         if (StopUp == false) //Checking if collision detection has stopped the character from moving up
-            {
+        {
             if (up == true && LocationY >= CatRectangle.ActualHeight / 2 / 2 - 14)
             {
                     PlayerRotate.Angle = 0; // Changes the value of the RotateTransform in the xaml file to rotate the picture
                     SetValue(Canvas.TopProperty, LocationY -= Speed); // Adds speed value to the character Location
                     TankDirection = 2; // Changes the tank direction value
                     animationTickCounter++; // The animationTickCounter goes up by one
-                }
+            }
         }
 
         if (StopRight == false) //Checking if collision detection has stopped the character from moving right
-            {
+        {
             if (right == true && LocationX <= (canvas.ActualWidth - CatRectangle.ActualWidth - 6))
             {
                     PlayerRotate.Angle = 90; // Changes the value of the RotateTransform in the xaml file to rotate the picture
                     SetValue(Canvas.LeftProperty, LocationX += Speed); // Adds speed value to the character Location
                     TankDirection = 3; // Changes the tank direction value
                     animationTickCounter++; // The animationTickCounter goes up by one
-                }
+            }
         }
 
         if (StopDown == false) //Checking if collision detection has stopped the character from moving down
-            {
+        {
             if (down == true && LocationY <= (canvas.ActualHeight - CatRectangle.ActualHeight +6))
             {
                     PlayerRotate.Angle = 180; // Changes the value of the RotateTransform in the xaml file to rotate the picture
                     SetValue(Canvas.TopProperty, LocationY += Speed); // Adds speed value to the character Location
                     TankDirection = 4; // Changes the tank direction value
                     animationTickCounter++; // The animationTickCounter goes up by one
-                }
+            }
         }
 }
 
@@ -189,6 +189,7 @@ using Windows.UI.Xaml.Navigation;
                     RemoveBullet(canvas);
                     break;
                 }
+                //Removes the bullet if it goes off the canvas
                 if (bullet.LocationX <= 0 || bullet.LocationX >= (canvas.Width - bullet.ActualWidth) || bullet.LocationY <= 0 || bullet.LocationY >= (canvas.Height - bullet.ActualHeight))
                 {
                     RemoveBullet(canvas);
@@ -196,22 +197,21 @@ using Windows.UI.Xaml.Navigation;
                 }
                 else
                 {
-                    bullet.LocationX += bullet.SpeedX;
-                    bullet.LocationY += bullet.SpeedY;
-                    bullet.Shoot();
+                    bullet.LocationX += bullet.SpeedX; //Moves the bullet on x-axis
+                    bullet.LocationY += bullet.SpeedY; //Moves the bullet on y-axis
+                    bullet.Shoot(); //Updates the location to canvas
                 }
             }
         }
-        //Method to load audio from assets
+        //Loads the audio from assets
         public async void LoadAudio()
         {
             mediaElement = new MediaElement();
             mediaElement.AutoPlay = false;
-            mediaElement.Volume = 50;
             StorageFolder folder =
                 await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync("Assets");
             StorageFile file =
-                await folder.GetFileAsync("Pew.mp3");
+                await folder.GetFileAsync("Pew.mp3"); // Gun sound
             var stream = await file.OpenAsync(FileAccessMode.Read);
             mediaElement.SetSource(stream, file.ContentType);
         }
@@ -219,7 +219,7 @@ using Windows.UI.Xaml.Navigation;
         public void CreateBullet()
         {
             //Creating a bullet, movement and spawn location depending on tankDirection
-            if (bullets.Count < 1)
+            if (bullets.Count < 1) //only one bullet on canvas at a time from a player
             {
                 if (TankDirection == 1)
                 {
@@ -227,12 +227,12 @@ using Windows.UI.Xaml.Navigation;
                     {
                         SpeedX = -10, // left
                         SpeedY = 0,
-                        LocationX = LocationX - 23,
-                        LocationY = LocationY + 15.5
+                        LocationX = LocationX - 23, //creating the bullet in a position that it looks good compared to sprites position
+                        LocationY = LocationY + 15.5 //creating the bullet in a position that it looks good compared to sprites position
                     };
                     bullet.Shoot();
-                    canvas.Children.Add(bullet);
-                    bullets.Add(bullet);
+                    canvas.Children.Add(bullet); //Adding the bullet to canvas
+                    bullets.Add(bullet); //Adding bullet to list
                     //mediaElement.Play();
                  }
             if (TankDirection == 2)
@@ -241,12 +241,12 @@ using Windows.UI.Xaml.Navigation;
                 {
                     SpeedX = 0,
                     SpeedY = -10, //up
-                    LocationX = LocationX + 12,
-                    LocationY = LocationY - 21,
+                    LocationX = LocationX + 12, //creating the bullet in a position that it looks good compared to sprites position
+                    LocationY = LocationY - 21, //creating the bullet in a position that it looks good compared to sprites position
                 };
                 bullet.Shoot();
-                canvas.Children.Add(bullet);
-                bullets.Add(bullet);
+                canvas.Children.Add(bullet);//Adding the bullet to canvas
+                bullets.Add(bullet); //Adding bullet to list
                 //mediaElement.Play();
             }
             if (TankDirection == 3)
@@ -255,12 +255,12 @@ using Windows.UI.Xaml.Navigation;
                 {
                     SpeedX = 10, //right
                     SpeedY = 0,
-                    LocationX = LocationX + 44.5,
-                    LocationY = LocationY + 15.5
+                    LocationX = LocationX + 44.5, //creating the bullet in a position that it looks good compared to sprites position
+                    LocationY = LocationY + 15.5 //creating the bullet in a position that it looks good compared to sprites position
                 };
                 bullet.Shoot();
-                canvas.Children.Add(bullet);
-                bullets.Add(bullet);
+                canvas.Children.Add(bullet);//Adding the bullet to canvas
+                bullets.Add(bullet);//Adding bullet to list
                 //mediaElement.Play();
             }
            if (TankDirection == 4)
@@ -269,12 +269,12 @@ using Windows.UI.Xaml.Navigation;
                 {
                     SpeedX = 0,
                     SpeedY = 10, //down
-                    LocationX = LocationX + 12,
-                    LocationY = LocationY + 50,
+                    LocationX = LocationX + 12, //creating the bullet in a position that it looks good compared to sprites position
+                    LocationY = LocationY + 50, //creating the bullet in a position that it looks good compared to sprites position
                 };
                 bullet.Shoot();
-                canvas.Children.Add(bullet);
-                bullets.Add(bullet);
+                canvas.Children.Add(bullet);//Adding the bullet to canvas
+                bullets.Add(bullet); //Adding bullet to list
                 //mediaElement.Play();
             }
         }

@@ -18,29 +18,28 @@ using Windows.UI.Xaml.Navigation;
 namespace BattleCity
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    ///This is the button that pops up when you press "Play"
     /// </summary>
 
     public sealed partial class MenuPage : Page
-    {
-        private bool MP;
+    { 
         public MenuPage()
         {
             this.InitializeComponent();
         }
-
+        //Clicking the button takes you to 1 player mode
         private void PlayButton_Click(object sender, RoutedEventArgs e)
         {
-            GamePage.MP = false;
+            GamePage.MP = false; // = 1 player
             this.Frame.Navigate(typeof(GamePage));
         }
-
+        //Clicking the button takes you to 2 player mode
         private void MultiPlayer_Click(object sender, RoutedEventArgs e)
         {
-            GamePage.MP = true;
+            GamePage.MP = true; // = 2 player
             this.Frame.Navigate(typeof(GamePage));
         }
-
+        //Back to main menu
         private void BackMenuButton_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(MainPage));

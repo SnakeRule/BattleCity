@@ -14,9 +14,9 @@ namespace BattleCity
     class Level
     {
         // Introducing the objects used
-        private Player player1;
-        private Player player2;
-        private Enemy enemy;
+        private Player player1; // Player 1
+        private Player player2; // Player 2
+        private Enemy enemy; // Enemy
         private Block block1; // Stone
         private Block block2; // Tile
         private Block block3; // Magic
@@ -24,19 +24,19 @@ namespace BattleCity
         private Block block5; // Power up
         private Block block6; // Starpower 1
         private Block block7; // Starpower 2
-        public Block goal;
-        public static double GoalLocationX { get; set; }
-        public static double GoalLocationY { get; set; }
-        private int P1SpawnX, P1SpawnY, P2SpawnX, P2SpawnY; // These hold the player spawn point location data. Used for respawning a player that has died
+        private Block goal; // Goal
+        public static double GoalLocationX { get; set; } // Goal location X on canvas
+        public static double GoalLocationY { get; set; } // Goal location Y on canvas
+        private int P1SpawnX, P1SpawnY;
+        private int P2SpawnX, P2SpawnY;
 
-        private Windows.Storage.StorageFile levelFile;
-        private string LevelData;
+        private string LevelData; // String for current leveldata
 
         public List<Block> blocks = new List<Block>(); // All blocks
-        public List<Player> players = new List<Player>();
-        public List<Enemy> enemies = new List<Enemy>();
+        public List<Player> players = new List<Player>(); // All players
+        public List<Enemy> enemies = new List<Enemy>(); // All enemies
 
-        public Canvas canvas { get; set; }
+        public Canvas canvas { get; set; } // Get canvas here
         StreamReader reader;
 
         public void level()
@@ -121,22 +121,23 @@ namespace BattleCity
         public void BuildLevel(Canvas canvas)
         {
 
-            int columns = 17;
-            int rows = 17;
-            int row = 0;
-            int col = 0;
-            int x = 0;
-            int c = 0;
+            int columns = 17; // Local int for map columns (map 17x17)
+            int rows = 17; // Local int for map rows
+            int row = 0; // Local int for calculating current row
+            int col = 0; // Local int for calculatin current column
+            int x = 0; // Local int for level data list 
+            int c = 0; // Local int for column loop
+            int r = 0; // Local int for row loop
 
-            // Convert Level data to List
+            // Converts Level data to List
             List<int> CurrentLevelData = new List<int>(LevelData.Split(',').Select(int.Parse).ToList());
 
-
-            for(int r = 0; r < rows; r++)
+            // Loop circus for setting blocks to right location
+            for(r = 0; r < rows; r++) // Loop for setting blocks to right row
             {
-                for (c = 0; c < columns; c++)
+                for (c = 0; c < columns; c++) // Loop for setting blocks to right column
                 {
-                    switch (CurrentLevelData[x])
+                    switch (CurrentLevelData[x]) // Switch - case to check what block has to be drawn
                     {                          
                         case 0:
                             x++;
@@ -247,22 +248,23 @@ namespace BattleCity
                             block7.UpdatePosition();
                             x++;
                             break;
-                        default: break;
+                        default: // If level data contains any wrong numbers loop continues to build level anyways by adding 1 to int x
+                            x++;
+                            break;
                     }
                 }
-                col = 0;
-                c = 0;
-                row += 40;
+                col = 0; // Resets columns
+                c = 0; // Resets c int so column loop starts again at next row
+                row += 40; // Moves to next row
             }
-            foreach (Block block in blocks)
+            foreach (Block block in blocks) // Sets blocks z index to -1 so players moves top of them
             {
                 Canvas.SetZIndex(block, -1);
             }
-            foreach (Player player in players)
+            foreach (Player player in players) // Sets players z index to 0
             {
                 Canvas.SetZIndex(player, 0);
             }
-            //Debug.WriteLine("LISTA" + k);
         }
 
         public void DestroyLevel(Canvas canvas) // This method is used for Destroying the level that was in use before loading another level

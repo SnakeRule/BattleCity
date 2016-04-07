@@ -19,7 +19,7 @@ using Windows.UI.Xaml.Navigation;
 namespace BattleCity
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// This page shows the local highscores
     /// </summary>
 
     // Get highscores from file to this page
@@ -38,7 +38,7 @@ namespace BattleCity
         private async void HSButton_Click(object sender, RoutedEventArgs e)
         {
             Windows.Storage.StorageFolder storageFolder =
-          Windows.Storage.ApplicationData.Current.LocalFolder;
+            Windows.Storage.ApplicationData.Current.LocalFolder;
             Windows.Storage.StorageFile HSFile =
                 await storageFolder.GetFileAsync("Highscore.txt");
             string Highscoretext = await Windows.Storage.FileIO.ReadTextAsync(HSFile);
