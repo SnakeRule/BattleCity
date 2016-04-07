@@ -27,8 +27,7 @@ namespace BattleCity
         private Block goal; // Goal
         public static double GoalLocationX { get; set; } // Goal location X on canvas
         public static double GoalLocationY { get; set; } // Goal location Y on canvas
-        private int P1SpawnX, P1SpawnY;
-        private int P2SpawnX, P2SpawnY;
+        private int P1SpawnX, P1SpawnY, P2SpawnX, P2SpawnY; // These integers are used for saving the player spawn points during level building. Used for respawning
 
         private string LevelData; // String for current leveldata
 
