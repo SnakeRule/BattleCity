@@ -20,22 +20,22 @@ namespace BattleCity
 {
     public sealed partial class Bullet : UserControl
     {
-        public double LocationX { get; set; }
-        public double LocationY { get; set; }
-        public double SpeedX { get; set; }
-        public double SpeedY { get; set; }
+        public double LocationX { get; set; }//Location of bullet on x-axis
+        public double LocationY { get; set; } //Location of bullet on y-axis
+        public double SpeedX { get; set; } //used for moving the bullet on x-axis
+        public double SpeedY { get; set; } //used for moving the bullet on y-axis
 
         public Bullet()
         {
             this.InitializeComponent();
         }    
-        //This moves the bullet
+        //This moves the bullet on the canvas
         public void Shoot()
         {
             SetValue(Canvas.LeftProperty,LocationX);
             SetValue(Canvas.TopProperty,LocationY);
         }
-
+        //Bullet hitbox
         public Rect GetRect()
         {
             return new Rect(LocationX, LocationY, ActualWidth, ActualHeight);

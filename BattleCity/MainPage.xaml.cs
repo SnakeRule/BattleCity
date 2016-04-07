@@ -21,7 +21,7 @@ using Windows.UI.ViewManagement;
 namespace BattleCity
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// This is the page that launches when opening the application
     /// </summary>
     public sealed partial class MainPage : Page
     {
@@ -29,25 +29,25 @@ namespace BattleCity
         public MainPage()
         {
             this.InitializeComponent();
-            ApplicationView.PreferredLaunchViewSize = new Size(1280, 720);
+            ApplicationView.PreferredLaunchViewSize = new Size(1280, 720); //Setting up the launch size as 1280x720
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
         }
-
+        //Exits the application
         private void ExitButton_Click(object sender, RoutedEventArgs e)
          {
              Application.Current.Exit();
          }
-         
+        //Clicking this button takes you to 1 player/2 player selection
         private void PlayButton_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(MenuPage));
         }
-
+        //Clicking this button takes you to credits
         private void CreditsButton_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(Credits));
         }
-
+        //Clicking this button takes you to highscores
         private void HSButton_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(Highscores));

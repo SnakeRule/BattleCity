@@ -18,7 +18,7 @@ namespace BattleCity
     class Player : Character_base
     {
         public bool Player2 { get; set; } // Tells which player is being used
-        public int Score { get; set; }
+        public int Score { get; set; } // Player score
 
         public Player()
         {
