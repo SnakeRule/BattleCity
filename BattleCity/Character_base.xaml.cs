@@ -35,7 +35,7 @@ using Windows.UI.Xaml.Navigation;
         public double LocationY { get; set; }
         public double SpeedX { get; set; }
         public double SpeedY { get; set; }
-        protected MediaElement mediaElement;
+        protected MediaElement mediaElement; // This is the pew sound
         protected bool left;
         protected bool right;
         protected bool up;
@@ -141,7 +141,7 @@ using Windows.UI.Xaml.Navigation;
 
 
 
-        //Method for drawing the bullet every frame
+        //Method for updating bullet position every frame
         public void UpdateBullet(Canvas canvas)
         {
             foreach (Bullet bullet in bullets)
@@ -152,6 +152,7 @@ using Windows.UI.Xaml.Navigation;
                     RemoveBullet(canvas);
                     break;
                 }
+                //Removes the bullet if it goes off the canvas
                 if (bullet.LocationX <= 0 || bullet.LocationX >= (canvas.Width - bullet.ActualWidth) || bullet.LocationY <= 0 || bullet.LocationY >= (canvas.Height - bullet.ActualHeight))
                 {
                     RemoveBullet(canvas);
@@ -159,22 +160,21 @@ using Windows.UI.Xaml.Navigation;
                 }
                 else
                 {
-                    bullet.LocationX += bullet.SpeedX;
-                    bullet.LocationY += bullet.SpeedY;
-                    bullet.Shoot();
+                    bullet.LocationX += bullet.SpeedX; //Moves the bullet on x-axis
+                    bullet.LocationY += bullet.SpeedY; //Moves the bullet on y-axis
+                    bullet.Shoot(); //Updates the location to canvas
                 }
             }
         }
-        //Method to load audio from assets
+        //Loads the audio from assets
         public async void LoadAudio()
         {
             mediaElement = new MediaElement();
-            mediaElement.AutoPlay = false;
-            mediaElement.Volume = 50;
+            mediaElement.AutoPlay = false; 
             StorageFolder folder =
                 await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync("Assets");
             StorageFile file =
-                await folder.GetFileAsync("Pew.mp3");
+                await folder.GetFileAsync("Pew.mp3"); // Gun sound
             var stream = await file.OpenAsync(FileAccessMode.Read);
             mediaElement.SetSource(stream, file.ContentType);
         }
@@ -182,62 +182,62 @@ using Windows.UI.Xaml.Navigation;
         public void CreateBullet()
         {
             //Creating a bullet, movement and spawn location depending on tankDirection
-            if (bullets.Count < 1)
+            if (bullets.Count < 1) //only one bullet on canvas at a time from a player
             {
-                if (tankDirection == 1)
+                if (tankDirection == 1) // left
                 {
                     bullet = new Bullet
                     {
                         SpeedX = -10, // left
                         SpeedY = 0,
-                        LocationX = LocationX - 23,
-                        LocationY = LocationY + 15.5
+                        LocationX = LocationX - 23, //creating the bullet in a position that it looks good compared to sprites position
+                        LocationY = LocationY + 15.5 //creating the bullet in a position that it looks good compared to sprites position
                     };
-                    bullet.Shoot();
-                    canvas.Children.Add(bullet);
-                    bullets.Add(bullet);
+                    bullet.Shoot(); 
+                    canvas.Children.Add(bullet); //Adding the bullet to canvas
+                    bullets.Add(bullet); //Adding bullet to list
                     //mediaElement.Play();
                  }
-            if (tankDirection == 2)
+            if (tankDirection == 2) //up
             {
                 bullet = new Bullet
                 {
                     SpeedX = 0,
                     SpeedY = -10, //up
-                    LocationX = LocationX + 12,
-                    LocationY = LocationY - 21,
+                    LocationX = LocationX + 12, //creating the bullet in a position that it looks good compared to sprites position
+                    LocationY = LocationY - 21, //creating the bullet in a position that it looks good compared to sprites position
                 };
                 bullet.Shoot();
-                canvas.Children.Add(bullet);
-                bullets.Add(bullet);
+                canvas.Children.Add(bullet);//Adding the bullet to canvas
+                bullets.Add(bullet); //Adding bullet to list
                 //mediaElement.Play();
             }
-            if (tankDirection == 3)
+            if (tankDirection == 3) //right
             {
                 bullet = new Bullet()
                 {
                     SpeedX = 10, //right
                     SpeedY = 0,
-                    LocationX = LocationX + 44.5,
-                    LocationY = LocationY + 15.5
+                    LocationX = LocationX + 44.5, //creating the bullet in a position that it looks good compared to sprites position
+                    LocationY = LocationY + 15.5 //creating the bullet in a position that it looks good compared to sprites position
                 };
                 bullet.Shoot();
-                canvas.Children.Add(bullet);
-                bullets.Add(bullet);
+                canvas.Children.Add(bullet);//Adding the bullet to canvas
+                bullets.Add(bullet);//Adding bullet to list
                 //mediaElement.Play();
             }
-           if (tankDirection == 4)
+           if (tankDirection == 4)//down
             {
                 bullet = new Bullet()
                 {
                     SpeedX = 0,
                     SpeedY = 10, //down
-                    LocationX = LocationX + 12,
-                    LocationY = LocationY + 50,
+                    LocationX = LocationX + 12, //creating the bullet in a position that it looks good compared to sprites position
+                    LocationY = LocationY + 50, //creating the bullet in a position that it looks good compared to sprites position
                 };
                 bullet.Shoot();
-                canvas.Children.Add(bullet);
-                bullets.Add(bullet);
+                canvas.Children.Add(bullet);//Adding the bullet to canvas
+                bullets.Add(bullet); //Adding bullet to list
                 //mediaElement.Play();
             }
         }

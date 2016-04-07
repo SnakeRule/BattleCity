@@ -18,7 +18,7 @@ using Windows.UI.Xaml.Navigation;
 namespace BattleCity
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// This page displays the names of the creators of this app.
     /// </summary>
     public sealed partial class Credits : Page
     {
@@ -26,7 +26,7 @@ namespace BattleCity
         {
             this.InitializeComponent();
         }
-
+        //Back to mainpage
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(MainPage));
