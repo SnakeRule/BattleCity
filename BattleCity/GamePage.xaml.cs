@@ -155,22 +155,22 @@ namespace BattleCity
 
                     if (!BlockRect.IsEmpty && block.CanGoTrough == false) //player and block collisions
                     {
-                        if (player.LocationX > block.LocationX && player.TankDirection == 1) // Checking if player1 is intersecting the block from the right. This uses the tank's direction
+                        if (player.LocationX > block.LocationX && player.CatDirection == 1) // Checking if player1 is intersecting the block from the right. This uses the tank's direction
                         {
                             player.StopLeft = true;
                         }
 
-                        if (player.LocationY > block.LocationY && player.TankDirection == 2) // Checking if player1 is intersecting the block from the bottom. This uses the tank's direction
+                        if (player.LocationY > block.LocationY && player.CatDirection == 2) // Checking if player1 is intersecting the block from the bottom. This uses the tank's direction
                         {
                             player.StopUp = true;
                         }
 
-                        if (player.LocationX < block.LocationX && player.TankDirection == 3) // Checking if player1 is intersecting the block from the left. This uses the tank's direction
+                        if (player.LocationX < block.LocationX && player.CatDirection == 3) // Checking if player1 is intersecting the block from the left. This uses the tank's direction
                         {
                             player.StopRight = true;
                         }
 
-                        if (player.LocationY < block.LocationY && player.TankDirection == 4) // Checking if player1 is intersecting the block from the top. This uses the tank's direction
+                        if (player.LocationY < block.LocationY && player.CatDirection == 4) // Checking if player1 is intersecting the block from the top. This uses the tank's direction
                         {
                             player.StopDown = true;
                         }
@@ -206,25 +206,25 @@ namespace BattleCity
 
                         if (!BlockRect.IsEmpty && block.CanGoTrough == false)
                         {
-                            if (enemy.LocationX > block.LocationX && enemy.TankDirection == 1) // Checking if enemy is intersecting block from the right
+                            if (enemy.LocationX > block.LocationX && enemy.CatDirection == 1) // Checking if enemy is intersecting block from the right
                             {
                                 enemy.StopLeft = true;
                                 enemy.Move(random.Next(1, 5), random.Next(1, 3), random.Next(1, 3), random.Next(1, 9));
                             }
 
-                            if (enemy.LocationY > block.LocationY && enemy.TankDirection == 2) // Checking if enemy is intersecting block from the bottom
+                            if (enemy.LocationY > block.LocationY && enemy.CatDirection == 2) // Checking if enemy is intersecting block from the bottom
                             {
                                 enemy.StopUp = true;
                                 enemy.Move(random.Next(1, 5), random.Next(1, 3), random.Next(1, 3), random.Next(1, 9));
                             }
 
-                            if (enemy.LocationX < block.LocationX && enemy.TankDirection == 3) // Checking if enemy is intersecting block from the left
+                            if (enemy.LocationX < block.LocationX && enemy.CatDirection == 3) // Checking if enemy is intersecting block from the left
                             {
                                 enemy.StopRight = true;
                                 enemy.Move(random.Next(1, 5), random.Next(1, 3), random.Next(1, 3), random.Next(1, 9));
                             }
 
-                            if (enemy.LocationY < block.LocationY && enemy.TankDirection == 4) // Checking if enemy is intersecting block from the top
+                            if (enemy.LocationY < block.LocationY && enemy.CatDirection == 4) // Checking if enemy is intersecting block from the top
                             {
                                 enemy.StopDown = true;
                                 enemy.Move(random.Next(1, 5), random.Next(1, 3), random.Next(1, 3), random.Next(1, 9));

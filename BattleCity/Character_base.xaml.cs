@@ -25,7 +25,7 @@ using Windows.UI.Xaml.Navigation;
     {
          public partial class Character_base : UserControl
         {
-        private int tankDirection; // This value is used to tell which direction the tank is currently facing.
+        private int catDirection; // This value is used to tell which direction the tank is currently facing.
         private int speed = 4; // Used to tell how fast the character moves on screen
         private int AnimationCycleCounter = 0; // Used to tell which animation picture is currently in use
         private int animationTickCounter = 0; // Used to count when the next animatin picture should be loaded
@@ -49,20 +49,20 @@ using Windows.UI.Xaml.Navigation;
 
         private int bulletTickCounter; // This value is used for counting how long the bullet has existed
 
-        public int TankDirection // Does some checks before accepting the incoming value to tankDirection
+        public int CatDirection // Does some checks before accepting the incoming value to tankDirection
         {
             get
             {
-                return tankDirection;
+                return catDirection;
             }
             set
             {
                 if (value < 1)
-                    tankDirection = 1;
+                    catDirection = 1;
                 if (value > 4)
-                    tankDirection = 4;
+                    catDirection = 4;
                 if (value > 0 && value < 5)
-                    tankDirection = value;
+                    catDirection = value;
             }
         }
         public int Speed // Does some checks before accepting the incoming value to speed
@@ -104,22 +104,22 @@ using Windows.UI.Xaml.Navigation;
         /// </summary>
         public void CollisionRelease()
         {
-                if (StopUp == true && TankDirection != 4) // Tank has hit the bottom of something and is moving somewhere other than down
+                if (StopUp == true && CatDirection != 4) // Tank has hit the bottom of something and is moving somewhere other than down
                 {
                     LocationY += 4; // The tank is moved down by 4 to avoid getting stuck
                     StopUp = false;
                 }
-                if (StopDown == true && TankDirection != 2) // Tank has hit the top of something and is moving somewhere other than up
+                if (StopDown == true && CatDirection != 2) // Tank has hit the top of something and is moving somewhere other than up
                 {
                     LocationY -= 4; // The tank is moved up by 4 to avoid getting stuck
                     StopDown = false;
                 }
-                if (StopRight == true && TankDirection != 1) // Tank has hit the right side of something and is moving somewhere other than left
+                if (StopRight == true && CatDirection != 1) // Tank has hit the right side of something and is moving somewhere other than left
                 {
                     LocationX -= 4; // The tank is moved left by 4 to avoid getting stuck
                     StopRight = false;
                 }
-                if (StopLeft == true && TankDirection != 3) // Tank has hit the left side of something and is moving somewhere other than right
+                if (StopLeft == true && CatDirection != 3) // Tank has hit the left side of something and is moving somewhere other than right
                 {
                     LocationX += 4; // The tank is moved right by 4 to avoid getting stuck
                     StopLeft = false;
@@ -137,7 +137,7 @@ using Windows.UI.Xaml.Navigation;
             {
                     PlayerRotate.Angle = 270; // Changes the value of the RotateTransform in the xaml file to rotate the picture
                     SetValue(Canvas.LeftProperty, LocationX -= Speed); // Adds speed value to the character Location
-                    TankDirection = 1; // Changes the tank direction value
+                    CatDirection = 1; // Changes the tank direction value
                     animationTickCounter++; // The animationTickCounter goes up by one
             }
         }
@@ -148,7 +148,7 @@ using Windows.UI.Xaml.Navigation;
             {
                     PlayerRotate.Angle = 0; // Changes the value of the RotateTransform in the xaml file to rotate the picture
                     SetValue(Canvas.TopProperty, LocationY -= Speed); // Adds speed value to the character Location
-                    TankDirection = 2; // Changes the tank direction value
+                    CatDirection = 2; // Changes the tank direction value
                     animationTickCounter++; // The animationTickCounter goes up by one
             }
         }
@@ -159,7 +159,7 @@ using Windows.UI.Xaml.Navigation;
             {
                     PlayerRotate.Angle = 90; // Changes the value of the RotateTransform in the xaml file to rotate the picture
                     SetValue(Canvas.LeftProperty, LocationX += Speed); // Adds speed value to the character Location
-                    TankDirection = 3; // Changes the tank direction value
+                    CatDirection = 3; // Changes the tank direction value
                     animationTickCounter++; // The animationTickCounter goes up by one
             }
         }
@@ -170,7 +170,7 @@ using Windows.UI.Xaml.Navigation;
             {
                     PlayerRotate.Angle = 180; // Changes the value of the RotateTransform in the xaml file to rotate the picture
                     SetValue(Canvas.TopProperty, LocationY += Speed); // Adds speed value to the character Location
-                    TankDirection = 4; // Changes the tank direction value
+                    CatDirection = 4; // Changes the tank direction value
                     animationTickCounter++; // The animationTickCounter goes up by one
             }
         }
@@ -221,7 +221,7 @@ using Windows.UI.Xaml.Navigation;
             //Creating a bullet, movement and spawn location depending on tankDirection
             if (bullets.Count < 1) //only one bullet on canvas at a time from a player
             {
-                if (TankDirection == 1)
+                if (CatDirection == 1)
                 {
                     bullet = new Bullet
                     {
@@ -235,7 +235,7 @@ using Windows.UI.Xaml.Navigation;
                     bullets.Add(bullet); //Adding bullet to list
                     //mediaElement.Play();
                  }
-            if (TankDirection == 2)
+            if (CatDirection == 2)
             {
                 bullet = new Bullet
                 {
@@ -249,7 +249,7 @@ using Windows.UI.Xaml.Navigation;
                 bullets.Add(bullet); //Adding bullet to list
                 //mediaElement.Play();
             }
-            if (TankDirection == 3)
+            if (CatDirection == 3)
             {
                 bullet = new Bullet()
                 {
@@ -263,7 +263,7 @@ using Windows.UI.Xaml.Navigation;
                 bullets.Add(bullet);//Adding bullet to list
                 //mediaElement.Play();
             }
-           if (TankDirection == 4)
+           if (CatDirection == 4)
             {
                 bullet = new Bullet()
                 {

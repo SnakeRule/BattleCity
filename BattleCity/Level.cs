@@ -79,7 +79,7 @@ namespace BattleCity
 
         public void RespawnPlayer1(Canvas canvas, int OldScore) // This method respawns a dead player and keeps the player's score with the OldScore int
         {
-            player1 = new Player { LocationX = P1SpawnX, LocationY = P1SpawnY, Player2 = false, canvas = canvas, TankDirection = 2, Score = OldScore };
+            player1 = new Player { LocationX = P1SpawnX, LocationY = P1SpawnY, Player2 = false, canvas = canvas, CatDirection = 2, Score = OldScore };
             GamePage.P1Dead = false; // Sets the player to alive state
             canvas.Children.Add(player1);
             player1.DrawPlayer();
@@ -88,7 +88,7 @@ namespace BattleCity
 
         public void RespawnPlayer2(Canvas canvas, int OldScore)
         {
-            player2 = new Player { LocationX = P2SpawnX, LocationY = P2SpawnY, Player2 = true, canvas = canvas, TankDirection = 2, Score = OldScore };
+            player2 = new Player { LocationX = P2SpawnX, LocationY = P2SpawnY, Player2 = true, canvas = canvas, CatDirection = 2, Score = OldScore };
             GamePage.P2Dead = false; // Sets the player to alive state
             canvas.Children.Add(player2);
             player2.DrawPlayer();
@@ -97,7 +97,7 @@ namespace BattleCity
 
         public void CreatePlayer1(Canvas canvas, int col, int row) // This method creates Player 1. It gets location data from the levelbuilder values col and row
         {
-            player1 = new Player { LocationX = col, LocationY = row, Player2 = false, canvas = canvas, TankDirection = 2 };
+            player1 = new Player { LocationX = col, LocationY = row, Player2 = false, canvas = canvas, CatDirection = 2 };
             GamePage.P1Dead = false; // Sets the player to alive state
             P1SpawnX = col; // The spawn location data is saved to the P1spawn ints for respawning
             P1SpawnY = row;
@@ -108,7 +108,7 @@ namespace BattleCity
 
         public void CreatePlayer2(Canvas canvas, int col, int row)
         {
-            player2 = new Player { LocationX = col, LocationY = row, Player2 = true, canvas = canvas, TankDirection = 2 };
+            player2 = new Player { LocationX = col, LocationY = row, Player2 = true, canvas = canvas, CatDirection = 2 };
             GamePage.P2Dead = false; // Sets the player to alive state
             P2SpawnX = col; // The spawn location data is saved to the P1spawn ints for respawning
             P2SpawnY = row;
@@ -191,7 +191,7 @@ namespace BattleCity
                         case 6:
                             // Add enemies
                             col = c * 40;
-                            enemy = new Enemy { LocationX = col, LocationY = row, canvas = canvas, TankDirection = 2, };
+                            enemy = new Enemy { LocationX = col, LocationY = row, canvas = canvas, CatDirection = 2, };
                             canvas.Children.Add(enemy);
                             enemy.DrawPlayer();
                             enemies.Add(enemy);
