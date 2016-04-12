@@ -151,8 +151,33 @@ namespace BattleCity
                 {
                     BlockRect = block.GetRect(); // Creating rectangle
                     BlockRect.Intersect(PlayerRect); // Checking for intersections between player and block
-                    // PlayerRect.Intersect(PlayerRect); between players
 
+                    // Collision detection between
+                    if (!BlockRect.IsEmpty && block.IsPowerUp == true)
+                    {
+                        switch (block.PowerUpType)
+                        {
+                            case 1: player.Speed = 7;
+                                Canvas.Children.Remove(block);
+                                blocks.Remove(block);
+                                break;
+                            case 2:
+                                Canvas.Children.Remove(block);
+                                blocks.Remove(block);
+                                break;
+                            case 3:
+                                Canvas.Children.Remove(block);
+                                blocks.Remove(block);
+                                break;
+                            case 4:
+                                Canvas.Children.Remove(block);
+                                blocks.Remove(block);
+                                break;
+                            default: break;
+                        }
+                    }
+
+                    // PlayerRect.Intersect(PlayerRect); between players
                     if (!BlockRect.IsEmpty && block.CanGoTrough == false) //player and block collisions
                     {
                         if (player.LocationX > block.LocationX && player.CatDirection == 1) // Checking if player1 is intersecting the block from the right. This uses the tank's direction
@@ -176,6 +201,7 @@ namespace BattleCity
                         }
                         break;
                     }
+
                     if (!BlockRect.IsEmpty && block.CanGoTrough == true) // Slower speed while moving on magic block
                     {
                         player.Speed = 2;
