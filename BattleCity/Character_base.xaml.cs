@@ -338,7 +338,7 @@ using Windows.UI.Xaml.Navigation;
             {
                 Speed = Speed + speedUp;
             }
-            if(speedUpTickCounter == 100)
+            if(speedUpTickCounter == 120)
             {
                 speedUpTickCounter = 0;
                 Speed = 4;
