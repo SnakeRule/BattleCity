@@ -97,9 +97,9 @@ namespace BattleCity
 
         public void CreatePlayer1(Canvas canvas, int col, int row) // This method creates Player 1. It gets location data from the levelbuilder values col and row
         {
-            player1 = new Player { LocationX = col, LocationY = row, Player2 = false, canvas = canvas, CatDirection = 2 };
+            player1 = new Player { LocationX = col + 2, LocationY = row, Player2 = false, canvas = canvas, CatDirection = 2 };
             GamePage.P1Dead = false; // Sets the player to alive state
-            P1SpawnX = col; // The spawn location data is saved to the P1spawn ints for respawning
+            P1SpawnX = col + 2; // The spawn location data is saved to the P1spawn ints for respawning
             P1SpawnY = row;
             canvas.Children.Add(player1);
             player1.DrawPlayer();
@@ -108,9 +108,9 @@ namespace BattleCity
 
         public void CreatePlayer2(Canvas canvas, int col, int row)
         {
-            player2 = new Player { LocationX = col, LocationY = row, Player2 = true, canvas = canvas, CatDirection = 2 };
+            player2 = new Player { LocationX = col + 2, LocationY = row, Player2 = true, canvas = canvas, CatDirection = 2 };
             GamePage.P2Dead = false; // Sets the player to alive state
-            P2SpawnX = col; // The spawn location data is saved to the P1spawn ints for respawning
+            P2SpawnX = col + 2; // The spawn location data is saved to the P1spawn ints for respawning
             P2SpawnY = row;
             canvas.Children.Add(player2);
             player2.DrawPlayer();
