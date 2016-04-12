@@ -32,6 +32,9 @@ namespace BattleCity
 
         private Random random;
 
+        const string HSstring = "Highscore.txt";
+        List<string> HSlines = new List<string>();
+
         public static bool MP; // Bool used for checking if 2-player mode was selected
         private bool PlayerHit = false;
         private bool GoalHit = false;
@@ -462,6 +465,7 @@ namespace BattleCity
             {
                 if (player.Player2 == false)
                 {
+
                     P1PreviousScore = player.Score; // the points are saved to the PreviousScore ints to keep points between levels and deaths
                     Player1ScoreTextBlock.Text = player.Score.ToString(); // Player score displayed in the PlayerScoreTextBlock
                     Player1LivesTextBlock.Text = P1Lives.ToString(); // Player lives displayed in the PlayerLivesTextBlock
@@ -541,7 +545,7 @@ namespace BattleCity
                 await storageFolder.CreateFileAsync("Highscore.txt",
                     CreationCollisionOption.ReplaceExisting);
             //Write data to file          
-            await FileIO.WriteTextAsync(HSFile, "Player 1 Highscore:" +Player1pisteet+Environment.NewLine /*+"Player 2 Highscore:" + Player2pisteet if2player true*/);
+            await FileIO.WriteTextAsync(HSFile,Player1pisteet+Environment.NewLine/*+ Player2pisteet if2player true*/);
         }
 
         private void RetryButton_Click(object sender, RoutedEventArgs e) // This is the method that runs when the retry button is clicked on the GamePage
