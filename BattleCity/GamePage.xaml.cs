@@ -202,12 +202,20 @@ namespace BattleCity
                         break;
                     }
 
-                    if (!BlockRect.IsEmpty && block.CanGoTrough == true) // Slower speed while moving on magic block
+                }
+
+                foreach (Block block in blocks) // Checking each block in blocks list
+                {
+                    BlockRect = block.GetRect(); // Creating rectangle
+                    BlockRect.Intersect(PlayerRect); // Checking for intersections between player and block
+                                                     // PlayerRect.Intersect(PlayerRect); between players
+
+                    if (!BlockRect.IsEmpty && block.CanGoTrough == true && player.StopLeft == false && player.StopRight == false && player.StopUp == false && player.StopDown == false) // Slower speed while moving on magic block
                     {
                         player.Speed = 2;
                         break;                  
-                    } else { player.Speed = 4; }
-
+                    }
+                    else { player.Speed = 4; }
                 }
 
                 // Collision detection between blocks and enemies. Mostly identical to the player collision detection above
@@ -257,13 +265,21 @@ namespace BattleCity
                             }
                             break;
                         }
-                        if (!BlockRect.IsEmpty && block.CanGoTrough == true) // Slower speed while moving on magic block
+                    }
+                }
+
+                foreach (Block block in blocks) // Checking each block in blocks list
+                {
+                    BlockRect = block.GetRect(); // Creating rectangle
+                    BlockRect.Intersect(PlayerRect); // Checking for intersections between player and block
+                                                     // PlayerRect.Intersect(PlayerRect); between players
+
+                    if (!BlockRect.IsEmpty && block.CanGoTrough == true && player.StopLeft == false && player.StopRight == false && player.StopUp == false && player.StopDown == false) // Slower speed while moving on magic block
                         {
-                            enemy.Speed = 2;
+                        player.Speed = 2;
                             break;
                         }
-                        else { enemy.Speed = 4; }
-                    }
+                    else { player.Speed = 4; }
                 }
 
                 foreach (Enemy enemy in enemies) // This is where the collision between players and enemies is detected
