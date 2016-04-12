@@ -94,7 +94,9 @@ namespace BattleCity
                 foreach (Player player in players)
                 {
                 player.AnimationUpdate();
-                BlockCollisionCheck();               
+                BlockCollisionCheck();
+                if (player.SpeedUp == true)
+                    player.PowerUpSpeed();
                 player.CollisionRelease();
                 player.UpdatePlayer(Canvas);
                 player.UpdateBullet(Canvas);
@@ -163,9 +165,9 @@ namespace BattleCity
                         switch (block.PowerUpType)
                         {
                             case 1:
-                                if(tickCounter < 20)
                                 {
-                                    player.BaseSpeed = 7;
+                                    player.SpeedUp = true;
+                                    player.speedUpTickCounter = 0;
                                     Canvas.Children.Remove(block);
                                     blocks.Remove(block);
                                 }       
