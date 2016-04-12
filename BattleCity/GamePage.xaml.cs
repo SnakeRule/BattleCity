@@ -152,14 +152,20 @@ namespace BattleCity
                     BlockRect = block.GetRect(); // Creating rectangle
                     BlockRect.Intersect(PlayerRect); // Checking for intersections between player and block
 
+                    int tickCounter = 0;
                     // Collision detection between
                     if (!BlockRect.IsEmpty && block.IsPowerUp == true)
                     {
+                        tickCounter++;
                         switch (block.PowerUpType)
                         {
-                            case 1: player.Speed = 7;
-                                Canvas.Children.Remove(block);
-                                blocks.Remove(block);
+                            case 1:
+                                if(tickCounter < 20)
+                                {
+                                    player.BaseSpeed = 7;
+                                    Canvas.Children.Remove(block);
+                                    blocks.Remove(block);
+                                }       
                                 break;
                             case 2:
                                 Canvas.Children.Remove(block);
@@ -209,14 +215,16 @@ namespace BattleCity
                     BlockRect = block.GetRect(); // Creating rectangle
                     BlockRect.Intersect(PlayerRect); // Checking for intersections between player and block
                                                      // PlayerRect.Intersect(PlayerRect); between players
-
+                    
                     if (!BlockRect.IsEmpty && block.CanGoTrough == true && player.StopLeft == false && player.StopRight == false && player.StopUp == false && player.StopDown == false) // Slower speed while moving on magic block
                     {
                         player.Speed = 2;
                         break;                  
                     }
-                    else { player.Speed = 4; }
+                    else { player.Speed = player.BaseSpeed; }
                 }
+
+
 
                 // Collision detection between blocks and enemies. Mostly identical to the player collision detection above
                 foreach (Enemy enemy in enemies)

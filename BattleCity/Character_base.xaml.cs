@@ -65,6 +65,7 @@ using Windows.UI.Xaml.Navigation;
                     catDirection = value;
             }
         }
+        public int BaseSpeed = 4;
         public int Speed // Does some checks before accepting the incoming value to speed
         {
             get
