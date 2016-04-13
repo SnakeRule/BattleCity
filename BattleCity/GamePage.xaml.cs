@@ -528,10 +528,7 @@ namespace BattleCity
                     }
                 }
             }
-            /*if (enemies.Count > 0)
-            {
-                enemyCountText.Text = enemies.Count.ToString();
-            }*/
+            enemyCountText.Text = enemies.Count.ToString();
         }
 
         //Checking if game is over
