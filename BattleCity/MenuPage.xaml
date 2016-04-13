@@ -16,14 +16,14 @@
             <ColumnDefinition Width="700" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <Button x:Name="PlayButton" 
+        <Button x:Name="PlayButton"
                 Click="PlayButton_Click" 
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
                 Grid.Column="1"
                 Width="150"
                 Height="60" FontSize="29.333" Background="#4C033005" FontFamily="Impact" Foreground="#FF111111"
-                Content="Play"
+                Content="Play" Margin="0,504,0,156"
                 >
         </Button>
         <Button x:Name="MultiPlayer" 
@@ -31,9 +31,9 @@
         	VerticalAlignment="Center"
         	HorizontalAlignment="Center"
         	Grid.Column="1"
-        	Width="150"
-        	Height="60" FontSize="29.333" Background="#4C033005" FontFamily="Impact" Foreground="#FF111111"
-        	Content="2 Player" Margin="325,438,325,222"
+        	Width="200"
+        	Height="40" FontSize="25" Background="#4C033005" FontFamily="Impact" Foreground="#FF111111"
+        	Content="Player 2 Join" Margin="53,343,447,337"
                 />
         <Button x:Name="BackMenuButton" 
                 Click="BackMenuButton_Click" 
@@ -41,8 +41,155 @@
                 HorizontalAlignment="Center"
                 Grid.Column="1"
                 Width="150"
-                Height="60" FontSize="20" Background="#4C033005" FontFamily="Impact" Foreground="#FF111111"
-                Content="Back to menu" Margin="325,548,325,112"
+                Height="60" FontSize="29.333" Background="#4C033005" FontFamily="Impact" Foreground="#FF111111"
+                Content="Back" Margin="0,593,0,67"
                 />
+        <TextBox x:Name="P1NameTextBox"
+                 Grid.Column="1"
+                 FontSize="20"
+                 HorizontalAlignment="Left"
+                 Margin="53,120,0,0"
+                 TextWrapping="Wrap"
+                 Text=""
+                 VerticalAlignment="Top"
+                 PlaceholderText="Insert Player 1 name"
+                 Height="40"
+                 Width="200"
+                 />
+        <Button x:Name="P1WhiteCatImage"
+               Grid.Column="1"
+               HorizontalAlignment="Left"
+               Height="55"
+               Margin="53,226,0,0"
+               VerticalAlignment="Top"
+               Width="35" Click="P1WhiteCatImage_Click"
+               >
+            <Button.Background>
+                <ImageBrush Stretch="None" ImageSource="Assets/Cat_placeholder.png"/>
+            </Button.Background>
+        </Button>
+        <TextBlock Grid.Column="1"
+                   HorizontalAlignment="Left"
+                   Margin="53,174,0,0"
+                   FontSize="20"
+                   TextWrapping="Wrap"
+                   Text="Player 1 Cat colour"
+                   TextAlignment="Center"
+                   VerticalAlignment="Top"
+                   Height="40"
+                   Width="200"
+                   />
+        <Button x:Name="P1PinkCatImage"
+        	Grid.Column="1"
+        	HorizontalAlignment="Left"
+        	Height="55"
+        	Margin="130,226,0,0"
+        	VerticalAlignment="Top"
+        	Width="35" Click="P1PinkCatImage_Click"
+            >
+            <Button.Background>
+                <ImageBrush Stretch="None" ImageSource="Assets/Cat_placeholder.png"/>
+            </Button.Background>
+        </Button>
+        <TextBox x:Name="P2NameTextBox"
+        	Grid.Column="1"
+        	FontSize="20"
+        	HorizontalAlignment="Left"
+        	Margin="81,344,0,0"
+        	TextWrapping="Wrap"
+        	Text=""
+        	VerticalAlignment="Top"
+        	PlaceholderText="Insert Player 2 name"
+        	Height="40"
+        	Width="200"
+                 Visibility="Collapsed"
+            />
+        <TextBlock Grid.Column="1"
+                   x:Name="P2TextBlock"
+        	HorizontalAlignment="Left"
+        	Margin="81,402,0,0"
+        	FontSize="20"
+        	TextWrapping="Wrap"
+        	Text="Player 2 Cat colour"
+        	TextAlignment="Center"
+        	VerticalAlignment="Top"
+                   Visibility="Collapsed"
+        	Height="40"
+        	Width="200"
+                   />
+        <Button x:Name="P2WhiteCatImage"
+        	Grid.Column="1"
+        	HorizontalAlignment="Left"
+        	Height="55"
+        	Margin="81,447,0,0"
+        	VerticalAlignment="Top"
+        	Width="35"
+            Visibility="Collapsed" Click="P2WhiteCatImage_Click"
+               >
+            <Button.Background>
+                <ImageBrush Stretch="None" ImageSource="Assets/Cat_placeholder.png"/>
+            </Button.Background>
+        </Button>
+        <Button x:Name="P2PinkCatImage"
+        	Grid.Column="1"
+        	HorizontalAlignment="Left"
+        	Height="55"
+        	Margin="158,447,0,0"
+        	VerticalAlignment="Top"
+        	Width="35"
+               Visibility="Collapsed" Click="P2PinkCatImage_Click"
+            >
+            <Button.Background>
+                <ImageBrush Stretch="None" ImageSource="Assets/Cat_placeholder.png"/>
+            </Button.Background>
+        </Button>
+        <TextBlock Grid.Column="1"
+        	HorizontalAlignment="Left"
+        	Margin="490,174,0,0"
+        	FontSize="20"
+        	TextWrapping="Wrap"
+        	Text="Choose Level"
+        	TextAlignment="Center"
+        	VerticalAlignment="Top"
+        	Height="40"
+        	Width="200"
+                   />
+        <Button x:Name="LevelDownButton"
+                Grid.Column="1"
+                HorizontalAlignment="Left"
+                FontSize="20"
+                Margin="490,252,0,0"
+                VerticalAlignment="Top"
+                Width="38" Content="&lt;" Height="40" Click="LevelDownButton_Click"/>
+        <Button x:Name="LevelUpButton"
+        	Grid.Column="1"
+        	HorizontalAlignment="Left"
+        	FontSize="20"
+        	Margin="652,252,0,0"
+        	VerticalAlignment="Top"
+        	Width="38" Height="40" Content="&gt;" Click="LevelUpButton_Click"/>
+        <TextBlock x:Name="LevelNumberTextBlock"
+                   Grid.Column="1"
+                   TextAlignment="Center"
+                   HorizontalAlignment="Left"
+                   Margin="541,260,0,0"
+                   TextWrapping="Wrap"
+                   Text="1"
+                   VerticalAlignment="Top"
+                   Height="21"
+                   Width="100"
+                   />
+        <TextBlock x:Name="LevelExistsTextBlock"
+                   Grid.Column="1"
+                   HorizontalAlignment="Left"
+                   Margin="490,318,0,0"
+                   TextWrapping="Wrap"
+                   TextAlignment="Center"
+                   Text=""
+                   VerticalAlignment="Top"
+                   Height="41"
+                   Width="200"
+                   />
+
     </Grid>
 </Page>

@@ -76,7 +76,6 @@ namespace BattleCity
             players = level.players;
             enemies = level.enemies;
 
-            LevelNumber = 1;
             level.LoadLevel();
             level.BuildLevel(Canvas);
 

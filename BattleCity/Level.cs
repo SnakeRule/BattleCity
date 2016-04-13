@@ -50,10 +50,10 @@ namespace BattleCity
             Windows.Storage.ApplicationData.Current.LocalFolder;
             try
             {
-                using (StreamReader reader = File.OpenText(@"Levels\Level" + GamePage.LevelNumber + ".txt"))
+                using (StreamReader checker = File.OpenText(@"Levels\Level" + GamePage.LevelNumber + ".txt"))
                 {
                     Debug.WriteLine("Opened File");
-                    LevelData = await reader.ReadToEndAsync();
+                    LevelData = await checker.ReadToEndAsync();
                 }
             }
             catch (Exception)
@@ -79,7 +79,7 @@ namespace BattleCity
 
         public void RespawnPlayer1(Canvas canvas, int OldScore) // This method respawns a dead player and keeps the player's score with the OldScore int
         {
-            player1 = new Player { LocationX = P1SpawnX, LocationY = P1SpawnY, Player2 = false, canvas = canvas, CatDirection = 2, Score = OldScore };
+            player1 = new Player { LocationX = P1SpawnX, LocationY = P1SpawnY, Player2 = false, canvas = canvas, CatDirection = 2, Score = OldScore, PlayerColour = MenuPage.P1Colour };
             GamePage.P1Dead = false; // Sets the player to alive state
             canvas.Children.Add(player1);
             player1.DrawPlayer();
@@ -88,7 +88,7 @@ namespace BattleCity
 
         public void RespawnPlayer2(Canvas canvas, int OldScore)
         {
-            player2 = new Player { LocationX = P2SpawnX, LocationY = P2SpawnY, Player2 = true, canvas = canvas, CatDirection = 2, Score = OldScore };
+            player2 = new Player { LocationX = P2SpawnX, LocationY = P2SpawnY, Player2 = true, canvas = canvas, CatDirection = 2, Score = OldScore, PlayerColour = MenuPage.P2Colour };
             GamePage.P2Dead = false; // Sets the player to alive state
             canvas.Children.Add(player2);
             player2.DrawPlayer();
@@ -97,7 +97,7 @@ namespace BattleCity
 
         public void CreatePlayer1(Canvas canvas, int col, int row) // This method creates Player 1. It gets location data from the levelbuilder values col and row
         {
-            player1 = new Player { LocationX = col + 2, LocationY = row, Player2 = false, canvas = canvas, CatDirection = 2 };
+            player1 = new Player { LocationX = col + 2, LocationY = row, Player2 = false, canvas = canvas, CatDirection = 2, Name = MenuPage.P1Name, PlayerColour = MenuPage.P1Colour };
             GamePage.P1Dead = false; // Sets the player to alive state
             P1SpawnX = col + 2; // The spawn location data is saved to the P1spawn ints for respawning
             P1SpawnY = row;
@@ -108,7 +108,7 @@ namespace BattleCity
 
         public void CreatePlayer2(Canvas canvas, int col, int row)
         {
-            player2 = new Player { LocationX = col + 2, LocationY = row, Player2 = true, canvas = canvas, CatDirection = 2 };
+            player2 = new Player { LocationX = col + 2, LocationY = row, Player2 = true, canvas = canvas, CatDirection = 2, Name = MenuPage.P2Name, PlayerColour = MenuPage.P2Colour };
             GamePage.P2Dead = false; // Sets the player to alive state
             P2SpawnX = col + 2; // The spawn location data is saved to the P1spawn ints for respawning
             P2SpawnY = row;

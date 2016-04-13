@@ -19,7 +19,8 @@ namespace BattleCity
     {
         public bool Player2 { get; set; } // Tells which player is being used
         public int Score { get; set; } // Player score
-
+        public string Name { get; set; }
+        public int PlayerColour { get; set; }
         public Player()
         {
             this.InitializeComponent();
@@ -37,11 +38,11 @@ namespace BattleCity
         // This method is used to draw the player on the canvas
         public void DrawPlayer()
         {
-            if (Player2 == false)
+            if (PlayerColour == 1)
             {
                 CatSpriteSheetOffset.Y = 0;
             }
-            else if (Player2 == true)
+            else if (PlayerColour == 2)
             {
                 CatSpriteSheetOffset.Y = -55.5;
             }
