@@ -7,7 +7,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush Stretch="Fill" ImageSource="Assets/Menu_background2.png"/>
+        </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="680"/>
@@ -32,19 +35,19 @@
                 HorizontalAlignment="Center"
                 Grid.Column="2" Grid.Row="1"
                 Width="150"
-                Height="60" FontSize="20" FontFamily="Impact" 
-                Content="Back to Menu"
+                Height="60" FontSize="25" Background="#4C033005" FontFamily="Impact" Foreground="#FF111111"
+                Content="Back"
                 >
         </Button>
         <Slider x:Name="VolumeSlider"
-                Header="Volume"
+                Header="Volume" FontFamily="Impact" 
                 VerticalAlignment="Top"
-                HorizontalAlignment="Left"
+                HorizontalAlignment="Center"
                 Grid.Column="0"
                 Grid.Row="1"
                 Height="50"
-                Width="150"
-                Margin="34,10,0,0"
+                Width="120"
+                Margin="0,20,10,0"
                 Value="0.5"
             />
         <Button 
@@ -53,7 +56,7 @@
             Grid.Column="2" Grid.Row="1" 
             HorizontalAlignment="Center" 
             Width="150"
-            Height="60" FontSize="20" FontFamily="Impact"
+            Height="60" FontSize="25" Background="#4C033005" FontFamily="Impact" Foreground="#FF111111"
             Margin="0,0,0,80"
             Visibility="Visible"
             VerticalAlignment="Bottom" Click="NextLevelButton_Click"
@@ -79,7 +82,7 @@
         	Grid.Column="2" Grid.Row="1" 
         	HorizontalAlignment="Center" 
         	Width="150"
-        	Height="60" FontSize="20" FontFamily="Impact"
+        	Height="60" FontSize="25" Background="#4C033005" FontFamily="Impact" Foreground="#FF111111"
         	Margin="0,0,0,160"
         	Visibility="Visible"
         	VerticalAlignment="Bottom" Click="RetryButton_Click"

@@ -33,7 +33,7 @@
         	Grid.Column="1"
         	Width="150"
         	Height="60" FontSize="29.333" Background="#4C033005" FontFamily="Impact" Foreground="#FF111111"
-        	Content="2 Player" Margin="325,438,325,222"
+        	Content="2 Player" Margin="0,438,0,222"
                 />
         <Button x:Name="BackMenuButton" 
                 Click="BackMenuButton_Click" 
@@ -42,7 +42,7 @@
                 Grid.Column="1"
                 Width="150"
                 Height="60" FontSize="20" Background="#4C033005" FontFamily="Impact" Foreground="#FF111111"
-                Content="Back to menu" Margin="325,548,325,112"
+                Content="Back to menu" Margin="0,548,0,112"
                 />
     </Grid>
 </Page>
