@@ -7,10 +7,13 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush Stretch="Fill" ImageSource="Assets/Menu_background2.png"/>
+        </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="800" />
+            <ColumnDefinition Width="700" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Button x:Name="PlayButton" 
@@ -19,9 +22,9 @@
                 HorizontalAlignment="Center"
                 Grid.Column="1"
                 Width="150"
-                Height="60" FontSize="26.667" FontFamily="Impact"
+                Height="60" FontSize="29.333" Background="#4C033005" FontFamily="Impact" Foreground="#FF111111"
+                Content="Play"
                 >
-            Play
         </Button>
         <Button x:Name="MultiPlayer" 
         	Click="MultiPlayer_Click" 
@@ -29,7 +32,7 @@
         	HorizontalAlignment="Center"
         	Grid.Column="1"
         	Width="150"
-        	Height="60" FontSize="26.667" FontFamily="Impact"
+        	Height="60" FontSize="29.333" Background="#4C033005" FontFamily="Impact" Foreground="#FF111111"
         	Content="2 Player" Margin="325,438,325,222"
                 />
         <Button x:Name="BackMenuButton" 
@@ -38,7 +41,7 @@
                 HorizontalAlignment="Center"
                 Grid.Column="1"
                 Width="150"
-                Height="60" FontSize="22" FontFamily="Impact"
+                Height="60" FontSize="20" Background="#4C033005" FontFamily="Impact" Foreground="#FF111111"
                 Content="Back to menu" Margin="325,548,325,112"
                 />
     </Grid>
