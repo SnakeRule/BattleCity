@@ -191,7 +191,7 @@ namespace BattleCity
                         case 6:
                             // Add enemies
                             col = c * 40;
-                            enemy = new Enemy { LocationX = col, LocationY = row, canvas = canvas, CatDirection = 2, };
+                            enemy = new Enemy { LocationX = col + 2, LocationY = row, canvas = canvas, CatDirection = 2, };
                             canvas.Children.Add(enemy);
                             enemy.DrawPlayer();
                             enemies.Add(enemy);

@@ -27,6 +27,7 @@ using Windows.UI.Xaml.Navigation;
         {
         private int catDirection; // This value is used to tell which direction the tank is currently facing.
         private int speed = 4; // Used to tell how fast the character moves on screen
+        private int speedUp = 2; // Used for boosting player speed
         private int AnimationCycleCounter = 0; // Used to tell which animation picture is currently in use
         private int animationTickCounter = 0; // Used to count when the next animatin picture should be loaded
 
@@ -48,6 +49,8 @@ using Windows.UI.Xaml.Navigation;
         public bool StopUp { get; set; }
 
         private int bulletTickCounter; // This value is used for counting how long the bullet has existed
+        public int speedUpTickCounter;
+        public bool SpeedUp { get; set; }
 
         public int CatDirection // Does some checks before accepting the incoming value to tankDirection
         {
@@ -65,6 +68,7 @@ using Windows.UI.Xaml.Navigation;
                     catDirection = value;
             }
         }
+        public int BaseSpeed = 4;
         public int Speed // Does some checks before accepting the incoming value to speed
         {
             get
@@ -106,22 +110,22 @@ using Windows.UI.Xaml.Navigation;
         {
                 if (StopUp == true && CatDirection != 4) // Tank has hit the bottom of something and is moving somewhere other than down
                 {
-                    LocationY += 4; // The tank is moved down by 4 to avoid getting stuck
+                    LocationY += Speed; // The tank is moved down by 4 to avoid getting stuck
                     StopUp = false;
                 }
                 if (StopDown == true && CatDirection != 2) // Tank has hit the top of something and is moving somewhere other than up
                 {
-                    LocationY -= 4; // The tank is moved up by 4 to avoid getting stuck
+                    LocationY -= Speed; // The tank is moved up by 4 to avoid getting stuck
                     StopDown = false;
                 }
                 if (StopRight == true && CatDirection != 1) // Tank has hit the right side of something and is moving somewhere other than left
                 {
-                    LocationX -= 4; // The tank is moved left by 4 to avoid getting stuck
+                    LocationX -= Speed; // The tank is moved left by 4 to avoid getting stuck
                     StopRight = false;
                 }
                 if (StopLeft == true && CatDirection != 3) // Tank has hit the left side of something and is moving somewhere other than right
                 {
-                    LocationX += 4; // The tank is moved right by 4 to avoid getting stuck
+                    LocationX += Speed; // The tank is moved right by 4 to avoid getting stuck
                     StopLeft = false;
                 }
             }
@@ -325,6 +329,20 @@ using Windows.UI.Xaml.Navigation;
                 case 7:
                     CatSpriteSheetOffset.X = -37.5 * 1;
                     break;
+            }
+        }
+        public void PowerUpSpeed()
+        {
+            speedUpTickCounter++;
+            if (StopDown == false && StopUp == false && StopRight == false && StopLeft == false)
+            {
+                Speed = Speed + speedUp;
+            }
+            if(speedUpTickCounter == 120)
+            {
+                speedUpTickCounter = 0;
+                Speed = 4;
+                SpeedUp = false;
             }
         }
     }
