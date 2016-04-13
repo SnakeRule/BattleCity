@@ -7,43 +7,58 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush Stretch="Fill" ImageSource="Assets/Menu_background2.png"/>
+        </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="700"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="550" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
+
         </Grid.RowDefinitions>
-        <TextBlock
-            Width="1200"
-            Height="720"
+        <RelativePanel Grid.Column="1"
+                     VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20">
+            <TextBlock
+            x:Name="Tiia"
+            Width="200"
+            Height="60"
             Text="Tiia Aarnio"
-            FontSize="150"
-            Grid.Row="0"
+            FontFamily="Impact" Foreground="#FF111111"
+            FontSize="25" TextAlignment="Center"
+                
     />
-        <TextBlock
-            Width="1200"
-            Height="720"
+            <TextBlock
+            x:Name="Lauri"
+            Width="200"
+            Height="60"
             Text="Lauri Moilanen"
-            FontSize="150"
-            Grid.Row="1"
+            FontSize="25"
+            FontFamily="Impact" Foreground="#FF111111"
+            RelativePanel.RightOf="Tiia" TextAlignment="Center"
     />
-        <TextBlock
-            Width="1200"
-            Height="720"
+            <TextBlock
+            Width="200"
+            Height="60"
             Text="Jere Valtanen"
-            FontSize="150"
-            Grid.Row="2"
+            FontSize="25"
+            FontFamily="Impact" Foreground="#FF111111"    
+            RelativePanel.RightOf="Lauri" TextAlignment="Center"
     />
+        </RelativePanel>
+        
         <Button x:Name="BackButton"
-                Content="Back to menu"
+                Content="Back"
                 Grid.Row="1"
                 Grid.Column="1"
-                Height="250"
-                Width="250" Click="BackButton_Click"
+                HorizontalAlignment="Right"
+                Height="60" 
+                Width="150" Click="BackButton_Click"
+                FontSize="29.333" Background="#4C033005" FontFamily="Impact" Foreground="#FF111111"
         />
     </Grid>
 </Page>

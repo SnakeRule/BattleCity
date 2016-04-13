@@ -21,23 +21,15 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Slider x:Name="VolumeSlider"
+                Header="Volume" FontFamily="Impact" 
                 VerticalAlignment="Top"
                 HorizontalAlignment="Center"
-                Grid.Column="2"
+                Grid.Column="0"
                 Grid.Row="0"
                 Height="50"
                 Width="120"
-                Margin="0,50,0,0"
+                Margin="0,40,0,0"
             />
-        <TextBlock x:Name="VolumeBlock"
-                   Text="Volume"
-                    VerticalAlignment="Top"
-                    HorizontalAlignment="Center"
-                    Grid.Column="2"
-                    Grid.Row="0"
-                    Height="50"
-                   FontSize="20" Margin="0,25,20,0" FontFamily="Impact" 
-                   />
         <Button x:Name="ControlButton"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Left"

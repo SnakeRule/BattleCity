@@ -23,7 +23,7 @@ namespace BattleCity
     /// </summary>
 
     public sealed partial class MenuPage : Page
-    {
+    { 
         private int levelNumber;
         private bool levelExists;
         public static int P1Colour;

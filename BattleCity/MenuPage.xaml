@@ -16,7 +16,7 @@
             <ColumnDefinition Width="700" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <Button x:Name="PlayButton"
+        <Button x:Name="PlayButton" 
                 Click="PlayButton_Click" 
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
@@ -189,7 +189,7 @@
                    VerticalAlignment="Top"
                    Height="41"
                    Width="200"
-                   />
+                />
 
     </Grid>
 </Page>
