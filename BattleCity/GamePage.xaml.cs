@@ -31,8 +31,13 @@ namespace BattleCity
         private Level level = new Level();
 
         private Random random;
+        
+        //Creating list for Highscores
+        List<double> HSlines = new List<double>();
 
-        List<string> HSlines = new List<string>(10);
+        private StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
+        private StorageFile HSFile;
+
         StreamReader hsreader;
 
         public static bool MP; // Bool used for checking if 2-player mode was selected
@@ -68,6 +73,9 @@ namespace BattleCity
             Canvas.Height = 680;
             CanvasWidth = Canvas.Width;
             CanvasHeight = Canvas.Height;
+
+            // Reading the highscores
+            ReadScores();
 
             P1Lives = 3;
             P2Lives = 3;
@@ -130,15 +138,6 @@ namespace BattleCity
         }
 
 
-        private void Checkpoints()
-        {
-            List<string> HSlines = new List<string>(10);
-            using (StreamReader hsreader = File.OpenText("Highscores.txt"))
-            {
-                while (hsreader.Peek() >= 0)
-                    HSlines.Add(hsreader.ReadLine());
-            }
-        }
         // Back to mainmenu button method
         private void MenuButton_Click(object sender, RoutedEventArgs e)
         {
@@ -542,23 +541,55 @@ namespace BattleCity
             dispatcherTimer.Start(); // Game starts
         }
 
+        // Method for reading lines from Highscore.dat
+           private async void ReadScores()
+            {
+            //Create the file to hold the highscores
+            HSFile = await storageFolder.CreateFileAsync("Highscores.dat", CreationCollisionOption.OpenIfExists);
+            IList<string> readLines = await FileIO.ReadLinesAsync(HSFile);
+            foreach (var line in readLines)
+            {
+                HSlines.Add(double.Parse(line));
+            }
+            Debug.Write(HSlines.Count);
+        }
         // Method for saving points to a file
         private async void SavePoints()
         {
-            //Creating the string to write
-            string Player1pisteet = Player1ScoreTextBlock.Text;
-            //string Player2pisteet = Player2Score.Text; if 2player mode true, not done yet
-            int player1points = int.Parse(Player1pisteet);
-            //int player2points = int.Parse(Player2pisteet); if 2player mode true, not done yet
-            //Create the text file to hold the data
-            StorageFolder storageFolder =
-            ApplicationData.Current.LocalFolder;           
-            StorageFile HSFile =
-                await storageFolder.CreateFileAsync("Highscore.txt",
-                    CreationCollisionOption.ReplaceExisting);
-            //Write data to file          
-            await FileIO.WriteTextAsync(HSFile,Player1pisteet+Environment.NewLine/*+ Player2pisteet if2player true*/);
+            Debug.Write("TÄMÄ ON KUTSU");
+            //Create the file to hold the data
+            HSFile = await storageFolder.CreateFileAsync("Highscores.dat", CreationCollisionOption.ReplaceExisting);
+            //Write data to file      
+            foreach (Player player in players)
+            {
+                if (player.Player2 == false)
+                {
+                    //Creating the string to write
+                    string Player1pisteet = Player1ScoreTextBlock.Text;
+                    double player1points = double.Parse(Player1pisteet);
+                    HSlines.Add(player1points);
+                    HSlines.Sort();
+                    HSlines.Reverse();                
+                }
+                else if (player.Player2 == true)
+                {
+                    //Creating the string to write
+                    string Player2pisteet = Player2ScoreTextBlock.Text;
+                    double player2points = double.Parse(Player2pisteet);
+                    HSlines.Add(player2points);
+                    HSlines.Sort();
+                    HSlines.Reverse();                                 
+                }           
+                }
+            int k = 0;
+            foreach (double d in HSlines)
+            {
+                await FileIO.AppendTextAsync(HSFile, d + Environment.NewLine);
+                k++;
+                if (k >= 10) break; // only save 10 highest scores
+            }
         }
+        
 
         private void RetryButton_Click(object sender, RoutedEventArgs e) // This is the method that runs when the retry button is clicked on the GamePage
         {

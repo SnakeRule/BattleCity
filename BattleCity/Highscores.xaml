@@ -14,7 +14,7 @@
                 HorizontalAlignment="Center"
                 Width="150"
                 Height="60" FontSize="20" FontFamily="Impact" 
-                Content="Back to Menu"
+                Content="Back to Menu" Margin="565,625,565,35"
                />
         <Button x:Name="HSButton"
                 Click="HSButton_Click"
@@ -24,6 +24,6 @@
                 Height="60" FontSize="20" FontFamily="Impact" 
                 Content="Show highscores" Margin="565,0,565,660"
                />
-        <TextBlock x:Name="HStext" HorizontalAlignment="Left" Margin="565,110,0,0" TextWrapping="Wrap" Text="Press button to show highscores" VerticalAlignment="Top" Height="102" Width="218"/>
+        <TextBlock x:Name="HStext" HorizontalAlignment="Left" Margin="565,110,0,0" TextWrapping="Wrap" Text="Press button to show highscores" VerticalAlignment="Top" Height="395" Width="218"/>
     </Grid>
 </Page>

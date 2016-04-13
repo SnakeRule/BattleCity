@@ -40,7 +40,7 @@ namespace BattleCity
             Windows.Storage.StorageFolder storageFolder =
             Windows.Storage.ApplicationData.Current.LocalFolder;
             Windows.Storage.StorageFile HSFile =
-                await storageFolder.GetFileAsync("Highscore.txt");
+                await storageFolder.GetFileAsync("Highscores.dat");
             string Highscoretext = await Windows.Storage.FileIO.ReadTextAsync(HSFile);
             HStext.Text = Highscoretext;
         }
