@@ -7,7 +7,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush Stretch="Fill" ImageSource="Assets/Menu_background2.png"/>
+        </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="680"/>
@@ -32,19 +35,19 @@
                 HorizontalAlignment="Center"
                 Grid.Column="2" Grid.Row="1"
                 Width="150"
-                Height="60" FontSize="20" FontFamily="Impact" 
-                Content="Back to Menu"
+                Height="60" FontSize="25" Background="#4C033005" FontFamily="Impact" Foreground="#FF111111"
+                Content="Back"
                 >
         </Button>
         <Slider x:Name="VolumeSlider"
-                Header="Volume"
+                Header="Volume" FontFamily="Impact" 
                 VerticalAlignment="Top"
-                HorizontalAlignment="Left"
+                HorizontalAlignment="Center"
                 Grid.Column="0"
                 Grid.Row="1"
                 Height="50"
-                Width="150"
-                Margin="34,10,0,0"
+                Width="120"
+                Margin="0,20,10,0"
                 Value="0.5"
             />
         <Button 
@@ -53,17 +56,17 @@
             Grid.Column="2" Grid.Row="1" 
             HorizontalAlignment="Center" 
             Width="150"
-            Height="60" FontSize="20" FontFamily="Impact"
+            Height="60" FontSize="25" Background="#4C033005" FontFamily="Impact" Foreground="#FF111111"
             Margin="0,0,0,80"
             Visibility="Visible"
             VerticalAlignment="Bottom" Click="NextLevelButton_Click"
             />
 
-        <TextBlock Grid.Column="2" HorizontalAlignment="Left" Margin="83,33,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Player 1 Score: " VerticalAlignment="Top" Height="27" Width="122" FontSize="18.667"/>
+        <TextBlock Grid.Column="2" HorizontalAlignment="Left" Margin="83,33,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Player 1 Score: " VerticalAlignment="Top" Height="27" Width="122" FontSize="18.667" FontFamily="Impact"/>
 
-        <TextBlock Grid.Column="2" HorizontalAlignment="Left" Margin="83,105,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Player 2 Score: " VerticalAlignment="Top" Height="25" Width="122" FontSize="18.667"/>
-        <TextBlock x:Name="Player1ScoreTextBlock" x:FieldModifier="Public" Grid.Column="2" HorizontalAlignment="Left" Margin="210,33,-5,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Height="27" Width="95" FontSize="18.667"/>
-        <TextBlock x:Name="Player2ScoreTextBlock" x:FieldModifier="Public" Text="No Player" Grid.Column="2" HorizontalAlignment="Left" Margin="210,105,-5,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Height="25" Width="95" FontSize="18.667"/>
+        <TextBlock Grid.Column="2" HorizontalAlignment="Left" Margin="83,105,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Player 2 Score: " VerticalAlignment="Top" Height="25" Width="122" FontSize="18.667" FontFamily="Impact"/>
+        <TextBlock x:Name="Player1ScoreTextBlock" x:FieldModifier="Public" Grid.Column="2" HorizontalAlignment="Left" Margin="210,35,-5,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Height="27" Width="95" FontSize="18.667" FontFamily="Arial"/>
+        <TextBlock x:Name="Player2ScoreTextBlock" x:FieldModifier="Public" Text="No Player" Grid.Column="2" HorizontalAlignment="Left" Margin="210,107,-5,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Height="25" Width="95" FontSize="18.667" FontFamily="Arial"/>
         <Image x:Name="GameEndImage"
                Grid.Column="1"
                Visibility="Collapsed"
@@ -79,14 +82,28 @@
         	Grid.Column="2" Grid.Row="1" 
         	HorizontalAlignment="Center" 
         	Width="150"
-        	Height="60" FontSize="20" FontFamily="Impact"
+        	Height="60" FontSize="25" Background="#4C033005" FontFamily="Impact" Foreground="#FF111111"
         	Margin="0,0,0,160"
         	Visibility="Visible"
         	VerticalAlignment="Bottom" Click="RetryButton_Click"
             />
-        <TextBlock Grid.Column="2" HorizontalAlignment="Left" Margin="83,69,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Player 1 Lives: " VerticalAlignment="Top" Height="27" Width="122" FontSize="18.667"/>
-        <TextBlock x:Name="Player1LivesTextBlock" x:FieldModifier="Public" Grid.Column="2" HorizontalAlignment="Left" Margin="210,69,-5,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Height="27" Width="95" FontSize="18.667"/>
-        <TextBlock Grid.Column="2" HorizontalAlignment="Left" Margin="83,135,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Player 2 Lives: " VerticalAlignment="Top" Height="27" Width="122" FontSize="18.667"/>
-        <TextBlock x:Name="Player2LivesTextBlock" x:FieldModifier="Public" Text="No Player" Grid.Column="2" HorizontalAlignment="Left" Margin="210,137,-5,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Height="25" Width="95" FontSize="18.667"/>
-    </Grid>
+
+        <RelativePanel Grid.Column="2" Grid.Row="1" Margin="83,65,0,0" Width="150" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <TextBlock x:Name="P1L" TextWrapping="Wrap" Text="Lives " VerticalAlignment="Top" Height="27" Width="50" FontSize="18.667"/>
+            <Image Source="Assets\Logo1.png" Width="25" x:Name="P1Live1" RelativePanel.RightOf="P1L"/>
+            <Image Source="Assets\Logo1.png" Width="25" Margin="10,0,0,0" x:Name="P1Live2" RelativePanel.RightOf="P1Live1"/>
+            <Image Source="Assets\Logo1.png" Width="25" Margin="10,0,0,0" x:Name="P1Live3" RelativePanel.RightOf="P1Live2"/>
+        </RelativePanel>
+
+        <RelativePanel Grid.Column="2" Grid.Row="1" Margin="83,137,0,0" Width="150" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <TextBlock x:Name="P2L" TextWrapping="Wrap" Text="Lives " VerticalAlignment="Top" Height="27" Width="50" FontSize="18.667"/>
+            <Image Source="Assets\Logo1.png" Opacity="0" Width="25" x:Name="P2Live1" RelativePanel.RightOf="P2L"/>
+            <Image Source="Assets\Logo1.png" Opacity="0" Width="25" Margin="10,0,0,0" x:Name="P2Live2" RelativePanel.RightOf="P2Live1"/>
+            <Image Source="Assets\Logo1.png" Opacity="0" Width="25" Margin="10,0,0,0" x:Name="P2Live3" RelativePanel.RightOf="P2Live2"/>
+        </RelativePanel>
+
+        <TextBlock Text="Enemies left: " Grid.Column="2" Grid.Row="1" Margin="83,200,0,0" Width="150" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Impact" FontSize="18.667" />
+        <TextBlock x:Name="enemyCountText" Text="0" Grid.Column="2" Grid.Row="1" Margin="200,202,0,0" Width="150" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Arial" FontSize="18.667" />
+    
+        </Grid>
 </Page>

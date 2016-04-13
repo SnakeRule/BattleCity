@@ -6,43 +6,38 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-    <Grid Background="{ThemeResource ListViewItemSelectedPointerOverBackgroundThemeBrush}" RenderTransformOrigin="0.5,0.588">
+    <Grid RenderTransformOrigin="0.5,0.588">
+        <Grid.Background>
+            <ImageBrush Stretch="Fill" ImageSource="Assets/Menu_background2.png"/>
+        </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="500"/>
+            <ColumnDefinition Width="700"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="350" />
+            <RowDefinition Height="450" />
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Slider x:Name="VolumeSlider"
+                Header="Volume" FontFamily="Impact" 
                 VerticalAlignment="Top"
-                HorizontalAlignment="Right"
-                Grid.Column="2"
+                HorizontalAlignment="Center"
+                Grid.Column="0"
                 Grid.Row="0"
                 Height="50"
-                Width="150"
-                Margin="0,48,5,0"
+                Width="120"
+                Margin="0,40,0,0"
             />
-        <TextBlock x:Name="VolumeBlock"
-                   Text="Volume"
-                    VerticalAlignment="Top"
-                   HorizontalAlignment="Right"
-                    Grid.Column="2"
-                    Grid.Row="0"
-                    Height="50"
-                   FontSize="35" Margin="0,0,20,0"
-                   />
         <Button x:Name="ControlButton"
                 VerticalAlignment="Center"
-                HorizontalAlignment="Center"
+                HorizontalAlignment="Left"
                 Grid.Row="1"
-                Grid.Column="0"
-                Width="200"
+                Grid.Column="1"
+                Width="190"
                 Height="60"
-                Content="Soon tm" FontSize="29.333" Background="#3313C2F5"               
+                Content="Soon tm" FontSize="29.333" Background="#4C033005" FontFamily="Impact" Foreground="#FF111111"               
         />
         <Button x:Name="PlayButton"
                 Click="PlayButton_Click"
@@ -50,51 +45,47 @@
                 HorizontalAlignment="Center"
                 Grid.Row="1"
                 Grid.Column="1"
-                Width="200"
+                Width="190"
                 Height="60"
-                Content="Play" FontSize="29.333" Background="#3313C2F5"
+                Content="Play" FontSize="29.333" Background="#4C033005" FontFamily="Impact" Foreground="#FF111111" 
                 />
         <Button x:Name="HSButton"
                 VerticalAlignment="Center"
-                HorizontalAlignment="Center"
+                HorizontalAlignment="Right"
                 Grid.Row="1"
-                Grid.Column="2"
-                Width="200"
+                Grid.Column="1"
+                Width="190"
                 Height="60"
-                Content="Highscores" FontSize="29.333" Background="#3313C2F5" Click="HSButton_Click"
+                Content="Highscores" FontSize="29.333" Background="#4C033005" FontFamily="Impact" Foreground="#FF111111"  Click="HSButton_Click"
                 />
         <Button x:Name="CreditsButton"
                 VerticalAlignment="Center"
-                HorizontalAlignment="Center"
+                HorizontalAlignment="Left"
                 Grid.Row="2"
-                Grid.Column="0"
+                Grid.Column="1"
                 Width="120"
                 Height="50"
-                Content="Credits" FontSize="29.333" Background="#3313C2F5" Click="CreditsButton_Click"
+                Content="Credits" FontSize="29.333" Background="#4C033005" FontFamily="Impact" Foreground="#FF111111"  Click="CreditsButton_Click"
                 />
         <Button x:Name="ExitButton"
                 Click="ExitButton_Click"
                 VerticalAlignment="Center"
-                HorizontalAlignment="Center"
+                HorizontalAlignment="Right"
                 Grid.Row="2"
-                Grid.Column="3"
+                Grid.Column="1"
                 Width="100"
                 Height="50"
-                Content="Exit" FontSize="29.333" Background="#3313C2F5"
+                Content="Exit" FontSize="29.333" Background="#4C033005" FontFamily="Impact" Foreground="#FF111111" 
                 />
-        <TextBlock x:Name="TitleBlock"
-                   Text="Battle Cats"
-                   Grid.Row="0"
-                   Grid.Column="1"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Bottom" FontSize="64" Foreground="#FFF90000"
-                   />
+
         <Image
-            Source="Assets/SplashScreen.scale-200.png"
+            Source="Assets/Logo1.png"
+            Height="550"
+            Width="600"
             Grid.Row="0"
             Grid.Column="1"
             HorizontalAlignment="Center"
-            VerticalAlignment="Top"
+            VerticalAlignment="Top" Margin="130,0,0,0"
             />
     </Grid>
 </Page>

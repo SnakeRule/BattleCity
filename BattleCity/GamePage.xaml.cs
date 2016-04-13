@@ -84,7 +84,6 @@ namespace BattleCity
             players = level.players;
             enemies = level.enemies;
 
-            LevelNumber = 1;
             level.LoadLevel();
             level.BuildLevel(Canvas);
 
@@ -479,15 +478,55 @@ namespace BattleCity
 
                     P1PreviousScore = player.Score; // the points are saved to the PreviousScore ints to keep points between levels and deaths
                     Player1ScoreTextBlock.Text = player.Score.ToString(); // Player score displayed in the PlayerScoreTextBlock
-                    Player1LivesTextBlock.Text = P1Lives.ToString(); // Player lives displayed in the PlayerLivesTextBlock
+                    //Player1LivesTextBlock.Text = P1Lives.ToString(); // Player lives displayed in the PlayerLivesTextBlock
+
+                    // Show and hide player lives 
+                    switch (P1Lives)
+                    {
+                        case 0:
+                            P1Live1.Opacity = 0;
+                            break;
+                        case 1:
+                            P1Live2.Opacity = 0;
+                            break;
+                        case 2:
+                            P1Live3.Opacity = 0;
+                            break;
+                        case 3:
+                            P1Live1.Opacity = 100;
+                            P1Live2.Opacity = 100;
+                            P1Live3.Opacity = 100;
+                            break;
+                        default: break;
+                    }
                 }
                 if (player.Player2 == true)
                 {
                     P2PreviousScore = player.Score;
                     Player2ScoreTextBlock.Text = player.Score.ToString();
-                    Player2LivesTextBlock.Text = P2Lives.ToString();
+
+                    // Show and hide player lives 
+                    switch (P2Lives)
+                    {
+                        case 0:
+                            P2Live1.Opacity = 0;
+                            break;
+                        case 1:
+                            P2Live2.Opacity = 0;
+                            break;
+                        case 2:
+                            P2Live3.Opacity = 0;
+                            break;
+                        case 3:
+                            P2Live1.Opacity = 100;
+                            P2Live2.Opacity = 100;
+                            P2Live3.Opacity = 100;
+                            break;
+                        default: break;
+                    }
                 }
             }
+            enemyCountText.Text = enemies.Count.ToString();
         }
 
         //Checking if game is over
@@ -598,6 +637,17 @@ namespace BattleCity
             // P1 and P2 lives are restored to 3
             P1Lives = 3;
             P2Lives = 3;
+            // Show P1 and P2 lives
+            P1Live1.Opacity = 100;
+            P1Live2.Opacity = 100;
+            P1Live3.Opacity = 100;
+            if(MP == true)
+            {
+                P2Live1.Opacity = 100;
+                P2Live2.Opacity = 100;
+                P2Live3.Opacity = 100;
+            }
+            
             // P1 and P2 scores are restored to 0
             P1PreviousScore = 0;
             P2PreviousScore = 0;
