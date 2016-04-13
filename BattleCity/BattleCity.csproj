@@ -147,7 +147,7 @@
     <Content Include="Assets\tank.png" />
     <Content Include="Highscores\Highscores.txt" />
     <Content Include="Levels\Level1.txt" />
-    <Content Include="Win.jpg" />
+    <Content Include="Assets\Win.jpg" />
     <Content Include="Levels\Level2.txt" />
     <Content Include="Levels\Level3.txt" />
     <Content Include="Levels\Level5.txt" />

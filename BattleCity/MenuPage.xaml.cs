@@ -36,7 +36,7 @@ namespace BattleCity
         //Clicking the button takes you to 2 player mode
         private void MultiPlayer_Click(object sender, RoutedEventArgs e)
         {
-            GamePage.MP = true; // = 2 player
+            GamePage.MP = true; // = 2 player 
             this.Frame.Navigate(typeof(GamePage));
         }
         //Back to main menu

@@ -495,6 +495,9 @@ namespace BattleCity
                             P1Live3.Opacity = 0;
                             break;
                         case 3:
+                            P1Live1.Opacity = 100;
+                            P1Live2.Opacity = 100;
+                            P1Live3.Opacity = 100;
                             break;
                         default: break;
                     }
@@ -517,11 +520,18 @@ namespace BattleCity
                             P2Live3.Opacity = 0;
                             break;
                         case 3:
+                            P2Live1.Opacity = 100;
+                            P2Live2.Opacity = 100;
+                            P2Live3.Opacity = 100;
                             break;
                         default: break;
                     }
                 }
             }
+            /*if (enemies.Count > 0)
+            {
+                enemyCountText.Text = enemies.Count.ToString();
+            }*/
         }
 
         //Checking if game is over
@@ -604,9 +614,13 @@ namespace BattleCity
             P1Live1.Opacity = 100;
             P1Live2.Opacity = 100;
             P1Live3.Opacity = 100;
-            P2Live1.Opacity = 100;
-            P2Live2.Opacity = 100;
-            P2Live3.Opacity = 100;
+            if(MP == true)
+            {
+                P2Live1.Opacity = 100;
+                P2Live2.Opacity = 100;
+                P2Live3.Opacity = 100;
+            }
+            
             // P1 and P2 scores are restored to 0
             P1PreviousScore = 0;
             P2PreviousScore = 0;
