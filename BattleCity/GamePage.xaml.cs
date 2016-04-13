@@ -32,8 +32,8 @@ namespace BattleCity
 
         private Random random;
 
-        const string HSstring = "Highscore.txt";
-        List<string> HSlines = new List<string>();
+        List<string> HSlines = new List<string>(10);
+        StreamReader hsreader;
 
         public static bool MP; // Bool used for checking if 2-player mode was selected
         private bool PlayerHit = false;
@@ -128,7 +128,17 @@ namespace BattleCity
             UpdatePoints(); // Goes to the method that updates player scores to the screen
             CheckGameOver(); // Goes to the method that checks if any game over criterias are met
         }
- 
+
+
+        private void Checkpoints()
+        {
+            List<string> HSlines = new List<string>(10);
+            using (StreamReader hsreader = File.OpenText("Highscores.txt"))
+            {
+                while (hsreader.Peek() >= 0)
+                    HSlines.Add(hsreader.ReadLine());
+            }
+        }
         // Back to mainmenu button method
         private void MenuButton_Click(object sender, RoutedEventArgs e)
         {
