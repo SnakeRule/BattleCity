@@ -628,8 +628,6 @@ namespace BattleCity
                 if (k >= 10) break; // only save 10 highest scores
             }
         }
-        
-
         private void RetryButton_Click(object sender, RoutedEventArgs e) // This is the method that runs when the retry button is clicked on the GamePage
         {
             GameEndImage.Visibility = Visibility.Collapsed; // The Game end picture is hidden

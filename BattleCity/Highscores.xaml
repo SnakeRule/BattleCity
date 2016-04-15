@@ -23,7 +23,7 @@
                 Click="HSButton_Click"
                 VerticalAlignment="Bottom"
                 HorizontalAlignment="Center"
-                Width="150"
+                Width="180"
                 Height="60" FontSize="20" FontFamily="Impact" 
                 Content="Show highscores" Margin="565,0,565,660"
                />
