@@ -27,7 +27,6 @@ using Windows.UI.Xaml.Navigation;
         {
         private int catDirection; // This value is used to tell which direction the tank is currently facing.
         private int speed = 4; // Used to tell how fast the character moves on screen
-        private int speedUp = 2; // Used for boosting player speed
         private int AnimationCycleCounter = 0; // Used to tell which animation picture is currently in use
         private int animationTickCounter = 0; // Used to count when the next animatin picture should be loaded
 
@@ -329,20 +328,6 @@ using Windows.UI.Xaml.Navigation;
                 case 7:
                     CatSpriteSheetOffset.X = -37.5 * 1;
                     break;
-            }
-        }
-        public void PowerUpSpeed()
-        {
-            speedUpTickCounter++;
-            if (StopDown == false && StopUp == false && StopRight == false && StopLeft == false)
-            {
-                Speed = Speed + speedUp;
-            }
-            if(speedUpTickCounter == 120)
-            {
-                speedUpTickCounter = 0;
-                Speed = 4;
-                SpeedUp = false;
             }
         }
     }

@@ -23,6 +23,7 @@ namespace BattleCity
         public bool Invincible { get; set; }
         private int invincibleTimer;
         public int PlayerColour { get; set; }
+        private int speedUp = 4; // Used for boosting player speed
 
         public Player()
         {
@@ -182,6 +183,21 @@ namespace BattleCity
             {
                 CatRectangle.Opacity = 1;
                 Invincible = false;
+            }
+        }
+
+        public void PowerUpSpeed()
+        {
+            speedUpTickCounter++;
+            if (StopDown == false && StopUp == false && StopRight == false && StopLeft == false)
+            {
+                Speed = Speed + speedUp;
+            }
+            if (speedUpTickCounter == 120)
+            {
+                speedUpTickCounter = 0;
+                Speed = 4;
+                SpeedUp = false;
             }
         }
 
