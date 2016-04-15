@@ -113,5 +113,20 @@
                HorizontalAlignment="Center"
                Width="290"
                />
+        <Button 
+            	x:Name="PauseButton" 
+            	Content="Pause" 
+            	Grid.Column="2" Grid.Row="1" 
+            	HorizontalAlignment="Center" 
+            	Width="150"
+            	Height="60" FontSize="25" FontFamily="Impact" Foreground="#FF111111"
+            	Margin="75,0,75,240"
+            	Visibility="Visible"
+            	VerticalAlignment="Bottom" Click="PauseButton_Click"
+            >
+            <Button.Background>
+                <ImageBrush Stretch="Fill" ImageSource="Assets/Button.png"/>
+            </Button.Background>
+        </Button>
     </Grid>
 </Page>

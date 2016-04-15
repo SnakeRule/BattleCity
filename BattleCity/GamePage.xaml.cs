@@ -611,6 +611,21 @@ namespace BattleCity
             }
             Debug.Write(HSlines.Count);
         }
+
+        private void PauseButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (dispatcherTimer.IsEnabled)
+            {
+                PauseButton.Content = "Resume";
+                dispatcherTimer.Stop();
+            }
+            else
+            {
+                PauseButton.Content = "Pause";
+                dispatcherTimer.Start();
+            }
+        }
+
         // Method for saving points to a file
         private async void SavePoints()
         {
