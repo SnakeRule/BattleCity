@@ -199,7 +199,6 @@ namespace BattleCity
                         }
                     }
 
-                    // PlayerRect.Intersect(PlayerRect); between players
                     if (!BlockRect.IsEmpty && block.CanGoTrough == false) //player and block collisions
                     {
                         if (player.LocationX > block.LocationX && player.CatDirection == 1) // Checking if player1 is intersecting the block from the right. This uses the tank's direction
@@ -257,9 +256,14 @@ namespace BattleCity
                         BlockRect = block.GetRect();
                         BlockRect.Intersect(EnemyRect);
 
-                        if(!BlockRect.IsEmpty && block.Goal == true) // Checking if enemy tank drives into goal
+                        if (!BlockRect.IsEmpty && block.Goal == true) // Checking if enemy tank drives into goal
                         {
                             GoalHit = true;
+                        }
+
+                        if(!BlockRect.IsEmpty && block.IsPowerUp == true)
+                        {
+                            break;
                         }
 
                         if (!BlockRect.IsEmpty && block.CanGoTrough == false)
@@ -290,20 +294,19 @@ namespace BattleCity
                             break;
                         }
                     }
-                }
 
-                foreach (Block block in blocks) // Checking each block in blocks list
-                {
-                    BlockRect = block.GetRect(); // Creating rectangle
-                    BlockRect.Intersect(PlayerRect); // Checking for intersections between player and block
-                                                     // PlayerRect.Intersect(PlayerRect); between players
+                    foreach (Block block in blocks) // Checking each block in blocks list
+                    {
+                        BlockRect = block.GetRect(); // Creating rectangle
+                        BlockRect.Intersect(EnemyRect); // Checking for intersections between player and block
 
-                    if (!BlockRect.IsEmpty && block.CanGoTrough == true && player.StopLeft == false && player.StopRight == false && player.StopUp == false && player.StopDown == false) // Slower speed while moving on magic block
+                        if (!BlockRect.IsEmpty && block.CanGoTrough == true && enemy.StopLeft == false && enemy.StopRight == false && enemy.StopUp == false && enemy.StopDown == false) // Slower speed while moving on magic block
                         {
-                        player.Speed = 2;
+                            enemy.Speed = 2;
                             break;
                         }
-                    else { player.Speed = 4; }
+                        else { enemy.Speed = player.BaseSpeed; }
+                    }
                 }
 
                 foreach (Enemy enemy in enemies) // This is where the collision between players and enemies is detected
@@ -358,6 +361,10 @@ namespace BattleCity
                         BulletRect = bullet.GetRect();
                         BlockRect.Intersect(BulletRect); // Checking for intersection
 
+                        if (!BlockRect.IsEmpty && block.IsPowerUp == true)
+                        {
+                            break;
+                        }
                         if (!BlockRect.IsEmpty && block.CanDestroy == true) // If an intersection happens and the block can be destroyed
                         {
                             if(block.Goal == true)
@@ -418,6 +425,11 @@ namespace BattleCity
                         BlockRect = block.GetRect(); // creating rectangle for block to use in collision detection
                         BulletRect = bullet.GetRect(); // creating rectangle for bullet to use in collision detection
                         BlockRect.Intersect(BulletRect); // Checking if Block and bullet rects intersect
+
+                        if (!BlockRect.IsEmpty && block.IsPowerUp == true)
+                        {
+                            break;
+                        }
 
                         if (!BlockRect.IsEmpty && block.CanDestroy == true)
                         {
