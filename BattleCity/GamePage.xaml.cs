@@ -103,13 +103,17 @@ namespace BattleCity
         {
                 foreach (Player player in players)
                 {
-                player.AnimationUpdate();
-                BlockCollisionCheck();
+                if(player.Invincible == true)
+                {
+                    player.Invincibility();
+                }
                 if (player.SpeedUp == true)
                     player.PowerUpSpeed();
                 player.CollisionRelease();
                 player.UpdatePlayer(Canvas);
                 player.UpdateBullet(Canvas);
+                player.AnimationUpdate();
+                BlockCollisionCheck();
                 if (PlayerHit == true)
                     break;
                 }
@@ -314,7 +318,7 @@ namespace BattleCity
                     EnemyRect = enemy.GetRect();
                     EnemyRect.Intersect(PlayerRect);
 
-                    if (!EnemyRect.IsEmpty)
+                    if (!EnemyRect.IsEmpty && player.Invincible == false)
                     {
                         PlayerHit = true; // Can't remember why I made this, will have to check funtion later :D
                         enemy.RemoveBullet(Canvas);
@@ -457,7 +461,7 @@ namespace BattleCity
                         BulletRect = bullet.GetRect();
                         PlayerRect.Intersect(BulletRect); // Checking for intersection
 
-                        if (!PlayerRect.IsEmpty) // If collision happens
+                        if (!PlayerRect.IsEmpty && player.Invincible == false) // If collision happens
                         {
                             enemy.RemoveBullet(Canvas);
                             Canvas.Children.Remove(player);
@@ -643,8 +647,6 @@ namespace BattleCity
                 if (k >= 10) break; // only save 10 highest scores
             }
         }
-        
-
         private void RetryButton_Click(object sender, RoutedEventArgs e) // This is the method that runs when the retry button is clicked on the GamePage
         {
             GameEndImage.Visibility = Visibility.Collapsed; // The Game end picture is hidden

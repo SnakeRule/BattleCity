@@ -10,7 +10,7 @@
     d:DesignWidth="400">
 
     <Grid>
-        <Rectangle x:Name="CatRectangle" Width="34" Height="55">
+        <Rectangle x:Name="CatRectangle" Width="34" Height="54" x:FieldModifier="Protected">
             <Rectangle.Fill>
                 <ImageBrush
                         ImageSource="Assets/cat_placeholder.png"
@@ -26,8 +26,8 @@
             <Rectangle.RenderTransform>
                 <RotateTransform x:Name="PlayerRotate"
                                  Angle="0"
-                                 CenterX="17.5"
-                                 CenterY="25">
+                                 CenterX="17"
+                                 CenterY="27">
                 </RotateTransform>
             </Rectangle.RenderTransform>
         </Rectangle>
