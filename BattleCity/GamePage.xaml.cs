@@ -89,6 +89,9 @@ namespace BattleCity
 
             random = new Random(); // setting up rng for enemy movement
 
+            P1NameTextBlock.Text = MenuPage.P1Name + " score:";
+            P2NameTextBlock.Text = MenuPage.P2Name + " score:";
+
             // Setting up the timer that runs the Game method
             dispatcherTimer = new DispatcherTimer();
             dispatcherTimer.Tick += Game;

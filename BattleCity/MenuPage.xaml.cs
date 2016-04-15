@@ -48,6 +48,8 @@ namespace BattleCity
             if(reader != null)
                 reader.Dispose();
             GamePage.LevelNumber = int.Parse(LevelNumberTextBlock.Text);
+            P1Name = P1NameTextBox.Text;
+            P2Name = P2NameTextBox.Text;
             this.Frame.Navigate(typeof(GamePage));
         }
         //Clicking the button takes you to 2 player mode
