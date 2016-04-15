@@ -12,12 +12,12 @@
         </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="700"/>
+            <ColumnDefinition Width="680"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="450" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="680" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Slider x:Name="VolumeSlider"
@@ -30,62 +30,93 @@
                 Width="120"
                 Margin="0,40,0,0"
             />
-        <Button x:Name="ControlButton"
+        <RelativePanel Grid.Column="1" Grid.Row="1">
+            <RelativePanel.Background>
+                <ImageBrush Stretch="Fill" ImageSource="Assets/Menubox1.png"/>
+            </RelativePanel.Background>
+            <Button x:Name="ControlButton"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Left"
-                Grid.Row="1"
-                Grid.Column="1"
-                Width="190"
+                Width="160"
                 Height="60"
-                Content="Soon tm" FontSize="29.333" Background="#4C033005" FontFamily="Impact" Foreground="#FF111111"               
-        />
-        <Button x:Name="PlayButton"
+                    Margin="80,440,0,0"
+                Content="Controls" FontSize="29.333" FontFamily="Impact" Foreground="#FF111111"               
+        >
+                <Button.Background>
+                    <ImageBrush Stretch="Fill" ImageSource="Assets/Button.png"/>
+                </Button.Background>
+            </Button>
+            <Button x:Name="PlayButton"
                 Click="PlayButton_Click"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
-                Grid.Row="1"
-                Grid.Column="1"
-                Width="190"
-                Height="60"
-                Content="Play" FontSize="29.333" Background="#4C033005" FontFamily="Impact" Foreground="#FF111111" 
-                />
-        <Button x:Name="HSButton"
+                Width="150"
+                Height="80"
+                    RelativePanel.RightOf="ControlButton"
+                    Margin="25,440,0,0"
+                Content="Play" FontSize="35" FontFamily="Impact" Foreground="#FF111111" 
+                >
+                <Button.Background>
+                    <ImageBrush Stretch="Fill" ImageSource="Assets/Button.png"/>
+                </Button.Background>
+            </Button>
+            <Button x:Name="HSButton"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Right"
-                Grid.Row="1"
-                Grid.Column="1"
-                Width="190"
+                Width="160"
                 Height="60"
-                Content="Highscores" FontSize="29.333" Background="#4C033005" FontFamily="Impact" Foreground="#FF111111"  Click="HSButton_Click"
-                />
-        <Button x:Name="CreditsButton"
+                    Margin="25,440,0,0"
+                    RelativePanel.RightOf="PlayButton"
+                Content="Highscores" FontSize="29.333" FontFamily="Impact" Foreground="#FF111111"  Click="HSButton_Click"
+                >
+                <Button.Background>
+                    <ImageBrush Stretch="Fill" ImageSource="Assets/Button.png"/>
+                </Button.Background>
+            </Button>
+            <Button x:Name="CreditsButton"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Left"
-                Grid.Row="2"
-                Grid.Column="1"
-                Width="120"
-                Height="50"
-                Content="Credits" FontSize="29.333" Background="#4C033005" FontFamily="Impact" Foreground="#FF111111"  Click="CreditsButton_Click"
-                />
-        <Button x:Name="ExitButton"
+                Width="100"
+                Height="40"
+                    RelativePanel.Below="ControlButton"
+                    Margin="80,60,0,0"
+                Content="Credits" FontSize="20" FontFamily="Impact" Foreground="#FF111111"  Click="CreditsButton_Click"
+                >
+                <Button.Background>
+                    <ImageBrush Stretch="Fill" ImageSource="Assets/Button.png"/>
+                </Button.Background>
+            </Button>
+            <Button x:Name="ExitButton"
                 Click="ExitButton_Click"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Right"
-                Grid.Row="2"
-                Grid.Column="1"
                 Width="100"
-                Height="50"
-                Content="Exit" FontSize="29.333" Background="#4C033005" FontFamily="Impact" Foreground="#FF111111" 
-                />
+                Height="40"
+                    RelativePanel.RightOf="CreditsButton"
+                    RelativePanel.Below="HSButton"
+                    Margin="320,60,0,0"
+                Content="Exit" FontSize="20" FontFamily="Impact" Foreground="#FF111111" 
+                >
+                <Button.Background>
+                    <ImageBrush Stretch="Fill" ImageSource="Assets/Button.png"/>
+                </Button.Background>
+            </Button>
+        </RelativePanel>
+
 
         <Image
-            Source="Assets/Logo1.png"
-            Height="550"
-            Width="600"
-            Grid.Row="0"
+            Source="Assets/Logo2.png"
+            Height="480"
+            Width="550"
+            Grid.Row="1"
             Grid.Column="1"
             HorizontalAlignment="Center"
-            VerticalAlignment="Top" Margin="130,0,0,0"
-            />
+            VerticalAlignment="Top" Margin="120,20,0,0"
+            
+            >
+            <Image.Projection>
+                <PlaneProjection RotationX="-1"/>
+            </Image.Projection>
+        </Image>
     </Grid>
 </Page>
