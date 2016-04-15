@@ -62,9 +62,9 @@
             VerticalAlignment="Bottom" Click="NextLevelButton_Click"
             />
 
-        <TextBlock Grid.Column="2" HorizontalAlignment="Left" Margin="83,33,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Player 1 Score: " VerticalAlignment="Top" Height="27" Width="122" FontSize="18.667" FontFamily="Impact"/>
+        <TextBlock x:Name="P1NameTextBlock" Grid.Column="2" HorizontalAlignment="Left" Margin="83,33,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Player 1 Score: " VerticalAlignment="Top" Height="27" Width="122" FontSize="18.667" FontFamily="Impact"/>
 
-        <TextBlock Grid.Column="2" HorizontalAlignment="Left" Margin="83,105,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Player 2 Score: " VerticalAlignment="Top" Height="25" Width="122" FontSize="18.667" FontFamily="Impact"/>
+        <TextBlock x:Name="P2NameTextBlock" Grid.Column="2" HorizontalAlignment="Left" Margin="83,105,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Player 2 Score: " VerticalAlignment="Top" Height="25" Width="122" FontSize="18.667" FontFamily="Impact"/>
         <TextBlock x:Name="Player1ScoreTextBlock" x:FieldModifier="Public" Grid.Column="2" HorizontalAlignment="Left" Margin="210,35,-5,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Height="27" Width="95" FontSize="18.667" FontFamily="Arial"/>
         <TextBlock x:Name="Player2ScoreTextBlock" x:FieldModifier="Public" Text="No Player" Grid.Column="2" HorizontalAlignment="Left" Margin="210,107,-5,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Height="25" Width="95" FontSize="18.667" FontFamily="Arial"/>
         <Image x:Name="GameEndImage"

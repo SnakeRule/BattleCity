@@ -37,7 +37,7 @@ namespace BattleCity
         {
             this.InitializeComponent();
             P1Colour = 1;
-            P2Colour = 1;
+            P2Colour = 2;
             levelNumber = 1;
             GamePage.MP = false; // = 1 player is default
         }
@@ -48,6 +48,12 @@ namespace BattleCity
             if(reader != null)
                 reader.Dispose();
             GamePage.LevelNumber = int.Parse(LevelNumberTextBlock.Text);
+            if (P1NameTextBox.Text == "")
+                P1NameTextBox.Text = "Player 1";
+            P1Name = P1NameTextBox.Text;
+            if (P2NameTextBox.Text == "")
+                P2NameTextBox.Text = "Player 2";
+            P2Name = P2NameTextBox.Text;
             this.Frame.Navigate(typeof(GamePage));
         }
         //Clicking the button takes you to 2 player mode
@@ -56,7 +62,7 @@ namespace BattleCity
             GamePage.MP = true; // = 2 player
             MultiPlayer.Visibility = Visibility.Collapsed;
             P2NameTextBox.Visibility = Visibility.Visible;
-            P2TextBlock.Visibility = Visibility.Visible;
+            P2ColourTextBlock.Visibility = Visibility.Visible;
             P2WhiteCatImage.Visibility = Visibility.Visible;
             P2PinkCatImage.Visibility = Visibility.Visible;
         }
@@ -117,21 +123,25 @@ namespace BattleCity
 
         private void P1WhiteCatImage_Click(object sender, RoutedEventArgs e)
         {
+            P1ColourTextBlock.Text = "Selected colour: White";
             P1Colour = 1;
         }
 
         private void P1PinkCatImage_Click(object sender, RoutedEventArgs e)
         {
+            P1ColourTextBlock.Text = "Selected colour: Pink";
             P1Colour = 2;
         }
 
         private void P2WhiteCatImage_Click(object sender, RoutedEventArgs e)
         {
+            P2ColourTextBlock.Text = "Selected colour: White";
             P2Colour = 1;
         }
 
         private void P2PinkCatImage_Click(object sender, RoutedEventArgs e)
         {
+            P2ColourTextBlock.Text = "Selected colour: Pink";
             P2Colour = 2;
         }
     }
