@@ -20,7 +20,10 @@ namespace BattleCity
         public bool Player2 { get; set; } // Tells which player is being used
         public int Score { get; set; } // Player score
         public string Name { get; set; }
+        public bool Invincible { get; set; }
+        private int invincibleTimer;
         public int PlayerColour { get; set; }
+
         public Player()
         {
             this.InitializeComponent();
@@ -170,6 +173,18 @@ namespace BattleCity
                 }
             }
         }
+
+        public void Invincibility()
+        {
+            invincibleTimer++;
+            CatRectangle.Opacity = 0.4;
+            if (invincibleTimer >= 80)
+            {
+                CatRectangle.Opacity = 1;
+                Invincible = false;
+            }
+        }
+
         public void ResetControls() // when the level changes, the KeyDown and KeyUp methods have to be reset to prevent double button presses
         {
             Window.Current.CoreWindow.KeyDown -= onKeyDown;

@@ -103,6 +103,10 @@ namespace BattleCity
         {
                 foreach (Player player in players)
                 {
+                if(player.Invincible == true)
+                {
+                    player.Invincibility();
+                }
                 player.AnimationUpdate();
                 BlockCollisionCheck();
                 if (player.SpeedUp == true)
@@ -314,7 +318,7 @@ namespace BattleCity
                     EnemyRect = enemy.GetRect();
                     EnemyRect.Intersect(PlayerRect);
 
-                    if (!EnemyRect.IsEmpty)
+                    if (!EnemyRect.IsEmpty && player.Invincible == false)
                     {
                         PlayerHit = true; // Can't remember why I made this, will have to check funtion later :D
                         enemy.RemoveBullet(Canvas);
@@ -457,7 +461,7 @@ namespace BattleCity
                         BulletRect = bullet.GetRect();
                         PlayerRect.Intersect(BulletRect); // Checking for intersection
 
-                        if (!PlayerRect.IsEmpty) // If collision happens
+                        if (!PlayerRect.IsEmpty && player.Invincible == false) // If collision happens
                         {
                             enemy.RemoveBullet(Canvas);
                             Canvas.Children.Remove(player);

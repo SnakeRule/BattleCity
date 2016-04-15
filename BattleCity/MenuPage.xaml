@@ -197,7 +197,7 @@
                 x:Name="LevelDownButton"
                 HorizontalAlignment="Left"
                 FontSize="20"
-                Margin="0,10,170,0"
+                Margin="0,10,0,0"
                 VerticalAlignment="Top"
                 Width="38" Content="&lt;" Height="40" Click="LevelDownButton_Click"/>
 
