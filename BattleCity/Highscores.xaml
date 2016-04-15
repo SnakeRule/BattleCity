@@ -11,22 +11,52 @@
         <Grid.Background>
             <ImageBrush Stretch="Fill" ImageSource="Assets/Menu_background2.png"/>
         </Grid.Background>
-        <Button x:Name="MenuButton"
-                Click="MenuButton_Click"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Center"
-                Width="150"
-                Height="60" FontSize="20" FontFamily="Impact" 
-                Content="Back to Menu" Margin="565,625,565,35"
-               />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="680" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="680" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Image Source="Assets/Menubox1.png" Grid.Column="1" Grid.Row="1" />
         <Button x:Name="HSButton"
                 Click="HSButton_Click"
-                VerticalAlignment="Bottom"
+                VerticalAlignment="Center"
                 HorizontalAlignment="Center"
                 Width="180"
                 Height="60" FontSize="20" FontFamily="Impact" 
-                Content="Show highscores" Margin="565,0,565,660"
-               />
-        <TextBlock x:Name="HStext" HorizontalAlignment="Left" Margin="565,110,0,0" TextWrapping="Wrap" Text="Press button to show highscores" VerticalAlignment="Top" Height="395" Width="218"/>
+                Content="Show highscores" Margin="0,0,0,0"
+                Grid.Column="1"
+                Grid.Row="1"
+               >
+            <Button.Background>
+                <ImageBrush Stretch="Fill" ImageSource="Assets/Button.png"/>
+            </Button.Background>
+        </Button>
+        <Button x:Name="MenuButton"
+                Click="MenuButton_Click"
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Center"
+                Width="150"
+                Height="60" FontSize="20" FontFamily="Impact" 
+                Content="Back" Margin="0,0,0,80"
+                Grid.Column="1"
+                Grid.Row="1"
+               >
+            <Button.Background>
+                <ImageBrush Stretch="Fill" ImageSource="Assets/Button.png"/>
+            </Button.Background>
+        </Button>
+
+        <TextBlock x:Name="HStext" HorizontalAlignment="Center" 
+                   Margin="0,90,0,0" TextWrapping="Wrap" 
+                   Text="Press button to show highscores" 
+                   VerticalAlignment="Top" 
+                   Height="395" Width="218"
+                   Grid.Column="1"
+                   Grid.Row="1" Foreground="White"/>
     </Grid>
 </Page>
