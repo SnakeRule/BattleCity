@@ -13,7 +13,7 @@
         <Rectangle x:Name="CatRectangle" Width="34" Height="54" x:FieldModifier="Protected">
             <Rectangle.Fill>
                 <ImageBrush
-                        ImageSource="Assets/cat_placeholder.png"
+                        ImageSource="Assets/Cat_sprites.png"
                         Stretch="None"
                         AlignmentX="Left"
                         AlignmentY="Top"

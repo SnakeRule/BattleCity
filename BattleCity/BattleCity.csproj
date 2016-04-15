@@ -139,6 +139,7 @@
     <Content Include="Assets\Block_placeholder.png" />
     <Content Include="Assets\Button.png" />
     <Content Include="Assets\Cat_placeholder.png" />
+    <Content Include="Assets\Cat_sprites.png" />
     <Content Include="Assets\Logo1.png" />
     <Content Include="Assets\Logo2.png" />
     <Content Include="Assets\Lose.jpg" />
