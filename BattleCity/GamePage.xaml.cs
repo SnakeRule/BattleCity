@@ -107,13 +107,13 @@ namespace BattleCity
                 {
                     player.Invincibility();
                 }
-                player.AnimationUpdate();
-                BlockCollisionCheck();
                 if (player.SpeedUp == true)
                     player.PowerUpSpeed();
                 player.CollisionRelease();
                 player.UpdatePlayer(Canvas);
                 player.UpdateBullet(Canvas);
+                player.AnimationUpdate();
+                BlockCollisionCheck();
                 if (PlayerHit == true)
                     break;
                 }

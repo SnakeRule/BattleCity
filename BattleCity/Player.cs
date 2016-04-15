@@ -23,7 +23,7 @@ namespace BattleCity
         public bool Invincible { get; set; }
         private int invincibleTimer;
         public int PlayerColour { get; set; }
-        private int speedUp = 4; // Used for boosting player speed
+        private int speedUp = 2; // Used for boosting player speed
 
         public Player()
         {
@@ -189,10 +189,7 @@ namespace BattleCity
         public void PowerUpSpeed()
         {
             speedUpTickCounter++;
-            if (StopDown == false && StopUp == false && StopRight == false && StopLeft == false)
-            {
-                Speed = Speed + speedUp;
-            }
+            Speed = Speed + speedUp;
             if (speedUpTickCounter == 120)
             {
                 speedUpTickCounter = 0;
