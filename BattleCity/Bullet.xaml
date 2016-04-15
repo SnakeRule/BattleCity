@@ -10,10 +10,8 @@
     d:DesignWidth="400">
 
     <Grid>
-        <Ellipse
+        <Image Source="Assets/Ball_icon.png"
     x:Name="ball"
-    Stroke="Black"
-    Fill="Red"
     Width="20"
     Height="20"
     />

@@ -12,53 +12,79 @@
             <ImageBrush Stretch="Fill" ImageSource="Assets/Menu_background2.png"/>
         </Grid.Background>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="700"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="680" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="550" />
             <RowDefinition Height="*" />
-
+            <RowDefinition Height="680" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <RelativePanel Grid.Column="1"
-                     VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20">
+
+        <Image Source="Assets/Menubox1.png" Grid.Column="1" Grid.Row="1" />
+        <Image
+            Source="Assets/Logo2.png"
+            Height="480"
+            Width="450"
+            Grid.Row="1"
+            Grid.Column="1"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top" Margin="90,25,0,0"
+            
+            />
+        <RelativePanel Grid.Column="1" Grid.Row="1"
+                     VerticalAlignment="Top" HorizontalAlignment="Center"
+                     Width="520"
+                     Height="160"
+                     Margin="0,360,0,0">
+            <RelativePanel.Background>
+                <ImageBrush Stretch="Fill" ImageSource="Assets/Scoretable.png"/>
+            </RelativePanel.Background>
             <TextBlock
             x:Name="Tiia"
-            Width="200"
-            Height="60"
+            Width="170"
+            Height="50"
+            Margin="0,20,0,0"
             Text="Tiia Aarnio"
             FontFamily="Impact" Foreground="#FF111111"
-            FontSize="25" TextAlignment="Center"
+            FontSize="23" TextAlignment="Center"
                 
     />
             <TextBlock
             x:Name="Lauri"
-            Width="200"
-            Height="60"
+            Width="170"
+            Height="50"
+            Margin="0,20,0,0"
             Text="Lauri Moilanen"
-            FontSize="25"
+            FontSize="23"
             FontFamily="Impact" Foreground="#FF111111"
             RelativePanel.RightOf="Tiia" TextAlignment="Center"
     />
             <TextBlock
-            Width="200"
-            Height="60"
+            Width="170"
+            Height="50"
+            Margin="0,20,0,0"
             Text="Jere Valtanen"
-            FontSize="25"
+            FontSize="23"
             FontFamily="Impact" Foreground="#FF111111"    
             RelativePanel.RightOf="Lauri" TextAlignment="Center"
     />
         </RelativePanel>
-        
+
         <Button x:Name="BackButton"
                 Content="Back"
                 Grid.Row="1"
                 Grid.Column="1"
                 HorizontalAlignment="Right"
+                Margin="0,460,80,0"
                 Height="60" 
                 Width="150" Click="BackButton_Click"
-                FontSize="29.333" Background="#4C033005" FontFamily="Impact" Foreground="#FF111111"
-        />
+                FontSize="29.333" FontFamily="Impact" Foreground="#FF111111"
+        >
+            <Button.Background>
+                <ImageBrush Stretch="Fill" ImageSource="Assets/Button.png"/>
+            </Button.Background>
+        </Button>
     </Grid>
 </Page>
