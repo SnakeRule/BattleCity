@@ -142,11 +142,11 @@
     <Content Include="Assets\Logo1.png" />
     <Content Include="Assets\Logo2.png" />
     <Content Include="Assets\Lose.jpg" />
-    <Content Include="Assets\Menubox.png" />
     <Content Include="Assets\Menubox1.png" />
     <Content Include="Assets\Menu_background2.png" />
     <Content Include="Assets\Pew.mp3" />
     <Content Include="Assets\Pew.mp3" />
+    <Content Include="Assets\Scoretable.png" />
     <Content Include="Assets\tank.png" />
     <Content Include="Highscores\Highscores.txt" />
     <Content Include="Levels\Level1.txt" />
