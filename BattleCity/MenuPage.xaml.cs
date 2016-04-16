@@ -63,8 +63,10 @@ namespace BattleCity
             MultiPlayer.Visibility = Visibility.Collapsed;
             P2NameTextBox.Visibility = Visibility.Visible;
             P2ColourTextBlock.Visibility = Visibility.Visible;
-            P2WhiteCatImage.Visibility = Visibility.Visible;
-            P2PinkCatImage.Visibility = Visibility.Visible;
+            P2BrownCatButton.Visibility = Visibility.Visible;
+            P2WhiteCatButton.Visibility = Visibility.Visible;
+            P2SpotsCatButton.Visibility = Visibility.Visible;
+            P2OrangeCatButton.Visibility = Visibility.Visible;
         }
         //Back to main menu
         private void BackMenuButton_Click(object sender, RoutedEventArgs e)
@@ -121,28 +123,52 @@ namespace BattleCity
             }
         }
 
-        private void P1WhiteCatImage_Click(object sender, RoutedEventArgs e)
+        private void P1SpotsCatButton_Click(object sender, RoutedEventArgs e)
         {
-            P1ColourTextBlock.Text = "Selected colour: White";
+            P1ColourTextBlock.Text = "P1 colour : Spots";
             P1Colour = 1;
         }
 
-        private void P1PinkCatImage_Click(object sender, RoutedEventArgs e)
+        private void P1BrownCatButton_Click(object sender, RoutedEventArgs e)
         {
-            P1ColourTextBlock.Text = "Selected colour: Pink";
+            P1ColourTextBlock.Text = "P1 colour : Brown";
             P1Colour = 2;
         }
 
-        private void P2WhiteCatImage_Click(object sender, RoutedEventArgs e)
+        private void P1WhiteCatButton_Click(object sender, RoutedEventArgs e)
         {
-            P2ColourTextBlock.Text = "Selected colour: White";
+            P1ColourTextBlock.Text = "P1 colour : White";
+            P1Colour = 3;
+        }
+
+        private void P1OrangeCatButton_Click(object sender, RoutedEventArgs e)
+        {
+            P1ColourTextBlock.Text = "P1 colour : Orange";
+            P1Colour = 4;
+        }
+
+        private void P2SpotsCatButton_Click(object sender, RoutedEventArgs e)
+        {
+            P2ColourTextBlock.Text = "P2 colour : Spots";
             P2Colour = 1;
         }
 
-        private void P2PinkCatImage_Click(object sender, RoutedEventArgs e)
+        private void P2BrownCatButton_Click(object sender, RoutedEventArgs e)
         {
-            P2ColourTextBlock.Text = "Selected colour: Pink";
+            P2ColourTextBlock.Text = "P2 colour : Brown";
             P2Colour = 2;
+        }
+
+        private void P2WhiteCatButton_Click(object sender, RoutedEventArgs e)
+        {
+            P2ColourTextBlock.Text = "P2 colour : White";
+            P2Colour = 3;
+        }
+
+        private void P2OrangeCatButton_Click(object sender, RoutedEventArgs e)
+        {
+            P2ColourTextBlock.Text = "P2 colour : Orange";
+            P2Colour = 4;
         }
     }
 }
