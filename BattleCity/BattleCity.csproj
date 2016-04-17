@@ -151,11 +151,13 @@
     <Content Include="Assets\Pew.mp3" />
     <Content Include="Assets\Scoretable.png" />
     <Content Include="Assets\tank.png" />
+    <Content Include="Assets\Youwin_icon.png" />
     <Content Include="Highscores\Highscores.txt" />
     <Content Include="Levels\Level1.txt" />
     <Content Include="Assets\Win.jpg" />
     <Content Include="Levels\Level2.txt" />
     <Content Include="Levels\Level3.txt" />
+    <Content Include="Levels\Level6.txt" />
     <Content Include="Levels\Level5.txt" />
     <Content Include="Levels\Level4.txt" />
     <Content Include="Properties\Default.rd.xml" />
