@@ -33,7 +33,7 @@ namespace BattleCity
             this.InitializeComponent();
             VolumeSlider.IsTabStop = false;
             MuteButton.IsTabStop = false;
-            LoadAudio();
+            LoadBgMusic();
             VolumeSlider.Value = BackgroundMediaPlayer.Current.Volume * 100;
             ApplicationView.PreferredLaunchViewSize = new Size(1280, 720); //Setting up the launch size as 1280x720
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
@@ -59,7 +59,7 @@ namespace BattleCity
             this.Frame.Navigate(typeof(Highscores));
         }
         //Loads the audio from assets
-        public static void LoadAudio()
+        public static void LoadBgMusic()
         {
             if(musicOn == false)
             {

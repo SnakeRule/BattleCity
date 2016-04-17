@@ -33,7 +33,8 @@ namespace BattleCity
 
         private Random random;
         private int meowSoundNumber;
-        
+        private string filePath;
+
         //Creating list for Highscores
         List<double> HSlines = new List<double>();
 
@@ -41,6 +42,7 @@ namespace BattleCity
         private StorageFile HSFile;
 
         StreamReader hsreader;
+        MediaElement mediaElement;
 
         public static bool MP; // Bool used for checking if 2-player mode was selected
         private bool PlayerHit = false;
@@ -269,6 +271,7 @@ namespace BattleCity
                         if (!BlockRect.IsEmpty && block.Goal == true) // Checking if enemy tank drives into goal
                         {
                             GoalHit = true;
+                            GameSounds(filePath = "GameOver.mp3");
                         }
 
                         if(!BlockRect.IsEmpty && block.IsPowerUp == true)
@@ -328,6 +331,7 @@ namespace BattleCity
                     {
                         PlayerHit = true; // This is used to break out of the foreach player loop in the game loop if a player dies, preventing crashing
                         enemy.RemoveBullet(Canvas);
+                        enemy.LoadMeowSound(meowSoundNumber = 7);
                         Canvas.Children.Remove(enemy);
                         enemies.Remove(enemy);
                         break;
@@ -405,6 +409,7 @@ namespace BattleCity
                         {
                             player.RemoveBullet(Canvas);
                             Canvas.Children.Remove(enemy);
+                            enemy.LoadMeowSound(meowSoundNumber = 7);
                             enemy.RemoveBullet(Canvas);
                             enemies.Remove(enemy);
                             player.Score += enemy.PointValue;
@@ -446,6 +451,7 @@ namespace BattleCity
                         {
                             if (block.Goal == true) // The block that was hit was the goal block
                             {
+                                GameSounds(filePath = "GameOver.mp3");
                                 GoalHit = true; // The GoalHit bool changes to true resulting in a game over
                             }
                             // Removing bullet and block
@@ -621,16 +627,31 @@ namespace BattleCity
             Debug.Write(HSlines.Count);
         }
 
+        private async void GameSounds(string filePath)
+        {
+            mediaElement = new MediaElement();
+            mediaElement.Volume = BackgroundMediaPlayer.Current.Volume;
+            StorageFolder folder =
+                await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync("Assets");
+            StorageFile file =
+                await folder.GetFileAsync(filePath); // Game sounds
+            var stream = await file.OpenAsync(FileAccessMode.Read);
+            mediaElement.SetSource(stream, file.ContentType);
+            mediaElement.AutoPlay = true;
+        }
+
         private void PauseButton_Click(object sender, RoutedEventArgs e)
         {
             if (dispatcherTimer.IsEnabled)
             {
                 PauseButton.Content = "Resume";
+                BackgroundMediaPlayer.Current.Pause();
                 dispatcherTimer.Stop();
             }
             else
             {
                 PauseButton.Content = "Pause";
+                BackgroundMediaPlayer.Current.Play();
                 dispatcherTimer.Start();
             }
         }

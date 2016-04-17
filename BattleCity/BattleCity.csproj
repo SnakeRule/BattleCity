@@ -143,6 +143,7 @@
     <Content Include="Assets\Button.png" />
     <Content Include="Assets\Cat_placeholder.png" />
     <Content Include="Assets\Cat_sprites.png" />
+    <Content Include="Assets\GameOver.mp3" />
     <Content Include="Assets\Heart_icon.png" />
     <Content Include="Assets\Logo1.png" />
     <Content Include="Assets\Logo2.png" />
@@ -155,6 +156,7 @@
     <Content Include="Assets\Meow4.mp3" />
     <Content Include="Assets\Meow5.mp3" />
     <Content Include="Assets\Meow6.mp3" />
+    <Content Include="Assets\Meow7.mp3" />
     <Content Include="Assets\Pew.mp3" />
     <Content Include="Assets\Pew.mp3" />
     <Content Include="Assets\Scoretable.png" />
