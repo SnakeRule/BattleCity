@@ -97,9 +97,17 @@ using Windows.UI.Xaml.Navigation;
             this.InitializeComponent();
             LoadAudio(); //Loads the pew sound
         }
+
         public Rect GetRect() // This method is used in collision detection for creating a rectangle for the player in its current position
         {
-            return new Rect(LocationX, LocationY, ActualWidth, ActualHeight);
+            if (CatDirection == 2 || catDirection == 4)
+            {
+                return new Rect(LocationX, LocationY, ActualWidth, ActualHeight);
+            }
+            else
+            {
+                return new Rect(LocationX - 10, LocationY, ActualWidth + 20, ActualHeight);
+            }
         }
 
         /// <summary>
@@ -308,25 +316,25 @@ using Windows.UI.Xaml.Navigation;
                     CatSpriteSheetOffset.X = 0;
                     break;
                 case 1:
-                    CatSpriteSheetOffset.X = -37.5 * 1;
+                    CatSpriteSheetOffset.X = -37.15 * 1;
                     break;
                 case 2:
-                    CatSpriteSheetOffset.X = -37.5 * 2;
+                    CatSpriteSheetOffset.X = -37.15 * 2;
                     break;
                 case 3:
-                    CatSpriteSheetOffset.X = -37.5 * 3;
+                    CatSpriteSheetOffset.X = -37.15 * 3;
                     break;
                 case 4:
-                    CatSpriteSheetOffset.X = -37.5 * 4;
+                    CatSpriteSheetOffset.X = -37.15 * 4;
                     break;
                 case 5:
-                    CatSpriteSheetOffset.X = -37.5 * 3;
+                    CatSpriteSheetOffset.X = -37.15 * 3;
                     break;
                 case 6:
-                    CatSpriteSheetOffset.X = -37.5 * 2;
+                    CatSpriteSheetOffset.X = -37.15 * 2;
                     break;
                 case 7:
-                    CatSpriteSheetOffset.X = -37.5 * 1;
+                    CatSpriteSheetOffset.X = -37.15 * 1;
                     break;
             }
         }

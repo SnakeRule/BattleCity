@@ -42,13 +42,20 @@ namespace BattleCity
         // This method is used to draw the player on the canvas
         public void DrawPlayer()
         {
-            if (PlayerColour == 1)
+            switch (PlayerColour)
             {
-                CatSpriteSheetOffset.Y = 0;
-            }
-            else if (PlayerColour == 2)
-            {
-                CatSpriteSheetOffset.Y = -55.5;
+                case 1:
+                    CatSpriteSheetOffset.Y = 0;
+                    break;
+                case 2:
+                    CatSpriteSheetOffset.Y = -56;
+                    break;
+                case 3:
+                    CatSpriteSheetOffset.Y = -167;
+                    break;
+                case 4:
+                    CatSpriteSheetOffset.Y = -222;
+                    break;
             }
             SetValue(Canvas.LeftProperty, LocationX);
             SetValue(Canvas.TopProperty, LocationY);

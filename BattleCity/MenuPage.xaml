@@ -21,6 +21,41 @@
             <RowDefinition Height="680" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
+        <StackPanel Grid.Row="1" VerticalAlignment="Top">
+            <TextBlock 
+            Name="VolumeTextBlock"               
+            HorizontalAlignment="Center" 
+            Margin="0,20,0,0" 
+            Grid.Row="1" 
+                FontSize="18"
+                FontFamily="Impact"
+            TextWrapping="Wrap" 
+            Text="Volume" 
+            VerticalAlignment="Top"
+            />
+            <Slider x:Name="VolumeSlider"
+                FontFamily="Impact" 
+                FontSize="18"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Center"
+                Grid.Column="0"
+                Grid.Row="1"
+                Height="40"
+                Width="120"
+                ValueChanged="VolumeSlider_ValueChanged"
+                Minimum="0"
+                Maximum="100"
+            />
+            <Button
+                x:Name="MuteButton"
+                Content="Mute"
+                Width="120"
+                HorizontalAlignment="Center"
+                FontFamily="Impact"
+                FontSize="18" Click="MuteButton_Click"
+                >
+            </Button>
+        </StackPanel>
 
         <Image Source="Assets/Menubox1.png" Grid.Column="1" Grid.Row="1" />
         <Image Source="Assets/Logo2.png" Grid.Column="1" Grid.Row="1" 
@@ -55,40 +90,78 @@
                    FontSize="18"
                    Margin="0,10,0,0"
                    TextWrapping="Wrap"
-                   Text="Selected colour: White"
+                   Text="P1 Colour : Spots"
                    TextAlignment="Center"
                    VerticalAlignment="Top"
                    Height="40"
                    Width="200" Foreground="White"
                    />
-            <Button x:Name="P1WhiteCatImage"
+            <Button x:Name="P1BrownCatButton"
                HorizontalAlignment="Left"
                Height="55"
-               Margin="40,15,0,0"
+               Margin="55,15,0,0"
                VerticalAlignment="Top"
-               Width="35" Click="P1WhiteCatImage_Click"
+               Width="35" Click="P1BrownCatButton_Click"
                >
                 <Button.Background>
-                    <ImageBrush Stretch="None" ImageSource="Assets/Cat_placeholder.png">
+                    <ImageBrush Stretch="None" ImageSource="Assets/Cat_sprites.png">
                         <ImageBrush.Transform>
-                            <CompositeTransform TranslateY="56"/>
+                            <CompositeTransform TranslateY="55"/>
+                        </ImageBrush.Transform>
+                    </ImageBrush>
+                </Button.Background>
+            </Button>
+            <Button 
+            	x:Name="P1OrangeCatButton"
+            	HorizontalAlignment="Left"
+            	Height="55"
+            	Margin="165,-55,0,0"
+            	VerticalAlignment="Top"
+            	Width="35" 
+            	Click="P1OrangeCatButton_Click"
+                >
+                <Button.Background>
+                    <ImageBrush Stretch="None" ImageSource="Assets/Cat_sprites.png">
+                        <ImageBrush.Transform>
+                            <CompositeTransform TranslateY="-110"/>
+                        </ImageBrush.Transform>
+                    </ImageBrush>
+                </Button.Background>
+            </Button>
+            <Button 
+            	x:Name="P1SpotsCatButton"
+            	HorizontalAlignment="Left"
+            	Height="55"
+            	Margin="0,-55,0,0"
+            	VerticalAlignment="Top"
+            	Width="35" 
+            	Click="P1SpotsCatButton_Click"
+                >
+                <Button.Background>
+                    <ImageBrush Stretch="None" ImageSource="Assets/Cat_sprites.png">
+                        <ImageBrush.Transform>
+                            <CompositeTransform TranslateY="110"/>
                         </ImageBrush.Transform>
                     </ImageBrush>
                 </Button.Background>
             </Button>
 
             <Button 
-                x:Name="P1PinkCatImage"
+                x:Name="P1WhiteCatButton"
         	    Grid.Column="1"
         	    HorizontalAlignment="Left"
         	    Height="55"
-                Margin="120,-55,0,0"
+                Margin="110,-55,0,0"
         	    VerticalAlignment="Top"
         	    Width="35" 
-                Click="P1PinkCatImage_Click"
+                Click="P1WhiteCatButton_Click"
                 >
                 <Button.Background>
-                    <ImageBrush Stretch="None" ImageSource="Assets/Cat_placeholder.png"/>
+                    <ImageBrush Stretch="None" ImageSource="Assets/Cat_sprites.png">
+                        <ImageBrush.Transform>
+                            <CompositeTransform TranslateY="-55"/>
+                        </ImageBrush.Transform>
+                    </ImageBrush>
                 </Button.Background>
             </Button>
 
@@ -127,7 +200,7 @@
         	Margin="0,10,0,0"
         	FontSize="18"
         	TextWrapping="Wrap"
-        	Text="Selected colour: Pink"
+        	Text="P2 colour : Brown"
         	TextAlignment="Center"
         	VerticalAlignment="Top"
                    Visibility="Collapsed"
@@ -135,17 +208,17 @@
         	Width="200" Foreground="White"
                    />
 
-            <Button x:Name="P2WhiteCatImage"
+            <Button x:Name="P2BrownCatButton"
         	Grid.Column="1"
         	HorizontalAlignment="Left"
         	Height="55"
-        	Margin="40,15,0,0"
+        	Margin="55,15,0,0"
         	VerticalAlignment="Top"
         	Width="35"
-            Visibility="Collapsed" Click="P2WhiteCatImage_Click"
+            Visibility="Collapsed" Click="P2BrownCatButton_Click"
                >
                 <Button.Background>
-                    <ImageBrush Stretch="None" ImageSource="Assets/Cat_placeholder.png">
+                    <ImageBrush Stretch="None" ImageSource="Assets/Cat_sprites.png">
                         <ImageBrush.Transform>
                             <CompositeTransform TranslateY="56"/>
                         </ImageBrush.Transform>
@@ -153,17 +226,59 @@
                 </Button.Background>
             </Button>
 
-            <Button x:Name="P2PinkCatImage"
+            <Button x:Name="P2WhiteCatButton"
         	Grid.Column="1"
         	HorizontalAlignment="Left"
         	Height="55"
-        	Margin="120,-55,0,0"
+        	Margin="110,-55,0,0"
         	VerticalAlignment="Top"
         	Width="35"
-               Visibility="Collapsed" Click="P2PinkCatImage_Click"
+               Visibility="Collapsed" Click="P2WhiteCatButton_Click"
             >
                 <Button.Background>
-                    <ImageBrush Stretch="None" ImageSource="Assets/Cat_placeholder.png"/>
+                    <ImageBrush Stretch="None" ImageSource="Assets/Cat_sprites.png">
+                        <ImageBrush.Transform>
+                            <CompositeTransform TranslateY="-55"/>
+                        </ImageBrush.Transform>
+                    </ImageBrush>
+                </Button.Background>
+            </Button>
+
+            <Button 
+            	x:Name="P2SpotsCatButton"
+            	HorizontalAlignment="Left"
+            	Height="55"
+            	Margin="0,-55,0,0"
+            	VerticalAlignment="Top"
+            	Width="35" 
+            	Click="P2SpotsCatButton_Click"
+                Visibility="Collapsed"
+                >
+                <Button.Background>
+                    <ImageBrush Stretch="None" ImageSource="Assets/Cat_sprites.png">
+                        <ImageBrush.Transform>
+                            <CompositeTransform TranslateY="110"/>
+                        </ImageBrush.Transform>
+                    </ImageBrush>
+                </Button.Background>
+            </Button>
+
+            <Button 
+            	x:Name="P2OrangeCatButton"
+            	HorizontalAlignment="Left"
+            	Height="55"
+            	Margin="165,-55,0,0"
+            	VerticalAlignment="Top"
+            	Width="35" 
+            	Click="P2OrangeCatButton_Click"
+                Visibility="Collapsed"
+                >
+                <Button.Background>
+                    <ImageBrush Stretch="None" ImageSource="Assets/Cat_sprites.png">
+                        <ImageBrush.Transform>
+                            <CompositeTransform TranslateY="-110"/>
+                        </ImageBrush.Transform>
+                    </ImageBrush>
                 </Button.Background>
             </Button>
         </StackPanel>
