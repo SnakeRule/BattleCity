@@ -116,7 +116,7 @@ namespace BattleCity
                     player.PowerUpSpeed();
                 }
                 player.CollisionRelease();
-                player.UpdatePlayer(Canvas);
+                player.UpdatePlayer(Canvas, BackgroundMediaPlayer.Current.Volume);
                 player.UpdateBullet(Canvas);
                 player.AnimationUpdate();
                 if (PlayerHit == true) // This is used to break out of the foreach loop if a player dies, preventing crashing
@@ -125,8 +125,8 @@ namespace BattleCity
                 foreach(Enemy enemy in enemies)
                 {
                 enemy.CollisionRelease();
-                enemy.Move(random.Next(1, 5), random.Next(3, 6), random.Next(1, 3), random.Next(1, 31));
-                enemy.UpdatePlayer(Canvas);
+                enemy.Move(random.Next(1, 5), random.Next(3, 6), random.Next(1, 3), random.Next(0, 15));
+                enemy.UpdatePlayer(Canvas, BackgroundMediaPlayer.Current.Volume);
                 enemy.UpdateBullet(Canvas);
                 enemy.AnimationUpdate();
             }

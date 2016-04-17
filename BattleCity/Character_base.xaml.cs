@@ -29,6 +29,7 @@ using Windows.UI.Xaml.Navigation;
         private int speed = 4; // Used to tell how fast the character moves on screen
         private int AnimationCycleCounter = 0; // Used to tell which animation picture is currently in use
         private int animationTickCounter = 0; // Used to count when the next animatin picture should be loaded
+        private double volume;
 
         public double LocationX { get; set; } // This value is used to tell the character's location on the X-axis
         public double LocationY { get; set; } // This value is used to tell the character's location on the Y-axis
@@ -95,7 +96,6 @@ using Windows.UI.Xaml.Navigation;
         public Character_base()
         {
             this.InitializeComponent();
-            LoadAudio(); //Loads the pew sound
         }
 
         public Rect GetRect() // This method is used in collision detection for creating a rectangle for the player in its current position
@@ -138,8 +138,9 @@ using Windows.UI.Xaml.Navigation;
             }
 
         // This is the method where the player is drawn on the screen each frame
-        public void UpdatePlayer(Canvas canvas)
+        public void UpdatePlayer(Canvas canvas, double MusicVolume)
         {
+            volume = MusicVolume;
         // these move the tanksprite on the canvas. The position is calculated from the tanksprite's current position and added or decreased speed
 
         if (StopLeft == false) //Checking if collision detection has stopped the character from moving left
@@ -215,16 +216,17 @@ using Windows.UI.Xaml.Navigation;
             }
         }
         //Loads the audio from assets
-        public async void LoadAudio()
+        public async void LoadMeowSound(int fileNumber)
         {
             mediaElement = new MediaElement();
-            mediaElement.AutoPlay = false;
+            mediaElement.Volume = volume - 0.1;
             StorageFolder folder =
                 await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync("Assets");
             StorageFile file =
-                await folder.GetFileAsync("Pew.mp3"); // Gun sound
+                await folder.GetFileAsync("Meow" + fileNumber +".mp3"); // Meow sound
             var stream = await file.OpenAsync(FileAccessMode.Read);
             mediaElement.SetSource(stream, file.ContentType);
+            mediaElement.AutoPlay = true;
         }
 
         public void CreateBullet()
@@ -244,7 +246,6 @@ using Windows.UI.Xaml.Navigation;
                     bullet.Shoot();
                     canvas.Children.Add(bullet); //Adding the bullet to canvas
                     bullets.Add(bullet); //Adding bullet to list
-                    //mediaElement.Play();
                  }
             if (CatDirection == 2)
             {
@@ -258,8 +259,7 @@ using Windows.UI.Xaml.Navigation;
                 bullet.Shoot();
                 canvas.Children.Add(bullet);//Adding the bullet to canvas
                 bullets.Add(bullet); //Adding bullet to list
-                //mediaElement.Play();
-            }
+                }
             if (CatDirection == 3)
             {
                 bullet = new Bullet()
@@ -272,7 +272,6 @@ using Windows.UI.Xaml.Navigation;
                 bullet.Shoot();
                 canvas.Children.Add(bullet);//Adding the bullet to canvas
                 bullets.Add(bullet);//Adding bullet to list
-                //mediaElement.Play();
             }
            if (CatDirection == 4)
             {
@@ -286,8 +285,7 @@ using Windows.UI.Xaml.Navigation;
                 bullet.Shoot();
                 canvas.Children.Add(bullet);//Adding the bullet to canvas
                 bullets.Add(bullet); //Adding bullet to list
-                //mediaElement.Play();
-            }
+                }
         }
     }
         public void RemoveBullet(Canvas canvas) // method for removing the bullet

@@ -149,6 +149,11 @@
     <Content Include="Assets\Lose.jpg" />
     <Content Include="Assets\Menubox1.png" />
     <Content Include="Assets\Menu_background2.png" />
+    <Content Include="Assets\Meow1.mp3" />
+    <Content Include="Assets\Meow2.mp3" />
+    <Content Include="Assets\Meow3.mp3" />
+    <Content Include="Assets\Meow4.mp3" />
+    <Content Include="Assets\Meow5.mp3" />
     <Content Include="Assets\Pew.mp3" />
     <Content Include="Assets\Pew.mp3" />
     <Content Include="Assets\Scoretable.png" />

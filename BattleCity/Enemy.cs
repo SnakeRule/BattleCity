@@ -15,6 +15,7 @@ namespace BattleCity
     class Enemy : Character_base
     {
         private int tickCounter; // Used by the Move method to move the enemy in certain intervals
+        private int shootTickCounter;
         private readonly int pointValue = 20; // How many points from destroying enemy
         public int PointValue
         {
@@ -44,6 +45,7 @@ namespace BattleCity
         public void Move(int EnemyRandomDirection, int EnemyFocus, int EnemyKnownDirection, int EnemyShoot)
         {
             tickCounter++;
+            shootTickCounter++;
 
             if ((EnemyFocus == 1 || EnemyFocus == 2) && tickCounter >= 10) // This is where the random enemy movement happens
             {
@@ -103,11 +105,9 @@ namespace BattleCity
                 {
                     case 1:
                         left = true;
-                        CreateBullet();
                         break;
                     case 2:
                         down = true;
-                        CreateBullet();
                         break;
                 }
                 tickCounter = 0;
@@ -153,9 +153,10 @@ namespace BattleCity
                 tickCounter = 0;
             }
             // If the randomly generated int EnemyShoot is 5 and tickCounter is more than 4, a bullet is created by the enemy
-            if(EnemyShoot == 5 && tickCounter >= 5)
+            if(EnemyShoot == 5 && shootTickCounter >= 15)
             {
                 CreateBullet();
+                shootTickCounter = 0;
             }
         }
     }

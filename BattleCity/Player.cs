@@ -24,6 +24,7 @@ namespace BattleCity
         private int invincibleTimer;
         public int PlayerColour { get; set; }
         private int speedUp = 2; // Used for boosting player speed
+        Random rand = new Random();
 
         public Player()
         {
@@ -31,12 +32,6 @@ namespace BattleCity
             // Setting up the key presses
             Window.Current.CoreWindow.KeyDown += onKeyDown;
             Window.Current.CoreWindow.KeyUp += onKeyUp;
-        }
-        // Controls volume of the pew sound
-        public void SetVolume(double PewVolume)
-        {
-            Debug.WriteLine(PewVolume);
-            base.mediaElement.Volume=PewVolume;           
         }
 
         // This method is used to draw the player on the canvas
@@ -98,7 +93,11 @@ namespace BattleCity
                 }
                 if (args.VirtualKey == VirtualKey.Add && GamePage.dispatcherTimer.IsEnabled == true) // If pressing the shoot key, a bullet is created
                 {
-                    CreateBullet();
+                    if (bullets.Count < 1)
+                    {
+                        CreateBullet();
+                        LoadMeowSound(rand.Next(1,6));
+                    }
                 }
             }
             // Controls for Player 2. Identical to player 1 except the buttons it uses are different
@@ -134,7 +133,11 @@ namespace BattleCity
                 }
                 if (args.VirtualKey == VirtualKey.J && GamePage.dispatcherTimer.IsEnabled == true)
                 {
-                    CreateBullet();
+                    if (bullets.Count < 1)
+                    {
+                        CreateBullet();
+                        LoadMeowSound(rand.Next(1,6));
+                    }
                 }
             }
         }

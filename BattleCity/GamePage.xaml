@@ -21,7 +21,7 @@
             <RowDefinition Height="680" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-
+        
         <StackPanel Grid.Row="1" VerticalAlignment="Top">
             <TextBlock 
             Name="VolumeTextBlock"               
@@ -35,6 +35,7 @@
             VerticalAlignment="Top"
             />
             <Slider x:Name="VolumeSlider"
+                    x:FieldModifier="public"
                 FontFamily="Impact" 
                 FontSize="18"
                 VerticalAlignment="Top"
