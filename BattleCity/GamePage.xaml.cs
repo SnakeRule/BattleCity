@@ -34,7 +34,9 @@ namespace BattleCity
         
         //Creating list for Highscores
         List<double> HSlines = new List<double>();
+        Dictionary<string, double> HSD = new Dictionary<string, double>();
 
+        //Highscore folder and file
         private StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
         private StorageFile HSFile;
 
@@ -75,7 +77,9 @@ namespace BattleCity
             CanvasHeight = Canvas.Height;
 
             // Reading the highscores
-            ReadScores();
+            var top5 = HSD.OrderByDescending(player1pisteet => player1pisteet.Value).Take(5)
+            .ToDictionary(player1pisteet => player1pisteet.Key, player1pisteet => player1pisteet.Value);
+            ReadScores();           
 
             P1Lives = 3;
             P2Lives = 3;
@@ -602,10 +606,11 @@ namespace BattleCity
             HSFile = await storageFolder.CreateFileAsync("Highscores.dat", CreationCollisionOption.OpenIfExists);
             IList<string> readLines = await FileIO.ReadLinesAsync(HSFile);
             foreach (var line in readLines)
-            {
-                HSlines.Add(double.Parse(line));
-            }
-            Debug.Write(HSlines.Count);
+              {
+                  HSlines.Add(double.Parse(line));
+                  //HSD.Add();
+              }
+           Debug.Write(HSlines.Count);
         }
         // Method for saving points to a file
         private async void SavePoints()
@@ -621,27 +626,31 @@ namespace BattleCity
                     //Creating the string to write
                     string Player1pisteet = Player1ScoreTextBlock.Text;
                     double player1points = double.Parse(Player1pisteet);
-                    HSlines.Add(player1points);
-                    HSlines.Sort();
-                    HSlines.Reverse();                
+                    //HSD.Add(MenuPage.P1Name, player1points);                  
+                     HSlines.Add(player1points);
+                     HSlines.Sort();
+                     HSlines.Reverse();
+
                 }
                 else if (player.Player2 == true)
                 {
                     //Creating the string to write
                     string Player2pisteet = Player2ScoreTextBlock.Text;
                     double player2points = double.Parse(Player2pisteet);
-                    HSlines.Add(player2points);
-                    HSlines.Sort();
-                    HSlines.Reverse();                                 
+                    //HSD.Add(MenuPage.P2Name, player2points);
+                     HSlines.Add(player2points);
+                     HSlines.Sort();
+                     HSlines.Reverse();
                 }           
                 }
+            //Writing points to file
             int k = 0;
             foreach (double d in HSlines)
             {
                 await FileIO.AppendTextAsync(HSFile, d + Environment.NewLine);
                 k++;
                 if (k >= 10) break; // only save 10 highest scores
-            }
+            }           
         }
         private void RetryButton_Click(object sender, RoutedEventArgs e) // This is the method that runs when the retry button is clicked on the GamePage
         {
