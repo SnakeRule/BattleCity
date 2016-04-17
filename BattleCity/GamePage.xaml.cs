@@ -575,7 +575,7 @@ namespace BattleCity
             else if (!enemies.Any())
             {
                 SavePoints(); // Saves the points to file
-                GameEndImage.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets/win.jpg")); // Loads the "You Win" image to GameEndImage
+                GameEndImage.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets/Youwin_icon.png")); // Loads the "You Win" image to GameEndImage
                 GameEndImage.Visibility = Visibility.Visible; // Shows the GameEndImage
                 NextLevelButton.Visibility = Visibility.Visible;
                 dispatcherTimer.Stop(); // Stops the game
