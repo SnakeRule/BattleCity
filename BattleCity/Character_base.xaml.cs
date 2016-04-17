@@ -219,7 +219,7 @@ using Windows.UI.Xaml.Navigation;
         public async void LoadMeowSound(int fileNumber)
         {
             mediaElement = new MediaElement();
-            mediaElement.Volume = volume - 0.1;
+            mediaElement.Volume = volume;
             StorageFolder folder =
                 await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync("Assets");
             StorageFile file =

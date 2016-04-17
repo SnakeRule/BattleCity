@@ -32,6 +32,7 @@ namespace BattleCity
         private Level level = new Level();
 
         private Random random;
+        private int meowSoundNumber;
         
         //Creating list for Highscores
         List<double> HSlines = new List<double>();
@@ -338,6 +339,7 @@ namespace BattleCity
                 {
                     player.RemoveBullet(Canvas);
                     Canvas.Children.Remove(player);
+                    player.LoadMeowSound(meowSoundNumber = 6);
                     player.ResetControls();
                     if (player.Player2 == false)
                     {
@@ -470,6 +472,7 @@ namespace BattleCity
                         {
                             enemy.RemoveBullet(Canvas);
                             Canvas.Children.Remove(player);
+                            player.LoadMeowSound(meowSoundNumber = 6);
                             if (player.Player2 == false)
                             {
                                 P1Dead = true; // P1Dead & P2Dead are used for the respawn feature
