@@ -10,13 +10,12 @@
     d:DesignWidth="400">
 
     <Grid>
-        <Rectangle x:Name="CatRectangle" Width="34" Height="55">
+        <Rectangle x:Name="CatRectangle" Width="35" Height="55" x:FieldModifier="Protected" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Rectangle.Fill>
                 <ImageBrush
-                        ImageSource="Assets/cat_placeholder.png"
-                        Stretch="None"
+                        ImageSource="Assets/Cat_sprites.png"
                         AlignmentX="Left"
-                        AlignmentY="Top"
+                        AlignmentY="Top" Stretch="None"
                         >
                     <ImageBrush.Transform>
                         <TranslateTransform x:Name="CatSpriteSheetOffset" x:FieldModifier="protected" />
@@ -27,7 +26,7 @@
                 <RotateTransform x:Name="PlayerRotate"
                                  Angle="0"
                                  CenterX="17.5"
-                                 CenterY="25">
+                                 CenterY="27.5">
                 </RotateTransform>
             </Rectangle.RenderTransform>
         </Rectangle>

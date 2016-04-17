@@ -50,10 +50,10 @@ namespace BattleCity
             Windows.Storage.ApplicationData.Current.LocalFolder;
             try
             {
-                using (StreamReader checker = File.OpenText(@"Levels\Level" + GamePage.LevelNumber + ".txt"))
+                using (reader = File.OpenText(@"Levels\Level" + GamePage.LevelNumber + ".txt"))
                 {
                     Debug.WriteLine("Opened File");
-                    LevelData = await checker.ReadToEndAsync();
+                    LevelData = await reader.ReadToEndAsync();
                 }
             }
             catch (Exception)
@@ -79,7 +79,7 @@ namespace BattleCity
 
         public void RespawnPlayer1(Canvas canvas, int OldScore) // This method respawns a dead player and keeps the player's score with the OldScore int
         {
-            player1 = new Player { LocationX = P1SpawnX, LocationY = P1SpawnY, Player2 = false, canvas = canvas, CatDirection = 2, Score = OldScore, PlayerColour = MenuPage.P1Colour };
+            player1 = new Player { LocationX = P1SpawnX, LocationY = P1SpawnY, Player2 = false, canvas = canvas, CatDirection = 2, Score = OldScore, PlayerColour = MenuPage.P1Colour, Invincible = true };
             GamePage.P1Dead = false; // Sets the player to alive state
             canvas.Children.Add(player1);
             player1.DrawPlayer();
@@ -88,7 +88,7 @@ namespace BattleCity
 
         public void RespawnPlayer2(Canvas canvas, int OldScore)
         {
-            player2 = new Player { LocationX = P2SpawnX, LocationY = P2SpawnY, Player2 = true, canvas = canvas, CatDirection = 2, Score = OldScore, PlayerColour = MenuPage.P2Colour };
+            player2 = new Player { LocationX = P2SpawnX, LocationY = P2SpawnY, Player2 = true, canvas = canvas, CatDirection = 2, Score = OldScore, PlayerColour = MenuPage.P2Colour, Invincible = true };
             GamePage.P2Dead = false; // Sets the player to alive state
             canvas.Children.Add(player2);
             player2.DrawPlayer();

@@ -7,6 +7,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Media.Playback;
 using Windows.Storage;
 using Windows.System;
 using Windows.UI.ViewManagement;
@@ -31,7 +32,9 @@ namespace BattleCity
         private Level level = new Level();
 
         private Random random;
-        
+        private int meowSoundNumber;
+        private string filePath;
+
         //Creating list for Highscores
         List<double> HSlines = new List<double>();
         Dictionary<string, double> HSD = new Dictionary<string, double>();
@@ -41,6 +44,7 @@ namespace BattleCity
         private StorageFile HSFile;
 
         StreamReader hsreader;
+        MediaElement mediaElement;
 
         public static bool MP; // Bool used for checking if 2-player mode was selected
         private bool PlayerHit = false;
@@ -66,10 +70,12 @@ namespace BattleCity
         private List<Player> players = new List<Player>();
         private List<Enemy> enemies = new List<Enemy>();
 
-
         public GamePage()
         {
             this.InitializeComponent();
+            VolumeSlider.Value = BackgroundMediaPlayer.Current.Volume * 100;
+            VolumeSlider.IsTabStop = false;
+            MuteButton.IsTabStop = false;
             // Setting up the canvas
             Canvas.Width = 680;
             Canvas.Height = 680;
@@ -107,24 +113,30 @@ namespace BattleCity
         {
                 foreach (Player player in players)
                 {
-                player.AnimationUpdate();
                 BlockCollisionCheck();
+                if (player.Invincible == true)
+                {
+                    player.Invincibility();
+                }
                 if (player.SpeedUp == true)
+                {
                     player.PowerUpSpeed();
+                }
                 player.CollisionRelease();
-                player.UpdatePlayer(Canvas);
+                player.UpdatePlayer(Canvas, BackgroundMediaPlayer.Current.Volume);
                 player.UpdateBullet(Canvas);
-                if (PlayerHit == true)
+                player.AnimationUpdate();
+                if (PlayerHit == true) // This is used to break out of the foreach loop if a player dies, preventing crashing
                     break;
                 }
                 foreach(Enemy enemy in enemies)
                 {
-                enemy.AnimationUpdate();
                 enemy.CollisionRelease();
-                enemy.Move(random.Next(1,5), random.Next(3,6), random.Next(1,3), random.Next(1,31));
-                enemy.UpdatePlayer(Canvas);
+                enemy.Move(random.Next(1, 5), random.Next(3, 6), random.Next(1, 3), random.Next(0, 15));
+                enemy.UpdatePlayer(Canvas, BackgroundMediaPlayer.Current.Volume);
                 enemy.UpdateBullet(Canvas);
-                }
+                enemy.AnimationUpdate();
+            }
             //foreach(Bullet bullet in Character_base.bullets)
             foreach (Block block in blocks)
             {
@@ -263,6 +275,7 @@ namespace BattleCity
                         if (!BlockRect.IsEmpty && block.Goal == true) // Checking if enemy tank drives into goal
                         {
                             GoalHit = true;
+                            GameSounds(filePath = "GameOver.mp3");
                         }
 
                         if(!BlockRect.IsEmpty && block.IsPowerUp == true)
@@ -318,21 +331,23 @@ namespace BattleCity
                     EnemyRect = enemy.GetRect();
                     EnemyRect.Intersect(PlayerRect);
 
-                    if (!EnemyRect.IsEmpty)
+                    if (!EnemyRect.IsEmpty && player.Invincible == false)
                     {
-                        PlayerHit = true; // Can't remember why I made this, will have to check funtion later :D
+                        PlayerHit = true; // This is used to break out of the foreach player loop in the game loop if a player dies, preventing crashing
                         enemy.RemoveBullet(Canvas);
+                        enemy.LoadMeowSound(meowSoundNumber = 7);
                         Canvas.Children.Remove(enemy);
                         enemies.Remove(enemy);
                         break;
                     }
                     else
-                        PlayerHit = false; // Can't remember why I made this, will have to check funtion later :D
+                        PlayerHit = false;
                 }
                 if(PlayerHit == true)
                 {
                     player.RemoveBullet(Canvas);
                     Canvas.Children.Remove(player);
+                    player.LoadMeowSound(meowSoundNumber = 6);
                     player.ResetControls();
                     if (player.Player2 == false)
                     {
@@ -398,6 +413,7 @@ namespace BattleCity
                         {
                             player.RemoveBullet(Canvas);
                             Canvas.Children.Remove(enemy);
+                            enemy.LoadMeowSound(meowSoundNumber = 7);
                             enemy.RemoveBullet(Canvas);
                             enemies.Remove(enemy);
                             player.Score += enemy.PointValue;
@@ -439,6 +455,7 @@ namespace BattleCity
                         {
                             if (block.Goal == true) // The block that was hit was the goal block
                             {
+                                GameSounds(filePath = "GameOver.mp3");
                                 GoalHit = true; // The GoalHit bool changes to true resulting in a game over
                             }
                             // Removing bullet and block
@@ -461,10 +478,11 @@ namespace BattleCity
                         BulletRect = bullet.GetRect();
                         PlayerRect.Intersect(BulletRect); // Checking for intersection
 
-                        if (!PlayerRect.IsEmpty) // If collision happens
+                        if (!PlayerRect.IsEmpty && player.Invincible == false) // If collision happens
                         {
                             enemy.RemoveBullet(Canvas);
                             Canvas.Children.Remove(player);
+                            player.LoadMeowSound(meowSoundNumber = 6);
                             if (player.Player2 == false)
                             {
                                 P1Dead = true; // P1Dead & P2Dead are used for the respawn feature
@@ -570,7 +588,7 @@ namespace BattleCity
             else if (!enemies.Any())
             {
                 SavePoints(); // Saves the points to file
-                GameEndImage.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets/win.jpg")); // Loads the "You Win" image to GameEndImage
+                GameEndImage.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets/Youwin_icon.png")); // Loads the "You Win" image to GameEndImage
                 GameEndImage.Visibility = Visibility.Visible; // Shows the GameEndImage
                 NextLevelButton.Visibility = Visibility.Visible;
                 dispatcherTimer.Stop(); // Stops the game
@@ -580,6 +598,7 @@ namespace BattleCity
         private void NextLevelButton_Click(object sender, RoutedEventArgs e) // This is the method that runs when the Next Level button is clicked on the GamePage
         {
             GameEndImage.Visibility = Visibility.Collapsed; // The Game end image gets hidden back
+            //NextLevelButton.Visibility = Visibility.Collapsed;
             level.DestroyLevel(Canvas); // The current level is destroyed
             LevelNumber++; // The LevelNumber goes up by one so the next level is loaded
             level.LoadLevel(); // The Level is loaded from file
@@ -612,6 +631,36 @@ namespace BattleCity
               }
            Debug.Write(HSlines.Count);
         }
+
+        private async void GameSounds(string filePath)
+        {
+            mediaElement = new MediaElement();
+            mediaElement.Volume = BackgroundMediaPlayer.Current.Volume;
+            StorageFolder folder =
+                await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync("Assets");
+            StorageFile file =
+                await folder.GetFileAsync(filePath); // Game sounds
+            var stream = await file.OpenAsync(FileAccessMode.Read);
+            mediaElement.SetSource(stream, file.ContentType);
+            mediaElement.AutoPlay = true;
+        }
+
+        private void PauseButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (dispatcherTimer.IsEnabled)
+            {
+                PauseButton.Content = "Resume";
+                BackgroundMediaPlayer.Current.Pause();
+                dispatcherTimer.Stop();
+            }
+            else
+            {
+                PauseButton.Content = "Pause";
+                BackgroundMediaPlayer.Current.Play();
+                dispatcherTimer.Start();
+            }
+        }
+
         // Method for saving points to a file
         private async void SavePoints()
         {
@@ -689,7 +738,16 @@ namespace BattleCity
         }
         }
         */
+        private void VolumeSlider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
+        {
+            BackgroundMediaPlayer.Current.Volume = (double)VolumeSlider.Value / 100;
+        }
 
+        private void MuteButton_Click(object sender, RoutedEventArgs e)
+        {
+            VolumeSlider.Value = 0;
+            BackgroundMediaPlayer.Current.Volume = 0;
+        }
     }
 
 }

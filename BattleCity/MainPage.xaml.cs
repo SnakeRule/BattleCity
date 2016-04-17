@@ -15,6 +15,8 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.ViewManagement;
+using Windows.Storage;
+using Windows.Media.Playback;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -25,10 +27,14 @@ namespace BattleCity
     /// </summary>
     public sealed partial class MainPage : Page
     {
-
+        public static bool musicOn;
         public MainPage()
         {
             this.InitializeComponent();
+            VolumeSlider.IsTabStop = false;
+            MuteButton.IsTabStop = false;
+            LoadBgMusic();
+            VolumeSlider.Value = BackgroundMediaPlayer.Current.Volume * 100;
             ApplicationView.PreferredLaunchViewSize = new Size(1280, 720); //Setting up the launch size as 1280x720
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
         }
@@ -51,6 +57,29 @@ namespace BattleCity
         private void HSButton_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(Highscores));
+        }
+        //Loads the audio from assets
+        public static void LoadBgMusic()
+        {
+            if(musicOn == false)
+            {
+                BackgroundMediaPlayer.Current.SetUriSource(new Uri("ms-appx:///Assets/BgMusic.mp3"));
+                BackgroundMediaPlayer.Current.IsLoopingEnabled = true;
+                BackgroundMediaPlayer.Current.Volume = 0.5;
+                BackgroundMediaPlayer.Current.AutoPlay = true;
+                musicOn = true;
+            }
+        }
+
+        private void VolumeSlider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
+        {
+                BackgroundMediaPlayer.Current.Volume = (double)VolumeSlider.Value / 100;
+        }
+
+        private void MuteButton_Click(object sender, RoutedEventArgs e)
+        {
+                VolumeSlider.Value = 0;
+                BackgroundMediaPlayer.Current.Volume = 0;
         }
     }
 }

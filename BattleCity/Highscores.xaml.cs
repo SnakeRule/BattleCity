@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Media.Playback;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -28,6 +29,9 @@ namespace BattleCity
         public Highscores()
         {
             this.InitializeComponent();
+            VolumeSlider.Value = BackgroundMediaPlayer.Current.Volume * 100;
+            VolumeSlider.IsTabStop = false;
+            MuteButton.IsTabStop = false;
         }
         //Back to main page
         private void MenuButton_Click(object sender, RoutedEventArgs e)
@@ -44,5 +48,16 @@ namespace BattleCity
             string Highscoretext = await Windows.Storage.FileIO.ReadTextAsync(HSFile);
             HStext.Text = Highscoretext;
         }
+        private void VolumeSlider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
+        {
+            BackgroundMediaPlayer.Current.Volume = (double)VolumeSlider.Value / 100;
+        }
+
+        private void MuteButton_Click(object sender, RoutedEventArgs e)
+        {
+            VolumeSlider.Value = 0;
+            BackgroundMediaPlayer.Current.Volume = 0;
+        }
+
     }
 }
