@@ -7,6 +7,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Media.Playback;
 using Windows.Storage;
 using Windows.System;
 using Windows.UI.ViewManagement;
@@ -64,10 +65,10 @@ namespace BattleCity
         private List<Player> players = new List<Player>();
         private List<Enemy> enemies = new List<Enemy>();
 
-
         public GamePage()
         {
             this.InitializeComponent();
+            VolumeSlider.Value = BackgroundMediaPlayer.Current.Volume * 100;
             // Setting up the canvas
             Canvas.Width = 680;
             Canvas.Height = 680;
@@ -103,28 +104,30 @@ namespace BattleCity
         {
                 foreach (Player player in players)
                 {
-                if(player.Invincible == true)
+                BlockCollisionCheck();
+                if (player.Invincible == true)
                 {
                     player.Invincibility();
                 }
                 if (player.SpeedUp == true)
+                {
                     player.PowerUpSpeed();
+                }
                 player.CollisionRelease();
                 player.UpdatePlayer(Canvas);
                 player.UpdateBullet(Canvas);
                 player.AnimationUpdate();
-                BlockCollisionCheck();
-                if (PlayerHit == true)
+                if (PlayerHit == true) // This is used to break out of the foreach loop if a player dies, preventing crashing
                     break;
                 }
                 foreach(Enemy enemy in enemies)
                 {
-                enemy.AnimationUpdate();
                 enemy.CollisionRelease();
-                enemy.Move(random.Next(1,5), random.Next(3,6), random.Next(1,3), random.Next(1,31));
+                enemy.Move(random.Next(1, 5), random.Next(3, 6), random.Next(1, 3), random.Next(1, 31));
                 enemy.UpdatePlayer(Canvas);
                 enemy.UpdateBullet(Canvas);
-                }
+                enemy.AnimationUpdate();
+            }
             //foreach(Bullet bullet in Character_base.bullets)
             foreach (Block block in blocks)
             {
@@ -320,14 +323,14 @@ namespace BattleCity
 
                     if (!EnemyRect.IsEmpty && player.Invincible == false)
                     {
-                        PlayerHit = true; // Can't remember why I made this, will have to check funtion later :D
+                        PlayerHit = true; // This is used to break out of the foreach player loop in the game loop if a player dies, preventing crashing
                         enemy.RemoveBullet(Canvas);
                         Canvas.Children.Remove(enemy);
                         enemies.Remove(enemy);
                         break;
                     }
                     else
-                        PlayerHit = false; // Can't remember why I made this, will have to check funtion later :D
+                        PlayerHit = false;
                 }
                 if(PlayerHit == true)
                 {
@@ -699,7 +702,16 @@ namespace BattleCity
         }
         }
         */
+        private void VolumeSlider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
+        {
+            BackgroundMediaPlayer.Current.Volume = (double)VolumeSlider.Value / 100;
+        }
 
+        private void MuteButton_Click(object sender, RoutedEventArgs e)
+        {
+            VolumeSlider.Value = 0;
+            BackgroundMediaPlayer.Current.Volume = 0;
+        }
     }
 
 }

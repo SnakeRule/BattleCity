@@ -137,6 +137,7 @@
   <ItemGroup>
     <Content Include="Assets\Background.png" />
     <Content Include="Assets\Ball_icon.png" />
+    <Content Include="Assets\BgMusic.mp3" />
     <Content Include="Assets\Block_placeholder.png" />
     <Content Include="Assets\Blood Pressure.mp3" />
     <Content Include="Assets\Button.png" />

@@ -16,19 +16,18 @@ using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.ViewManagement;
 using Windows.Storage;
+using Windows.Media.Playback;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
 namespace BattleCity
 {
-
     /// <summary>
     /// This is the page that launches when opening the application
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        public static MediaElement BgMusic;
-
+        public static bool musicOn;
         public MainPage()
         {
             this.InitializeComponent();
@@ -57,30 +56,26 @@ namespace BattleCity
             this.Frame.Navigate(typeof(Highscores));
         }
         //Loads the audio from assets
-        public async void LoadAudio()
+        public static void LoadAudio()
         {
-            if (BgMusic == null)
+            if(musicOn == false)
             {
-                BgMusic = new MediaElement();
-                BgMusic.AutoPlay = false;
-                BgMusic.RealTimePlayback = true;
-                BgMusic.IsLooping = true;
-                BgMusic.Volume = 0.5;
-                StorageFolder folder =
-                    await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync("Assets");
-                StorageFile file =
-                    await folder.GetFileAsync("Blood Pressure.mp3"); // Music
-                var stream = await file.OpenAsync(FileAccessMode.Read);
-                BgMusic.SetSource(stream, file.ContentType);
+                BackgroundMediaPlayer.Current.SetUriSource(new Uri("ms-appx:///Assets/BgMusic.mp3"));
+                BackgroundMediaPlayer.Current.IsLoopingEnabled = true;
+                BackgroundMediaPlayer.Current.AutoPlay = true;
+                musicOn = true;
             }
         }
 
         private void VolumeSlider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
         {
-            if(BgMusic != null)
-            {
-                BgMusic.Volume = (double)VolumeSlider.Value / 100;
-            }
+                BackgroundMediaPlayer.Current.Volume = (double)VolumeSlider.Value / 100;
+        }
+
+        private void MuteButton_Click(object sender, RoutedEventArgs e)
+        {
+                VolumeSlider.Value = 0;
+                BackgroundMediaPlayer.Current.Volume = 0;
         }
     }
 }

@@ -26,7 +26,7 @@
                 <RotateTransform x:Name="PlayerRotate"
                                  Angle="0"
                                  CenterX="17.5"
-                                 CenterY="28">
+                                 CenterY="27.5">
                 </RotateTransform>
             </Rectangle.RenderTransform>
         </Rectangle>

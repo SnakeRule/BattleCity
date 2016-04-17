@@ -20,19 +20,42 @@
             <RowDefinition Height="680" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Slider x:Name="VolumeSlider"
-                Header="Volume" FontFamily="Impact" 
+        <StackPanel Grid.Row="1" VerticalAlignment="Top">
+            <TextBlock 
+            Name="VolumeTextBlock"               
+            HorizontalAlignment="Center" 
+            Margin="0,20,0,0" 
+            Grid.Row="1" 
+                FontSize="18"
+                FontFamily="Impact"
+            TextWrapping="Wrap" 
+            Text="Volume" 
+            VerticalAlignment="Top"
+            />
+            <Slider x:Name="VolumeSlider"
+                FontFamily="Impact" 
+                FontSize="18"
                 VerticalAlignment="Top"
                 HorizontalAlignment="Center"
                 Grid.Column="0"
                 Grid.Row="1"
                 Value="50"
-                Height="50"
+                Height="40"
                 Width="120"
-                Margin="0,0,0,0" ValueChanged="VolumeSlider_ValueChanged"
+                ValueChanged="VolumeSlider_ValueChanged"
                 Minimum="0"
                 Maximum="100"
             />
+            <Button
+                x:Name="MuteButton"
+                Content="Mute"
+                Width="120"
+                HorizontalAlignment="Center"
+                FontFamily="Impact"
+                FontSize="18" Click="MuteButton_Click"
+                >
+            </Button>
+        </StackPanel>
         <RelativePanel Grid.Column="1" Grid.Row="1">
             <RelativePanel.Background>
                 <ImageBrush Stretch="Fill" ImageSource="Assets/Menubox1.png"/>
