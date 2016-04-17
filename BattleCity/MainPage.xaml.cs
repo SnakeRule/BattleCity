@@ -31,7 +31,10 @@ namespace BattleCity
         public MainPage()
         {
             this.InitializeComponent();
+            VolumeSlider.IsTabStop = false;
+            MuteButton.IsTabStop = false;
             LoadAudio();
+            VolumeSlider.Value = BackgroundMediaPlayer.Current.Volume * 100;
             ApplicationView.PreferredLaunchViewSize = new Size(1280, 720); //Setting up the launch size as 1280x720
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
         }
@@ -62,6 +65,7 @@ namespace BattleCity
             {
                 BackgroundMediaPlayer.Current.SetUriSource(new Uri("ms-appx:///Assets/BgMusic.mp3"));
                 BackgroundMediaPlayer.Current.IsLoopingEnabled = true;
+                BackgroundMediaPlayer.Current.Volume = 0.5;
                 BackgroundMediaPlayer.Current.AutoPlay = true;
                 musicOn = true;
             }

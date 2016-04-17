@@ -30,6 +30,8 @@ namespace BattleCity
         {
             this.InitializeComponent();
             VolumeSlider.Value = BackgroundMediaPlayer.Current.Volume * 100;
+            VolumeSlider.IsTabStop = false;
+            MuteButton.IsTabStop = false;
         }
         //Back to main page
         private void MenuButton_Click(object sender, RoutedEventArgs e)

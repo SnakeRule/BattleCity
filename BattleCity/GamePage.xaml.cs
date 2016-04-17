@@ -69,6 +69,8 @@ namespace BattleCity
         {
             this.InitializeComponent();
             VolumeSlider.Value = BackgroundMediaPlayer.Current.Volume * 100;
+            VolumeSlider.IsTabStop = false;
+            MuteButton.IsTabStop = false;
             // Setting up the canvas
             Canvas.Width = 680;
             Canvas.Height = 680;
@@ -583,6 +585,7 @@ namespace BattleCity
         private void NextLevelButton_Click(object sender, RoutedEventArgs e) // This is the method that runs when the Next Level button is clicked on the GamePage
         {
             GameEndImage.Visibility = Visibility.Collapsed; // The Game end image gets hidden back
+            //NextLevelButton.Visibility = Visibility.Collapsed;
             level.DestroyLevel(Canvas); // The current level is destroyed
             LevelNumber++; // The LevelNumber goes up by one so the next level is loaded
             level.LoadLevel(); // The Level is loaded from file

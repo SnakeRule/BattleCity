@@ -38,6 +38,8 @@ namespace BattleCity
         {
             this.InitializeComponent();
             VolumeSlider.Value = BackgroundMediaPlayer.Current.Volume * 100;
+            VolumeSlider.IsTabStop = false;
+            MuteButton.IsTabStop = false;
             P1Colour = 1;
             P2Colour = 2;
             levelNumber = 1;
