@@ -27,7 +27,7 @@ using Windows.UI.Xaml.Navigation;
         {
         private int catDirection; // This value is used to tell which direction the tank is currently facing.
         private int speed = 4; // Used to tell how fast the character moves on screen
-        private int AnimationCycleCounter = 0; // Used to tell which animation picture is currently in use
+        private int animationCycleCounter = 0; // Used to tell which animation picture is currently in use
         private int animationTickCounter = 0; // Used to count when the next animatin picture should be loaded
         private double volume;
 
@@ -49,7 +49,7 @@ using Windows.UI.Xaml.Navigation;
         public bool StopUp { get; set; }
 
         private int bulletTickCounter; // This value is used for counting how long the bullet has existed
-        public int speedUpTickCounter;
+        public int SpeedUpTickCounter;
         public bool SpeedUp { get; set; }
 
         public int CatDirection // Does some checks before accepting the incoming value to tankDirection
@@ -303,12 +303,12 @@ using Windows.UI.Xaml.Navigation;
         {
             if(animationTickCounter >= 5) // If the animation has been on screen and moving for 5 ticks
             {
-                AnimationCycleCounter++; // The animation cycle goes up by one, which should load the next picture
-                if (AnimationCycleCounter >= 7) // If the counter goes up to 7, the cycle is reset
-                    AnimationCycleCounter = 0;
+                animationCycleCounter++; // The animation cycle goes up by one, which should load the next picture
+                if (animationCycleCounter >= 7) // If the counter goes up to 7, the cycle is reset
+                    animationCycleCounter = 0;
                 animationTickCounter = 0;
             }
-            switch (AnimationCycleCounter) // The animation works by moving to the right or left on the picture in the xaml file
+            switch (animationCycleCounter) // The animation works by moving to the right or left on the picture in the xaml file
             {
                 case 0:
                     CatSpriteSheetOffset.X = 0;

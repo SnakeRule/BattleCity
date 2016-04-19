@@ -31,6 +31,7 @@ namespace BattleCity
         public MainPage()
         {
             this.InitializeComponent();
+            GamePage.MP = false;
             VolumeSlider.IsTabStop = false;
             MuteButton.IsTabStop = false;
             LoadBgMusic();
