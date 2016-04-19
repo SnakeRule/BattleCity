@@ -88,20 +88,20 @@ namespace BattleCity
                .ToDictionary(playerpoints => playerpoints.Key, playerpoints => playerpoints.Value);
             ReadScores();
 
-            P1Lives = 3;
-            P2Lives = 3;
-
             blocks = level.blocks;
             players = level.players;
             enemies = level.enemies;
 
-            level.LoadLevel();
-            level.BuildLevel(Canvas);
-
             random = new Random(); // setting up rng for enemy movement
 
+
+            P1Lives = 3;
+            P2Lives = 3;
             P1NameTextBlock.Text = MenuPage.P1Name + " score:";
             P2NameTextBlock.Text = MenuPage.P2Name + " score:";
+
+            level.LoadLevel();
+            level.BuildLevel(Canvas);
 
             // Setting up the timer that runs the Game method
             dispatcherTimer = new DispatcherTimer();
@@ -196,7 +196,7 @@ namespace BattleCity
                             case 1:
                                 {
                                     player.SpeedUp = true;
-                                    player.speedUpTickCounter = 0;
+                                    player.SpeedUpTickCounter = 0;
                                     Canvas.Children.Remove(block);
                                     blocks.Remove(block);
                                 }       
