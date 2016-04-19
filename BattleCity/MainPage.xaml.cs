@@ -31,12 +31,13 @@ namespace BattleCity
         public MainPage()
         {
             this.InitializeComponent();
+            GamePage.MP = false;
             VolumeSlider.IsTabStop = false;
             MuteButton.IsTabStop = false;
             LoadBgMusic();
             VolumeSlider.Value = BackgroundMediaPlayer.Current.Volume * 100;
             ApplicationView.PreferredLaunchViewSize = new Size(1280, 720); //Setting up the launch size as 1280x720
-            ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
+            ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;           
         }
         //Exits the application
         private void ExitButton_Click(object sender, RoutedEventArgs e)

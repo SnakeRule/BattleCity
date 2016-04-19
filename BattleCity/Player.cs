@@ -21,7 +21,7 @@ namespace BattleCity
         public int Score { get; set; } // Player score
         public string Name { get; set; }
         public bool Invincible { get; set; }
-        private int invincibleTimer;
+        private int invincibleTickCounter;
         public int PlayerColour { get; set; }
         private int speedUp = 2; // Used for boosting player speed
         Random rand = new Random();
@@ -57,7 +57,7 @@ namespace BattleCity
         }
 
         // This method is used when a key is pressed on the keyboard
-        public void onKeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs args)
+        private void onKeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs args)
         {
             // Button pressed for player 1
             // The bools left right down up are used in character_base to move the player on screen
@@ -91,7 +91,7 @@ namespace BattleCity
                     left = false;
                     right = false;
                 }
-                if (args.VirtualKey == VirtualKey.Add && GamePage.dispatcherTimer.IsEnabled == true) // If pressing the shoot key, a bullet is created
+                if (args.VirtualKey == VirtualKey.NumberPad0 && GamePage.GameRunning == true) // If pressing the shoot key, a bullet is created
                 {
                     if (bullets.Count < 1)
                     {
@@ -131,7 +131,7 @@ namespace BattleCity
                     left = false;
                     right = false;
                 }
-                if (args.VirtualKey == VirtualKey.J && GamePage.dispatcherTimer.IsEnabled == true)
+                if (args.VirtualKey == VirtualKey.G && GamePage.GameRunning == true)
                 {
                     if (bullets.Count < 1)
                     {
@@ -187,9 +187,9 @@ namespace BattleCity
 
         public void Invincibility()
         {
-            invincibleTimer++;
+            invincibleTickCounter++;
             CatRectangle.Opacity = 0.4;
-            if (invincibleTimer >= 80)
+            if (invincibleTickCounter >= 80)
             {
                 CatRectangle.Opacity = 1;
                 Invincible = false;
@@ -198,11 +198,11 @@ namespace BattleCity
 
         public void PowerUpSpeed()
         {
-            speedUpTickCounter++;
+            SpeedUpTickCounter++;
             Speed = Speed + speedUp;
-            if (speedUpTickCounter == 120)
+            if (SpeedUpTickCounter == 120)
             {
-                speedUpTickCounter = 0;
+                SpeedUpTickCounter = 0;
                 Speed = 4;
                 SpeedUp = false;
             }
