@@ -37,6 +37,7 @@ namespace BattleCity
 
         //Creating list for Highscores
         List<double> HSlines = new List<double>();
+        Dictionary<string, double> HSD = new Dictionary<string, double>();
 
         private StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
         private StorageFile HSFile;
@@ -81,6 +82,9 @@ namespace BattleCity
             CanvasHeight = Canvas.Height;
 
             // Reading the highscores
+            //Top 10 scores
+            var top10 = HSD.OrderByDescending(playerpoints => playerpoints.Value).Take(10)
+               .ToDictionary(playerpoints => playerpoints.Key, playerpoints => playerpoints.Value);
             ReadScores();
 
             P1Lives = 3;
@@ -623,6 +627,7 @@ namespace BattleCity
             foreach (var line in readLines)
             {
                 HSlines.Add(double.Parse(line));
+                //HSD.Add ?
             }
             Debug.Write(HSlines.Count);
         }
@@ -670,6 +675,7 @@ namespace BattleCity
                     //Creating the string to write
                     string Player1pisteet = Player1ScoreTextBlock.Text;
                     double player1points = double.Parse(Player1pisteet);
+                    //HSD.Add(MenuPage.P1Name, player1points);
                     HSlines.Add(player1points);                   
                     HSlines.Sort();
                     HSlines.Reverse();                
@@ -679,6 +685,7 @@ namespace BattleCity
                     //Creating the string to write
                     string Player2pisteet = Player2ScoreTextBlock.Text;
                     double player2points = double.Parse(Player2pisteet);
+                    //HSD.Add(MenuPage.P2Name, player2points);
                     HSlines.Add(player2points);
                     HSlines.Sort();
                     HSlines.Reverse();                                 
@@ -718,17 +725,6 @@ namespace BattleCity
             level.BuildLevel(Canvas); // The level is built
             dispatcherTimer.Start(); // Game starts
         }
-
-        //Method for controlling pew volume
-        /* not working, will have to change mediaelement creation
-         public void VolumeSlider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
-            {
-         if (player1 != null)
-         {
-           player1.SetVolume(VolumeSlider.Value);
-        }
-        }
-        */
         private void VolumeSlider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
         {
             BackgroundMediaPlayer.Current.Volume = (double)VolumeSlider.Value / 100;

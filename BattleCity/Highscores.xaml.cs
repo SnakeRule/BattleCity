@@ -32,6 +32,7 @@ namespace BattleCity
             VolumeSlider.Value = BackgroundMediaPlayer.Current.Volume * 100;
             VolumeSlider.IsTabStop = false;
             MuteButton.IsTabStop = false;
+            ShowScores();
         }
         //Back to main page
         private void MenuButton_Click(object sender, RoutedEventArgs e)
@@ -39,7 +40,7 @@ namespace BattleCity
             this.Frame.Navigate(typeof(MainPage));
         }
         // Shows the current High scores
-        private async void HSButton_Click(object sender, RoutedEventArgs e)
+        private async void ShowScores()
         {
             Windows.Storage.StorageFolder storageFolder =
             Windows.Storage.ApplicationData.Current.LocalFolder;
