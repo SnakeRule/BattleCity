@@ -91,7 +91,7 @@ namespace BattleCity
                     left = false;
                     right = false;
                 }
-                if (args.VirtualKey == VirtualKey.Add && GamePage.dispatcherTimer.IsEnabled == true) // If pressing the shoot key, a bullet is created
+                if (args.VirtualKey == VirtualKey.NumberPad0 && GamePage.GameRunning == true) // If pressing the shoot key, a bullet is created
                 {
                     if (bullets.Count < 1)
                     {
@@ -131,7 +131,7 @@ namespace BattleCity
                     left = false;
                     right = false;
                 }
-                if (args.VirtualKey == VirtualKey.J && GamePage.dispatcherTimer.IsEnabled == true)
+                if (args.VirtualKey == VirtualKey.G && GamePage.GameRunning == true)
                 {
                     if (bullets.Count < 1)
                     {
