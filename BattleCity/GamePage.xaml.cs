@@ -606,7 +606,7 @@ namespace BattleCity
                     //Creating the string to write
                     string Player1pisteet = Player1ScoreTextBlock.Text;
                     double player1points = double.Parse(Player1pisteet);
-                    HSlines.Add(player1points);
+                    HSlines.Add(player1points);                   
                     HSlines.Sort();
                     HSlines.Reverse();                
                 }
