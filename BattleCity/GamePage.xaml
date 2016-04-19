@@ -21,6 +21,44 @@
             <RowDefinition Height="680" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
+        
+        <StackPanel Grid.Row="1" VerticalAlignment="Top">
+            <TextBlock 
+            Name="VolumeTextBlock"               
+            HorizontalAlignment="Center" 
+            Margin="0,20,0,0" 
+            Grid.Row="1" 
+                FontSize="18"
+                FontFamily="Impact"
+            TextWrapping="Wrap" 
+            Text="Volume" 
+            VerticalAlignment="Top"
+            />
+            <Slider x:Name="VolumeSlider"
+                    x:FieldModifier="public"
+                FontFamily="Impact" 
+                FontSize="18"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Center"
+                Grid.Column="0"
+                Grid.Row="1"
+                Height="40"
+                Width="120"
+                ValueChanged="VolumeSlider_ValueChanged"
+                Minimum="0"
+                Maximum="100"
+            />
+            <Button
+                x:Name="MuteButton"
+                Content="Mute"
+                Width="120"
+                HorizontalAlignment="Center"
+                FontFamily="Impact"
+                FontSize="18" Click="MuteButton_Click"
+                >
+            </Button>
+        </StackPanel>
+
         <Canvas x:Name="Canvas"
                 Grid.Column="1"
                 Grid.Row="1">
@@ -29,45 +67,82 @@
             </Canvas.Background>
         </Canvas>
 
-        <Button x:Name="MenuButton"
-                Click="MenuButton_Click"
-                VerticalAlignment="Bottom"
-                HorizontalAlignment="Center"
-                Grid.Column="2" Grid.Row="1"
-                Width="150"
-                Height="60" FontSize="25" Background="#4C033005" FontFamily="Impact" Foreground="#FF111111"
-                Content="Back"
-                >
+        <RelativePanel Grid.Column="2" Grid.Row="1" Width="270" Height="270"
+                       Margin="0,0,0,410">
+            <RelativePanel.Background>
+                <ImageBrush Stretch="Fill" ImageSource="Assets/Scoretable.png"/>
+            </RelativePanel.Background>
+            <TextBlock x:Name="P1NameTextBlock" Grid.Column="2" HorizontalAlignment="Left" Margin="30,33,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Player 1 Score: " VerticalAlignment="Top" Height="27" Width="122" FontSize="18.667" FontFamily="Impact"/>
+
+            <TextBlock x:Name="P2NameTextBlock" Grid.Column="2" HorizontalAlignment="Left" Margin="30,105,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Player 2 Score: " VerticalAlignment="Top" Height="25" Width="122" FontSize="18.667" FontFamily="Impact"/>
+            <TextBlock x:Name="Player1ScoreTextBlock" x:FieldModifier="Public" HorizontalAlignment="Left" Margin="0,35,-5,0" RelativePanel.RightOf="P1NameTextBlock" TextWrapping="Wrap" VerticalAlignment="Top" Height="27" Width="95" FontSize="18.667" FontFamily="Arial"/>
+            <TextBlock x:Name="Player2ScoreTextBlock" x:FieldModifier="Public" Text="No Player" HorizontalAlignment="Left" Margin="0,107,-5,0" RelativePanel.RightOf="P2NameTextBlock" TextWrapping="Wrap" VerticalAlignment="Top" Height="25" Width="95" FontSize="18.667" FontFamily="Arial"/>
+
+
+            <!-- Player 1 Lives -->
+            <TextBlock x:Name="P1L" TextWrapping="Wrap" Text="Lives " VerticalAlignment="Top" Height="27" Width="50" FontSize="18.667"
+                       Margin="30,60,0,0"/>
+            <Image Source="Assets\Heart_icon.png" Width="25" x:Name="P1Live1" RelativePanel.RightOf="P1L"
+                       Margin="0,63,0,0"/>
+            <Image Source="Assets\Heart_icon.png" Width="25" Margin="10,63,0,0" x:Name="P1Live2" RelativePanel.RightOf="P1Live1"/>
+            <Image Source="Assets\Heart_icon.png" Width="25" Margin="10,63,0,0" x:Name="P1Live3" RelativePanel.RightOf="P1Live2"/>
+
+            <!-- Player 2 Lives -->
+            <TextBlock x:Name="P2L" TextWrapping="Wrap" Text="Lives " VerticalAlignment="Top" Height="27" Width="50" FontSize="18.667"
+                       Margin="30,132,0,0"/>
+            <Image Source="Assets\Heart_icon.png" Opacity="0" Width="25" Margin="10,135,0,0" x:Name="P2Live1" RelativePanel.RightOf="P2L"/>
+            <Image Source="Assets\Heart_icon.png" Opacity="0" Width="25" Margin="10,135,0,0" x:Name="P2Live2" RelativePanel.RightOf="P2Live1"/>
+            <Image Source="Assets\Heart_icon.png" Opacity="0" Width="25" Margin="10,135,0,0" x:Name="P2Live3" RelativePanel.RightOf="P2Live2"/>
+
+
+            <TextBlock Text="Enemies left: " x:Name="EnemiesLeftBox" Grid.Column="2" Grid.Row="1" Margin="30,200,0,0" Width="120" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Impact" FontSize="18.667" />
+            <TextBlock x:Name="enemyCountText" RelativePanel.RightOf="EnemiesLeftBox" Text="0" Grid.Column="2" Grid.Row="1" Margin="0,202,0,0" Width="150" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Arial" FontSize="18.667" />
+        </RelativePanel>
+
+        <Button 
+        	x:Name="RetryButton" 
+        	Content="Retry" 
+        	Grid.Column="2" Grid.Row="1" 
+        	HorizontalAlignment="Center" 
+        	Width="150"
+        	Height="60" FontSize="25" FontFamily="Impact" Foreground="#FF111111"
+        	Margin="0,0,0,160"
+        	Visibility="Visible"
+        	VerticalAlignment="Bottom" Click="RetryButton_Click"
+            >
+            <Button.Background>
+                <ImageBrush Stretch="Fill" ImageSource="Assets/Button.png"/>
+            </Button.Background>
         </Button>
-        <Slider x:Name="VolumeSlider"
-                Header="Volume" FontFamily="Impact" 
-                VerticalAlignment="Top"
-                HorizontalAlignment="Center"
-                Grid.Column="0"
-                Grid.Row="1"
-                Height="50"
-                Width="120"
-                Margin="0,20,10,0"
-                Value="0.5"
-            />
         <Button 
             x:Name="NextLevelButton" 
             Content="Next Level" 
             Grid.Column="2" Grid.Row="1" 
             HorizontalAlignment="Center" 
             Width="150"
-            Height="60" FontSize="25" Background="#4C033005" FontFamily="Impact" Foreground="#FF111111"
+            Height="60" FontSize="25" FontFamily="Impact" Foreground="#FF111111"
             Margin="0,0,0,80"
             Visibility="Visible"
             VerticalAlignment="Bottom" Click="NextLevelButton_Click"
-            />
-
-        <TextBlock Grid.Column="2" HorizontalAlignment="Left" Margin="83,33,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Player 1 Score: " VerticalAlignment="Top" Height="27" Width="122" FontSize="18.667" FontFamily="Impact"/>
-
-        <TextBlock Grid.Column="2" HorizontalAlignment="Left" Margin="83,105,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Player 2 Score: " VerticalAlignment="Top" Height="25" Width="122" FontSize="18.667" FontFamily="Impact"/>
-        <TextBlock x:Name="Player1ScoreTextBlock" x:FieldModifier="Public" Grid.Column="2" HorizontalAlignment="Left" Margin="210,35,-5,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Height="27" Width="95" FontSize="18.667" FontFamily="Arial"/>
-        <TextBlock x:Name="Player2ScoreTextBlock" x:FieldModifier="Public" Text="No Player" Grid.Column="2" HorizontalAlignment="Left" Margin="210,107,-5,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Height="25" Width="95" FontSize="18.667" FontFamily="Arial"/>
-        <Image x:Name="GameEndImage"
+            >
+            <Button.Background>
+                <ImageBrush Stretch="Fill" ImageSource="Assets/Button.png"/>
+            </Button.Background>
+        </Button>
+        <Button x:Name="MenuButton"
+                Click="MenuButton_Click"
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Center"
+                Grid.Column="2" Grid.Row="1"
+                Width="150"
+                Height="60" FontSize="25" FontFamily="Impact" Foreground="#FF111111"
+                Content="Back"
+                >
+            <Button.Background>
+                <ImageBrush Stretch="Fill" ImageSource="Assets/Button.png"/>
+            </Button.Background>
+        </Button>
+            <Image x:Name="GameEndImage"
                Grid.Column="1"
                Visibility="Collapsed"
                Height="290"
@@ -77,33 +152,19 @@
                Width="290"
                />
         <Button 
-        	x:Name="RetryButton" 
-        	Content="Retry" 
-        	Grid.Column="2" Grid.Row="1" 
-        	HorizontalAlignment="Center" 
-        	Width="150"
-        	Height="60" FontSize="25" Background="#4C033005" FontFamily="Impact" Foreground="#FF111111"
-        	Margin="0,0,0,160"
-        	Visibility="Visible"
-        	VerticalAlignment="Bottom" Click="RetryButton_Click"
-            />
-
-        <RelativePanel Grid.Column="2" Grid.Row="1" Margin="83,65,0,0" Width="150" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top">
-            <TextBlock x:Name="P1L" TextWrapping="Wrap" Text="Lives " VerticalAlignment="Top" Height="27" Width="50" FontSize="18.667"/>
-            <Image Source="Assets\Logo1.png" Width="25" x:Name="P1Live1" RelativePanel.RightOf="P1L"/>
-            <Image Source="Assets\Logo1.png" Width="25" Margin="10,0,0,0" x:Name="P1Live2" RelativePanel.RightOf="P1Live1"/>
-            <Image Source="Assets\Logo1.png" Width="25" Margin="10,0,0,0" x:Name="P1Live3" RelativePanel.RightOf="P1Live2"/>
-        </RelativePanel>
-
-        <RelativePanel Grid.Column="2" Grid.Row="1" Margin="83,137,0,0" Width="150" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top">
-            <TextBlock x:Name="P2L" TextWrapping="Wrap" Text="Lives " VerticalAlignment="Top" Height="27" Width="50" FontSize="18.667"/>
-            <Image Source="Assets\Logo1.png" Opacity="0" Width="25" x:Name="P2Live1" RelativePanel.RightOf="P2L"/>
-            <Image Source="Assets\Logo1.png" Opacity="0" Width="25" Margin="10,0,0,0" x:Name="P2Live2" RelativePanel.RightOf="P2Live1"/>
-            <Image Source="Assets\Logo1.png" Opacity="0" Width="25" Margin="10,0,0,0" x:Name="P2Live3" RelativePanel.RightOf="P2Live2"/>
-        </RelativePanel>
-
-        <TextBlock Text="Enemies left: " Grid.Column="2" Grid.Row="1" Margin="83,200,0,0" Width="150" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Impact" FontSize="18.667" />
-        <TextBlock x:Name="enemyCountText" Text="0" Grid.Column="2" Grid.Row="1" Margin="200,202,0,0" Width="150" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Arial" FontSize="18.667" />
-    
-        </Grid>
+            	x:Name="PauseButton" 
+            	Content="Pause" 
+            	Grid.Column="2" Grid.Row="1" 
+            	HorizontalAlignment="Center" 
+            	Width="150"
+            	Height="60" FontSize="25" FontFamily="Impact" Foreground="#FF111111"
+            	Margin="75,0,75,240"
+            	Visibility="Visible"
+            	VerticalAlignment="Bottom" Click="PauseButton_Click"
+            >
+            <Button.Background>
+                <ImageBrush Stretch="Fill" ImageSource="Assets/Button.png"/>
+            </Button.Background>
+        </Button>
+    </Grid>
 </Page>

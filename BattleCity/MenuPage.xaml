@@ -13,183 +13,359 @@
         </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="700" />
+            <ColumnDefinition Width="680" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <Button x:Name="PlayButton" 
-                Click="PlayButton_Click" 
-                VerticalAlignment="Center"
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="680" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="1" VerticalAlignment="Top">
+            <TextBlock 
+            Name="VolumeTextBlock"               
+            HorizontalAlignment="Center" 
+            Margin="0,20,0,0" 
+            Grid.Row="1" 
+                FontSize="18"
+                FontFamily="Impact"
+            TextWrapping="Wrap" 
+            Text="Volume" 
+            VerticalAlignment="Top"
+            />
+            <Slider x:Name="VolumeSlider"
+                FontFamily="Impact" 
+                FontSize="18"
+                VerticalAlignment="Top"
                 HorizontalAlignment="Center"
-                Grid.Column="1"
-                Width="150"
-                Height="60" FontSize="29.333" Background="#4C033005" FontFamily="Impact" Foreground="#FF111111"
-                Content="Play" Margin="0,504,0,156"
+                Grid.Column="0"
+                Grid.Row="1"
+                Height="40"
+                Width="120"
+                ValueChanged="VolumeSlider_ValueChanged"
+                Minimum="0"
+                Maximum="100"
+            />
+            <Button
+                x:Name="MuteButton"
+                Content="Mute"
+                Width="120"
+                HorizontalAlignment="Center"
+                FontFamily="Impact"
+                FontSize="18" Click="MuteButton_Click"
                 >
-        </Button>
-        <Button x:Name="MultiPlayer" 
-        	Click="MultiPlayer_Click" 
-        	VerticalAlignment="Center"
-        	HorizontalAlignment="Center"
-        	Grid.Column="1"
-        	Width="200"
-        	Height="40" FontSize="25" Background="#4C033005" FontFamily="Impact" Foreground="#FF111111"
-        	Content="Player 2 Join" Margin="53,343,447,337"
-                />
-        <Button x:Name="BackMenuButton" 
-                Click="BackMenuButton_Click" 
-                VerticalAlignment="Center"
-                HorizontalAlignment="Center"
-                Grid.Column="1"
-                Width="150"
-                Height="60" FontSize="29.333" Background="#4C033005" FontFamily="Impact" Foreground="#FF111111"
-                Content="Back" Margin="0,593,0,67"
-                />
-        <TextBox x:Name="P1NameTextBox"
+            </Button>
+        </StackPanel>
+
+        <Image Source="Assets/Menubox1.png" Grid.Column="1" Grid.Row="1" />
+        <Image Source="Assets/Logo2.png" Grid.Column="1" Grid.Row="1" 
+               Width="300"
+               Height="250"
+               Margin="250,-300,0,0"
+               />
+        <!--Character selection elements in this stackpanel-->
+        <StackPanel
+            Grid.Column="1"
+            Grid.Row="1"
+            Margin="80,80,0,0"
+            >
+
+            <TextBox 
+                x:Name="P1NameTextBox"
                  Grid.Column="1"
                  FontSize="20"
                  HorizontalAlignment="Left"
-                 Margin="53,120,0,0"
                  TextWrapping="Wrap"
-                 Text=""
+                Margin="0,40,0,0"
                  VerticalAlignment="Top"
+                Text=""
                  PlaceholderText="Insert Player 1 name"
                  Height="40"
                  Width="200"
+                 MaxLength="8"
                  />
-        <Button x:Name="P1WhiteCatImage"
-               Grid.Column="1"
-               HorizontalAlignment="Left"
-               Height="55"
-               Margin="53,226,0,0"
-               VerticalAlignment="Top"
-               Width="35" Click="P1WhiteCatImage_Click"
-               >
-            <Button.Background>
-                <ImageBrush Stretch="None" ImageSource="Assets/Cat_placeholder.png"/>
-            </Button.Background>
-        </Button>
-        <TextBlock Grid.Column="1"
+            <TextBlock
+                x:Name="P1ColourTextBlock"
                    HorizontalAlignment="Left"
-                   Margin="53,174,0,0"
-                   FontSize="20"
+                   FontSize="18"
+                   Margin="0,10,0,0"
                    TextWrapping="Wrap"
-                   Text="Player 1 Cat colour"
+                   Text="P1 Colour : Spots"
                    TextAlignment="Center"
                    VerticalAlignment="Top"
                    Height="40"
-                   Width="200"
+                   Width="200" Foreground="White"
                    />
-        <Button x:Name="P1PinkCatImage"
-        	Grid.Column="1"
+            <Button x:Name="P1BrownCatButton"
+               HorizontalAlignment="Left"
+               Height="55"
+               Margin="55,15,0,0"
+               VerticalAlignment="Top"
+               Width="35" Click="P1BrownCatButton_Click"
+               >
+                <Button.Background>
+                    <ImageBrush Stretch="None" ImageSource="Assets/Cat_sprites.png">
+                        <ImageBrush.Transform>
+                            <CompositeTransform TranslateY="55"/>
+                        </ImageBrush.Transform>
+                    </ImageBrush>
+                </Button.Background>
+            </Button>
+            <Button 
+            	x:Name="P1OrangeCatButton"
+            	HorizontalAlignment="Left"
+            	Height="55"
+            	Margin="165,-55,0,0"
+            	VerticalAlignment="Top"
+            	Width="35" 
+            	Click="P1OrangeCatButton_Click"
+                >
+                <Button.Background>
+                    <ImageBrush Stretch="None" ImageSource="Assets/Cat_sprites.png">
+                        <ImageBrush.Transform>
+                            <CompositeTransform TranslateY="-110"/>
+                        </ImageBrush.Transform>
+                    </ImageBrush>
+                </Button.Background>
+            </Button>
+            <Button 
+            	x:Name="P1SpotsCatButton"
+            	HorizontalAlignment="Left"
+            	Height="55"
+            	Margin="0,-55,0,0"
+            	VerticalAlignment="Top"
+            	Width="35" 
+            	Click="P1SpotsCatButton_Click"
+                >
+                <Button.Background>
+                    <ImageBrush Stretch="None" ImageSource="Assets/Cat_sprites.png">
+                        <ImageBrush.Transform>
+                            <CompositeTransform TranslateY="110"/>
+                        </ImageBrush.Transform>
+                    </ImageBrush>
+                </Button.Background>
+            </Button>
+
+            <Button 
+                x:Name="P1WhiteCatButton"
+        	    Grid.Column="1"
+        	    HorizontalAlignment="Left"
+        	    Height="55"
+                Margin="110,-55,0,0"
+        	    VerticalAlignment="Top"
+        	    Width="35" 
+                Click="P1WhiteCatButton_Click"
+                >
+                <Button.Background>
+                    <ImageBrush Stretch="None" ImageSource="Assets/Cat_sprites.png">
+                        <ImageBrush.Transform>
+                            <CompositeTransform TranslateY="-55"/>
+                        </ImageBrush.Transform>
+                    </ImageBrush>
+                </Button.Background>
+            </Button>
+
+            <Button 
+              x:Name="MultiPlayer" 
+        	Click="MultiPlayer_Click" 
+        	VerticalAlignment="Center"
         	HorizontalAlignment="Left"
-        	Height="55"
-        	Margin="130,226,0,0"
-        	VerticalAlignment="Top"
-        	Width="35" Click="P1PinkCatImage_Click"
-            >
-            <Button.Background>
-                <ImageBrush Stretch="None" ImageSource="Assets/Cat_placeholder.png"/>
-            </Button.Background>
-        </Button>
-        <TextBox x:Name="P2NameTextBox"
+        	Grid.Column="1"
+        	Width="200"
+        	Height="40" FontSize="24" FontFamily="Impact" Foreground="#FF111111"
+        	Content="Player 2 Join" Margin="0,80,0,0"
+                >
+                <Button.Background>
+                    <ImageBrush Stretch="Fill" ImageSource="Assets/Button.png"/>
+                </Button.Background>
+            </Button>
+
+            <TextBox x:Name="P2NameTextBox"
         	Grid.Column="1"
         	FontSize="20"
         	HorizontalAlignment="Left"
-        	Margin="81,344,0,0"
+        	Margin="0,80,0,0"
         	TextWrapping="Wrap"
         	Text=""
         	VerticalAlignment="Top"
         	PlaceholderText="Insert Player 2 name"
         	Height="40"
         	Width="200"
-                 Visibility="Collapsed"
+            Visibility="Collapsed"
+                 MaxLength="8"
             />
-        <TextBlock Grid.Column="1"
-                   x:Name="P2TextBlock"
+            <TextBlock
+            x:Name="P2ColourTextBlock"
         	HorizontalAlignment="Left"
-        	Margin="81,402,0,0"
-        	FontSize="20"
+        	Margin="0,10,0,0"
+        	FontSize="18"
         	TextWrapping="Wrap"
-        	Text="Player 2 Cat colour"
+        	Text="P2 colour : Brown"
         	TextAlignment="Center"
         	VerticalAlignment="Top"
                    Visibility="Collapsed"
         	Height="40"
-        	Width="200"
+        	Width="200" Foreground="White"
                    />
-        <Button x:Name="P2WhiteCatImage"
+
+            <Button x:Name="P2BrownCatButton"
         	Grid.Column="1"
         	HorizontalAlignment="Left"
         	Height="55"
-        	Margin="81,447,0,0"
+        	Margin="55,15,0,0"
         	VerticalAlignment="Top"
         	Width="35"
-            Visibility="Collapsed" Click="P2WhiteCatImage_Click"
+            Visibility="Collapsed" Click="P2BrownCatButton_Click"
                >
-            <Button.Background>
-                <ImageBrush Stretch="None" ImageSource="Assets/Cat_placeholder.png"/>
-            </Button.Background>
-        </Button>
-        <Button x:Name="P2PinkCatImage"
+                <Button.Background>
+                    <ImageBrush Stretch="None" ImageSource="Assets/Cat_sprites.png">
+                        <ImageBrush.Transform>
+                            <CompositeTransform TranslateY="56"/>
+                        </ImageBrush.Transform>
+                    </ImageBrush>
+                </Button.Background>
+            </Button>
+
+            <Button x:Name="P2WhiteCatButton"
         	Grid.Column="1"
         	HorizontalAlignment="Left"
         	Height="55"
-        	Margin="158,447,0,0"
+        	Margin="110,-55,0,0"
         	VerticalAlignment="Top"
         	Width="35"
-               Visibility="Collapsed" Click="P2PinkCatImage_Click"
+               Visibility="Collapsed" Click="P2WhiteCatButton_Click"
             >
-            <Button.Background>
-                <ImageBrush Stretch="None" ImageSource="Assets/Cat_placeholder.png"/>
-            </Button.Background>
-        </Button>
-        <TextBlock Grid.Column="1"
-        	HorizontalAlignment="Left"
-        	Margin="490,174,0,0"
-        	FontSize="20"
-        	TextWrapping="Wrap"
-        	Text="Choose Level"
-        	TextAlignment="Center"
-        	VerticalAlignment="Top"
-        	Height="40"
-        	Width="200"
-                   />
-        <Button x:Name="LevelDownButton"
-                Grid.Column="1"
-                HorizontalAlignment="Left"
-                FontSize="20"
-                Margin="490,252,0,0"
+                <Button.Background>
+                    <ImageBrush Stretch="None" ImageSource="Assets/Cat_sprites.png">
+                        <ImageBrush.Transform>
+                            <CompositeTransform TranslateY="-55"/>
+                        </ImageBrush.Transform>
+                    </ImageBrush>
+                </Button.Background>
+            </Button>
+
+            <Button 
+            	x:Name="P2SpotsCatButton"
+            	HorizontalAlignment="Left"
+            	Height="55"
+            	Margin="0,-55,0,0"
+            	VerticalAlignment="Top"
+            	Width="35" 
+            	Click="P2SpotsCatButton_Click"
+                Visibility="Collapsed"
+                >
+                <Button.Background>
+                    <ImageBrush Stretch="None" ImageSource="Assets/Cat_sprites.png">
+                        <ImageBrush.Transform>
+                            <CompositeTransform TranslateY="110"/>
+                        </ImageBrush.Transform>
+                    </ImageBrush>
+                </Button.Background>
+            </Button>
+
+            <Button 
+            	x:Name="P2OrangeCatButton"
+            	HorizontalAlignment="Left"
+            	Height="55"
+            	Margin="165,-55,0,0"
+            	VerticalAlignment="Top"
+            	Width="35" 
+            	Click="P2OrangeCatButton_Click"
+                Visibility="Collapsed"
+                >
+                <Button.Background>
+                    <ImageBrush Stretch="None" ImageSource="Assets/Cat_sprites.png">
+                        <ImageBrush.Transform>
+                            <CompositeTransform TranslateY="-110"/>
+                        </ImageBrush.Transform>
+                    </ImageBrush>
+                </Button.Background>
+            </Button>
+        </StackPanel>
+
+        <!--PLAY AND BACK BUTTON elements in this stackpanel-->
+        <StackPanel Grid.Column="1" Grid.Row="1" VerticalAlignment="Bottom">
+
+            <Button x:Name="PlayButton" 
+                Click="PlayButton_Click" 
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Width="200"
+                Height="60" FontSize="29.333" FontFamily="Impact" Foreground="#FF111111"
+                Content="Play" Margin="320,0,0,20"
+                >
+                <Button.Background>
+                    <ImageBrush Stretch="Fill" ImageSource="Assets/Button.png"/>
+                </Button.Background>
+            </Button>
+            <Button x:Name="BackMenuButton" 
+                Click="BackMenuButton_Click" 
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Width="200"
+                Height="60" FontSize="29.333" FontFamily="Impact" Foreground="#FF111111"
+                Content="Back" Margin="320,0,0,80"
+                >
+                <Button.Background>
+                    <ImageBrush Stretch="Fill" ImageSource="Assets/Button.png"/>
+                </Button.Background>
+            </Button>
+        </StackPanel>
+
+        <!--This stackpanel is for the level selection elements-->
+        <StackPanel
+            Grid.Column="1"
+            Grid.Row="1"
+            Margin="320,60,0,0"
+            Width="200"
+            Height="100"
+            >
+            <TextBlock    
                 VerticalAlignment="Top"
-                Width="38" Content="&lt;" Height="40" Click="LevelDownButton_Click"/>
-        <Button x:Name="LevelUpButton"
-        	Grid.Column="1"
-        	HorizontalAlignment="Left"
-        	FontSize="20"
-        	Margin="652,252,0,0"
-        	VerticalAlignment="Top"
-        	Width="38" Height="40" Content="&gt;" Click="LevelUpButton_Click"/>
-        <TextBlock x:Name="LevelNumberTextBlock"
-                   Grid.Column="1"
+        	    HorizontalAlignment="Center"
+        	    FontSize="25" FontFamily="Impact"
+        	    TextWrapping="Wrap"
+        	    Text="Choose Level"
+        	    TextAlignment="Center"
+        	    Height="40"
+        	    Width="200"
+                   />
+
+            <Button 
+                x:Name="LevelDownButton"
+                HorizontalAlignment="Left"
+                FontSize="20" FontFamily="Impact"
+                Margin="0,0,160,0"
+                VerticalAlignment="Top"
+                Width="40" Content="&lt;" Height="40" Click="LevelDownButton_Click">
+                <Button.Background>
+                    <ImageBrush Stretch="Fill" ImageSource="Assets/Button.png"/>
+                </Button.Background>
+            </Button>
+
+            <Button 
+                x:Name="LevelUpButton"
+                HorizontalAlignment="Right"
+                FontSize="20" FontFamily="Impact"
+                Margin="0,-40,0,0"
+                VerticalAlignment="Top"
+                Width="40" Height="40" Content="&gt;" Click="LevelUpButton_Click">
+                <Button.Background>
+                    <ImageBrush Stretch="Fill" ImageSource="Assets/Button.png"/>
+                </Button.Background>
+            </Button>
+
+            <TextBlock x:Name="LevelNumberTextBlock"
                    TextAlignment="Center"
-                   HorizontalAlignment="Left"
-                   Margin="541,260,0,0"
+                   HorizontalAlignment="Center"
+                   Margin="0,-32,0,0"
                    TextWrapping="Wrap"
                    Text="1"
                    VerticalAlignment="Top"
                    Height="21"
                    Width="100"
+                   FontFamily="Impact" FontSize="20"
                    />
-        <TextBlock x:Name="LevelExistsTextBlock"
-                   Grid.Column="1"
-                   HorizontalAlignment="Left"
-                   Margin="490,318,0,0"
-                   TextWrapping="Wrap"
-                   TextAlignment="Center"
-                   Text=""
-                   VerticalAlignment="Top"
-                   Height="41"
-                   Width="200"
-                />
-
+        </StackPanel>
     </Grid>
 </Page>

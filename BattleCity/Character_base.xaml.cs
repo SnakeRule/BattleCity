@@ -27,9 +27,9 @@ using Windows.UI.Xaml.Navigation;
         {
         private int catDirection; // This value is used to tell which direction the tank is currently facing.
         private int speed = 4; // Used to tell how fast the character moves on screen
-        private int speedUp = 2; // Used for boosting player speed
         private int AnimationCycleCounter = 0; // Used to tell which animation picture is currently in use
         private int animationTickCounter = 0; // Used to count when the next animatin picture should be loaded
+        private double volume;
 
         public double LocationX { get; set; } // This value is used to tell the character's location on the X-axis
         public double LocationY { get; set; } // This value is used to tell the character's location on the Y-axis
@@ -96,11 +96,18 @@ using Windows.UI.Xaml.Navigation;
         public Character_base()
         {
             this.InitializeComponent();
-            LoadAudio(); //Loads the pew sound
         }
+
         public Rect GetRect() // This method is used in collision detection for creating a rectangle for the player in its current position
         {
-            return new Rect(LocationX, LocationY, ActualWidth, ActualHeight);
+            if (CatDirection == 2 || catDirection == 4)
+            {
+                return new Rect(LocationX, LocationY, ActualWidth, ActualHeight);
+            }
+            else
+            {
+                return new Rect(LocationX - 10, LocationY, ActualWidth + 20, ActualHeight);
+            }
         }
 
         /// <summary>
@@ -110,29 +117,30 @@ using Windows.UI.Xaml.Navigation;
         {
                 if (StopUp == true && CatDirection != 4) // Tank has hit the bottom of something and is moving somewhere other than down
                 {
-                    LocationY += Speed; // The tank is moved down by 4 to avoid getting stuck
+                    LocationY += Speed; // The tank is moved down by current speed value to avoid getting stuck
                     StopUp = false;
                 }
                 if (StopDown == true && CatDirection != 2) // Tank has hit the top of something and is moving somewhere other than up
                 {
-                    LocationY -= Speed; // The tank is moved up by 4 to avoid getting stuck
+                    LocationY -= Speed; // The tank is moved up by current speed value to avoid getting stuck
                     StopDown = false;
                 }
                 if (StopRight == true && CatDirection != 1) // Tank has hit the right side of something and is moving somewhere other than left
                 {
-                    LocationX -= Speed; // The tank is moved left by 4 to avoid getting stuck
+                    LocationX -= Speed; // The tank is moved left by current speed value to avoid getting stuck
                     StopRight = false;
                 }
                 if (StopLeft == true && CatDirection != 3) // Tank has hit the left side of something and is moving somewhere other than right
                 {
-                    LocationX += Speed; // The tank is moved right by 4 to avoid getting stuck
+                    LocationX += Speed; // The tank is moved right by current speed value to avoid getting stuck
                     StopLeft = false;
                 }
             }
 
         // This is the method where the player is drawn on the screen each frame
-        public void UpdatePlayer(Canvas canvas)
+        public void UpdatePlayer(Canvas canvas, double MusicVolume)
         {
+            volume = MusicVolume;
         // these move the tanksprite on the canvas. The position is calculated from the tanksprite's current position and added or decreased speed
 
         if (StopLeft == false) //Checking if collision detection has stopped the character from moving left
@@ -208,16 +216,17 @@ using Windows.UI.Xaml.Navigation;
             }
         }
         //Loads the audio from assets
-        public async void LoadAudio()
+        public async void LoadMeowSound(int fileNumber)
         {
             mediaElement = new MediaElement();
-            mediaElement.AutoPlay = false;
+            mediaElement.Volume = volume;
             StorageFolder folder =
                 await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync("Assets");
             StorageFile file =
-                await folder.GetFileAsync("Pew.mp3"); // Gun sound
+                await folder.GetFileAsync("Meow" + fileNumber +".mp3"); // Meow sound
             var stream = await file.OpenAsync(FileAccessMode.Read);
             mediaElement.SetSource(stream, file.ContentType);
+            mediaElement.AutoPlay = true;
         }
 
         public void CreateBullet()
@@ -237,7 +246,6 @@ using Windows.UI.Xaml.Navigation;
                     bullet.Shoot();
                     canvas.Children.Add(bullet); //Adding the bullet to canvas
                     bullets.Add(bullet); //Adding bullet to list
-                    //mediaElement.Play();
                  }
             if (CatDirection == 2)
             {
@@ -251,8 +259,7 @@ using Windows.UI.Xaml.Navigation;
                 bullet.Shoot();
                 canvas.Children.Add(bullet);//Adding the bullet to canvas
                 bullets.Add(bullet); //Adding bullet to list
-                //mediaElement.Play();
-            }
+                }
             if (CatDirection == 3)
             {
                 bullet = new Bullet()
@@ -265,7 +272,6 @@ using Windows.UI.Xaml.Navigation;
                 bullet.Shoot();
                 canvas.Children.Add(bullet);//Adding the bullet to canvas
                 bullets.Add(bullet);//Adding bullet to list
-                //mediaElement.Play();
             }
            if (CatDirection == 4)
             {
@@ -279,8 +285,7 @@ using Windows.UI.Xaml.Navigation;
                 bullet.Shoot();
                 canvas.Children.Add(bullet);//Adding the bullet to canvas
                 bullets.Add(bullet); //Adding bullet to list
-                //mediaElement.Play();
-            }
+                }
         }
     }
         public void RemoveBullet(Canvas canvas) // method for removing the bullet
@@ -309,40 +314,26 @@ using Windows.UI.Xaml.Navigation;
                     CatSpriteSheetOffset.X = 0;
                     break;
                 case 1:
-                    CatSpriteSheetOffset.X = -37.5 * 1;
+                    CatSpriteSheetOffset.X = -37.15 * 1;
                     break;
                 case 2:
-                    CatSpriteSheetOffset.X = -37.5 * 2;
+                    CatSpriteSheetOffset.X = -37.15 * 2;
                     break;
                 case 3:
-                    CatSpriteSheetOffset.X = -37.5 * 3;
+                    CatSpriteSheetOffset.X = -37.15 * 3;
                     break;
                 case 4:
-                    CatSpriteSheetOffset.X = -37.5 * 4;
+                    CatSpriteSheetOffset.X = -37.15 * 4;
                     break;
                 case 5:
-                    CatSpriteSheetOffset.X = -37.5 * 3;
+                    CatSpriteSheetOffset.X = -37.15 * 3;
                     break;
                 case 6:
-                    CatSpriteSheetOffset.X = -37.5 * 2;
+                    CatSpriteSheetOffset.X = -37.15 * 2;
                     break;
                 case 7:
-                    CatSpriteSheetOffset.X = -37.5 * 1;
+                    CatSpriteSheetOffset.X = -37.15 * 1;
                     break;
-            }
-        }
-        public void PowerUpSpeed()
-        {
-            speedUpTickCounter++;
-            if (StopDown == false && StopUp == false && StopRight == false && StopLeft == false)
-            {
-                Speed = Speed + speedUp;
-            }
-            if(speedUpTickCounter == 120)
-            {
-                speedUpTickCounter = 0;
-                Speed = 4;
-                SpeedUp = false;
             }
         }
     }

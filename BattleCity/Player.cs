@@ -20,7 +20,12 @@ namespace BattleCity
         public bool Player2 { get; set; } // Tells which player is being used
         public int Score { get; set; } // Player score
         public string Name { get; set; }
+        public bool Invincible { get; set; }
+        private int invincibleTimer;
         public int PlayerColour { get; set; }
+        private int speedUp = 2; // Used for boosting player speed
+        Random rand = new Random();
+
         public Player()
         {
             this.InitializeComponent();
@@ -28,23 +33,24 @@ namespace BattleCity
             Window.Current.CoreWindow.KeyDown += onKeyDown;
             Window.Current.CoreWindow.KeyUp += onKeyUp;
         }
-        // Controls volume of the pew sound
-        public void SetVolume(double PewVolume)
-        {
-            Debug.WriteLine(PewVolume);
-            base.mediaElement.Volume=PewVolume;           
-        }
 
         // This method is used to draw the player on the canvas
         public void DrawPlayer()
         {
-            if (PlayerColour == 1)
+            switch (PlayerColour)
             {
-                CatSpriteSheetOffset.Y = 0;
-            }
-            else if (PlayerColour == 2)
-            {
-                CatSpriteSheetOffset.Y = -55.5;
+                case 1:
+                    CatSpriteSheetOffset.Y = 0;
+                    break;
+                case 2:
+                    CatSpriteSheetOffset.Y = -56;
+                    break;
+                case 3:
+                    CatSpriteSheetOffset.Y = -167;
+                    break;
+                case 4:
+                    CatSpriteSheetOffset.Y = -222;
+                    break;
             }
             SetValue(Canvas.LeftProperty, LocationX);
             SetValue(Canvas.TopProperty, LocationY);
@@ -87,7 +93,11 @@ namespace BattleCity
                 }
                 if (args.VirtualKey == VirtualKey.Add && GamePage.dispatcherTimer.IsEnabled == true) // If pressing the shoot key, a bullet is created
                 {
-                    CreateBullet();
+                    if (bullets.Count < 1)
+                    {
+                        CreateBullet();
+                        LoadMeowSound(rand.Next(1,6));
+                    }
                 }
             }
             // Controls for Player 2. Identical to player 1 except the buttons it uses are different
@@ -123,7 +133,11 @@ namespace BattleCity
                 }
                 if (args.VirtualKey == VirtualKey.J && GamePage.dispatcherTimer.IsEnabled == true)
                 {
-                    CreateBullet();
+                    if (bullets.Count < 1)
+                    {
+                        CreateBullet();
+                        LoadMeowSound(rand.Next(1,6));
+                    }
                 }
             }
         }
@@ -170,6 +184,30 @@ namespace BattleCity
                 }
             }
         }
+
+        public void Invincibility()
+        {
+            invincibleTimer++;
+            CatRectangle.Opacity = 0.4;
+            if (invincibleTimer >= 80)
+            {
+                CatRectangle.Opacity = 1;
+                Invincible = false;
+            }
+        }
+
+        public void PowerUpSpeed()
+        {
+            speedUpTickCounter++;
+            Speed = Speed + speedUp;
+            if (speedUpTickCounter == 120)
+            {
+                speedUpTickCounter = 0;
+                Speed = 4;
+                SpeedUp = false;
+            }
+        }
+
         public void ResetControls() // when the level changes, the KeyDown and KeyUp methods have to be reset to prevent double button presses
         {
             Window.Current.CoreWindow.KeyDown -= onKeyDown;
