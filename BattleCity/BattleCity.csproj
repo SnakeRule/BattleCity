@@ -166,6 +166,7 @@
     <Content Include="Highscores\Highscores.txt" />
     <Content Include="Levels\Level1.txt" />
     <Content Include="Assets\Win.jpg" />
+    <Content Include="Levels\Level8.txt" />
     <Content Include="Levels\Level2.txt" />
     <Content Include="Levels\Level3.txt" />
     <Content Include="Levels\Level6.txt" />
