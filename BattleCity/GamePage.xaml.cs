@@ -36,12 +36,12 @@ namespace BattleCity
         private int meowSoundNumber;
         private string filePath;
 
-        //Creating list for Highscores
-        List<double> HSlines = new List<double>();
-        Dictionary<string, double> HSD = new Dictionary<string, double>();
+        List<double> HSlines = new List<double>(); // The highest score
 
+        //Creating the highscore files
         private StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
-        private StorageFile HSFile;
+        private StorageFile HSFile; // This is the file that holds the highest score
+        private StorageFile HSNimet; // This is the gile that holds the name of current highest score
 
         StreamReader hsreader;
         private MediaElement mediaElement;
@@ -83,10 +83,8 @@ namespace BattleCity
             canvasHeight = Canvas.Height;
 
             // Reading the highscores
-            //Top 10 scores
-            var top10 = HSD.OrderByDescending(playerpoints => playerpoints.Value).Take(10)
-               .ToDictionary(playerpoints => playerpoints.Key, playerpoints => playerpoints.Value);
             ReadScores();
+            ShowScores();
 
             blocks = level.blocks;
             players = level.players;
@@ -156,8 +154,6 @@ namespace BattleCity
             UpdatePoints(); // Goes to the method that updates player scores to the screen
             CheckGameOver(); // Goes to the method that checks if any game over criterias are met
         }
-
-
         // Back to mainmenu button method
         private void MenuButton_Click(object sender, RoutedEventArgs e)
         {
@@ -633,7 +629,6 @@ namespace BattleCity
             foreach (var line in readLines)
             {
                 HSlines.Add(double.Parse(line));
-                //HSD.Add ?
             }
             Debug.Write(HSlines.Count);
         }
@@ -668,7 +663,18 @@ namespace BattleCity
                 dispatcherTimer.Start();
             }
         }
-
+        //Method for saving player 1 name
+        private async void SaveName1()
+        {
+            HSNimet = await storageFolder.CreateFileAsync("Highscorenames.dat", CreationCollisionOption.ReplaceExisting);// the file that holds the name of player
+            await FileIO.AppendTextAsync(HSNimet,MenuPage.P1Name);
+        }
+        //Method for saving player 2 name
+        private async void SaveName2()
+        {
+            HSNimet = await storageFolder.CreateFileAsync("Highscorenames.dat", CreationCollisionOption.ReplaceExisting);// the file that holds the name of player
+            await FileIO.AppendTextAsync(HSNimet, MenuPage.P2Name);
+        }
         // Method for saving points to a file
         private async void SavePoints()
         {
@@ -683,28 +689,39 @@ namespace BattleCity
                     //Creating the string to write
                     string Player1pisteet = Player1ScoreTextBlock.Text;
                     double player1points = double.Parse(Player1pisteet);
-                    //HSD.Add(MenuPage.P1Name, player1points);
-                    HSlines.Add(player1points);                   
+                    string Highscore = CurrentHS.Text; //Current highscore, hidden                   
+                    double highscored = double.Parse(Highscore); //FIX THIS
+                    if (player1points > highscored) // Comparing if the current score is bigger than the highest score
+                    {
+                    HSlines.Add(player1points);
                     HSlines.Sort();
                     HSlines.Reverse();                
+                        SaveName1();
+                    }             
                 }
                 else if (player.Player2 == true)
                 {
                     //Creating the string to write
                     string Player2pisteet = Player2ScoreTextBlock.Text;
                     double player2points = double.Parse(Player2pisteet);
-                    //HSD.Add(MenuPage.P2Name, player2points);
+                    string Highscore = CurrentHS.Text; //Current highscore, hidden
+                    double highscored = double.Parse(Highscore); // FIX THIS
+                    if (player2points > highscored) // Comparing if the current score is bigger than the highest score
+                    {
                     HSlines.Add(player2points);
                     HSlines.Sort();
                     HSlines.Reverse();                                 
+                        SaveName2(); //Saves player 2 name 
+                    }
                 }           
                 }
+            //Writing points to file
             int k = 0;
             foreach (double d in HSlines)
             {
                 await FileIO.AppendTextAsync(HSFile, d + Environment.NewLine);
                 k++;
-                if (k >= 10) break; // only save 10 highest scores
+                if (k >= 1) break; // only save the highest score
             }
         }
         private void RetryButton_Click(object sender, RoutedEventArgs e) // This is the method that runs when the retry button is clicked on the GamePage
@@ -744,6 +761,22 @@ namespace BattleCity
             VolumeSlider.Value = 0;
             BackgroundMediaPlayer.Current.Volume = 0;
         }
+        //This is here so you can compare it to the current score
+        private async void ShowScores()
+        {
+            Windows.Storage.StorageFolder storageFolder =
+            Windows.Storage.ApplicationData.Current.LocalFolder;
+            Windows.Storage.StorageFile HSFile =
+            await storageFolder.GetFileAsync("Highscores.dat");
+            string Highscoretext = await Windows.Storage.FileIO.ReadTextAsync(HSFile);      
+            if(Highscoretext=="")
+            {
+                CurrentHS.Text = "10";
+            }
+            else
+            {
+                CurrentHS.Text = Highscoretext; // Collapsed textblock that holds the current highest score 
+            }           
+        }
     }
-
 }
