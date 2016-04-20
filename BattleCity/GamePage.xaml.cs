@@ -678,49 +678,56 @@ namespace BattleCity
         // Method for saving points to a file
         private async void SavePoints()
         {
-            Debug.Write("TÄMÄ ON KUTSU");
+                Debug.Write("TÄMÄ ON KUTSU");
             //Create the file to hold the data
-            HSFile = await storageFolder.CreateFileAsync("Highscores.dat", CreationCollisionOption.ReplaceExisting);
-            //Write data to file      
-            foreach (Player player in players)
+            try
             {
-                if (player.Player2 == false)
+                HSFile = await storageFolder.CreateFileAsync("Highscores.dat", CreationCollisionOption.ReplaceExisting);
+                //Write data to file      
+                foreach (Player player in players)
                 {
-                    //Creating the string to write
-                    string Player1pisteet = Player1ScoreTextBlock.Text;
-                    double player1points = double.Parse(Player1pisteet);
-                    string Highscore = CurrentHS.Text; //Current highscore, hidden                   
-                    double highscored = double.Parse(Highscore); //FIX THIS
-                    if (player1points > highscored) // Comparing if the current score is bigger than the highest score
+                    if (player.Player2 == false)
                     {
-                        HSlines.Add(player1points);
-                        HSlines.Sort();
-                        HSlines.Reverse();
-                        SaveName1();
-                    }             
-                }
-                else if (player.Player2 == true)
-                {
-                    //Creating the string to write
-                    string Player2pisteet = Player2ScoreTextBlock.Text;
-                    double player2points = double.Parse(Player2pisteet);
-                    string Highscore = CurrentHS.Text; //Current highscore, hidden
-                    double highscored = double.Parse(Highscore); // FIX THIS
-                    if (player2points > highscored) // Comparing if the current score is bigger than the highest score
-                    {
-                        HSlines.Add(player2points);
-                        HSlines.Sort();
-                        HSlines.Reverse();
-                        SaveName2(); //Saves player 2 name 
+                        //Creating the string to write
+                        string Player1pisteet = Player1ScoreTextBlock.Text;
+                        double player1points = double.Parse(Player1pisteet);
+                        string Highscore = CurrentHS.Text; //Current highscore, hidden                   
+                        double highscored = double.Parse(Highscore);
+                        if (player1points > highscored) // Comparing if the current score is bigger than the highest score
+                        {
+                            HSlines.Add(player1points);
+                            HSlines.Sort();
+                            HSlines.Reverse();
+                            SaveName1(); //Saves player 1 name
+                        }
                     }
-                }         
-              }
-            int k = 0;
-            foreach (double d in HSlines)
+                    else if (player.Player2 == true)
+                    {
+                        //Creating the string to write
+                        string Player2pisteet = Player2ScoreTextBlock.Text;
+                        double player2points = double.Parse(Player2pisteet);
+                        string Highscore = CurrentHS.Text; //Current highscore, hidden
+                        double highscored = double.Parse(Highscore);
+                        if (player2points > highscored) // Comparing if the current score is bigger than the highest score
+                        {
+                            HSlines.Add(player2points);
+                            HSlines.Sort();
+                            HSlines.Reverse();
+                            SaveName2(); //Saves player 2 name 
+                        }
+                    }
+                }
+                int k = 0;
+                foreach (double d in HSlines)
+                {
+                    await FileIO.AppendTextAsync(HSFile, d + Environment.NewLine);
+                    k++;
+                    if (k >= 1) break; // only save the highest score
+                }
+            }
+            catch (Exception)
             {
-                await FileIO.AppendTextAsync(HSFile, d + Environment.NewLine);
-                k++;
-                if (k >= 1) break; // only save the highest score
+                Debug.Write("Error writing to file");
             }
         }
         private void RetryButton_Click(object sender, RoutedEventArgs e) // This is the method that runs when the retry button is clicked on the GamePage
