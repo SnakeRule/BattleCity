@@ -34,7 +34,7 @@ namespace BattleCity
             Window.Current.CoreWindow.KeyUp += onKeyUp;
         }
 
-        // This method is used to draw the player on the canvas
+        // This method is used to determine the colour of the player on the canvas
         public void DrawPlayer()
         {
             switch (PlayerColour)
