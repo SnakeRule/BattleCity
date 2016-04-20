@@ -58,9 +58,9 @@ namespace BattleCity
             }
             catch (Exception)
             {
+                GamePage.LevelNumber--;
                 var errormessage = new Windows.UI.Popups.MessageDialog("Level not found! Reloading previous level!");
                 await errormessage.ShowAsync();
-                GamePage.LevelNumber--;
                 
                 using (StreamReader reader = File.OpenText(@"Levels\Level" + GamePage.LevelNumber + ".txt"))
                 {
