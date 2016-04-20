@@ -678,53 +678,54 @@ namespace BattleCity
         // Method for saving points to a file
         private async void SavePoints()
         {
-                Debug.Write("TÄMÄ ON KUTSU");
+            Debug.Write("TÄMÄ ON KUTSU");
             //Create the file to hold the data
             try
             {
-                HSFile = await storageFolder.CreateFileAsync("Highscores.dat", CreationCollisionOption.ReplaceExisting);
-                //Write data to file      
-                foreach (Player player in players)
+            HSFile = await storageFolder.CreateFileAsync("Highscores.dat", CreationCollisionOption.ReplaceExisting);
+            //Write data to file      
+            foreach (Player player in players)
+            {
+                if (player.Player2 == false)
                 {
-                    if (player.Player2 == false)
-                    {
-                        //Creating the string to write
-                        string Player1pisteet = Player1ScoreTextBlock.Text;
-                        double player1points = double.Parse(Player1pisteet);
-                        string Highscore = CurrentHS.Text; //Current highscore, hidden                   
+                    //Creating the string to write
+                    string Player1pisteet = Player1ScoreTextBlock.Text;
+                    double player1points = double.Parse(Player1pisteet);
+                    string Highscore = CurrentHS.Text; //Current highscore, hidden                   
                         double highscored = double.Parse(Highscore);
-                        if (player1points > highscored) // Comparing if the current score is bigger than the highest score
-                        {
-                            HSlines.Add(player1points);
-                            HSlines.Sort();
-                            HSlines.Reverse();
+                    if (player1points > highscored) // Comparing if the current score is bigger than the highest score
+                    {
+                        HSlines.Add(player1points);
+                        HSlines.Sort();
+                        HSlines.Reverse();
                             SaveName1(); //Saves player 1 name
-                        }
-                    }
-                    else if (player.Player2 == true)
-                    {
-                        //Creating the string to write
-                        string Player2pisteet = Player2ScoreTextBlock.Text;
-                        double player2points = double.Parse(Player2pisteet);
-                        string Highscore = CurrentHS.Text; //Current highscore, hidden
-                        double highscored = double.Parse(Highscore);
-                        if (player2points > highscored) // Comparing if the current score is bigger than the highest score
-                        {
-                            HSlines.Add(player2points);
-                            HSlines.Sort();
-                            HSlines.Reverse();
-                            SaveName2(); //Saves player 2 name 
-                        }
-                    }
+                    }             
                 }
-                int k = 0;
-                foreach (double d in HSlines)
+                else if (player.Player2 == true)
                 {
-                    await FileIO.AppendTextAsync(HSFile, d + Environment.NewLine);
-                    k++;
-                    if (k >= 1) break; // only save the highest score
-                }
+                    //Creating the string to write
+                    string Player2pisteet = Player2ScoreTextBlock.Text;
+                    double player2points = double.Parse(Player2pisteet);
+                    string Highscore = CurrentHS.Text; //Current highscore, hidden
+                        double highscored = double.Parse(Highscore);
+                    if (player2points > highscored) // Comparing if the current score is bigger than the highest score
+                    {
+                        HSlines.Add(player2points);
+                        HSlines.Sort();
+                        HSlines.Reverse();
+                        SaveName2(); //Saves player 2 name 
+                    }
+                }         
+              }
+            //Writing points to file
+            int k = 0;
+            foreach (double d in HSlines)
+            {
+                await FileIO.AppendTextAsync(HSFile, d + Environment.NewLine);
+                k++;
+                if (k >= 1) break; // only save the highest score
             }
+        }
             catch (Exception)
             {
                 Debug.Write("Error writing to file");
