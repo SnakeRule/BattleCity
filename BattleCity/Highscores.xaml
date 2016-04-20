@@ -58,7 +58,7 @@
             </Button>
         </StackPanel>
         <Image Source="Assets/Menubox1.png" Grid.Column="1" Grid.Row="1" />
-      
+
         <Button x:Name="MenuButton"
                 Click="MenuButton_Click"
                 VerticalAlignment="Bottom"
@@ -75,10 +75,17 @@
         </Button>
 
         <TextBlock x:Name="HStext" HorizontalAlignment="Center" 
-                   Margin="231,90,231,0" TextWrapping="Wrap" 
+                   Margin="231,107,231,0" TextWrapping="Wrap" 
                    Text=" " 
                    VerticalAlignment="Top" 
-                   Height="215" Width="218"
+                   Height="198" Width="218"
+                   Grid.Column="1"
+                   Grid.Row="1" Foreground="White"/>
+        <TextBlock x:Name="HSnametext" HorizontalAlignment="Center" 
+                   Margin="231,0,231,578" TextWrapping="Wrap" 
+                   Text=" " 
+                   VerticalAlignment="Bottom" 
+                   Height="49" Width="218"
                    Grid.Column="1"
                    Grid.Row="1" Foreground="White"/>
     </Grid>

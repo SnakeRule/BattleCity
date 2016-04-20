@@ -33,6 +33,7 @@ namespace BattleCity
             VolumeSlider.IsTabStop = false;
             MuteButton.IsTabStop = false;
             ShowScores();
+            ShowNames();
         }
         //Back to main page
         private void MenuButton_Click(object sender, RoutedEventArgs e)
@@ -48,6 +49,15 @@ namespace BattleCity
                 await storageFolder.GetFileAsync("Highscores.dat");
             string Highscoretext = await Windows.Storage.FileIO.ReadTextAsync(HSFile);
             HStext.Text = Highscoretext;
+        }
+        private async void ShowNames()
+        {
+            Windows.Storage.StorageFolder storageFolder =
+            Windows.Storage.ApplicationData.Current.LocalFolder;
+            Windows.Storage.StorageFile HSNimet =
+                await storageFolder.GetFileAsync("Highscorenames.dat");
+            string Highscoretext = await Windows.Storage.FileIO.ReadTextAsync(HSNimet);
+            HSnametext.Text = Highscoretext;
         }
         private void VolumeSlider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
         {
