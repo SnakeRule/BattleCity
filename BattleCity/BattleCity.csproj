@@ -137,6 +137,7 @@
   <ItemGroup>
     <Content Include="Assets\Background.png" />
     <Content Include="Assets\Ball_icon.png" />
+    <Content Include="Assets\Battlecat.png" />
     <Content Include="Assets\BgMusic.mp3" />
     <Content Include="Assets\Block_placeholder.png" />
     <Content Include="Assets\Blood Pressure.mp3" />
@@ -145,6 +146,7 @@
     <Content Include="Assets\Cat_sprites.png" />
     <Content Include="Assets\GameOver.mp3" />
     <Content Include="Assets\Heart_icon.png" />
+    <Content Include="Assets\Kerä.png" />
     <Content Include="Assets\Logo1.png" />
     <Content Include="Assets\Logo2.png" />
     <Content Include="Assets\Lose.jpg" />
