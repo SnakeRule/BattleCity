@@ -33,7 +33,7 @@ namespace BattleCity
         // This method is used to draw the enemy on the canvas
         public void DrawPlayer()
         {
-            CatSpriteSheetOffset.Y = -112; // setting the enemy picture from the character base xaml
+            CatSpriteSheetOffset.Y = -88; // setting the enemy picture from the character base xaml
             SetValue(Canvas.LeftProperty, LocationX);
             SetValue(Canvas.TopProperty, LocationY);
         }

@@ -144,6 +144,7 @@
     <Content Include="Assets\Button.png" />
     <Content Include="Assets\Cat_placeholder.png" />
     <Content Include="Assets\Cat_sprites.png" />
+    <Content Include="Assets\Cat_sprites_menu.png" />
     <Content Include="Assets\GameOver.mp3" />
     <Content Include="Assets\Heart_icon.png" />
     <Content Include="Assets\Logo1.png" />
