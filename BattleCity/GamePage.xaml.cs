@@ -35,9 +35,9 @@ namespace BattleCity
         private Random random;
         private int meowSoundNumber;
         private string filePath;
-
+      
         List<double> HSlines = new List<double>(); // The highest score
-
+       
         //Creating the highscore files
         private StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
         private StorageFile HSFile; // This is the file that holds the highest score
@@ -680,6 +680,8 @@ namespace BattleCity
         {
             Debug.Write("TÄMÄ ON KUTSU");
             //Create the file to hold the data
+            try
+            {
             HSFile = await storageFolder.CreateFileAsync("Highscores.dat", CreationCollisionOption.ReplaceExisting);
             //Write data to file      
             foreach (Player player in players)
@@ -690,13 +692,13 @@ namespace BattleCity
                     string Player1pisteet = Player1ScoreTextBlock.Text;
                     double player1points = double.Parse(Player1pisteet);
                     string Highscore = CurrentHS.Text; //Current highscore, hidden                   
-                    double highscored = double.Parse(Highscore); //FIX THIS
+                        double highscored = double.Parse(Highscore);
                     if (player1points > highscored) // Comparing if the current score is bigger than the highest score
                     {
-                    HSlines.Add(player1points);
-                    HSlines.Sort();
-                    HSlines.Reverse();                
-                        SaveName1();
+                        HSlines.Add(player1points);
+                        HSlines.Sort();
+                        HSlines.Reverse();
+                            SaveName1(); //Saves player 1 name
                     }             
                 }
                 else if (player.Player2 == true)
@@ -705,16 +707,16 @@ namespace BattleCity
                     string Player2pisteet = Player2ScoreTextBlock.Text;
                     double player2points = double.Parse(Player2pisteet);
                     string Highscore = CurrentHS.Text; //Current highscore, hidden
-                    double highscored = double.Parse(Highscore); // FIX THIS
+                        double highscored = double.Parse(Highscore);
                     if (player2points > highscored) // Comparing if the current score is bigger than the highest score
                     {
-                    HSlines.Add(player2points);
-                    HSlines.Sort();
-                    HSlines.Reverse();                                 
+                        HSlines.Add(player2points);
+                        HSlines.Sort();
+                        HSlines.Reverse();
                         SaveName2(); //Saves player 2 name 
                     }
-                }           
-                }
+                }         
+              }
             //Writing points to file
             int k = 0;
             foreach (double d in HSlines)
@@ -722,6 +724,11 @@ namespace BattleCity
                 await FileIO.AppendTextAsync(HSFile, d + Environment.NewLine);
                 k++;
                 if (k >= 1) break; // only save the highest score
+            }
+        }
+            catch (Exception)
+            {
+                Debug.Write("Error writing to file");
             }
         }
         private void RetryButton_Click(object sender, RoutedEventArgs e) // This is the method that runs when the retry button is clicked on the GamePage

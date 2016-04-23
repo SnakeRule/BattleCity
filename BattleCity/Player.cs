@@ -34,7 +34,7 @@ namespace BattleCity
             Window.Current.CoreWindow.KeyUp += onKeyUp;
         }
 
-        // This method is used to draw the player on the canvas
+        // This method is used to determine the colour of the player on the canvas
         public void DrawPlayer()
         {
             switch (PlayerColour)
@@ -43,13 +43,13 @@ namespace BattleCity
                     CatSpriteSheetOffset.Y = 0;
                     break;
                 case 2:
-                    CatSpriteSheetOffset.Y = -56;
+                    CatSpriteSheetOffset.Y = -44 - 1;
                     break;
                 case 3:
-                    CatSpriteSheetOffset.Y = -167;
+                    CatSpriteSheetOffset.Y = -132 - 1;
                     break;
                 case 4:
-                    CatSpriteSheetOffset.Y = -222;
+                    CatSpriteSheetOffset.Y = -177 - 1;
                     break;
             }
             SetValue(Canvas.LeftProperty, LocationX);
