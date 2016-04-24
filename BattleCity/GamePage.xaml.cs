@@ -276,12 +276,7 @@ namespace BattleCity
                             GameSounds(filePath = "GameOver.mp3");
                         }
 
-                        if(!blockRect.IsEmpty && block.IsPowerUp == true)
-                        {
-                            break;
-                        }
-
-                        if (!blockRect.IsEmpty && block.CanGoTrough == false)
+                        if (!blockRect.IsEmpty && block.CanGoTrough == false && block.IsPowerUp == false)
                         {
                             if (enemy.LocationX > block.LocationX && enemy.CatDirection == 1) // Checking if enemy is intersecting block from the right
                             {
