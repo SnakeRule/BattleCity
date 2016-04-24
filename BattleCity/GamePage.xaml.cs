@@ -43,7 +43,6 @@ namespace BattleCity
         private StorageFile HSFile; // This is the file that holds the highest score
         private StorageFile HSNimet; // This is the gile that holds the name of current highest score
 
-        StreamReader hsreader;
         private MediaElement mediaElement;
 
         public static bool MP; // Bool used for checking if 2-player mode was selected
@@ -182,11 +181,9 @@ namespace BattleCity
                     blockRect = block.GetRect(); // Creating rectangle
                     blockRect.Intersect(playerRect); // Checking for intersections between player and block
 
-                    int tickCounter = 0;
                     // Collision detection between
                     if (!blockRect.IsEmpty && block.IsPowerUp == true)
                     {
-                        tickCounter++;
                         switch (block.PowerUpType)
                         {
                             case 1:

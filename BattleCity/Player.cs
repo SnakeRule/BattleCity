@@ -19,7 +19,7 @@ namespace BattleCity
     {
         public bool Player2 { get; set; } // Tells which player is being used
         public int Score { get; set; } // Player score
-        public string Name { get; set; }
+        public new string Name { get; set; }
         public bool Invincible { get; set; }
         private int invincibleTickCounter;
         public int PlayerColour { get; set; }
