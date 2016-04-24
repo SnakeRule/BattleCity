@@ -57,22 +57,8 @@
                 >
             </Button>
         </StackPanel>
-
         <Image Source="Assets/Menubox1.png" Grid.Column="1" Grid.Row="1" />
-        <Button x:Name="HSButton"
-                Click="HSButton_Click"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Center"
-                Width="180"
-                Height="60" FontSize="20" FontFamily="Impact" 
-                Content="Show highscores" Margin="0,300,0,0"
-                Grid.Column="1"
-                Grid.Row="1"
-               >
-            <Button.Background>
-                <ImageBrush Stretch="Fill" ImageSource="Assets/Button.png"/>
-            </Button.Background>
-        </Button>
+
         <Button x:Name="MenuButton"
                 Click="MenuButton_Click"
                 VerticalAlignment="Bottom"
@@ -95,9 +81,15 @@
             <StackPanel.Background>
                 <ImageBrush Stretch="Fill" ImageSource="Assets/Scoretable.png"/>
             </StackPanel.Background>
+            <TextBlock x:Name="HSnametext" HorizontalAlignment="Left" 
+                   TextWrapping="Wrap" 
+                   Text="" 
+                   VerticalAlignment="Top" 
+                   FontFamily="Impact" FontSize="15"
+                   Margin="30,30,0,0"/>
             <TextBlock x:Name="HStext" HorizontalAlignment="Left" 
                    TextWrapping="Wrap" 
-                   Text="Press button to show highscores" 
+                   Text="" 
                    VerticalAlignment="Top" 
                    FontFamily="Impact" FontSize="15"
                    Margin="30,30,0,0"/>

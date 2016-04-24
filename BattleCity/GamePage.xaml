@@ -57,6 +57,7 @@
                 FontSize="18" Click="MuteButton_Click"
                 >
             </Button>
+            <TextBlock x:Name="CurrentHS" Grid.Column="2" HorizontalAlignment="Left" Margin="30,105,0,0" Grid.Row="1" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Height="25" Width="250" FontSize="18.667" FontFamily="Impact" Visibility="Collapsed"/>
         </StackPanel>
 
         <Canvas x:Name="Canvas"
@@ -73,7 +74,6 @@
                 <ImageBrush Stretch="Fill" ImageSource="Assets/Scoretable.png"/>
             </RelativePanel.Background>
             <TextBlock x:Name="P1NameTextBlock" Grid.Column="2" HorizontalAlignment="Left" Margin="30,33,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Player 1 Score: " VerticalAlignment="Top" Height="27" Width="122" FontSize="18.667" FontFamily="Impact"/>
-
             <TextBlock x:Name="P2NameTextBlock" Grid.Column="2" HorizontalAlignment="Left" Margin="30,105,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Player 2 Score: " VerticalAlignment="Top" Height="25" Width="122" FontSize="18.667" FontFamily="Impact"/>
             <TextBlock x:Name="Player1ScoreTextBlock" x:FieldModifier="Public" HorizontalAlignment="Left" Margin="0,35,-5,0" RelativePanel.RightOf="P1NameTextBlock" TextWrapping="Wrap" VerticalAlignment="Top" Height="27" Width="95" FontSize="18.667" FontFamily="Arial"/>
             <TextBlock x:Name="Player2ScoreTextBlock" x:FieldModifier="Public" Text="No Player" HorizontalAlignment="Left" Margin="0,107,-5,0" RelativePanel.RightOf="P2NameTextBlock" TextWrapping="Wrap" VerticalAlignment="Top" Height="25" Width="95" FontSize="18.667" FontFamily="Arial"/>

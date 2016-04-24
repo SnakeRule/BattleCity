@@ -32,6 +32,8 @@ namespace BattleCity
             VolumeSlider.Value = BackgroundMediaPlayer.Current.Volume * 100;
             VolumeSlider.IsTabStop = false;
             MuteButton.IsTabStop = false;
+            ShowScores();
+            ShowNames();
         }
         //Back to main page
         private void MenuButton_Click(object sender, RoutedEventArgs e)
@@ -39,7 +41,7 @@ namespace BattleCity
             this.Frame.Navigate(typeof(MainPage));
         }
         // Shows the current High scores
-        private async void HSButton_Click(object sender, RoutedEventArgs e)
+        private async void ShowScores()
         {
             Windows.Storage.StorageFolder storageFolder =
             Windows.Storage.ApplicationData.Current.LocalFolder;
@@ -47,6 +49,15 @@ namespace BattleCity
                 await storageFolder.GetFileAsync("Highscores.dat");
             string Highscoretext = await Windows.Storage.FileIO.ReadTextAsync(HSFile);
             HStext.Text = Highscoretext;
+        }
+        private async void ShowNames()
+        {
+            Windows.Storage.StorageFolder storageFolder =
+            Windows.Storage.ApplicationData.Current.LocalFolder;
+            Windows.Storage.StorageFile HSNimet =
+                await storageFolder.GetFileAsync("Highscorenames.dat");
+            string Highscoretext = await Windows.Storage.FileIO.ReadTextAsync(HSNimet);
+            HSnametext.Text = Highscoretext;
         }
         private void VolumeSlider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
         {
