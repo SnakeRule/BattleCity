@@ -60,6 +60,7 @@
                 <ImageBrush Stretch="Fill" ImageSource="Assets/Menubox1.png"/>
             </RelativePanel.Background>
             <Button x:Name="ControlButton"
+                Click="ControlButton_Click"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Left"
                 Width="160"

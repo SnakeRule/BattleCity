@@ -82,5 +82,10 @@ namespace BattleCity
                 VolumeSlider.Value = 0;
                 BackgroundMediaPlayer.Current.Volume = 0;
         }
+
+        private void ControlButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(ControlsPage1));
+        }
     }
 }

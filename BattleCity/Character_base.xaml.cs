@@ -106,7 +106,7 @@ using Windows.UI.Xaml.Navigation;
             }
             else
             {
-                return new Rect(LocationX - 10, LocationY, ActualWidth + 20, ActualHeight);
+                return new Rect(LocationX, LocationY + 10, ActualWidth, ActualHeight - 23);
             }
         }
 
@@ -145,7 +145,7 @@ using Windows.UI.Xaml.Navigation;
 
         if (StopLeft == false) //Checking if collision detection has stopped the character from moving left
         {
-            if (left == true && LocationX >= ((CatRectangle.ActualWidth/2)/2))
+            if (left == true && LocationX >= (CatRectangle.ActualWidth))
             {
                     PlayerRotate.Angle = 270; // Changes the value of the RotateTransform in the xaml file to rotate the picture
                     SetValue(Canvas.LeftProperty, LocationX -= Speed); // Adds speed value to the character Location
@@ -156,7 +156,7 @@ using Windows.UI.Xaml.Navigation;
 
         if (StopUp == false) //Checking if collision detection has stopped the character from moving up
         {
-            if (up == true && LocationY >= CatRectangle.ActualHeight / 2 / 2 - 14)
+            if (up == true && LocationY >= CatRectangle.ActualHeight)
             {
                     PlayerRotate.Angle = 0; // Changes the value of the RotateTransform in the xaml file to rotate the picture
                     SetValue(Canvas.TopProperty, LocationY -= Speed); // Adds speed value to the character Location
@@ -167,7 +167,7 @@ using Windows.UI.Xaml.Navigation;
 
         if (StopRight == false) //Checking if collision detection has stopped the character from moving right
         {
-            if (right == true && LocationX <= (canvas.ActualWidth - CatRectangle.ActualWidth - 6))
+            if (right == true && LocationX <= (canvas.ActualWidth - CatRectangle.ActualWidth))
             {
                     PlayerRotate.Angle = 90; // Changes the value of the RotateTransform in the xaml file to rotate the picture
                     SetValue(Canvas.LeftProperty, LocationX += Speed); // Adds speed value to the character Location
@@ -178,7 +178,7 @@ using Windows.UI.Xaml.Navigation;
 
         if (StopDown == false) //Checking if collision detection has stopped the character from moving down
         {
-            if (down == true && LocationY <= (canvas.ActualHeight - CatRectangle.ActualHeight +6))
+            if (down == true && LocationY <= canvas.ActualHeight)
             {
                     PlayerRotate.Angle = 180; // Changes the value of the RotateTransform in the xaml file to rotate the picture
                     SetValue(Canvas.TopProperty, LocationY += Speed); // Adds speed value to the character Location
@@ -240,8 +240,8 @@ using Windows.UI.Xaml.Navigation;
                     {
                         SpeedX = -10, // left
                         SpeedY = 0,
-                        LocationX = LocationX - 23, //creating the bullet in a position that it looks good compared to sprites position
-                        LocationY = LocationY + 15.5 //creating the bullet in a position that it looks good compared to sprites position
+                        LocationX = LocationX - 15, //creating the bullet in a position that it looks good compared to sprites position
+                        LocationY = LocationY + 7 //creating the bullet in a position that it looks good compared to sprites position
                     };
                     bullet.Shoot();
                     canvas.Children.Add(bullet); //Adding the bullet to canvas
@@ -253,8 +253,8 @@ using Windows.UI.Xaml.Navigation;
                 {
                     SpeedX = 0,
                     SpeedY = -10, //up
-                    LocationX = LocationX + 12, //creating the bullet in a position that it looks good compared to sprites position
-                    LocationY = LocationY - 21, //creating the bullet in a position that it looks good compared to sprites position
+                    LocationX = LocationX + 5, //creating the bullet in a position that it looks good compared to sprites position
+                    LocationY = LocationY - 15, //creating the bullet in a position that it looks good compared to sprites position
                 };
                 bullet.Shoot();
                 canvas.Children.Add(bullet);//Adding the bullet to canvas
@@ -266,8 +266,8 @@ using Windows.UI.Xaml.Navigation;
                 {
                     SpeedX = 10, //right
                     SpeedY = 0,
-                    LocationX = LocationX + 44.5, //creating the bullet in a position that it looks good compared to sprites position
-                    LocationY = LocationY + 15.5 //creating the bullet in a position that it looks good compared to sprites position
+                    LocationX = LocationX + 15, //creating the bullet in a position that it looks good compared to sprites position
+                    LocationY = LocationY + 10.5 //creating the bullet in a position that it looks good compared to sprites position
                 };
                 bullet.Shoot();
                 canvas.Children.Add(bullet);//Adding the bullet to canvas
@@ -279,14 +279,18 @@ using Windows.UI.Xaml.Navigation;
                 {
                     SpeedX = 0,
                     SpeedY = 10, //down
-                    LocationX = LocationX + 12, //creating the bullet in a position that it looks good compared to sprites position
-                    LocationY = LocationY + 50, //creating the bullet in a position that it looks good compared to sprites position
+                    LocationX = LocationX + 5, //creating the bullet in a position that it looks good compared to sprites position
+                    LocationY = LocationY + 15, //creating the bullet in a position that it looks good compared to sprites position
                 };
                 bullet.Shoot();
                 canvas.Children.Add(bullet);//Adding the bullet to canvas
                 bullets.Add(bullet); //Adding bullet to list
                 }
         }
+            foreach(Bullet bullet in bullets)
+            {
+                Canvas.SetZIndex(bullet, -1);
+            }
     }
         public void RemoveBullet(Canvas canvas) // method for removing the bullet
         {
@@ -314,25 +318,25 @@ using Windows.UI.Xaml.Navigation;
                     CatSpriteSheetOffset.X = 0;
                     break;
                 case 1:
-                    CatSpriteSheetOffset.X = -37.15 * 1;
+                    CatSpriteSheetOffset.X = -29.5 * 1;
                     break;
                 case 2:
-                    CatSpriteSheetOffset.X = -37.15 * 2;
+                    CatSpriteSheetOffset.X = -29.5 * 2;
                     break;
                 case 3:
-                    CatSpriteSheetOffset.X = -37.15 * 3;
+                    CatSpriteSheetOffset.X = -29.5 * 3;
                     break;
                 case 4:
-                    CatSpriteSheetOffset.X = -37.15 * 4;
+                    CatSpriteSheetOffset.X = -29.5 * 4;
                     break;
                 case 5:
-                    CatSpriteSheetOffset.X = -37.15 * 3;
+                    CatSpriteSheetOffset.X = -29.5 * 3;
                     break;
                 case 6:
-                    CatSpriteSheetOffset.X = -37.15 * 2;
+                    CatSpriteSheetOffset.X = -29.5 * 2;
                     break;
                 case 7:
-                    CatSpriteSheetOffset.X = -37.15 * 1;
+                    CatSpriteSheetOffset.X = -29.5 * 1;
                     break;
             }
         }
