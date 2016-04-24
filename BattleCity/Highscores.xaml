@@ -74,28 +74,34 @@
             </Button.Background>
         </Button>
         <Image Source="Assets/Battlecat.png" Grid.Column="1" Grid.Row="1"
-               Margin="220,0,0,370"
+               Margin="220,0,0,290"
                Width="450"/>
         <StackPanel Grid.Column="1" Grid.Row="1" Height="280" Width="280"
-                    Margin="0,0,0,80" >
+                    Margin="0,0,0,0" >
             <StackPanel.Background>
                 <ImageBrush Stretch="Fill" ImageSource="Assets/Scoretable.png"/>
             </StackPanel.Background>
-            <TextBlock x:Name="HSnametext" HorizontalAlignment="Left" 
+            <TextBlock x:Name="Header" HorizontalAlignment="Center"
+                   TextWrapping="Wrap" 
+                   Text="TOP SCORE" 
+                   VerticalAlignment="Top" 
+                   FontFamily="Impact" FontSize="30"
+                   Margin="0,30,0,0"/>
+            <TextBlock x:Name="HSnametext" HorizontalAlignment="Center" 
                    TextWrapping="Wrap" 
                    Text="" 
                    VerticalAlignment="Top" 
-                   FontFamily="Impact" FontSize="15"
-                   Margin="30,30,0,0"/>
-            <TextBlock x:Name="HStext" HorizontalAlignment="Left" 
+                   FontFamily="Impact" FontSize="25"
+                   Margin="0,30,0,0"/>
+            <TextBlock x:Name="HStext" HorizontalAlignment="Center" 
                    TextWrapping="Wrap" 
                    Text="" 
                    VerticalAlignment="Top" 
-                   FontFamily="Impact" FontSize="15"
-                   Margin="30,30,0,0"/>
+                   FontFamily="Impact" FontSize="25"
+                   Margin="0,15,0,0"/>
         </StackPanel>
         <Image Source="Assets/Kerä.png" Grid.Column="1" Grid.Row="1"
-               Margin="200,0,0,340"
+               Margin="200,0,0,260"
                Width="350"/>
     </Grid>
 </Page>

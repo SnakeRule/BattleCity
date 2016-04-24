@@ -13,7 +13,7 @@
         <Rectangle Width="40" Height="40">
             <Rectangle.Fill>
                 <ImageBrush
-                        ImageSource="Assets/Block_placeholder.png"
+                        ImageSource="Assets/Blocks.png"
                         Stretch="None"
                         AlignmentX="Left"
                         AlignmentY="Top"

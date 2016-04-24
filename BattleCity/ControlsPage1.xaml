@@ -20,29 +20,90 @@
             <RowDefinition Height="680" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="1" VerticalAlignment="Top">
+            <TextBlock 
+            Name="VolumeTextBlock"               
+            HorizontalAlignment="Center" 
+            Margin="0,20,0,0" 
+            Grid.Row="1" 
+                FontSize="18"
+                FontFamily="Impact"
+            TextWrapping="Wrap" 
+            Text="Volume" 
+            VerticalAlignment="Top"
+            />
+            <Slider x:Name="VolumeSlider"
+                FontFamily="Impact" 
+                FontSize="18"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Center"
+                Grid.Column="0"
+                Grid.Row="1"
+                Height="40"
+                Width="120"
+                ValueChanged="VolumeSlider_ValueChanged"
+                Minimum="0"
+                Maximum="100"
+            />
+            <Button
+                x:Name="MuteButton"
+                Content="Mute"
+                Width="120"
+                HorizontalAlignment="Center"
+                FontFamily="Impact"
+                FontSize="18" Click="MuteButton_Click"
+                >
+            </Button>
+        </StackPanel>
+
         <Image Source="Assets/Menubox1.png" Grid.Column="1" Grid.Row="1" />
-        <Image Source="Assets/Block_placeholder.png" Margin="101,104,472,127" Grid.Row="1" RenderTransformOrigin="0.704,0.492" Grid.Column="1" />
-        <TextBlock x:Name="P1controls" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Player 1 controls
+        <Image Source="Assets/Blocks.png" Margin="70,0,472,200" Grid.Row="1" Grid.Column="1" 
+               Width="40" Height="320"/>
+        <TextBlock x:Name="BlockInfo1" HorizontalAlignment="Center" TextWrapping="Wrap" Text="You can destroy this block by shooting it" VerticalAlignment="Top" Height="26" Width="326" 
+                   Margin="150,88,146,0" Grid.Row="1" Grid.Column="1" Foreground="White"/>
+        <TextBlock x:Name="BlockInfo6" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Running over this block will slow you down while you are on it" VerticalAlignment="Top" Height="26" Width="424" 
+                   Margin="150,128,48,0" Grid.Row="1" Grid.Column="1" Foreground="White"/>
+        <TextBlock x:Name="BlockInfo5" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Indestructible, can not be destroyed" VerticalAlignment="Top" Height="26" Width="326" 
+                   Margin="150,168,146,0" Grid.Row="1" Grid.Column="1" Foreground="White"/>
+        <TextBlock x:Name="BlockInfo4" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Protect this block!" VerticalAlignment="Top" Height="26" Width="326" 
+                   Margin="150,208,146,0" Grid.Row="1" Grid.Column="1" Foreground="White"/>
+        <TextBlock x:Name="BlockInfo3" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Running at this block gives you a short burst of speed" VerticalAlignment="Top" Height="26" Width="390" 
+                   Margin="150,248,82,0" Grid.Row="1" Grid.Column="1" Foreground="White"/>
+        <TextBlock x:Name="BlockInfo2" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Placeholder, doesnt do anything yet" VerticalAlignment="Top" Height="26" Width="326" 
+                   Margin="150,288,146,0" Grid.Row="1" Grid.Column="1" Foreground="White"/>
+         <TextBlock x:Name="BlockInfo7" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Placeholder, doesnt do anything yet" VerticalAlignment="Top" Height="26" Width="326" 
+                   Margin="150,328,146,0" Grid.Row="1" Grid.Column="1" Foreground="White"/>
+        <TextBlock x:Name="BlockInfo8" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Placeholder, doesnt do anything yet" VerticalAlignment="Top" Height="26" Width="326" 
+                   Margin="150,368,146,0" Grid.Row="1" Grid.Column="1" Foreground="White"/>
+       
+        <RelativePanel Grid.Column="1" Grid.Row="1" Width="440" Height="120"
+                    Margin="0,280,0,0">
+            <RelativePanel.Background>
+                <ImageBrush Stretch="Fill" ImageSource="Assets/Scoretable.png"/>
+            </RelativePanel.Background>
+            <TextBlock x:Name="P1controls" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Player 1 controls
                    Arrow keys to move
-                   Numpad 0 to shoot" VerticalAlignment="Top" Height="193" Width="164" Margin="46,0,90,0" Grid.Row="1"/>
-        <TextBlock x:Name="P2controls" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Player 2 controls
+                   Numpad 0 to shoot" VerticalAlignment="Top" 
+                   Height="100" Width="160" 
+                   Margin="30,20,0,0"
+                   FontSize="18"/>
+            <TextBlock x:Name="P2controls" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Player 2 controls
                    W A S D to move
-                   G to shoot" VerticalAlignment="Top" Height="193" Width="164" Margin="46,88,90,0" Grid.Row="1" Grid.Column="0"/>
-        <TextBlock x:Name="BlockInfo1" HorizontalAlignment="Center" TextWrapping="Wrap" Text="You can destroy this block by shooting it" VerticalAlignment="Top" Height="26" Width="326" Margin="208,120,146,0" Grid.Row="1" Grid.Column="1" Foreground="White"/>
-        <TextBlock x:Name="BlockInfo2" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Placeholder, doesnt do anything yet" VerticalAlignment="Top" Height="26" Width="326" Margin="208,399,146,0" Grid.Row="1" Grid.Column="1" Foreground="White"/>
-        <TextBlock x:Name="BlockInfo3" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Running at this block gives you a short burst of speed" VerticalAlignment="Top" Height="26" Width="390" Margin="208,349,82,0" Grid.Row="1" Grid.Column="1" Foreground="White"/>
-        <TextBlock x:Name="BlockInfo4" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Protect this block!" VerticalAlignment="Top" Height="26" Width="326" Margin="208,288,146,0" Grid.Row="1" Grid.Column="1" Foreground="White"/>
-        <TextBlock x:Name="BlockInfo5" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Indestructible, can not be destroyed" VerticalAlignment="Top" Height="26" Width="326" Margin="208,235,146,0" Grid.Row="1" Grid.Column="1" Foreground="White"/>
-        <TextBlock x:Name="BlockInfo6" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Running over this block will slow you down while you are on it" VerticalAlignment="Top" Height="26" Width="424" Margin="208,177,48,0" Grid.Row="1" Grid.Column="1" Foreground="White"/>
-        <TextBlock x:Name="BlockInfo7" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Placeholder, doesnt do anything yet" VerticalAlignment="Top" Height="26" Width="326" Margin="208,453,146,0" Grid.Row="1" Grid.Column="1" Foreground="White"/>
-        <TextBlock x:Name="BlockInfo8" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Placeholder, doesnt do anything yet" VerticalAlignment="Top" Height="26" Width="326" Margin="208,511,146,0" Grid.Row="1" Grid.Column="1" Foreground="White"/>
+                   G to shoot" VerticalAlignment="Top" 
+                   Height="100" Width="160" Margin="60,20,0,0" 
+                   RelativePanel.RightOf="P1controls" 
+                   FontSize="18"/>
+
+        </RelativePanel>
+        
         <Button x:Name="MenuButton"
                 Click="MenuButton_Click"
                 VerticalAlignment="Bottom"
                 HorizontalAlignment="Center"
                 Width="150"
                 Height="60" FontSize="20" FontFamily="Impact" 
-                Content="Back" Margin="251,0,279,42"
+                Content="Back" Margin="0,0,0,60"
                 Grid.Column="1"
                 Grid.Row="1"
                >

@@ -143,11 +143,13 @@
     <Content Include="Assets\Ball_icon.png" />
     <Content Include="Assets\Battlecat.png" />
     <Content Include="Assets\BgMusic.mp3" />
+    <Content Include="Assets\Blocks.png" />
     <Content Include="Assets\Block_placeholder.png" />
     <Content Include="Assets\Blood Pressure.mp3" />
     <Content Include="Assets\Button.png" />
     <Content Include="Assets\Cat_placeholder.png" />
     <Content Include="Assets\Cat_sprites.png" />
+    <Content Include="Assets\Cat_sprites2.png" />
     <Content Include="Assets\Cat_sprites_menu.png" />
     <Content Include="Assets\GameOver.mp3" />
     <Content Include="Assets\Heart_icon.png" />
