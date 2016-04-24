@@ -106,7 +106,7 @@ using Windows.UI.Xaml.Navigation;
             }
             else
             {
-                return new Rect(LocationX, LocationY + 15, ActualWidth, ActualHeight - 25);
+                return new Rect(LocationX, LocationY + 15, ActualWidth, ActualHeight - 30);
             }
         }
 
@@ -240,8 +240,8 @@ using Windows.UI.Xaml.Navigation;
                     {
                         SpeedX = -10, // left
                         SpeedY = 0,
-                        LocationX = LocationX - 23, //creating the bullet in a position that it looks good compared to sprites position
-                        LocationY = LocationY + 15.5 //creating the bullet in a position that it looks good compared to sprites position
+                        LocationX = LocationX - 15, //creating the bullet in a position that it looks good compared to sprites position
+                        LocationY = LocationY + 7 //creating the bullet in a position that it looks good compared to sprites position
                     };
                     bullet.Shoot();
                     canvas.Children.Add(bullet); //Adding the bullet to canvas
@@ -253,8 +253,8 @@ using Windows.UI.Xaml.Navigation;
                 {
                     SpeedX = 0,
                     SpeedY = -10, //up
-                    LocationX = LocationX + 12, //creating the bullet in a position that it looks good compared to sprites position
-                    LocationY = LocationY - 21, //creating the bullet in a position that it looks good compared to sprites position
+                    LocationX = LocationX + 5, //creating the bullet in a position that it looks good compared to sprites position
+                    LocationY = LocationY - 15, //creating the bullet in a position that it looks good compared to sprites position
                 };
                 bullet.Shoot();
                 canvas.Children.Add(bullet);//Adding the bullet to canvas
@@ -266,8 +266,8 @@ using Windows.UI.Xaml.Navigation;
                 {
                     SpeedX = 10, //right
                     SpeedY = 0,
-                    LocationX = LocationX + 44.5, //creating the bullet in a position that it looks good compared to sprites position
-                    LocationY = LocationY + 15.5 //creating the bullet in a position that it looks good compared to sprites position
+                    LocationX = LocationX + 15, //creating the bullet in a position that it looks good compared to sprites position
+                    LocationY = LocationY + 10.5 //creating the bullet in a position that it looks good compared to sprites position
                 };
                 bullet.Shoot();
                 canvas.Children.Add(bullet);//Adding the bullet to canvas
@@ -279,14 +279,18 @@ using Windows.UI.Xaml.Navigation;
                 {
                     SpeedX = 0,
                     SpeedY = 10, //down
-                    LocationX = LocationX + 12, //creating the bullet in a position that it looks good compared to sprites position
-                    LocationY = LocationY + 50, //creating the bullet in a position that it looks good compared to sprites position
+                    LocationX = LocationX + 5, //creating the bullet in a position that it looks good compared to sprites position
+                    LocationY = LocationY + 15, //creating the bullet in a position that it looks good compared to sprites position
                 };
                 bullet.Shoot();
                 canvas.Children.Add(bullet);//Adding the bullet to canvas
                 bullets.Add(bullet); //Adding bullet to list
                 }
         }
+            foreach(Bullet bullet in bullets)
+            {
+                Canvas.SetZIndex(bullet, -1);
+            }
     }
         public void RemoveBullet(Canvas canvas) // method for removing the bullet
         {
