@@ -106,7 +106,7 @@ using Windows.UI.Xaml.Navigation;
             }
             else
             {
-                return new Rect(LocationX, LocationY + 15, ActualWidth, ActualHeight - 30);
+                return new Rect(LocationX, LocationY + 10, ActualWidth, ActualHeight - 23);
             }
         }
 
