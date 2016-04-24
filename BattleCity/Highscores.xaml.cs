@@ -43,21 +43,37 @@ namespace BattleCity
         // Shows the current High scores
         private async void ShowScores()
         {
-            Windows.Storage.StorageFolder storageFolder =
-            Windows.Storage.ApplicationData.Current.LocalFolder;
-            Windows.Storage.StorageFile HSFile =
-                await storageFolder.GetFileAsync("Highscores.dat");
-            string Highscoretext = await Windows.Storage.FileIO.ReadTextAsync(HSFile);
-            HStext.Text = Highscoretext;
+            try
+            {
+                Windows.Storage.StorageFolder storageFolder =
+                Windows.Storage.ApplicationData.Current.LocalFolder;
+                Windows.Storage.StorageFile HSFile =
+                    await storageFolder.GetFileAsync("Highscores.dat");
+                string Highscoretext = await Windows.Storage.FileIO.ReadTextAsync(HSFile);
+                HStext.Text = Highscoretext;
+            }
+            catch(Exception)
+            {
+                Debug.Write("FILE1 NOT FOUND");
+            }
+
         }
         private async void ShowNames()
         {
-            Windows.Storage.StorageFolder storageFolder =
-            Windows.Storage.ApplicationData.Current.LocalFolder;
-            Windows.Storage.StorageFile HSNimet =
-                await storageFolder.GetFileAsync("Highscorenames.dat");
-            string Highscoretext = await Windows.Storage.FileIO.ReadTextAsync(HSNimet);
-            HSnametext.Text = Highscoretext;
+            try
+            {
+                Windows.Storage.StorageFolder storageFolder =
+                Windows.Storage.ApplicationData.Current.LocalFolder;
+                Windows.Storage.StorageFile HSNimet =
+                    await storageFolder.GetFileAsync("Highscorenames.dat");
+                string Highscoretext = await Windows.Storage.FileIO.ReadTextAsync(HSNimet);
+                HSnametext.Text = Highscoretext;
+            }
+            catch(Exception)
+            {
+                Debug.Write("FILE1 NOT FOUND");
+                HSnametext.Text = "No highscore yet!";
+            }
         }
         private void VolumeSlider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
         {
