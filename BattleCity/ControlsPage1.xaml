@@ -1,8 +1,8 @@
 ﻿<Page
-    x:Class="BattleCity.ControlsPage1"
+    x:Class="BattleCats.ControlsPage1"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:BattleCity"
+    xmlns:local="using:BattleCats"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
@@ -60,23 +60,23 @@
         <Image Source="Assets/Menubox1.png" Grid.Column="1" Grid.Row="1" />
         <Image Source="Assets/Blocks.png" Margin="70,0,472,200" Grid.Row="1" Grid.Column="1" 
                Width="40" Height="320"/>
-        <TextBlock x:Name="BlockInfo1" HorizontalAlignment="Center" TextWrapping="Wrap" Text="You can destroy this block by shooting it" VerticalAlignment="Top" Height="26" Width="326" 
-                   Margin="150,88,146,0" Grid.Row="1" Grid.Column="1" Foreground="White"/>
-        <TextBlock x:Name="BlockInfo6" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Running over this block will slow you down while you are on it" VerticalAlignment="Top" Height="26" Width="424" 
+        <TextBlock x:Name="BlockInfo1" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Wooden blocks can be destroyed by shooting them" VerticalAlignment="Top" Height="26" Width="344" 
+                   Margin="180,88,157,0" Grid.Row="1" Grid.Column="1" Foreground="White"/>
+        <TextBlock x:Name="BlockInfo6" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Muddy blocks will slow you down!" VerticalAlignment="Top" Height="26" Width="424" 
                    Margin="150,128,48,0" Grid.Row="1" Grid.Column="1" Foreground="White"/>
-        <TextBlock x:Name="BlockInfo5" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Indestructible, can not be destroyed" VerticalAlignment="Top" Height="26" Width="326" 
+        <TextBlock x:Name="BlockInfo5" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Brick blocks are indestructible" VerticalAlignment="Top" Height="26" Width="326" 
                    Margin="150,168,146,0" Grid.Row="1" Grid.Column="1" Foreground="White"/>
-        <TextBlock x:Name="BlockInfo4" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Protect this block!" VerticalAlignment="Top" Height="26" Width="326" 
-                   Margin="150,208,146,0" Grid.Row="1" Grid.Column="1" Foreground="White"/>
-        <TextBlock x:Name="BlockInfo3" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Running at this block gives you a short burst of speed" VerticalAlignment="Top" Height="26" Width="390" 
+        <TextBlock x:Name="BlockInfo4" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Protect your food! If an enemy gets to this it's game over" VerticalAlignment="Top" Height="26" Width="381" 
+                   Margin="180,208,120,0" Grid.Row="1" Grid.Column="1" Foreground="White"/>
+        <TextBlock x:Name="BlockInfo3" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Collecting this power up gives you a short burst of speed" VerticalAlignment="Top" Height="26" Width="390" 
                    Margin="150,248,82,0" Grid.Row="1" Grid.Column="1" Foreground="White"/>
-        <TextBlock x:Name="BlockInfo2" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Placeholder, doesnt do anything yet" VerticalAlignment="Top" Height="26" Width="326" 
+        <TextBlock x:Name="BlockInfo2" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Placeholder, doesn't do anything yet" VerticalAlignment="Top" Height="26" Width="326" 
                    Margin="150,288,146,0" Grid.Row="1" Grid.Column="1" Foreground="White"/>
-         <TextBlock x:Name="BlockInfo7" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Placeholder, doesnt do anything yet" VerticalAlignment="Top" Height="26" Width="326" 
+        <TextBlock x:Name="BlockInfo7" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Placeholder, doesn't do anything yet" VerticalAlignment="Top" Height="26" Width="326" 
                    Margin="150,328,146,0" Grid.Row="1" Grid.Column="1" Foreground="White"/>
-        <TextBlock x:Name="BlockInfo8" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Placeholder, doesnt do anything yet" VerticalAlignment="Top" Height="26" Width="326" 
+        <TextBlock x:Name="BlockInfo8" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Placeholder, doesn't do anything yet" VerticalAlignment="Top" Height="26" Width="326" 
                    Margin="150,368,146,0" Grid.Row="1" Grid.Column="1" Foreground="White"/>
-       
+
         <RelativePanel Grid.Column="1" Grid.Row="1" Width="440" Height="120"
                     Margin="0,280,0,0">
             <RelativePanel.Background>
@@ -96,7 +96,7 @@
                    FontSize="18"/>
 
         </RelativePanel>
-        
+
         <Button x:Name="MenuButton"
                 Click="MenuButton_Click"
                 VerticalAlignment="Bottom"

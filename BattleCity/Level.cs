@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.UI.Xaml.Controls;
 
-namespace BattleCity
+namespace BattleCats
 {
     class Level
     {

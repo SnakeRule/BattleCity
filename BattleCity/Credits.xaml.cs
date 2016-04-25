@@ -16,7 +16,7 @@ using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace BattleCity
+namespace BattleCats
 {
     /// <summary>
     /// This page displays the names of the creators of this app.

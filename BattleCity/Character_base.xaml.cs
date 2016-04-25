@@ -21,7 +21,7 @@ using Windows.UI.Xaml.Navigation;
     /// <summary>
     /// This is the Base user control class for both the player and enemy characters in the game
     /// </summary>
-    namespace BattleCity
+    namespace BattleCats
     {
          public partial class Character_base : UserControl
         {

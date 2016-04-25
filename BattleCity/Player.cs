@@ -13,7 +13,7 @@ using Windows.UI.Xaml.Controls;
 /// This is the player class. It inherits most properties and methods from the Character_base class.
 /// Functions and properties specific to players can be found here
 /// </summary>
-namespace BattleCity
+namespace BattleCats
 {
     class Player : Character_base
     {
@@ -29,6 +29,7 @@ namespace BattleCity
         public Player()
         {
             this.InitializeComponent();
+            BaseSpeed = 4;
             // Setting up the key presses
             Window.Current.CoreWindow.KeyDown += onKeyDown;
             Window.Current.CoreWindow.KeyUp += onKeyUp;

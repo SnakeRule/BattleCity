@@ -17,7 +17,7 @@ using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace BattleCity
+namespace BattleCats
 {
     /// <summary>
     ///This is the button that pops up when you press "Play"

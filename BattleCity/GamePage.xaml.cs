@@ -22,7 +22,7 @@ using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace BattleCity
+namespace BattleCats
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
@@ -312,7 +312,7 @@ namespace BattleCity
                             enemy.Speed = 2;
                             break;
                         }
-                        else { enemy.Speed = player.BaseSpeed; }
+                        else { enemy.Speed = enemy.BaseSpeed; }
                     }
                 }
 

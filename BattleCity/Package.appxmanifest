@@ -14,7 +14,7 @@
   <mp:PhoneIdentity PhoneProductId="a248a8b9-7224-427f-b22b-568f0eb9c9b7" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>BattleCity</DisplayName>
+    <DisplayName>BattleCats</DisplayName>
     <PublisherDisplayName>Jere</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -30,12 +30,12 @@
   <Applications>
     <Application Id="App"
       Executable="$targetnametoken$.exe"
-      EntryPoint="BattleCity.App">
+      EntryPoint="BattleCats.App">
       <uap:VisualElements
-        DisplayName="BattleCity"
+        DisplayName="BattleCats"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
-        Description="BattleCity"
+        Description="BattleCats"
         BackgroundColor="transparent">
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"/>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />

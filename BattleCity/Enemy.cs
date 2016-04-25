@@ -10,7 +10,7 @@ using Windows.UI.Xaml.Controls;
 /// This is the enemy class. It inherits most properties and methods from the Character_base class.
 /// Functions and properties specific to enemies can be found here
 /// </summary>
-namespace BattleCity
+namespace BattleCats
 {
     class Enemy : Character_base
     {
@@ -28,6 +28,7 @@ namespace BattleCity
         public Enemy()
         {
             this.InitializeComponent();
+            BaseSpeed = 3;
         }
 
         // This method is used to draw the enemy on the canvas
