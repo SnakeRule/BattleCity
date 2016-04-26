@@ -52,9 +52,9 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
-    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
-    <EnableGatekeeperAnalysis>true</EnableGatekeeperAnalysis>
-    <Optimize>true</Optimize>
+    <UseDotNetNativeToolchain>false</UseDotNetNativeToolchain>
+    <EnableGatekeeperAnalysis>false</EnableGatekeeperAnalysis>
+    <Optimize>false</Optimize>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <OutputPath>bin\x64\Release\</OutputPath>
@@ -172,14 +172,14 @@
     <Content Include="Assets\Youwin_icon.png" />
     <Content Include="Levels\Level1.txt" />
     <Content Include="Assets\Win.jpg" />
-    <Content Include="Levels\Level8.txt" />
+    <Content Include="Levels\Level9.txt" />
     <Content Include="Levels\Level2.txt" />
     <Content Include="Levels\Level3.txt" />
     <Content Include="Levels\Level6.txt" />
     <Content Include="Levels\Level5.txt" />
     <Content Include="Levels\Level4.txt" />
     <Content Include="Levels\Level7.txt" />
-    <Content Include="Levels\Level9.txt" />
+    <Content Include="Levels\Level8.txt" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

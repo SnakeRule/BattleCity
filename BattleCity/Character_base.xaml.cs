@@ -39,7 +39,7 @@ using Windows.UI.Xaml.Navigation;
         private int speed = 4; // Used to tell how fast the character moves on screen
         private int animationCycleCounter = 0; // Used to tell which animation picture is currently in use
         private int animationTickCounter = 0; // Used to count when the next animatin picture should be loaded
-        private double volume;
+        private double volume; // Controls the volume of the cat sounds
 
         public double LocationX { get; set; } // This value is used to tell the character's location on the X-axis
         public double LocationY { get; set; } // This value is used to tell the character's location on the Y-axis
@@ -59,8 +59,8 @@ using Windows.UI.Xaml.Navigation;
         public bool StopUp { get; set; }
 
         private int bulletTickCounter; // This value is used for counting how long the bullet has existed
-        public int SpeedUpTickCounter;
-        public bool SpeedUp { get; set; }
+        public int SpeedUpTickCounter; // This value is used for counting down the speed power up effect
+        public bool SpeedUp { get; set; } // if true, speed boost is enabled
 
         public int CatDirection // Does some checks before accepting the incoming value to tankDirection
         {

@@ -45,6 +45,7 @@ namespace BattleCats
         private Random random;
         private int meowSoundNumber;
         private string filePath;
+        private bool paused;
       
         // Creating the list that holds the highest score
         List<double> HSlines = new List<double>();
@@ -168,6 +169,11 @@ namespace BattleCats
         private void MenuButton_Click(object sender, RoutedEventArgs e)
         {
             dispatcherTimer.Stop(); 
+            if(paused == true)
+            {
+                paused = false;
+                BackgroundMediaPlayer.Current.Play();
+            }
             this.Frame.Navigate(typeof(MainPage));
         }
 
@@ -619,8 +625,11 @@ namespace BattleCats
                     player.Score = p2PreviousScore;
                 }
             }
-            GameRunning = true;
-            dispatcherTimer.Start(); // Game starts
+            if (paused == false)
+            {
+                GameRunning = true;
+                dispatcherTimer.Start(); // Game starts
+            }
         }
 
         // Method for reading lines from Highscore.dat
@@ -636,7 +645,7 @@ namespace BattleCats
             Debug.Write(HSlines.Count);
         }
 
-        private async void GameSounds(string filePath)
+        private async void GameSounds(string filePath) // Sounds are played here, the file path of the sound file is in the filePath string
         {
             mediaElement = new MediaElement();
             mediaElement.Volume = BackgroundMediaPlayer.Current.Volume;
@@ -649,21 +658,23 @@ namespace BattleCats
             mediaElement.AutoPlay = true;
         }
 
-        private void PauseButton_Click(object sender, RoutedEventArgs e)
+        private void PauseButton_Click(object sender, RoutedEventArgs e) // Method for the pause button click
         {
-            if (dispatcherTimer.IsEnabled)
+            if (dispatcherTimer.IsEnabled) // If the game is running
             {
                 PauseButton.Content = "Resume";
-                BackgroundMediaPlayer.Current.Pause();
+                paused = true;
+                BackgroundMediaPlayer.Current.Pause(); // Music stops
                 GameRunning = false;
-                dispatcherTimer.Stop();
+                dispatcherTimer.Stop(); // Game clock stops
             }
             else
             {
                 PauseButton.Content = "Pause";
-                BackgroundMediaPlayer.Current.Play();
+                paused = false;
+                BackgroundMediaPlayer.Current.Play(); // Music continues
                 GameRunning = true;
-                dispatcherTimer.Start();
+                dispatcherTimer.Start(); // Game clock starts
             }
         }
         //Method for saving player 1 name
@@ -758,8 +769,11 @@ namespace BattleCats
             level.DestroyLevel(Canvas); // The level is destroyed
             level.LoadLevel(); // The same level is reloaded
             level.BuildLevel(Canvas); // The level is built
-            GameRunning = true;
-            dispatcherTimer.Start(); // Game starts
+            if (paused == false)
+            {
+                GameRunning = true;
+                dispatcherTimer.Start(); // Game starts
+            }
         }
         private void VolumeSlider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
         {

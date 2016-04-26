@@ -76,8 +76,8 @@ namespace BattleCats
             {
                 BackgroundMediaPlayer.Current.SetUriSource(new Uri("ms-appx:///Assets/BgMusic.mp3"));
                 BackgroundMediaPlayer.Current.IsLoopingEnabled = true;
-                BackgroundMediaPlayer.Current.Volume = 0.5;
                 BackgroundMediaPlayer.Current.AutoPlay = true;
+                BackgroundMediaPlayer.Current.Volume = 0.5;
                 musicOn = true;
             }
         }

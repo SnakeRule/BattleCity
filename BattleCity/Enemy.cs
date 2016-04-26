@@ -25,7 +25,7 @@ namespace BattleCats
     class Enemy : Character_base
     {
         private int tickCounter; // Used by the Move method to move the enemy in certain intervals
-        private int shootTickCounter;
+        private int shootTickCounter; // Used by the move method to calculate how often to shoot
         private readonly int pointValue = 20; // How many points from destroying enemy
         public int PointValue
         {
@@ -38,7 +38,7 @@ namespace BattleCats
         public Enemy()
         {
             this.InitializeComponent();
-            BaseSpeed = 3;
+            BaseSpeed = 3; // The enemies are slightly slower than the players
         }
 
         // This method is used to draw the enemy on the canvas
@@ -66,7 +66,7 @@ namespace BattleCats
                 up = false;
                 down = false;
 
-                switch (EnemyRandomDirection)
+                switch (EnemyRandomDirection) // Movement direction gets picked at random
                 {
                     case 1:
                         left = true;
