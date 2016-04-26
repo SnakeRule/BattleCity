@@ -1,4 +1,14 @@
-﻿using System;
+﻿/*
+* Copyright (C) Tiia Aarnio, Lauri Moilanen, Jere-Joonas Valtanen
+*
+* This file is part of JAMK object oriented programming course
+* BattleCats project
+*
+* Created: 26.4.2016
+*Author: Tiia Aarnio, Lauri Moilanen, Jere-Joonas Valtanen
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -186,10 +196,10 @@ namespace BattleCats
             }
         }
 
-        public void Invincibility()
+        public void Invincibility() // This method is used to make the player invincible and count how long the state remains
         {
             invincibleTickCounter++;
-            CatRectangle.Opacity = 0.4;
+            CatRectangle.Opacity = 0.4; // The player turns slightly transparent
             if (invincibleTickCounter >= 80)
             {
                 CatRectangle.Opacity = 1;
@@ -197,7 +207,7 @@ namespace BattleCats
             }
         }
 
-        public void PowerUpSpeed()
+        public void PowerUpSpeed() // This method is used to give the player a speed boost after touching a power up block
         {
             SpeedUpTickCounter++;
             Speed = Speed + speedUp;

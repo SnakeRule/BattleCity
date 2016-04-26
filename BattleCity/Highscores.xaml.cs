@@ -1,4 +1,14 @@
-﻿using System;
+﻿/*
+* Copyright (C) Tiia Aarnio, Lauri Moilanen, Jere-Joonas Valtanen
+*
+* This file is part of JAMK object oriented programming course
+* BattleCats project
+*
+* Created: 26.4.2016
+*Author: Tiia Aarnio, Lauri Moilanen, Jere-Joonas Valtanen
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;

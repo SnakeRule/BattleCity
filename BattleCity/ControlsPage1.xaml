@@ -1,4 +1,15 @@
-﻿<Page
+﻿<!--
+    /*
+* Copyright (C) Tiia Aarnio, Lauri Moilanen, Jere-Joonas Valtanen
+*
+* This file is part of JAMK object oriented programming course
+* BattleCats project
+*
+* Created: 26.4.2016
+*Author: Tiia Aarnio, Lauri Moilanen, Jere-Joonas Valtanen
+-->
+    
+    <Page
     x:Class="BattleCats.ControlsPage1"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
