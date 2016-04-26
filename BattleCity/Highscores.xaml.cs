@@ -32,18 +32,18 @@ namespace BattleCats
             VolumeSlider.Value = BackgroundMediaPlayer.Current.Volume * 100;
             VolumeSlider.IsTabStop = false;
             MuteButton.IsTabStop = false;
-            ShowScores();
-            ShowNames();
+            ShowScores(); // Shows the current highest score
+            ShowNames(); // Shows the name of the player who got the highest score
         }
         //Back to main page
         private void MenuButton_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(MainPage));
         }
-        // Shows the current High scores
+        // Method for showing the highest score
         private async void ShowScores()
         {
-            try
+            try // Exception management
             {
                 Windows.Storage.StorageFolder storageFolder =
                 Windows.Storage.ApplicationData.Current.LocalFolder;
@@ -58,9 +58,10 @@ namespace BattleCats
             }
 
         }
+        // Method for showing the name
         private async void ShowNames()
         {
-            try
+            try // Exception management
             {
                 Windows.Storage.StorageFolder storageFolder =
                 Windows.Storage.ApplicationData.Current.LocalFolder;
@@ -75,6 +76,7 @@ namespace BattleCats
                 HSnametext.Text = "No highscore yet!";
             }
         }
+        
         private void VolumeSlider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
         {
             BackgroundMediaPlayer.Current.Volume = (double)VolumeSlider.Value / 100;

@@ -19,7 +19,7 @@ using Windows.UI.Xaml.Navigation;
 namespace BattleCats
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// This page displays information about the game and controls
     /// </summary>
     public sealed partial class ControlsPage1 : Page
     {
@@ -30,17 +30,17 @@ namespace BattleCats
             VolumeSlider.IsTabStop = false;
             MuteButton.IsTabStop = false;
         }
-
+        //Back to main page
         private void MenuButton_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(MainPage));
         }
-
+        // Music volume control
         private void VolumeSlider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
         {
             BackgroundMediaPlayer.Current.Volume = (double)VolumeSlider.Value / 100;
         }
-
+        // Sets volume to 0
         private void MuteButton_Click(object sender, RoutedEventArgs e)
         {
             VolumeSlider.Value = 0;

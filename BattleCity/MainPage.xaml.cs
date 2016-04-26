@@ -27,7 +27,7 @@ namespace BattleCats
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        public static bool musicOn;
+        public static bool musicOn; // Music starts playing
         public MainPage()
         {
             this.InitializeComponent();
@@ -82,7 +82,7 @@ namespace BattleCats
                 VolumeSlider.Value = 0;
                 BackgroundMediaPlayer.Current.Volume = 0;
         }
-
+        // Clicking this button takes you to the controlspage
         private void ControlButton_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(ControlsPage1));

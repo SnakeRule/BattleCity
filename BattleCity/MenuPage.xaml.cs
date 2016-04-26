@@ -77,7 +77,7 @@ namespace BattleCats
         {
             this.Frame.Navigate(typeof(MainPage));
         }
-
+        
         private void LevelUpButton_Click(object sender, RoutedEventArgs e)
         {
             levelNumber++;

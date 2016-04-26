@@ -36,12 +36,13 @@ namespace BattleCats
         private int meowSoundNumber;
         private string filePath;
       
-        List<double> HSlines = new List<double>(); // The highest score
+        // Creating the list that holds the highest score
+        List<double> HSlines = new List<double>();
        
         //Creating the highscore files
         private StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
         private StorageFile HSFile; // This is the file that holds the highest score
-        private StorageFile HSNimet; // This is the gile that holds the name of current highest score
+        private StorageFile HSNimet; // This is the file that holds the name of current highest score
 
         private MediaElement mediaElement;
 
@@ -156,7 +157,7 @@ namespace BattleCats
         // Back to mainmenu button method
         private void MenuButton_Click(object sender, RoutedEventArgs e)
         {
-            dispatcherTimer.Stop();
+            dispatcherTimer.Stop(); 
             this.Frame.Navigate(typeof(MainPage));
         }
 
@@ -672,7 +673,7 @@ namespace BattleCats
         {
             Debug.Write("TÄMÄ ON KUTSU");
             //Create the file to hold the data
-            try
+            try // Exception management
             {
             HSFile = await storageFolder.CreateFileAsync("Highscores.dat", CreationCollisionOption.ReplaceExisting);
             //Write data to file      
